@@ -3,19 +3,23 @@ import HomePage from "./pages/HomePage/HomePage";
 import AppLayout from "./layout/AppLayout";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import ProductsFilterPage from "./pages/FilteredProductsPage/ProductsFilterPage";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 function App() {
   return (
-    <AppLayout>
-      <Routes>
-        <Route path="/EcoVibe/" element={<HomePage />} />
-        <Route path="/EcoVibe/Products" element={<ProductsPage />} />
-        <Route
-          path="/EcoVibe/Filtered-Products"
-          element={<ProductsFilterPage />}
-        />
-      </Routes>
-    </AppLayout>
+    <Provider store={store}>
+      <AppLayout>
+        <Routes>
+          <Route path="/EcoVibe/" element={<HomePage />} />
+          <Route path="/EcoVibe/Products" element={<ProductsPage />} />
+          <Route
+            path="/EcoVibe/Filtered-Products"
+            element={<ProductsFilterPage />}
+          />
+        </Routes>
+      </AppLayout>
+    </Provider>
   );
 }
 
