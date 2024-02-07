@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFilteredProducts } from "/src/redux/products/productsSlice";
+import { getFilteredProducts } from "src/redux/products/productsSlice";
 import HeroSection from "../../components/Home/HomeHeroSection";
 import TrendProductsSection from "../../components/Home/TrendProductsSection";
 
