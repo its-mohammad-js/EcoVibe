@@ -267,7 +267,7 @@ function Navbar() {
               </div>
             </div>
             {/* menu options and links */}
-            <div className="max-h-full overflow-auto w-full flex flex-col items-start">
+            <div className="max-h-full overflow-auto w-full gap-y-1 mt-1 flex flex-col items-start">
               <div className="flex items-center justify-start gap-x-2 px-4 py-4 w-full">
                 <span className="text-3xl">
                   <TbCategory />

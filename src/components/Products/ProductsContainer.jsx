@@ -1,0 +1,65 @@
+import { useRef } from "react";
+import { filterProducts } from "../../helpers/filterPorducts";
+import ProductCard from "./ProductCard";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import ProductsContainerLoader from "../Loader/ProductsContainerLoader";
+
+function ProductsContainer({ isLoading, products, filterObject }) {
+  // filter products data by trend tag
+  const filteredPrdocts = filterProducts(products, filterObject);
+  // ref to products container
+  const containerRef = useRef();
+
+  if (isLoading) {
+    return <ProductsContainerLoader />;
+  }
+
+  if (!isLoading && products.length)
+    return (
+      <div className="mx-auto 2xl:max-w-screen-2xl my-4 md:my-6 relative">
+        {/* title */}
+        <h2 className="px-2 text-2xl font-bold my-1 md:my-2 md:text-3xl">
+          Trend Products
+        </h2>
+        {/* products container */}
+        <div
+          ref={containerRef}
+          className="w-full overflow-auto scroll-smooth styled-scroll-bar"
+        >
+          {/* right scroll button */}
+          <div className="h-72 bg-gradient-to-l from-gray-50/0 transition-all duration-500 to-gray-50 w-16 md:w-24 absolute z-10 left-0 top-9 flex items-center justify-start opacity-50 hover:opacity-100">
+            <button
+              onClick={() => {
+                // scroll the container to left
+                containerRef.current.scrollLeft -= 200;
+              }}
+              className="text-lg md:text-2xl p-2 bg-gray-100 shadow-2xl rounded-md mx-2"
+            >
+              <FaArrowLeft />
+            </button>
+          </div>
+          {/* products wrapper */}
+          <div className="inline-flex items-center gap-x-8 px-4 py-2">
+            {filteredPrdocts.map((product) => (
+              <ProductCard key={product.id} {...product} />
+            ))}
+          </div>
+
+          {/* left scroll button */}
+          <div className="h-72 bg-gradient-to-r from-gray-50/0 transition-all duration-500 to-gray-50 w-16 md:w-24 absolute z-10 right-0 top-8 flex items-center justify-end opacity-50 hover:opacity-100">
+            <button
+              onClick={() => {
+                // scroll the container to right
+                containerRef.current.scrollLeft += 200;
+              }}
+              className="text-lg md:text-2xl p-2 bg-gray-100 shadow-2xl rounded-md mx-2"
+            >
+              <FaArrowRight />
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+}
+
+export default ProductsContainer;

@@ -7,3 +7,15 @@
 body {
   font-family: "Roboto", sans-serif;
 }
+
+.styled-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #666666;
+}

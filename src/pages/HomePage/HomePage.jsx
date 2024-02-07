@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/redux/products/productsSlice";
 import HeroSection from "../../components/Home/HomeHeroSection";
-import TrendProductsSection from "../../components/Home/TrendProductsSection";
+import ProductsContainer from "../../components/Products/ProductsContainer";
+import bannerIcon from "src/assets/Banner Icon 01.svg";
+import CollectionsGallery from "../../components/Home/CollectionsGallery";
 
 function HomePage() {
   const { loading, data } = useSelector((state) => state.products);
@@ -17,7 +19,30 @@ function HomePage() {
       {/* hero section  */}
       <HeroSection />
       {/* Trend Products */}
-      <TrendProductsSection isLoading={loading} products={data} />
+      <ProductsContainer
+        isLoading={loading}
+        products={data}
+        filterObject={{ tags: ["Trend"] }}
+      />
+      {/* simple mobile banner (only visible on mobile screens) */}
+      <aside className="sm:hidden h-24 mx-auto w-11/12 shadow-md shadow-black/15 bg-gray-50 flex items-center justify-start gap-x-3 px-4 py-2 rounded-lg">
+        <img src={bannerIcon} alt="banner icon" />
+
+        <div className="">
+          <p className="text-base font-bold">
+            Special Offers{" "}
+            <span className="p-1 mx-2 border border-gray-300 rounded-full">
+              😱
+            </span>
+          </p>
+
+          <span className="text-xs">
+            We make sure you get the <br /> offer you need at best prices
+          </span>
+        </div>
+      </aside>
+      {/* collections gallery */}
+      <CollectionsGallery />
     </>
   );
 }

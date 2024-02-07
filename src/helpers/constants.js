@@ -46,6 +46,7 @@ export const heroSectionImages = {
   },
 };
 
+// get average of an array
 export function calculateAverage(numbers) {
   const sum = numbers.reduce((acc, curr) => Number(acc) + Number(curr), 0);
 
@@ -55,3 +56,12 @@ export function calculateAverage(numbers) {
 
   return average;
 }
+
+// create a fake array (useful for loading components)
+export const fakeArray = (length) => {
+  var numberArray = [];
+  for (var i = 0; i < length; i++) {
+    numberArray.push(i);
+  }
+  return numberArray;
+};

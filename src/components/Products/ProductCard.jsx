@@ -8,13 +8,13 @@ function ProductCard(props) {
   const { Thumbnail, Name, Price, Stars } = props;
 
   return (
-    <div className="flex flex-col items-center h-72 md:h-80 md:w-56 w-44 bg-gray-50 rounded-lg hover:shadow-md transition-all">
+    <div className="flex flex-col items-center justify-between hover:-translate-y-0.5 duration-500 h-72 md:h-80 md:w-56 w-44 bg-gray-50 rounded-lg hover:shadow-md transition-all">
       {/* product cover */}
       <div className="w-full h-3/5 relative">
         <img
           src={Thumbnail}
           alt={Name}
-          className="object-cover rounded-lg h-full w-full"
+          className="rounded-lg h-full w-full object-cover"
         />
         {/* like button */}
         <button className="absolute top-2 right-2 text-xl md:text-2xl bg-gray-50/60 p-1.5 hover:scale-110 transition-all duration-300 rounded-full group">
@@ -23,21 +23,23 @@ function ProductCard(props) {
         </button>
       </div>
       {/* product description */}
-      <div className="flex flex-col justify-between px-3 py-1.5 h-2/5 w-full">
-        <h2 className="font-bold">{Name}</h2>
+      <div className="flex flex-col justify-between px-3 py-1.5 md:px-4 md:py-2 h-2/5 w-full">
+        <h2 className="font-bold line-clamp-2 md:mt-1">{Name}</h2>
 
-        <p>
-          <span>${Price}</span>
-        </p>
+        <div className="w-full flex items-center justify-between py-1">
+          <div className="">
+            <ReactStars
+              count={5}
+              value={calculateAverage(Stars)}
+              size={18}
+              color2={"#ffd700"}
+              edit={false}
+            />
+          </div>
 
-        <div className="">
-          <ReactStars
-            count={5}
-            value={calculateAverage(Stars)}
-            size={20}
-            color2={"#ffd700"}
-            edit={false}
-          />
+          <p className="font-semibold ">
+            <span>${Price}</span>
+          </p>
         </div>
       </div>
     </div>
