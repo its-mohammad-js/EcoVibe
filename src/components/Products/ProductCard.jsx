@@ -24,13 +24,13 @@ function ProductCard(props) {
         </p>
 
         <p className="">
-          <ReactStars
+          {/* <ReactStars
             count={5}
             value={calculateAverage(Stars)}
             size={20}
             color2={"#ffd700"}
             edit={false}
-          />
+          /> */}
         </p>
       </div>
     </div>
