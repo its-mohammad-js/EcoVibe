@@ -41,7 +41,7 @@ function ProductsGallery() {
       {/* products gallery */}
       <div
         id="wrapper"
-        className="flex flex-col md:flex-row w-full items-center gap-y-3 px-2 py-1 lg:px-4 lg:py-2 gap-x-4 md:h-[600px]"
+        className="flex flex-col md:flex-row w-full items-center gap-y-3 px-2 py-1 lg:px-4 lg:py-2 gap-x-4 md:h-[600px] lg:h-[700px]"
       >
         <div className="flex md:flex-col w-full md:h-full items-center justify-between gap-x-2">
           {/* mens t-shirts */}
@@ -70,7 +70,7 @@ function ProductsGallery() {
             </p>
           </div>
           {/* men converse */}
-          <div className="w-1/2 md:w-full h-48 md:h-1/2 rounded-md group">
+          <div className="w-1/2 md:w-full h-48 md:h-1/2  group">
             <div className="h-3/4 relative">
               <img
                 src={galleryData.menConverse.imgUrl}
@@ -97,7 +97,7 @@ function ProductsGallery() {
         </div>
 
         {/* womens sweaters */}
-        <div className="w-full h-72 md:h-full rounded-md group">
+        <div className="w-full h-72 md:h-full group">
           <div className="h-3/4 md:h-5/6 relative">
             <img
               src={galleryData.sweaterWomen.imgUrl}
@@ -112,7 +112,7 @@ function ProductsGallery() {
             </div>
           </div>
 
-          <p className="flex flex-col items-center px-2 py-1 md:px-4 md:py-2">
+          <p className="flex flex-col h-1/4 md:h-1/6 items-center justify-center px-2 py-1 md:px-4 md:py-2">
             <span className="font-bold text-sm line-clamp-1 text-center md:text-lg">
               {galleryData.sweaterWomen.title}
             </span>

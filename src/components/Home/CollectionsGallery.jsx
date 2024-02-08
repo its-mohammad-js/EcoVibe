@@ -17,7 +17,7 @@ function CollectionsGallery({ products, isLoading }) {
   if (summerCollection.length && !isLoading)
     return (
       <>
-        <div className="mx-auto 2xl:max-w-screen-2xl mt-6 bg-gray-50 py-4 lg:py-6 cursor-pointer">
+        <div className="mx-auto 2xl:max-w-screen-2xl mt-6 bg-gray-100 py-4 lg:py-6 cursor-pointer">
           {/* title */}
           <h2 className="px-2 text-2xl font-bold my-1 md:my-2 md:text-3xl">
             SPRING/SUMMER 2024
@@ -25,7 +25,7 @@ function CollectionsGallery({ products, isLoading }) {
           {/* Gallery Wrapper */}
           <div
             id="wrapper"
-            className="flex flex-col gap-y-3 lg:flex-row lg:gap-x-3 items-center px-2 py-1 lg:px-4 lg:py-2"
+            className="flex flex-col gap-y-3 lg:flex-row lg:gap-x-3 items-center px-2 py-1 lg:px-4 lg:py-2 lg:h-[350px]"
           >
             <CustomeProductCard product={summerCollection[0]} />
 
