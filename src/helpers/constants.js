@@ -20,6 +20,7 @@ const defaultFilters = {
   sortBy: "low to high",
 };
 
+// supported categories
 export const supportedCategories = [
   { title: "Fashion" },
   { title: "Electronics" },
@@ -27,7 +28,7 @@ export const supportedCategories = [
   { title: "Health and Wellness" },
   { title: "Beauty and Personal Care" },
 ];
-
+// routes information
 export const routesInfo = [
   { title: "Home" },
   { title: "Products" },
@@ -35,6 +36,7 @@ export const routesInfo = [
   { title: "FAQs" },
 ];
 
+// hero section images link
 export const heroSectionImages = {
   homePage: {
     img01:

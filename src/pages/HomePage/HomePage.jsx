@@ -5,6 +5,8 @@ import HeroSection from "../../components/Home/HomeHeroSection";
 import ProductsContainer from "../../components/Products/ProductsContainer";
 import bannerIcon from "src/assets/Banner Icon 01.svg";
 import CollectionsGallery from "../../components/Home/CollectionsGallery";
+import ProductsGallery from "../../components/Home/ProductsGallery";
+import TopCards from "../../components/Home/TopCards";
 
 function HomePage() {
   const { loading, data } = useSelector((state) => state.products);
@@ -43,6 +45,10 @@ function HomePage() {
       </aside>
       {/* collections gallery */}
       <CollectionsGallery isLoading={loading} products={data} />
+      {/* product types gallery */}
+      <ProductsGallery />
+      {/* offer cards */}
+      <TopCards />
     </>
   );
 }

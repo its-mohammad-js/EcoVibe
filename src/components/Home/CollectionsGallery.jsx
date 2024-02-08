@@ -4,6 +4,7 @@ import { FaHeart } from "react-icons/fa";
 import ReactStars from "react-stars";
 import { calculateAverage } from "../../helpers/constants";
 import CollectionGalleryLoader from "../Loader/CollectionGalleryLoader";
+import SimpleBanner from "./SimpleBanner";
 
 function CollectionsGallery({ products, isLoading }) {
   // get summer collectionfrom all products
@@ -15,26 +16,36 @@ function CollectionsGallery({ products, isLoading }) {
 
   if (summerCollection.length && !isLoading)
     return (
-      <div className="mx-auto 2xl:max-w-screen-2xl mt-6 bg-gray-50 py-4 lg:py-6 lg:px-4">
-        {/* title */}
-        <h2 className="px-2 text-2xl font-bold my-1 md:my-2 md:text-3xl">
-          SPRING/SUMMER 2024
-        </h2>
-        {/* Gallery Wrapper */}
-        <div
-          id="wrapper"
-          className="flex flex-col gap-y-3 lg:flex-row lg:gap-x-3 items-center px-1 py-0.5 lg:px-4 lg:py-2"
-        >
-          <CustomeProductCard product={summerCollection[0]} />
+      <>
+        <div className="mx-auto 2xl:max-w-screen-2xl mt-6 bg-gray-50 py-4 lg:py-6 cursor-pointer">
+          {/* title */}
+          <h2 className="px-2 text-2xl font-bold my-1 md:my-2 md:text-3xl">
+            SPRING/SUMMER 2024
+          </h2>
+          {/* Gallery Wrapper */}
+          <div
+            id="wrapper"
+            className="flex flex-col gap-y-3 lg:flex-row lg:gap-x-3 items-center px-2 py-1 lg:px-4 lg:py-2"
+          >
+            <CustomeProductCard product={summerCollection[0]} />
 
-          <div className="flex items-center gap-x-3 w-full">
-            <CustomeProductCard product={summerCollection[1]} minimal={true} />
-            <CustomeProductCard product={summerCollection[2]} minimal={true} />
+            <div className="flex items-center gap-x-3 w-full">
+              <CustomeProductCard
+                product={summerCollection[1]}
+                minimal={true}
+              />
+              <CustomeProductCard
+                product={summerCollection[2]}
+                minimal={true}
+              />
+            </div>
+
+            <CustomeProductCard product={summerCollection[3]} />
           </div>
-
-          <CustomeProductCard product={summerCollection[3]} />
         </div>
-      </div>
+        {/* offer banner (only visible on moblie) */}
+        <SimpleBanner title={"Trending Products"} />
+      </>
     );
 }
 
