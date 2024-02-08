@@ -42,7 +42,7 @@ function HomePage() {
         </div>
       </aside>
       {/* collections gallery */}
-      <CollectionsGallery />
+      <CollectionsGallery isLoading={loading} products={data} />
     </>
   );
 }
