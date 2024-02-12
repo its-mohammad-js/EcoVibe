@@ -33,7 +33,7 @@ function Navbar() {
         <div
           className={`${
             location.pathname === "/EcoVibe/" ? "flex" : "hidden"
-          } w-full border-b border-gray-200 items-center justify-between px-12 py-2`}
+          } w-full border-b border-gray-200 items-center justify-between px-8 py-2`}
         >
           {/* header links */}
           <div className="flex items-center gap-x-2">
@@ -54,7 +54,7 @@ function Navbar() {
           </div>
         </div>
         {/* main navbar */}
-        <div className="w-full flex items-center justify-between px-12 py-4 border-b border-gray-200">
+        <div className="w-full flex items-center justify-between px-8 py-4 border-b border-gray-200">
           {/* logo */}
           <div className="flex items-center justify-center gap-x-0.5 cursor-pointer">
             <span className="text-xl lg:text-4xl text-primary-600">
@@ -110,7 +110,7 @@ function Navbar() {
         <div
           className={`${
             location.pathname === "/EcoVibe/" ? "flex" : "hidden"
-          } items-center justify-between px-10 py-4 relative`}
+          } items-center justify-between px-8 py-4 relative`}
         >
           {/* mega menu */}
           <div className="px-4 py-3 group bg-secondary-500 text-white hover:bg-primary-700 transition-all rounded-md cursor-pointer flex items-center gap-x-2">

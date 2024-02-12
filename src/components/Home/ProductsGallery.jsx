@@ -1,3 +1,5 @@
+import { FaArrowRight } from "react-icons/fa";
+
 const galleryData = {
   menTshirts: {
     imgUrl:
@@ -33,15 +35,19 @@ const galleryData = {
 
 function ProductsGallery() {
   return (
-    <div className="mx-auto 2xl:max-w-screen-2xl mt-4">
+    <div className="mx-auto 2xl:max-w-screen-2xl mt-4 md:mt-10">
       {/* title */}
-      <h2 className="px-2 text-2xl font-bold my-1 md:my-2 md:text-3xl">
-        Our Products
-      </h2>
+      <div className="w-full px-2 my-1 md:my-4 md:px-4 flex items-center justify-between">
+        <h2 className="text-2xl font-bold md:text-3xl">Top Products</h2>
+
+        <span className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer">
+          View All <FaArrowRight className="text-xs md:text-base" />
+        </span>
+      </div>
       {/* products gallery */}
       <div
         id="wrapper"
-        className="flex flex-col md:flex-row w-full items-center gap-y-3 px-2 py-1 lg:px-4 lg:py-2 gap-x-4 md:h-[600px] lg:h-[700px]"
+        className="flex flex-col md:flex-row w-full items-center gap-y-3 px-2 py-1 gap-x-4 md:h-[600px] lg:h-[700px]"
       >
         <div className="flex md:flex-col w-full md:h-full items-center justify-between gap-x-2">
           {/* mens t-shirts */}
@@ -53,7 +59,7 @@ function ProductsGallery() {
                 className="w-full h-full object-cover rounded-md"
               />
 
-              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-700 flex items-center justify-center">
+              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
                   view more ...
                 </button>
@@ -78,7 +84,7 @@ function ProductsGallery() {
                 className="w-full h-full object-cover rounded-md"
               />
 
-              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-700 flex items-center justify-center">
+              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
                   view more ...
                 </button>
@@ -105,7 +111,7 @@ function ProductsGallery() {
               className="w-full h-full object-cover rounded-md"
             />
 
-            <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-700 flex items-center justify-center">
+            <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
               <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
                 view more ...
               </button>
@@ -132,7 +138,7 @@ function ProductsGallery() {
                 className="w-full h-full object-cover rounded-md"
               />
 
-              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-700 flex items-center justify-center">
+              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
                   view more ...
                 </button>
@@ -157,7 +163,7 @@ function ProductsGallery() {
                 className="w-full h-full object-cover rounded-md"
               />
 
-              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-700 flex items-center justify-center">
+              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
                   view more ...
                 </button>

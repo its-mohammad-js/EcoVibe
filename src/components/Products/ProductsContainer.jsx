@@ -16,15 +16,19 @@ function ProductsContainer({ isLoading, products, filterObject }) {
 
   if (!isLoading && products.length)
     return (
-      <div className="mx-auto 2xl:max-w-screen-2xl my-4 md:my-6 relative">
+      <div className="mx-auto 2xl:max-w-screen-2xl my-4 md:my-10 relative">
         {/* title */}
-        <h2 className="px-2 text-2xl font-bold my-1 md:my-2 md:text-3xl">
-          Trend Products
-        </h2>
+        <div className="w-full px-2 my-1 md:px-4 flex items-center justify-between">
+          <h2 className="text-2xl font-bold  md:text-3xl">Trend Products</h2>
+
+          <span className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer">
+            View All <FaArrowRight className="text-xs md:text-base" />
+          </span>
+        </div>
         {/* products container */}
         <div
           ref={containerRef}
-          className="w-full overflow-auto scroll-smooth styled-scroll-bar"
+          className="w-full overflow-auto scroll-smooth styled-scroll-bar md:px-4"
         >
           {/* right scroll button */}
           <div className="h-72 bg-gradient-to-l from-gray-50/0 transition-all duration-500 to-gray-50 w-16 md:w-24 absolute z-10 left-0 top-9 flex items-center justify-start opacity-50 hover:opacity-100">

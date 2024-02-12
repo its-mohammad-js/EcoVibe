@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/redux/products/productsSlice";
 import HeroSection from "../../components/Home/HomeHeroSection";
 import ProductsContainer from "../../components/Products/ProductsContainer";
-import bannerIcon from "src/assets/Banner Icon 01.svg";
 import CollectionsGallery from "../../components/Home/CollectionsGallery";
 import ProductsGallery from "../../components/Home/ProductsGallery";
 import TopCards from "../../components/Home/TopCards";
+import BestSellers from "../../components/Home/BestSellers";
+import { bannerIcon } from "../../helpers/constants";
+import TopCategories from "../../components/Home/TopCategories";
 
 function HomePage() {
   const { loading, data } = useSelector((state) => state.products);
@@ -49,6 +51,10 @@ function HomePage() {
       <ProductsGallery />
       {/* offer cards */}
       <TopCards />
+      {/* best sellers section */}
+      <BestSellers />
+      {/* top categories section */}
+      <TopCategories />
     </>
   );
 }

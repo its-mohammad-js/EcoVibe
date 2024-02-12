@@ -19,3 +19,7 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
   background-color: #666666;
 }
+
+.slide-scroll {
+  scroll-snap-type: x mandatory;
+}

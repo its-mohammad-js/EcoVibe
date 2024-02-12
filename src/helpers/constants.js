@@ -67,3 +67,6 @@ export const fakeArray = (length) => {
   }
   return numberArray;
 };
+
+export const bannerIcon =
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ficon.svg?alt=media&token=927bf580-49b0-4e03-9118-0a11258c817e";

@@ -1,14 +1,14 @@
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { heroSectionImages } from "../../helpers/constants";
-import { TbClock } from "react-icons/tb";
+
 import SimpleBanner from "./SimpleBanner";
 
 const HeroSection = () => {
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl">
-      {/* hero slides */}
-      <div className="flex flex-col md:flex-row gap-y-2 gap-x-2 items-center justify-between px-2 py-1">
-        <div className="md:h-[500px] h-80 md:w-2/3 w-full justify-center items-center bg-blue-400 rounded-md relative">
+      {/* hero content */}
+      <div className="flex flex-col md:flex-row gap-y-2 gap-x-2 items-center justify-between px-2 py-1 md:px-4 md:h-[500px] h-96">
+        <div className="h-3/4 md:h-full md:w-2/3 w-full justify-center items-center bg-blue-400 rounded-md relative cursor-pointer">
           <div className="absolute inset-0 w-full h-full z-0">
             <img
               src={heroSectionImages.homePage.img03}
@@ -39,7 +39,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <div className="flex w-full md:w-1/3 items-center md:gap-y-5 md:flex-col justify-between gap-x-2">
+        <div className="flex w-full h-1/4 md:h-full md:w-1/3 items-center md:flex-col justify-between gap-x-2 cursor-pointer">
           <div className="relative w-1/2 md:w-full md:h-[240px] h-24 rounded-md bg-amber-300">
             <div className="absolute inset-0 w-full h-full z-0">
               <img
@@ -89,6 +89,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
       {/* hero footer */}
       <div className="">
         {/* featues section (only visible on desktop) */}
@@ -212,7 +213,7 @@ const HeroSection = () => {
         </div>
 
         {/* offer banner (only visible on mobile) */}
-        <SimpleBanner title={"Deal Of The Day"}/>
+        <SimpleBanner title={"Deal Of The Day"} />
       </div>
     </div>
   );
