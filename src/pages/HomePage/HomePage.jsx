@@ -9,6 +9,7 @@ import TopCards from "../../components/Home/TopCards";
 import BestSellers from "../../components/Home/BestSellers";
 import { bannerIcon } from "../../helpers/constants";
 import TopCategories from "../../components/Home/TopCategories";
+import BestSellingBanners from "../../components/Home/BestSellingBanners";
 
 function HomePage() {
   const { loading, data } = useSelector((state) => state.products);
@@ -55,6 +56,8 @@ function HomePage() {
       <BestSellers />
       {/* top categories section */}
       <TopCategories />
+      {/* best selling banners */}
+      <BestSellingBanners />
     </>
   );
 }
