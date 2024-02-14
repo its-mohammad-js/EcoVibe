@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@jdion/tilt-react": "^1.0.0",
+    "@react-three/drei": "^9.97.5",
+    "@react-three/fiber": "^8.15.16",
     "@reduxjs/toolkit": "^2.1.0",
     "firebase": "^10.8.0",
     "react": "^18.2.0",
@@ -21,7 +23,8 @@
     "react-router-dom": "^6.22.0",
     "react-slick": "^0.29.0",
     "react-stars": "^2.2.5",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "three": "^0.161.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

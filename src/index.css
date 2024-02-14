@@ -14,12 +14,9 @@ body {
 
 body::-webkit-scrollbar {
   width: 0.4rem;
+  background-color: #b6b6b6;
 }
 
 body::-webkit-scrollbar-thumb {
   background-color: #666666;
-}
-
-.slide-scroll {
-  scroll-snap-type: x mandatory;
 }

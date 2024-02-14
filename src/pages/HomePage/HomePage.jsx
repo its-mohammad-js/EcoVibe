@@ -10,6 +10,7 @@ import BestSellers from "../../components/Home/BestSellers";
 import { bannerIcon } from "../../helpers/constants";
 import TopCategories from "../../components/Home/TopCategories";
 import BestSellingBanners from "../../components/Home/BestSellingBanners";
+import CustomizedProduct from "../../components/Home/CustomizedProduct";
 
 function HomePage() {
   const { loading, data } = useSelector((state) => state.products);
@@ -58,6 +59,8 @@ function HomePage() {
       <TopCategories />
       {/* best selling banners */}
       <BestSellingBanners />
+      {/* animated 3d product */}
+      <CustomizedProduct />
     </>
   );
 }

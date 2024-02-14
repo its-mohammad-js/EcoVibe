@@ -37,7 +37,7 @@ function BestSellingBanners() {
         {bannersInfo.map((banner, index) => (
           <Tilt
             key={index}
-            className="w-full md:w-1/3 h-48 md:h-64 relative cursor-pointer"
+            className="w-full md:w-2/5 h-48 md:h-64 relative cursor-pointer"
           >
             <div className="w-full h-full">
               {/* banner background */}
