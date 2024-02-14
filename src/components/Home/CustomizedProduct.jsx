@@ -28,9 +28,9 @@ const AirJordan = ({ isMobile }) => {
 
   return (
     <mesh>
-      <hemisphereLight intensity={15} groundColor="black" />
+      <hemisphereLight intensity={0.15} groundColor="black" />
       <spotLight
-        position={[5, 10.25, 1.5]}
+        position={[5, 1.25, 1.5]}
         angle={0.42}
         penumbra={0.1}
         intensity={0.1}
@@ -41,7 +41,7 @@ const AirJordan = ({ isMobile }) => {
       <primitive
         object={computer.scene}
         scale={isMobile ? 0.7 : 27.5}
-        position={isMobile ? [0, -3, -2.2] : [0, -1.25, 1.5]}
+        position={isMobile ? [0, -3, -2.2] : [-1.5, -1.25, 1.5]}
       />
     </mesh>
   );
