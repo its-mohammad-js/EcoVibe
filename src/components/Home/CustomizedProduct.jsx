@@ -1,19 +1,77 @@
-import { Canvas } from "@react-three/fiber";
-import {
-  Html,
-  OrbitControls,
-  Preload,
-  useFBX,
-  useGLTF,
-  useProgress,
-} from "@react-three/drei";
-import { Suspense } from "react";
+import { useEffect, useRef, useState } from "react";
+import AirJordanCanvas from "../canvas/AirJordanCanvas";
+import { motion, useAnimation, useScroll } from "framer-motion";
 
 function CustomizedProduct() {
+  const wrapperRef = useRef();
+  const scroll = useScroll({ container: wrapperRef });
+  const motionControls = useAnimation();
+  const [rotate, setRotate] = useState([0, -0.25, 0.02]);
+
+  function changeRotate(e) {
+    setRotate(e);
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Calculate the scroll position (e.g., percentage of scroll progress)
+      const scrollPosition = scroll.scrollYProgress.get();
+      const roundScroll = Math.round(scrollPosition);
+
+      // Animate the motion div
+      if (roundScroll < 1) {
+        motionControls.start({ y: 0 });
+      }
+      if (roundScroll === 1) {
+        motionControls.start({ y: "100%" });
+      }
+      // motionControls.start({ y: `${scrollPosition * 100}%` });
+    };
+
+    wrapperRef.current.addEventListener("scroll", handleScroll);
+    return () => {
+      wrapperRef.current.removeEventListener("scroll", handleScroll);
+    };
+  }, [motionControls]);
+
   return (
-    <div className="mx-auto 2xl:max-w-screen-2xl h-96 flex items-center justify-center bg-black/50">
-      <div className="w-full h-full">
-        <AirJordanCanvas />
+    <div className="mx-auto 2xl:max-w-screen-2xl">
+      <div
+        id="wrapper"
+        ref={wrapperRef}
+        className="w-full h-[38rem] snap-both snap-mandatory overflow-auto styled-scroll-bar"
+      >
+        <div className="bg-red-300 h-[38rem] flex flex-col md:flex-row items-center justify-between">
+          <div className="w-full md:w-1/5 md:h-full h-1/6 flex flex-col md:justify-between bg-blue-600">
+            <button
+              onClick={() => changeRotate([0, 2, 3])}
+              className="px-4 py-2 bg-red-400"
+            >
+              info
+            </button>
+            <button
+              onClick={() => changeRotate([21, 1, 24])}
+              className="px-4 py-2 bg-red-400"
+            >
+              info
+            </button>
+            <button
+              onClick={() => changeRotate([-2, -10, 23])}
+              className="px-4 py-2 bg-red-400"
+            >
+              info
+            </button>
+          </div>
+          <motion.div
+            className="w-full md:w-2/3 h-4/5 md:h-full"
+            initial={{ y: "0%" }}
+            transition={{ duration: 0.8 }}
+            animate={motionControls}
+          >
+            <AirJordanCanvas rotate={rotate} />
+          </motion.div>
+        </div>
+        <div className="bg-amber-700 h-[38rem]"></div>
       </div>
     </div>
   );
@@ -21,80 +79,8 @@ function CustomizedProduct() {
 
 export default CustomizedProduct;
 
-const AirJordan = ({ isMobile }) => {
-  const computer = useGLTF(
-    "./Air Jordan/air_jordan_1_chicago_black_toe/scene.gltf"
-  );
-
-  return (
-    <mesh>
-      <hemisphereLight intensity={0.15} groundColor="black" />
-      <spotLight
-        position={[5, 1.25, 1.5]}
-        angle={0.42}
-        penumbra={0.1}
-        intensity={0.1}
-        castShadow
-        shadow-mapSize={1024}
-      />
-      <pointLight intensity={1} />
-      <primitive
-        object={computer.scene}
-        scale={isMobile ? 0.7 : 27.5}
-        position={isMobile ? [0, -3, -2.2] : [-1.5, -1.25, 1.5]}
-      />
-    </mesh>
-  );
-};
-
-const AirJordanCanvas = () => {
-  return (
-    <Canvas
-      frameloop="demand"
-      shadows
-      dpr={[10, 2]}
-      camera={{ position: [18, 3, 5], fov: 25 }}
-      gl={{ preserveDrawingBuffer: true }}
-    >
-      <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls
-          enableZoom={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
-        />
-        <AirJordan isMobile={false} />
-      </Suspense>
-
-      <Preload all />
-    </Canvas>
-  );
-};
-
-const CanvasLoader = () => {
-  const { progress } = useProgress();
-
-  return (
-    <Html
-      as="div"
-      center
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
-      <span className="canvas-loader"></span>
-      <p
-        style={{
-          fontSize: 14,
-          color: "#F1F1F1",
-          fontWeight: 800,
-          marginTop: 40,
-        }}
-      >
-        {progress.toFixed(2)}%
-      </p>
-    </Html>
-  );
-};
+{
+  /* <motion.div className="w-full h-full">
+  <AirJordanCanvas />
+</motion.div>; */
+}
