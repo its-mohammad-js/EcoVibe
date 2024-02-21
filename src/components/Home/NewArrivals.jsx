@@ -35,7 +35,12 @@ function NewArrivals() {
   useEffect(() => {
     const scrollHandle = () => {
       if (scrollYProgress.get() >= 0.9) {
-        productTypeMotions.start({ x: 0, y: 0, opacity: 1 });
+        productTypeMotions.start({
+          x: 0,
+          rotateX: 0,
+          opacity: 1,
+          transition: { type: "spring", stiffness: 50 },
+        });
       }
     };
     window.addEventListener("scroll", scrollHandle);
@@ -56,7 +61,7 @@ function NewArrivals() {
         <div className="md:w-3/5 flex flex-wrap gap-6 items-center justify-evenly order-2 md:order-1">
           {producttypes.map((product, index) => (
             <motion.div
-              initial={{ x: -200 * index + 1, y: 100, opacity: 0.4 }}
+              initial={{ x: -200 * index + 10, opacity: 0.4, rotateX: 100 }}
               animate={productTypeMotions}
               key={index}
               className="w-full md:w-5/12 h-40 flex items-center justify-between bg-gradient-to-bl from-primary-950 to-primary-700 hover:to-primary-200 cursor-pointer group rounded-lg"
@@ -65,7 +70,7 @@ function NewArrivals() {
                 <img
                   src={product.thumbnail}
                   alt={product.title}
-                  className="w-full h-full object-cover group-hover:-translate-y-4 transition-all"
+                  className="w-full h-full object-cover group-hover:-translate-y-4 group-hover:rotate-12 transition-all"
                 />
               </div>
 
@@ -75,7 +80,7 @@ function NewArrivals() {
                     {product.title}
                   </h4>
                   <p className="text-gray-300">
-                    Start From{" "}
+                    Start From &nbsp;
                     <span className="border-b-2 border-primary-600 mx-0.5">
                       ${product.price}
                     </span>
@@ -91,20 +96,22 @@ function NewArrivals() {
         {/* title and description */}
         <div className="w-full md:w-2/5 h-full flex flex-col items-start justify-between px-6 py-6">
           <div className="flex flex-col gap-y-4 items-start justify-center">
-            <h2 className="text-3xl font-bold">Best Product Types</h2>
+            <h2 className="text-3xl font-bold border-b-4 border-primary-500">
+              Best Product Types
+            </h2>
             <p className="text-lg">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-              quis, tempore soluta temporibus inventore velit ad. Commodi quos,
-              aspernatur reiciendis quas, placeat facere ipsa corrupti omnis
-              <span className="hidden md:block">
-                blanditiis nesciunt pariatur porro! Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Quaerat quis, tempore soluta
-                temporibus inventore velit ad. Commodi quos, aspernatur
-                reiciendis
+              Discover the best products only at our online store! 🛒 From
+              stylish 👗clothing to the latest 📱tech gadgets, we've got you
+              covered. Explore a wide range of top-notch 🎧electronics, trendy
+              <span className="hidden md:inline">
+                🕶️fashion accessories, premium 🎁gift items, and more. 💻Shop
+                with confidence and find exactly what you need in our carefully
+                curated best products section. Don't miss out on these must-have
+                items that are sure to elevate your shopping experience! 🌟
               </span>
             </p>
           </div>
-          <button className="self-end px-6 py-3 bg-primary-700 hover:bg-primary-600 transition-all mt-4 md:mt-0 md:mb-2 text-white rounded-xl">
+          <button className="self-end px-6 py-3 bg-primary-700 hover:bg-primary-600 hover:-translate-y-2 shadow-2xl shadow-transparent hover:shadow-primary-500 transition-all mt-4 md:mt-0 md:mb-2 text-white rounded-xl">
             Explore Shop
           </button>
         </div>
