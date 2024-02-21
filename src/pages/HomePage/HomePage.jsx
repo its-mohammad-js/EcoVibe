@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/redux/products/productsSlice";
-import HeroSection from "../../components/Home/HomeHeroSection";
-import ProductsContainer from "../../components/Products/ProductsContainer";
-import CollectionsGallery from "../../components/Home/CollectionsGallery";
-import ProductsGallery from "../../components/Home/ProductsGallery";
-import TopCards from "../../components/Home/TopCards";
-import BestSellers from "../../components/Home/BestSellers";
-import { bannerIcon } from "../../helpers/constants";
-import TopCategories from "../../components/Home/TopCategories";
-import BestSellingBanners from "../../components/Home/BestSellingBanners";
-import CustomizedProduct from "../../components/Home/CustomizedProduct";
+import HeroSection from "src/components/Home/HomeHeroSection";
+import ProductsContainer from "src/components/Products/ProductsContainer";
+import CollectionsGallery from "src/components/Home/CollectionsGallery";
+import ProductsGallery from "src/components/Home/ProductsGallery";
+import TopCards from "src/components/Home/TopCards";
+import BestSellers from "src/components/Home/BestSellers";
+import { bannerIcon } from "src/helpers/constants";
+import TopCategories from "src/components/Home/TopCategories";
+import BestSellingBanners from "src/components/Home/BestSellingBanners";
+import NewArrivals from "src/components/Home/NewArrivals";
 
 function HomePage() {
   const { loading, data } = useSelector((state) => state.products);
@@ -24,7 +24,7 @@ function HomePage() {
     <>
       {/* hero section  */}
       <HeroSection />
-      {/* Trend Products */}
+      {/* Trend Products Section */}
       <ProductsContainer
         isLoading={loading}
         products={data}
@@ -47,20 +47,20 @@ function HomePage() {
           </span>
         </div>
       </aside>
-      {/* collections gallery */}
+      {/* Collections Gallery Section */}
       <CollectionsGallery isLoading={loading} products={data} />
-      {/* product types gallery */}
+      {/* Product Types Gallery */}
       <ProductsGallery />
-      {/* offer cards */}
+      {/* Offer Cards */}
       <TopCards />
-      {/* best sellers section */}
+      {/* Best Sellers Section */}
       <BestSellers />
-      {/* top categories section */}
+      {/* Top Categories Section */}
       <TopCategories />
-      {/* best selling banners */}
+      {/* Best Selling Banners */}
       <BestSellingBanners />
-      {/* animated 3d product */}
-      <CustomizedProduct />
+      {/* Our Services Section */}
+      <NewArrivals />
     </>
   );
 }

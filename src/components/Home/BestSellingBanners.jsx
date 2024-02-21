@@ -20,7 +20,7 @@ const bannersInfo = [
 
 function BestSellingBanners() {
   return (
-    <div className="mx-auto 2xl:max-w-screen-2xl">
+    <div className="mx-auto 2xl:max-w-screen-2xl mt-4 md:mt-6">
       {/* title */}
       <div className="w-full px-2 my-1 md:px-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold  md:text-3xl">Best Selling Items</h2>

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { filterProducts } from "../../helpers/filterPorducts";
 import ProductCard from "./ProductCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import ProductsContainerLoader from "../Loader/ProductsContainerLoader";
+import ProductsContainerLoader from "../Loaders/ProductsContainerLoader";
 
 function ProductsContainer({ isLoading, products, filterObject }) {
   // filter products data by trend tag

@@ -3,7 +3,7 @@ import { filterProducts } from "../../helpers/filterPorducts";
 import { FaHeart } from "react-icons/fa";
 import ReactStars from "react-stars";
 import { calculateAverage } from "../../helpers/constants";
-import CollectionGalleryLoader from "../Loader/CollectionGalleryLoader";
+import CollectionGalleryLoader from "../Loaders/CollectionGalleryLoader";
 import SimpleBanner from "./SimpleBanner";
 
 function CollectionsGallery({ products, isLoading }) {

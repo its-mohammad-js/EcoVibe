@@ -44,7 +44,7 @@ export const heroSectionImages = {
     img02:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbrooke-cagle-8jp-6SjVibM-unsplash.jpg?alt=media&token=00462705-2985-4e3d-813a-ae537817ac46",
     img03:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Flauren-richmond-490uCO8h7ZA-unsplash.jpg?alt=media&token=4c8d59f0-a015-4f42-a916-12b17bf2c553",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fchristian-wiediger-70ku6P7kgmc-unsplash.jpg?alt=media&token=105e0b41-5db7-4410-91bd-6b0cc304e033",
   },
 };
 

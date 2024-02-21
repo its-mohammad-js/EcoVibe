@@ -16,7 +16,7 @@ const HeroSection = () => {
               className="w-full h-full object-cover object-center rounded-md"
             />
           </div>
-          <div className="bg-black bg-opacity-25 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-700 absolute w-full h-full z-10 flex flex-col items-start justify-center px-6 py-2 rounded-md">
+          <div className="bg-black bg-opacity-25 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-300 absolute w-full h-full z-10 flex flex-col items-start justify-center px-6 py-2 rounded-md">
             <h1 className="text-white text-3xl md:text-5xl font-bold">
               Fresh & Healthy <br />
               <span className="text-primary-500">Organic&nbsp;</span>
@@ -38,7 +38,6 @@ const HeroSection = () => {
             </button>
           </div>
         </div>
-
         <div className="flex w-full h-1/4 md:h-full md:w-1/3 items-center md:flex-col justify-between gap-x-2 cursor-pointer">
           <div className="relative w-1/2 md:w-full md:h-[240px] h-24 rounded-md bg-amber-300">
             <div className="absolute inset-0 w-full h-full z-0">
@@ -49,7 +48,7 @@ const HeroSection = () => {
               />
             </div>
 
-            <div className="bg-black bg-opacity-30 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-700 absolute w-full h-full z-10 flex flex-col gap-y-1 items-center md:items-start justify-center px-6 py-2 rounded-md">
+            <div className="bg-black bg-opacity-30 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-300 absolute w-full h-full z-10 flex flex-col gap-y-1 items-center md:items-start justify-center px-6 py-2 rounded-md">
               <p className="text-white text-xs md:text-lg font-semibold">
                 Summer Sale
               </p>
@@ -74,7 +73,7 @@ const HeroSection = () => {
               />
             </div>
 
-            <div className="bg-black bg-opacity-30 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-700 absolute w-full h-full z-10 flex flex-col gap-y-0.5 md:gap-y-1 items-center justify-center px-6 py-2 rounded-md">
+            <div className="bg-black bg-opacity-30 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-300 absolute w-full h-full z-10 flex flex-col gap-y-0.5 md:gap-y-1 items-center justify-center px-6 py-2 rounded-md">
               <p className="text-white md:text-lg text-xs font-semibold">
                 Best Deal
               </p>
