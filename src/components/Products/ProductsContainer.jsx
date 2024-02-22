@@ -4,22 +4,22 @@ import ProductCard from "./ProductCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ProductsContainerLoader from "../Loaders/ProductsContainerLoader";
 
-function ProductsContainer({ isLoading, products, filterObject }) {
+function ProductsContainer({ isLoading, products, filterObject, title }) {
   // filter products data by trend tag
   const filteredPrdocts = filterProducts(products, filterObject);
   // ref to products container
   const containerRef = useRef();
 
   if (isLoading) {
-    return <ProductsContainerLoader />;
+    return <ProductsContainerLoader title={title} />;
   }
 
   if (!isLoading && products.length)
     return (
-      <div className="mx-auto 2xl:max-w-screen-2xl my-4 md:my-10 relative">
+      <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8 relative">
         {/* title */}
         <div className="w-full px-2 my-1 md:px-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold  md:text-3xl">Trend Products</h2>
+          <h2 className="text-2xl font-bold  md:text-3xl">{title}</h2>
 
           <span className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer">
             View All <FaArrowRight className="text-xs md:text-base" />

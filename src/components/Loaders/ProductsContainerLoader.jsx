@@ -2,12 +2,12 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ProductCardLoader from "./ProductCardLoader";
 import { fakeArray } from "../../helpers/constants";
 
-function ProductsContainerLoader() {
+function ProductsContainerLoader({ title }) {
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl my-4 md:my-6 relative animate-pulse">
       {/* title */}
       <h2 className="px-2 text-2xl font-bold my-1 md:my-2 md:text-3xl">
-        Trend Products
+        {title}
       </h2>
       {/* products container */}
       <div className="w-full overflow-auto scroll-smooth styled-scroll-bar">

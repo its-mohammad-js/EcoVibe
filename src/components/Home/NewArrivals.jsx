@@ -147,7 +147,7 @@ const CustomizedProducts = () => {
         {/* product card */}
         {!loading && filteredProducts.length && (
           <motion.div
-            initial={{ x: -300, y: -100 }}
+            initial={{ x: -30, y: -10 }}
             transition={{ type: "spring", damping: 20 }}
             whileInView={{ x: 0, y: 0 }}
             className="flex bg-white relative w-11/12 my-36 md:w-2/5 h-96 md:h-5/6 justify-evenly gap-y-2 px-4 py-6 group rounded-xl flex-col items-center"
