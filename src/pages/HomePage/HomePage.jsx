@@ -97,7 +97,7 @@ function HomePage() {
             </button>
           </div>
           <motion.div
-            initial={{ rotateY: 200 }}
+            initial={{ rotateY: 100 }}
             whileInView={{ rotateY: 0 }}
             transition={{ type: "spring", damping: 30 }}
             className="md:w-1/2 h-full"

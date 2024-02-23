@@ -2,10 +2,10 @@ import { BiCart, BiChevronDown, BiMenu, BiSearch } from "react-icons/bi";
 import { FaArrowRight, FaHeart, FaLaptop, FaSun, FaUser } from "react-icons/fa";
 import { GiClothes } from "react-icons/gi";
 import { MdClose, MdHealthAndSafety, MdHomeWork, MdMenu } from "react-icons/md";
-import { BsBrush } from "react-icons/bs";
+import { BsBrush, BsShopWindow } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { routesInfo, supportedCategories } from "../helpers/constants";
-import { PiShoppingBagOpenFill } from "react-icons/pi";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import {
   TbCards,
@@ -56,13 +56,21 @@ function Navbar() {
         {/* main navbar */}
         <div className="w-full flex items-center justify-between px-8 py-4 border-b border-gray-200">
           {/* logo */}
-          <div className="flex items-center justify-center gap-x-0.5 cursor-pointer">
-            <span className="text-xl lg:text-4xl text-primary-600">
-              <PiShoppingBagOpenFill />
-            </span>
-            <span className="lg:text-xl whitespace-nowrap font-bold">
+          <div className="flex items-end justify-center gap-x-1.5 cursor-pointer">
+            <motion.p
+              initial={{ y: 10 }}
+              whileInView={{ y: 0 }}
+              className="text-xl lg:text-4xl text-primary-600 mb-1"
+            >
+              <BsShopWindow />
+            </motion.p>
+            <motion.p
+              initial={{ x: -40 }}
+              whileInView={{ x: 0 }}
+              className="lg:text-3xl whitespace-nowrap font-bold"
+            >
               Eco Vibe
-            </span>
+            </motion.p>
           </div>
           {/* search input */}
           <div className="flex items-center flex-1 px-4 lg:px-16 h-12">
