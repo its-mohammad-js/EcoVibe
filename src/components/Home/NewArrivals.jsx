@@ -45,8 +45,8 @@ function NewArrivals() {
         <div className="md:w-3/5 flex flex-wrap gap-6 items-center justify-evenly order-2 md:order-1">
           {producttypes.map((product, index) => (
             <motion.div
-              initial={{ x: -100, opacity: 0.4, rotateX: 200 }}
-              whileInView={{ x: 0, opacity: 1, rotateX: 0 }}
+              initial={{ opacity: 0.4, rotateX: 200 }}
+              whileInView={{ opacity: 1, rotateX: 0 }}
               transition={{ type: "spring", damping: 30 }}
               key={index}
               className="w-full md:w-5/12 h-40 flex items-center justify-between bg-gradient-to-bl from-primary-950 to-primary-700 hover:to-primary-200 cursor-pointer group rounded-lg"
@@ -147,7 +147,7 @@ const CustomizedProducts = () => {
         {/* product card */}
         {!loading && filteredProducts.length && (
           <motion.div
-            initial={{ x: -30, y: -10 }}
+            initial={{ x: -30, y: -20 }}
             transition={{ type: "spring", damping: 20 }}
             whileInView={{ x: 0, y: 0 }}
             className="flex bg-white relative w-11/12 my-36 md:w-2/5 h-96 md:h-5/6 justify-evenly gap-y-2 px-4 py-6 group rounded-xl flex-col items-center"

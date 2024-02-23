@@ -20,3 +20,12 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
   background-color: #666666;
 }
+
+.pattern-bg {
+  background-color: #e5e5f7;
+  opacity: 0.4;
+  background-image: radial-gradient(#444cf7 2px, transparent 2px),
+    radial-gradient(#444cf7 2px, #e5e5f7 2px);
+  background-size: 80px 80px;
+  background-position: 0 0, 40px 40px;
+}
