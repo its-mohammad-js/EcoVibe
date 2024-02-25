@@ -111,7 +111,7 @@ function HomePage() {
         </div>
       </div>
       {/* Testimoianls */}
-      <Testimonials />
+      {/* <Testimonials /> */}
     </>
   );
 }

@@ -3,15 +3,15 @@ import { FaArrowRight } from "react-icons/fa";
 const categoriesInfo = [
   {
     title: "Living Room",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(2).webp?alt=media&token=a193511f-2221-427a-948d-c7d6dc3d0d61",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(2).webp?alt=media&token=cf33d03f-9c23-4147-b0d1-68f0406c1ebf",
   },
   {
     title: "Bedroom",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(1).webp?alt=media&token=fc593c2b-be63-49ac-8864-d5ecd9ed188a",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(3).webp?alt=media&token=d8bd5490-7788-4d96-a259-447eb697d031",
   },
   {
     title: "Kitchen",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(3).webp?alt=media&token=44244f7b-b95c-492c-b3ca-1f16099e40b0",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(1).webp?alt=media&token=d4384226-4073-4f41-94d6-6094a93f7ab3",
   },
 ];
 

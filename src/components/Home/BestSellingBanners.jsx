@@ -7,14 +7,14 @@ const bannersInfo = [
     subTitle:
       "Elevate your style with modern cuts, luxurious fabrics, and timeless designs. From sharp tailored suits to casual everyday essentials, this collection has everything you need to look and feel your best.",
     bgurl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest%20selling%20banner%20(1).webp?alt=media&token=752890c9-e238-477a-9ad7-06e0bdde63f3",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FBest%20selling%20banner%20(1).webp?alt=media&token=b17b642f-3b95-410d-aa63-7aa72dea694a",
   },
   {
     title: "Woman Winter Collections",
     subTitle:
       "Discover the latest woman winter collections, featuring cozy 🧥 outerwear, stylish ❄️ accessories, and chic 🧣 scarves to keep you warm and fashionable during the chilly season. From elegant coats to trendy boots.",
     bgurl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest%20selling%20banner%20(2).webp?alt=media&token=330fe495-2311-442f-9fe2-c2894a73f58f",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FBest%20selling%20banner%20(2).webp?alt=media&token=df3e3ea8-89c5-4c10-b376-13c696cbc07e",
   },
 ];
 
