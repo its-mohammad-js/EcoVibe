@@ -54,7 +54,7 @@ function HomePage() {
       {/* Collections Gallery Section */}
       <CollectionsGallery isLoading={loading} products={data} />
       {/* Product Types Gallery */}
-      <ProductsGallery />
+      {/* <ProductsGallery /> */}
       {/* Offer Cards */}
       <TopCards />
       {/* Best Sellers Section */}

@@ -49,12 +49,12 @@ function BestSellers() {
             key={index}
             className="w-24 h-32 md:w-1/5 md:h-96 flex flex-col relative md:cursor-pointer"
           >
-            <div className="w-full h-3/4 md:h-full">
-              <img
+            <div className="w-full h-3/4 md:h-full bg-gray-600">
+              {/* <img
                 src={seller.img}
                 alt={seller.sellerName}
                 className="w-full h-full rounded-full md:rounded-lg object-cover"
-              />
+              /> */}
             </div>
 
             <div className="w-full h-1/4 md:absolute md:bottom-0 md:flex items-center justify-center px-2 py-1 mt-4 md:mt-0 md:px-4 md:py-2">

@@ -42,11 +42,11 @@ function BestSellingBanners() {
             <div className="w-full h-full">
               {/* banner background */}
               <div className="absolute w-full h-full -z-10">
-                <img
+                {/* <img
                   src={banner.bgurl}
                   alt="banner-pic"
                   className="w-full h-full object-cover object-top rounded-xl"
-                />
+                /> */}
               </div>
               {/* banner description */}
               <div className="z-10 flex flex-col px-4 py-4 bg-gray-800/35 rounded-xl h-full md: justify-evenly">

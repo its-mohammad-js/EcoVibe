@@ -86,12 +86,12 @@ const Card = ({ bgUrl, title, subTitle, offer }) => {
   return (
     <div className="w-full md:w-1/3 h-[500px] md:h-[550px] relative md:hover:-translate-y-6 transition-all duration-500 md:group-hover:scale-95 md:hover:!scale-105">
       {/* background image */}
-      <div className="absolute w-full top-0 h-full -z-10">
-        <img
+      <div className="absolute w-full top-0 h-full -z-10 bg-red-200">
+        {/* <img
           src={bgUrl}
           alt="slide pic"
           className="h-full w-full object-cover rounded-md"
-        />
+        /> */}
       </div>
       {/* card title */}
       <div className="h-full w-full z-10 flex flex-col items-center py-6 lg:py-8 rounded-md">

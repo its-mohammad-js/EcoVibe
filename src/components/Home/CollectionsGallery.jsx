@@ -54,12 +54,12 @@ export default CollectionsGallery;
 const CustomeProductCard = ({ product, minimal }) => {
   return (
     <div className="w-full h-80 lg:h-96 bg-gray-300/35 rounded-xl cursor-pointer">
-      <div className="w-full h-3/5 relative">
-        <img
+      <div className="w-full h-3/5 relative bg-accent-500">
+        {/* <img
           src={product.Thumbnail}
           alt={product.Name}
           className="w-full h-full rounded-t-md object-cover"
-        />
+        /> */}
 
         <button className="absolute top-2 right-2 text-xl md:text-2xl bg-gray-50/60 p-1.5 hover:scale-110 transition-all duration-300 rounded-full group">
           <BiHeart className="group-hover:hidden" />

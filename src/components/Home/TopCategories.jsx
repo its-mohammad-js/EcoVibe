@@ -26,11 +26,11 @@ function TopCategories() {
         <div className="md:w-1/3 w-full h-full relative">
           {/* slide bg */}
           <div className="w-full h-full absolute -z-10">
-            <img
+            {/* <img
               src={categoriesInfo[0].img}
               alt=""
               className="h-full w-full object-cover"
-            />
+            /> */}
           </div>
           {/* slide title */}
           <div className="z-10 h-full w-full px-4 py-2 md:px-6 md:py-4 flex items-start flex-col gap-y-2">
@@ -49,11 +49,11 @@ function TopCategories() {
           <div className="w-full h-1/2 relative">
             {/* slide bg */}
             <div className="w-full h-full absolute -z-10">
-              <img
+              {/* <img
                 src={categoriesInfo[1].img}
                 alt=""
                 className="h-full w-full object-cover"
-              />
+              /> */}
             </div>
             {/* slide title */}
             <div className="z-10 h-full w-full px-4 py-2 md:px-6 md:py-4 flex items-start flex-col gap-y-2">
@@ -72,11 +72,11 @@ function TopCategories() {
           <div className="w-full h-1/2 relative">
             {/* slide bg */}
             <div className="w-full h-full absolute -z-10">
-              <img
+              {/* <img
                 src={categoriesInfo[2].img}
                 alt=""
                 className="h-full w-full object-cover"
-              />
+              /> */}
             </div>
             {/* slide title */}
             <div className="z-10 h-full w-full px-4 py-2 md:px-6 md:py-4 flex items-start flex-col gap-y-2">

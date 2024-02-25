@@ -162,13 +162,13 @@ const CustomizedProducts = () => {
               </button>
             </div>
             <div className="self-start w-2/3 px-2">
-              {/* <ReactStars
+              <ReactStars
                 count={5}
                 value={calculateAverage(filteredProducts[randomIndex].Stars)}
                 size={20}
                 color2={"#ffd700"}
                 edit={false}
-              /> */}
+              />
             </div>
             <div className="h-4/6 w-full">
               <img
