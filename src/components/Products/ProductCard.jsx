@@ -28,13 +28,13 @@ function ProductCard(props) {
 
         <div className="w-full flex items-center justify-between py-1">
           <div className="">
-            <ReactStars
+            {/* <ReactStars
               count={5}
               value={calculateAverage(Stars)}
               size={18}
               color2={"#ffd700"}
               edit={false}
-            />
+            /> */}
           </div>
 
           <p className="font-semibold ">

@@ -75,8 +75,10 @@ function Footer() {
             </div>
           </div>
           {/* payment methods */}
-          <div className="w-full h-full md:w-1/5 flex flex-col justify-evenly gap-y-4">
-            <h4 className="text-2xl font-bold">Payment Details</h4>
+          <div className="w-full h-full md:w-1/5 flex flex-col justify-evenly gap-y-4 md:gap-y-0">
+            <h4 className="text-2xl font-bold cursor-pointer">
+              Payment Details
+            </h4>
             <p className="flex items-center gap-x-1.5 text-lg cursor-pointer hover:text-primary-300 transition-all">
               <FaPaypal className="text-2xl" />
               <span>PayPal</span>
@@ -95,8 +97,8 @@ function Footer() {
             </p>
           </div>
           {/* pages */}
-          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4">
-            <h4 className="text-2xl font-bold">Pages</h4>
+          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0">
+            <h4 className="text-2xl font-bold cursor-pointer">Pages</h4>
             {routesInfo.map((route, index) => (
               <span
                 key={index}
@@ -107,8 +109,8 @@ function Footer() {
             ))}
           </div>
           {/* info */}
-          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4">
-            <h4 className="text-2xl font-bold">Info</h4>
+          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0">
+            <h4 className="text-2xl font-bold cursor-pointer">Info</h4>
             <p className="text-lg cursor-pointer hover:text-primary-300 transition-all">
               Shipping Policy
             </p>
@@ -123,8 +125,8 @@ function Footer() {
             </p>
           </div>
           {/* contact info */}
-          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4">
-            <h4 className="text-2xl font-bold">Contact Info</h4>
+          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0">
+            <h4 className="text-2xl font-bold cursor-pointer">Contact Info</h4>
             <p className="flex items-center gap-x-1.5 text-lg cursor-pointer hover:text-primary-300 transition-all">
               <FaMailBulk className="text-2xl" />
               <span>mohammadreactjs@gmail.com</span>
@@ -147,7 +149,7 @@ function Footer() {
           <span>Copyright 2024 - Eco Vibe</span>
         </p>
 
-        <div className="flex w-full md:w-1/3 text-sm cursor-pointer items-center justify-between">
+        <div className="flex w-full md:w-1/3 text-sm cursor-pointer items-center justify-center md:justify-end gap-x-4">
           <p>Privacy policy</p>
           <p>Legal notice</p>
           <p>Terms of services</p>

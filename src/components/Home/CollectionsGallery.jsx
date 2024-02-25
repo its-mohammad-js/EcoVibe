@@ -91,13 +91,13 @@ const CustomeProductCard = ({ product, minimal }) => {
         <p className="mt-1 font-bold flex items-center w-full justify-between">
           <span>${product.Price}</span>
           <div>
-            <ReactStars
+            {/* <ReactStars
               count={5}
               value={calculateAverage(product.Stars)}
               size={minimal ? 12 : 18}
               color2={"#ffd700"}
               edit={false}
-            />
+            /> */}
           </div>
         </p>
       </div>

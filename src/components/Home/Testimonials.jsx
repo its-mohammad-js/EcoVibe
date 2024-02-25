@@ -56,7 +56,7 @@ function Testimonials() {
     dots: false,
     infinite: true,
     arrows: false,
-    speed: 500,
+    speed: 1200,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
@@ -103,9 +103,7 @@ function Testimonials() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="w-2/3 h-full relative flex flex-col items-center justify-center px-6 py-4">
-                    {/* background pattern */}
-                    <div className="pattern-bg absolute inset-0 -z-10"></div>
+                  <div className="w-2/3 h-full flex flex-col items-center justify-center bg-gradient-to-r from-white via-primary-50/40 to-primary-50 px-6 py-4">
                     {/* main content */}
                     <div className="">
                       <p className="flex text-primary-400 md:text-3xl gap-x-2 my-2">
