@@ -10,11 +10,11 @@ const HeroSection = () => {
       <div className="flex flex-col md:flex-row gap-y-2 gap-x-2 items-center justify-between px-2 py-1 md:px-4 md:h-[500px] h-96">
         <div className="h-3/4 md:h-full md:w-2/3 w-full justify-center items-center bg-blue-400 rounded-md relative cursor-pointer">
           <div className="absolute inset-0 w-full h-full z-0">
-            {/* <img
+            <img
               src={heroSectionImages.homePage.img03}
               alt="hero-image"
               className="w-full h-full object-cover object-center rounded-md"
-            /> */}
+            />
           </div>
           <div className="bg-black bg-opacity-25 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-300 absolute w-full h-full z-10 flex flex-col items-start justify-center px-6 py-2 rounded-md">
             <h1 className="text-white text-3xl md:text-5xl font-bold">
@@ -41,11 +41,11 @@ const HeroSection = () => {
         <div className="flex w-full h-1/4 md:h-full md:w-1/3 items-center md:flex-col justify-between gap-x-2 cursor-pointer">
           <div className="relative w-1/2 md:w-full md:h-[240px] h-24 rounded-md bg-amber-300">
             <div className="absolute inset-0 w-full h-full z-0">
-              {/* <img
+              <img
                 src={heroSectionImages.homePage.img01}
                 alt="hero-image"
                 className="w-full h-full object-cover object-c rounded-md"
-              /> */}
+              />
             </div>
 
             <div className="bg-black bg-opacity-30 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-300 absolute w-full h-full z-10 flex flex-col gap-y-1 items-center md:items-start justify-center px-6 py-2 rounded-md">
@@ -66,11 +66,11 @@ const HeroSection = () => {
           </div>
           <div className="md:w-full w-1/2 md:h-[240px] h-24 rounded-md bg-accent-400 relative">
             <div className="absolute inset-0 w-full h-full z-0">
-              {/* <img
+              <img
                 src={heroSectionImages.homePage.img02}
                 alt="hero-image"
                 className="w-full h-full object-cover object-c rounded-md"
-              /> */}
+              />
             </div>
 
             <div className="bg-black bg-opacity-30 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-300 absolute w-full h-full z-10 flex flex-col gap-y-0.5 md:gap-y-1 items-center justify-center px-6 py-2 rounded-md">

@@ -10,12 +10,12 @@ function ProductCard(props) {
   return (
     <div className="flex flex-col items-center justify-between hover:-translate-y-0.5 duration-500 h-72 md:h-80 md:w-56 w-44 bg-gray-50 rounded-lg hover:shadow-md transition-all">
       {/* product cover */}
-      <div className="w-full h-3/5 relative bg-red-500">
-        {/* <img
+      <div className="w-full h-3/5 relative">
+        <img
           src={Thumbnail}
           alt={Name}
           className="rounded-lg h-full w-full object-cover"
-        /> */}
+        />
         {/* like button */}
         <button className="absolute top-2 right-2 text-xl md:text-2xl bg-gray-50/60 p-1.5 hover:scale-110 transition-all duration-300 rounded-full group">
           <BiHeart className="group-hover:hidden" />

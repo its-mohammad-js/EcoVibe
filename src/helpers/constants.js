@@ -40,11 +40,11 @@ export const routesInfo = [
 export const heroSectionImages = {
   homePage: {
     img01:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ffreestocks-_3Q3tsJ01nc-unsplash.jpg?alt=media&token=55706bbb-c885-44c2-9db2-a594a053329a",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhero%20section%20banner%20(3).webp?alt=media&token=28d80d2d-a9ef-4da2-a1b1-e150032099be",
     img02:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbrooke-cagle-8jp-6SjVibM-unsplash.jpg?alt=media&token=00462705-2985-4e3d-813a-ae537817ac46",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhero%20section%20banner%20(1).webp?alt=media&token=cc2380de-06cb-4803-9e05-ac9926a00133",
     img03:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fchristian-wiediger-70ku6P7kgmc-unsplash.jpg?alt=media&token=105e0b41-5db7-4410-91bd-6b0cc304e033",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhero%20section%20banner%20(2).webp?alt=media&token=5beb4a17-7c56-4f30-9ef2-8d43f1498114",
   },
 };
 

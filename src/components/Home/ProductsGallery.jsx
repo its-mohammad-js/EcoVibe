@@ -3,31 +3,31 @@ import { FaArrowRight } from "react-icons/fa";
 const galleryData = {
   menTshirts: {
     imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct%20gallery%20banner%20(1).jpg?alt=media&token=99be3f20-a87c-4023-9c78-6ed0767cd21e",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(2).webp?alt=media&token=fa0b6eb1-6bfd-487d-9cf9-2392cab8c623",
     title: "T-Shirt for men's",
     offer: "30%",
   },
   menConverse: {
     imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct%20gallery%20banner%20(5).jpg?alt=media&token=90803c66-3bef-4059-ad6e-e67923837011",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(1).webp?alt=media&token=21d0139d-5906-41ce-a471-6027b474dc56",
     title: "Men's Converse sneakers",
     offer: "40%",
   },
   sweaterWomen: {
     imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct%20gallery%20banner%20(4).jpg?alt=media&token=92d2cf69-e1b8-4f0c-86f3-3241d4083e40",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(5).webp?alt=media&token=85676e73-3572-443d-9697-deea3cb0e13d",
     title: "Sweater For Women",
     offer: "30-60%",
   },
   womenTshirts: {
     imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct%20gallery%20banner%20(3).jpg?alt=media&token=92fb3974-60c9-4cf2-a81d-770e9137d24f",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(4).webp?alt=media&token=17802fd8-2f17-4e2e-ba9c-238d87b58de8",
     title: "T-shirt For Womens",
     offer: "40-50%",
   },
   fashionBags: {
     imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct%20gallery%20banner%20(2).jpg?alt=media&token=e6298847-e5b3-445d-8052-c710dfbd8407",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(3).webp?alt=media&token=2719153d-f9dd-40c8-a93d-306ec2b63e64",
     title: "Fashoinable Bag Women",
     offer: "20%",
   },
@@ -52,12 +52,12 @@ function ProductsGallery() {
         <div className="flex md:flex-col w-full md:h-full items-center justify-between gap-x-2">
           {/* mens t-shirts */}
           <div className="w-1/2 md:w-full h-48 md:h-1/2 rounded-md group">
-            <div className="h-3/4 relative bg-red-200">
-              {/* <img
+            <div className="h-3/4 relative">
+              <img
                 src={galleryData.menTshirts.imgUrl}
                 alt="men t-shirt pic"
                 className="w-full h-full object-cover rounded-md"
-              /> */}
+              />
 
               <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
@@ -77,12 +77,12 @@ function ProductsGallery() {
           </div>
           {/* men converse */}
           <div className="w-1/2 md:w-full h-48 md:h-1/2  group">
-            <div className="h-3/4 relative bg-red-200">
-              {/* <img
+            <div className="h-3/4 relative">
+              <img
                 src={galleryData.menConverse.imgUrl}
                 alt="men t-shirt pic"
                 className="w-full h-full object-cover rounded-md"
-              /> */}
+              />
 
               <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
@@ -104,12 +104,12 @@ function ProductsGallery() {
 
         {/* womens sweaters */}
         <div className="w-full h-72 md:h-full group">
-          <div className="h-3/4 md:h-5/6 relative bg-red-200">
-            {/* <img
+          <div className="h-3/4 md:h-5/6 relative">
+            <img
               src={galleryData.sweaterWomen.imgUrl}
               alt="men t-shirt pic"
               className="w-full h-full object-cover rounded-md"
-            /> */}
+            />
 
             <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
               <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
@@ -131,12 +131,12 @@ function ProductsGallery() {
         <div className="flex md:flex-col w-full md:h-full items-center justify-between gap-x-2">
           {/* womens t-shirt */}
           <div className="w-1/2 md:w-full h-48 md:h-1/2 group">
-            <div className="h-3/4 relative bg-red-200">
-              {/* <img
+            <div className="h-3/4 relative">
+              <img
                 src={galleryData.womenTshirts.imgUrl}
                 alt="men t-shirt pic"
                 className="w-full h-full object-cover rounded-md"
-              /> */}
+              />
 
               <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
@@ -156,12 +156,12 @@ function ProductsGallery() {
           </div>
           {/* womens bag */}
           <div className="w-1/2 md:w-full h-48 md:h-1/2 group">
-            <div className="h-3/4 relative bg-red-200">
-              {/* <img
+            <div className="h-3/4 relative">
+              <img
                 src={galleryData.fashionBags.imgUrl}
                 alt="men t-shirt pic"
                 className="w-full h-full object-cover rounded-md"
-              /> */}
+              />
 
               <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
