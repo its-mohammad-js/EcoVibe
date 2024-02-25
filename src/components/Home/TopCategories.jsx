@@ -3,15 +3,15 @@ import { FaArrowRight } from "react-icons/fa";
 const categoriesInfo = [
   {
     title: "Living Room",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FPaste%20image%2003.png?alt=media&token=1970e707-5bd4-473b-84a9-954d05a3e9f7",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(2).webp?alt=media&token=a193511f-2221-427a-948d-c7d6dc3d0d61",
   },
   {
     title: "Bedroom",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FImage%20Placeholder%2001.png?alt=media&token=14009cfd-68a3-4f84-a831-8c661bff903c",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(1).webp?alt=media&token=fc593c2b-be63-49ac-8864-d5ecd9ed188a",
   },
   {
     title: "Kitchen",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FImage%20Placeholder%202.png?alt=media&token=0b304ed1-2caf-4a3a-923c-8af0eb585972",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(3).webp?alt=media&token=44244f7b-b95c-492c-b3ca-1f16099e40b0",
   },
 ];
 
@@ -25,12 +25,12 @@ function TopCategories() {
         {/* main slide */}
         <div className="md:w-1/3 w-full h-full relative">
           {/* slide bg */}
-          <div className="w-full h-full absolute -z-10 bg-red-200">
-            {/* <img
+          <div className="w-full h-full absolute -z-10">
+            <img
               src={categoriesInfo[0].img}
               alt=""
               className="h-full w-full object-cover"
-            /> */}
+            />
           </div>
           {/* slide title */}
           <div className="z-10 h-full w-full px-4 py-2 md:px-6 md:py-4 flex items-start flex-col gap-y-2">
@@ -48,12 +48,12 @@ function TopCategories() {
         <div className="md:w-1/2 w-full h-full flex flex-col gap-y-4 md:gap-y-5">
           <div className="w-full h-1/2 relative">
             {/* slide bg */}
-            <div className="w-full h-full absolute -z-10 bg-red-200">
-              {/* <img
+            <div className="w-full h-full absolute -z-10">
+              <img
                 src={categoriesInfo[1].img}
                 alt=""
                 className="h-full w-full object-cover"
-              /> */}
+              />
             </div>
             {/* slide title */}
             <div className="z-10 h-full w-full px-4 py-2 md:px-6 md:py-4 flex items-start flex-col gap-y-2">
@@ -71,12 +71,12 @@ function TopCategories() {
 
           <div className="w-full h-1/2 relative">
             {/* slide bg */}
-            <div className="w-full h-full absolute -z-10 bg-red-200">
-              {/* <img
+            <div className="w-full h-full absolute -z-10">
+              <img
                 src={categoriesInfo[2].img}
                 alt=""
                 className="h-full w-full object-cover"
-              /> */}
+              />
             </div>
             {/* slide title */}
             <div className="z-10 h-full w-full px-4 py-2 md:px-6 md:py-4 flex items-start flex-col gap-y-2">

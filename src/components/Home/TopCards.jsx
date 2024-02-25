@@ -4,25 +4,25 @@ import Slider from "react-slick";
 
 const slidesInfo = [
   {
-    title: "Sale of the Month",
+    title: "Tech Savvy Side ! ",
     subTitle: "Best Deals",
     offer: 40,
     bgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FRectangle%2054.svg?alt=media&token=c38cea1f-61d2-4541-b566-b54bed5f4c9d",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20card%20banner%20%20(1).webp?alt=media&token=5eaf487e-d10c-4184-9285-f6ea7eaf38e0",
   },
   {
-    title: "100% Fresh Fruit",
+    title: "Sale of the Month",
     subTitle: "Summer Sale",
     offer: 25,
     bgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fmae-mu-9002s2VnOAY-unsplash.jpg?alt=media&token=0efd9de9-21b1-4fa0-98f7-b22ca47616e4",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20card%20banner%20%20(1).jpg?alt=media&token=dae1321a-eda1-4803-bf01-f4080497ac28",
   },
   {
-    title: "85% Fat Free",
-    subTitle: "Low-Fat Meat",
+    title: "home decor collection!",
+    subTitle: " Explore our",
     offer: 10,
     bgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FRectangle%2054%20(1).svg?alt=media&token=653bc353-2038-44c8-97f0-8aa13f752bdd",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20card%20banner%20%20(2).webp?alt=media&token=5cf5b497-3d2c-40a4-9ed8-f4365a3802b9",
   },
 ];
 
@@ -86,12 +86,12 @@ const Card = ({ bgUrl, title, subTitle, offer }) => {
   return (
     <div className="w-full md:w-1/3 h-[500px] md:h-[550px] relative md:hover:-translate-y-6 transition-all duration-500 md:group-hover:scale-95 md:hover:!scale-105">
       {/* background image */}
-      <div className="absolute w-full top-0 h-full -z-10 bg-red-200">
-        {/* <img
+      <div className="absolute w-full top-0 h-full -z-10">
+        <img
           src={bgUrl}
           alt="slide pic"
           className="h-full w-full object-cover rounded-md"
-        /> */}
+        />
       </div>
       {/* card title */}
       <div className="h-full w-full z-10 flex flex-col items-center py-6 lg:py-8 rounded-md">

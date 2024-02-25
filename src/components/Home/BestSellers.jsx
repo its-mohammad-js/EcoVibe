@@ -1,22 +1,22 @@
 const sellers = [
   {
     sellerName: "John",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FRectangle%204338.svg?alt=media&token=1f7ab351-dcc5-46df-a479-eda4d0f4dfe0",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(3).webp?alt=media&token=3c4014b2-2c56-4265-b4f4-9533ee70d370",
     sellerShogaln: "ABC Store",
   },
   {
     sellerName: "Alice",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FRectangle%204338%20(3).svg?alt=media&token=8889bc8b-42c2-47e0-965c-cae8836dfc1a",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(1).webp?alt=media&token=0950be8a-af45-4d18-ba99-7c1f8beebd06",
     sellerShogaln: "XYZ Market",
   },
   {
-    sellerName: "Bob",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FRectangle%204338%20(2).svg?alt=media&token=f74a301e-5871-45e7-bca3-b992ddcd1f7f",
+    sellerName: "Ashley",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(2).webp?alt=media&token=c97de2b9-686c-4d45-a03b-2fd250f0710b",
     sellerShogaln: "123 Shop",
   },
   {
     sellerName: "Emily",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FRectangle%204338%20(1).svg?alt=media&token=9dd41abb-7c79-477a-bce2-585a5937e858",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(4).webp?alt=media&token=e7d47286-e311-480f-9a93-259be24cf119",
     sellerShogaln: "Best Deals Co.",
   },
 ];
@@ -49,12 +49,12 @@ function BestSellers() {
             key={index}
             className="w-24 h-32 md:w-1/5 md:h-96 flex flex-col relative md:cursor-pointer"
           >
-            <div className="w-full h-3/4 md:h-full bg-gray-600">
-              {/* <img
+            <div className="w-full h-3/4 md:h-full">
+              <img
                 src={seller.img}
                 alt={seller.sellerName}
                 className="w-full h-full rounded-full md:rounded-lg object-cover"
-              /> */}
+              />
             </div>
 
             <div className="w-full h-1/4 md:absolute md:bottom-0 md:flex items-center justify-center px-2 py-1 mt-4 md:mt-0 md:px-4 md:py-2">

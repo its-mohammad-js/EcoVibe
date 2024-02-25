@@ -52,11 +52,11 @@ function NewArrivals() {
               className="w-full md:w-5/12 h-40 flex items-center justify-between bg-gradient-to-bl from-primary-950 to-primary-700 hover:to-primary-200 cursor-pointer group rounded-lg"
             >
               <div className="w-2/5 h-full">
-                {/* <img
+                <img
                   src={product.thumbnail}
                   alt={product.title}
                   className="w-full h-full object-cover group-hover:-translate-y-4 group-hover:rotate-12 transition-all"
-                /> */}
+                />
               </div>
 
               <div className="w-3/5 h-full px-2 flex flex-col justify-around ">
@@ -170,12 +170,12 @@ const CustomizedProducts = () => {
                 edit={false}
               />
             </div>
-            <div className="h-4/6 w-full bg-red-500">
-              {/* <img
+            <div className="h-4/6 w-full">
+              <img
                 src={filteredProducts[randomIndex].Thumbnail}
                 alt={filteredProducts[randomIndex].Name}
                 className="w-full h-full object-cover rounded-2xl"
-              /> */}
+              />
             </div>
             <div className="w-full text-center text-accent-800/80 text-2xl mt-3 font-bold">
               <p>${filteredProducts[randomIndex].Price}</p>

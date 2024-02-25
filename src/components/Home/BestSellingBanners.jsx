@@ -7,14 +7,14 @@ const bannersInfo = [
     subTitle:
       "Elevate your style with modern cuts, luxurious fabrics, and timeless designs. From sharp tailored suits to casual everyday essentials, this collection has everything you need to look and feel your best.",
     bgurl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fjade-aucamp-Kj6LgGceZ4M-unsplash.jpg?alt=media&token=bf06f396-12d7-4c1b-a4a8-3b837d76c63a",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest%20selling%20banner%20(1).webp?alt=media&token=752890c9-e238-477a-9ad7-06e0bdde63f3",
   },
   {
     title: "Woman Winter Collections",
     subTitle:
       "Discover the latest woman winter collections, featuring cozy 🧥 outerwear, stylish ❄️ accessories, and chic 🧣 scarves to keep you warm and fashionable during the chilly season. From elegant coats to trendy boots.",
     bgurl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fdom-hill-nimElTcTNyY-unsplash.jpg?alt=media&token=360a3cac-5de4-4bc6-9b8c-02818769b5a2",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest%20selling%20banner%20(2).webp?alt=media&token=330fe495-2311-442f-9fe2-c2894a73f58f",
   },
 ];
 
@@ -42,11 +42,11 @@ function BestSellingBanners() {
             <div className="w-full h-full">
               {/* banner background */}
               <div className="absolute w-full h-full -z-10">
-                {/* <img
+                <img
                   src={banner.bgurl}
                   alt="banner-pic"
                   className="w-full h-full object-cover object-top rounded-xl"
-                /> */}
+                />
               </div>
               {/* banner description */}
               <div className="z-10 flex flex-col px-4 py-4 bg-gray-800/35 rounded-xl h-full md: justify-evenly">
