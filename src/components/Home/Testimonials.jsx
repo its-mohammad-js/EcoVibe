@@ -96,14 +96,14 @@ function Testimonials() {
             {testimonialsInfo.map((testimonial, index) => (
               <div key={index} className="w-full h-96">
                 <div className="w-full h-full flex justify-between items-center">
-                  <div className="w-1/3 h-full">
-                    <img
+                  <div className="w-1/3 h-full bg-red-300">
+                    {/* <img
                       src={testimonial.userPic}
                       alt={testimonial.useName}
                       className="w-full h-full object-cover"
-                    />
+                    /> */}
                   </div>
-                  <div className="w-2/3 h-full flex flex-col items-center justify-center bg-gradient-to-r from-white via-primary-50/40 to-primary-50 px-6 py-4">
+                  <div className="w-2/3 h-full flex flex-col items-center justify-center bg-gradient-to-r pattern-bg px-6 py-4">
                     {/* main content */}
                     <div className="">
                       <p className="flex text-primary-400 md:text-3xl gap-x-2 my-2">

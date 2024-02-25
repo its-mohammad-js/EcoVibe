@@ -25,7 +25,7 @@ function TopCategories() {
         {/* main slide */}
         <div className="md:w-1/3 w-full h-full relative">
           {/* slide bg */}
-          <div className="w-full h-full absolute -z-10">
+          <div className="w-full h-full absolute -z-10 bg-red-200">
             {/* <img
               src={categoriesInfo[0].img}
               alt=""
@@ -48,7 +48,7 @@ function TopCategories() {
         <div className="md:w-1/2 w-full h-full flex flex-col gap-y-4 md:gap-y-5">
           <div className="w-full h-1/2 relative">
             {/* slide bg */}
-            <div className="w-full h-full absolute -z-10">
+            <div className="w-full h-full absolute -z-10 bg-red-200">
               {/* <img
                 src={categoriesInfo[1].img}
                 alt=""
@@ -71,7 +71,7 @@ function TopCategories() {
 
           <div className="w-full h-1/2 relative">
             {/* slide bg */}
-            <div className="w-full h-full absolute -z-10">
+            <div className="w-full h-full absolute -z-10 bg-red-200">
               {/* <img
                 src={categoriesInfo[2].img}
                 alt=""

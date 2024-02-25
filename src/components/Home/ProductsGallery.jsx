@@ -52,12 +52,12 @@ function ProductsGallery() {
         <div className="flex md:flex-col w-full md:h-full items-center justify-between gap-x-2">
           {/* mens t-shirts */}
           <div className="w-1/2 md:w-full h-48 md:h-1/2 rounded-md group">
-            <div className="h-3/4 relative">
-              <img
+            <div className="h-3/4 relative bg-red-200">
+              {/* <img
                 src={galleryData.menTshirts.imgUrl}
                 alt="men t-shirt pic"
                 className="w-full h-full object-cover rounded-md"
-              />
+              /> */}
 
               <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
@@ -77,12 +77,12 @@ function ProductsGallery() {
           </div>
           {/* men converse */}
           <div className="w-1/2 md:w-full h-48 md:h-1/2  group">
-            <div className="h-3/4 relative">
-              <img
+            <div className="h-3/4 relative bg-red-200">
+              {/* <img
                 src={galleryData.menConverse.imgUrl}
                 alt="men t-shirt pic"
                 className="w-full h-full object-cover rounded-md"
-              />
+              /> */}
 
               <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
@@ -104,12 +104,12 @@ function ProductsGallery() {
 
         {/* womens sweaters */}
         <div className="w-full h-72 md:h-full group">
-          <div className="h-3/4 md:h-5/6 relative">
-            <img
+          <div className="h-3/4 md:h-5/6 relative bg-red-200">
+            {/* <img
               src={galleryData.sweaterWomen.imgUrl}
               alt="men t-shirt pic"
               className="w-full h-full object-cover rounded-md"
-            />
+            /> */}
 
             <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
               <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
@@ -131,12 +131,12 @@ function ProductsGallery() {
         <div className="flex md:flex-col w-full md:h-full items-center justify-between gap-x-2">
           {/* womens t-shirt */}
           <div className="w-1/2 md:w-full h-48 md:h-1/2 group">
-            <div className="h-3/4 relative">
-              <img
+            <div className="h-3/4 relative bg-red-200">
+              {/* <img
                 src={galleryData.womenTshirts.imgUrl}
                 alt="men t-shirt pic"
                 className="w-full h-full object-cover rounded-md"
-              />
+              /> */}
 
               <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
@@ -156,12 +156,12 @@ function ProductsGallery() {
           </div>
           {/* womens bag */}
           <div className="w-1/2 md:w-full h-48 md:h-1/2 group">
-            <div className="h-3/4 relative">
-              <img
+            <div className="h-3/4 relative bg-red-200">
+              {/* <img
                 src={galleryData.fashionBags.imgUrl}
                 alt="men t-shirt pic"
                 className="w-full h-full object-cover rounded-md"
-              />
+              /> */}
 
               <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
                 <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">

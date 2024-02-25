@@ -54,7 +54,7 @@ function HomePage() {
       {/* Collections Gallery Section */}
       <CollectionsGallery isLoading={loading} products={data} />
       {/* Product Types Gallery */}
-      {/* <ProductsGallery /> */}
+      <ProductsGallery />
       {/* Offer Cards */}
       <TopCards />
       {/* Best Sellers Section */}
@@ -100,13 +100,13 @@ function HomePage() {
             initial={{ rotateY: 100 }}
             whileInView={{ rotateY: 0 }}
             transition={{ type: "spring", damping: 30 }}
-            className="md:w-1/2 h-full"
+            className="md:w-1/2 h-full bg-gray-600"
           >
-            <img
+            {/* <img
               src="https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fcharlesdeluvio-FK81rxilUXg-unsplash.jpg?alt=media&token=a1b1d956-7533-4c22-aec8-3f1a77af8b75"
               className="w-full h-full object-cover translate-y-6 md:-translate-x-4 hover:translate-y-0 hover:translate-x-0 transition-all duration-300"
               alt="banner image"
-            />
+            /> */}
           </motion.div>
         </div>
       </div>
