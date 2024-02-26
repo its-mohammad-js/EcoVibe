@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const sellers = [
   {
     sellerName: "John",
@@ -45,7 +47,14 @@ function BestSellers() {
         className="px-4 py-3 md:py-6 flex items-center flex-wrap justify-evenly gap-x-8 gap-y-12 w-full"
       >
         {sellers.map((seller, index) => (
-          <div
+          <motion.div
+            initial={{ rotateY: 100 }}
+            whileInView={{ rotateY: 0 }}
+            transition={{
+              type: "spring",
+              damping: 15,
+              delay: index / 4,
+            }}
             key={index}
             className="w-24 h-32 md:w-1/5 md:h-96 flex flex-col relative md:cursor-pointer"
           >
@@ -242,7 +251,7 @@ function BestSellers() {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
