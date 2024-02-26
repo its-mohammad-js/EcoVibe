@@ -66,11 +66,11 @@ function TopBrands() {
               key={index}
               className="flex items-center justify-start gap-x-8 w-1/2 border hover:bg-primary-50 transition-all border-gray-600/15 px-4 py-2 h-24"
             >
-              {/* <img
+              <img
                 src={brand.iconSvg}
                 alt={brand.name}
                 className="w-1/5 h-full"
-              /> */}
+              />
               <h2 className=" md:text-2xl cursor-pointer line-clamp-1 text-primary-950 font-bold">
                 {brand.name}
               </h2>

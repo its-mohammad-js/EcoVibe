@@ -40,11 +40,11 @@ export const routesInfo = [
 export const heroSectionImages = {
   homePage: {
     img01:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhero%20section%20banner%20(3).webp?alt=media&token=28d80d2d-a9ef-4da2-a1b1-e150032099be",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhome-page-hero%20(1).webp?alt=media&token=454fe00a-42fb-4bc8-8c52-5fe53a9b897e",
     img02:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhero%20section%20banner%20(1).webp?alt=media&token=cc2380de-06cb-4803-9e05-ac9926a00133",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhome-page-hero%20(3).webp?alt=media&token=b7051a7c-5881-433f-9ea0-c33fd1c37588",
     img03:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhero%20section%20banner%20(2).webp?alt=media&token=5beb4a17-7c56-4f30-9ef2-8d43f1498114",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhome-page-hero%20(2).webp?alt=media&token=6a239c1b-8f4e-47d5-b278-3eac682a8af1",
   },
 };
 
@@ -69,4 +69,4 @@ export const fakeArray = (length) => {
 };
 
 export const bannerIcon =
-  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ficon.svg?alt=media&token=927bf580-49b0-4e03-9118-0a11258c817e";
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ficon%20svg.webp?alt=media&token=a96944c7-1885-44a9-8ecb-d43e92358f57";

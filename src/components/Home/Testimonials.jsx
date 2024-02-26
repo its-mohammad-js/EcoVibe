@@ -10,7 +10,7 @@ const testimonialsInfo = [
     comment:
       "Amazing product! It helped me streamline our marketing campaigns effortlessly. Highly recommended! 💯",
     userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonials%20home%20page%20user%20%20(3).jpg?alt=media&token=e53e46b3-af11-4c4c-9d04-5f884b2a5b13",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(5).webp?alt=media&token=9b33d65e-8bb3-4942-8757-6e107d57aac8",
   },
   {
     useName: "John Cash",
@@ -18,7 +18,7 @@ const testimonialsInfo = [
     comment:
       "This tool is a game-changer for designers! It has improved our team's efficiency and creativity. Love it! ❤️",
     userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonials%20home%20page%20user%20%20(4).jpg?alt=media&token=3808a05d-797f-43b8-956b-a0407ffab9b4",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(3).webp?alt=media&token=c8300167-fe17-41f1-b393-720a27a570a6",
   },
   {
     useName: "Alex",
@@ -26,7 +26,7 @@ const testimonialsInfo = [
     comment:
       "As a social media specialist, I rely on this product daily to schedule posts and analyze performance. It's a must-have for any social media team! 👍",
     userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonials%20home%20page%20user%20%20(2).jpg?alt=media&token=023534de-cad4-4cfe-8bc5-893616d4649e",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(1).webp?alt=media&token=b6bada1c-4536-4091-9331-8657250bbcc7",
   },
 
   {
@@ -35,7 +35,7 @@ const testimonialsInfo = [
     comment:
       "I use this app to plan workouts for my clients and track their progress. It's user-friendly and has enriched my training programs. Fantastic job! 🏋️‍♂️",
     userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonials%20home%20page%20user%20%20(5).jpg?alt=media&token=129bdfe8-6b2d-4b85-84c0-14080d1a2f3f",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(2).webp?alt=media&token=5db67a72-1b68-4c4d-81c3-314789c62d88",
   },
 
   {
@@ -44,7 +44,7 @@ const testimonialsInfo = [
     comment:
       "Teaching has never been easier with this software! It helps me create engaging lessons and assess student performance effectively. A must-have for educators! 📚",
     userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonials%20home%20page%20user.jpg?alt=media&token=0cf99671-9422-4673-84a9-9681a9d91b56",
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(4).webp?alt=media&token=c4aec5b0-9506-417e-9b4e-739894125274",
   },
 ];
 
@@ -96,14 +96,16 @@ function Testimonials() {
             {testimonialsInfo.map((testimonial, index) => (
               <div key={index} className="w-full h-96">
                 <div className="w-full h-full flex justify-between items-center">
-                  <div className="w-1/3 h-full bg-red-300">
-                    {/* <img
+                  <div className="w-1/3 h-full">
+                    <img
                       src={testimonial.userPic}
                       alt={testimonial.useName}
                       className="w-full h-full object-cover"
-                    /> */}
+                    />
                   </div>
-                  <div className="w-2/3 h-full flex flex-col items-center justify-center bg-gradient-to-r pattern-bg px-6 py-4">
+                  <div className="w-2/3 h-full flex flex-col items-center justify-center bg-gradient-to-r relative px-6 py-4">
+                    {/* pattern background */}
+                    <div className="pattern-bg absolute -z-10 inset-0"></div>
                     {/* main content */}
                     <div className="">
                       <p className="flex text-primary-400 md:text-3xl gap-x-2 my-2">
