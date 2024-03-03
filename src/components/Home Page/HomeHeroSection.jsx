@@ -1,5 +1,5 @@
 import { FaArrowLeft } from "react-icons/fa";
-import { heroSectionImages } from "../../helpers/constants";
+import { heroSectionsInfo } from "../../helpers/constants";
 
 import SimpleBanner from "./SimpleBanner";
 
@@ -7,11 +7,11 @@ const HeroSection = () => {
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl">
       {/* hero content */}
-      <div className="flex flex-col md:flex-row gap-y-2 gap-x-2 items-center justify-between px-2 py-1 md:px-4 md:h-[500px] h-96">
+      <div className="flex flex-col md:flex-row gap-2 items-center justify-between px-2 py-1 md:px-4 md:h-[500px] h-96">
         <div className="h-3/4 md:h-full md:w-2/3 w-full justify-center items-center bg-blue-400 rounded-md relative cursor-pointer">
           <div className="absolute inset-0 w-full h-full z-0">
             <img
-              src={heroSectionImages.homePage.img03}
+              src={heroSectionsInfo.homePage.img03}
               alt="hero-image"
               className="w-full h-full object-cover object-center rounded-md"
             />
@@ -42,7 +42,7 @@ const HeroSection = () => {
           <div className="relative w-1/2 md:w-full md:h-[240px] h-24 rounded-md bg-amber-300">
             <div className="absolute inset-0 w-full h-full z-0">
               <img
-                src={heroSectionImages.homePage.img01}
+                src={heroSectionsInfo.homePage.img01}
                 alt="hero-image"
                 className="w-full h-full object-cover object-c rounded-md"
               />
@@ -67,7 +67,7 @@ const HeroSection = () => {
           <div className="md:w-full w-1/2 md:h-[240px] h-24 rounded-md bg-accent-400 relative">
             <div className="absolute inset-0 w-full h-full z-0">
               <img
-                src={heroSectionImages.homePage.img02}
+                src={heroSectionsInfo.homePage.img02}
                 alt="hero-image"
                 className="w-full h-full object-cover object-c rounded-md"
               />

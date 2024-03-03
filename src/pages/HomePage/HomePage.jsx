@@ -1,24 +1,25 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/redux/products/productsSlice";
-import HeroSection from "src/components/Home/HomeHeroSection";
+import HeroSection from "src/components/Home Page/HomeHeroSection";
 import ProductsContainer from "src/components/Products/ProductsContainer";
-import CollectionsGallery from "src/components/Home/CollectionsGallery";
-import ProductsGallery from "src/components/Home/ProductsGallery";
-import TopCards from "src/components/Home/TopCards";
-import BestSellers from "src/components/Home/BestSellers";
+import CollectionsGallery from "src/components/Home Page/CollectionsGallery";
+import ProductsGallery from "src/components/Home Page/ProductsGallery";
+import TopCards from "src/components/Home Page/TopCards";
+import BestSellers from "src/components/Home Page/BestSellers";
 import { bannerIcon } from "src/helpers/constants";
-import TopCategories from "src/components/Home/TopCategories";
-import BestSellingBanners from "src/components/Home/BestSellingBanners";
-import NewArrivals from "src/components/Home/NewArrivals";
-import TopBrands from "../../components/Home/TopBrands";
+import TopCategories from "src/components/Home Page/TopCategories";
+import BestSellingBanners from "src/components/Home Page/BestSellingBanners";
+import NewArrivals from "src/components/Home Page/NewArrivals";
+import TopBrands from "../../components/Home Page/TopBrands";
 import { motion } from "framer-motion";
-import Testimonials from "../../components/Home/Testimonials";
+import Testimonials from "../../components/Home Page/Testimonials";
 
 function HomePage() {
   const { loading, data } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
+  // get all products data from data base
   useEffect(() => {
     dispatch(getFilteredProducts());
   }, []);

@@ -29,3 +29,13 @@ body::-webkit-scrollbar-thumb {
   background-size: 80px 80px;
   background-position: 0 0, 40px 40px;
 }
+
+.tooltip::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  width: 20px;
+  height: 20px;
+  background-color: inherit;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}

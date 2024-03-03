@@ -27,7 +27,7 @@ const slidesInfo = [
 ];
 
 function TopCards() {
-  const isMobile = useMediaQuery({ maxWidth: 425 });
+  const isMobile = useMediaQuery({ maxWidth: 480 });
 
   const settings = {
     dots: true,

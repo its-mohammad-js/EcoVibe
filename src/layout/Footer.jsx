@@ -125,7 +125,7 @@ function Footer() {
             </p>
           </div>
           {/* contact info */}
-          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0">
+          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0 line-clamp-1">
             <h4 className="text-2xl font-bold cursor-pointer">Contact Info</h4>
             <p className="flex items-center gap-x-1.5 text-lg cursor-pointer hover:text-primary-300 transition-all">
               <FaMailBulk className="text-2xl" />

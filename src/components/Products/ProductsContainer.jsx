@@ -16,7 +16,7 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
 
   if (!isLoading && products.length)
     return (
-      <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8 relative">
+      <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8 relative bg-inherit">
         {/* title */}
         <div className="w-full px-2 my-1 md:px-4 flex items-center justify-between">
           <h2 className="text-2xl font-bold  md:text-3xl">{title}</h2>

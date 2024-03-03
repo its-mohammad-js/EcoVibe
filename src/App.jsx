@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import AppLayout from "./layout/AppLayout";
-import ProductsPage from "./pages/ProductsPage/ProductsPage";
+import ShopPage from "./pages/ProductsPage/ShopPage";
 import ProductsFilterPage from "./pages/FilteredProductsPage/ProductsFilterPage";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -14,7 +14,7 @@ function App() {
       <AppLayout>
         <Routes>
           <Route path="/EcoVibe/" element={<HomePage />} />
-          <Route path="/EcoVibe/Products" element={<ProductsPage />} />
+          <Route path="/EcoVibe/Products" element={<ShopPage />} />
           <Route
             path="/EcoVibe/Filtered-Products"
             element={<ProductsFilterPage />}
