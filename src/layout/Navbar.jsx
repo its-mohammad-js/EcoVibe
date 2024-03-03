@@ -170,7 +170,7 @@ const MobileNavbar = () => {
               <h3 className="text-base">Home</h3>
             </div>
             <div
-              onClick={() => navigate("/EcoVibe/Products")}
+              onClick={() => navigate("/EcoVibe/Shop")}
               className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
             >
               <span className="text-3xl">

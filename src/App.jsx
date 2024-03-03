@@ -14,7 +14,7 @@ function App() {
       <AppLayout>
         <Routes>
           <Route path="/EcoVibe/" element={<HomePage />} />
-          <Route path="/EcoVibe/Products" element={<ShopPage />} />
+          <Route path="/EcoVibe/Shop" element={<ShopPage />} />
           <Route
             path="/EcoVibe/Filtered-Products"
             element={<ProductsFilterPage />}

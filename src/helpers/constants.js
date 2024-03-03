@@ -66,7 +66,7 @@ export const supportedCategories = [
 // routes information
 export const routesInfo = [
   { title: "Home", path: "/EcoVibe/" },
-  { title: "Products", path: "/EcoVibe/Products" },
+  { title: "Shop", path: "/EcoVibe/Shop" },
   { title: "Contact Us", path: "" },
   { title: "FAQs", path: "" },
 ];
