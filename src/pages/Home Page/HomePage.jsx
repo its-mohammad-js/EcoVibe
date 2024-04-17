@@ -35,7 +35,7 @@ function HomePage() {
       <ProductsContainer
         isLoading={loading}
         products={data}
-        filterObject={{ tags: ["Trend"] }}
+        filterObject={{ tags: ["trend"] }}
         title="Trend Products"
       />
       {/* simple mobile banner (only visible on mobile screens) */}
@@ -75,7 +75,7 @@ function HomePage() {
       <ProductsContainer
         isLoading={loading}
         products={data}
-        filterObject={{ tags: ["Featured"] }}
+        filterObject={{ tags: ["featured"] }}
         title="You May Also Like"
       />
       {/* Simple Banner */}
