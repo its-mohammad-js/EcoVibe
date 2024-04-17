@@ -28,7 +28,7 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
         {/* products container */}
         <div
           ref={containerRef}
-          className="w-full overflow-auto scroll-smooth styled-scroll-bar md:px-4"
+          className="w-full overflow-auto scroll-smooth hidden-scroll-bar md:px-4"
         >
           {/* right scroll button */}
           <div className="h-72 bg-gradient-to-l from-gray-50/0 transition-all duration-500 to-gray-50 w-16 md:w-24 absolute z-10 left-0 top-9 flex items-center justify-start opacity-50 hover:opacity-100">

@@ -7,13 +7,16 @@ import CollectionsGallery from "src/components/Home Page/CollectionsGallery";
 import ProductsGallery from "src/components/Home Page/ProductsGallery";
 import TopCards from "src/components/Home Page/TopCards";
 import BestSellers from "src/components/Home Page/BestSellers";
-import { bannerIcon } from "src/helpers/constants";
 import TopCategories from "src/components/Home Page/TopCategories";
 import BestSellingBanners from "src/components/Home Page/BestSellingBanners";
 import NewArrivals from "src/components/Home Page/NewArrivals";
 import TopBrands from "../../components/Home Page/TopBrands";
 import { motion } from "framer-motion";
 import Testimonials from "../../components/Home Page/Testimonials";
+
+// url of simple banner home page
+export const bannerIcon =
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ficon%20svg.webp?alt=media&token=a96944c7-1885-44a9-8ecb-d43e92358f57";
 
 function HomePage() {
   const { loading, data } = useSelector((state) => state.products);

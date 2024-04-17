@@ -1,4 +1,7 @@
+import { paginateProducts } from "./constants";
+
 export function filterProducts(products, filters) {
+  // if filters are empty return products
   if (!filters) {
     return products;
   }
@@ -10,7 +13,7 @@ export function filterProducts(products, filters) {
     searchQuery = "",
     collections = [],
     productTypes = [],
-    priceRange = { min: 0, max: 0 },
+    priceRange = { min: 0, max: 1000 },
     seller = "",
     selectedOptions = [],
   } = filters;
@@ -23,26 +26,20 @@ export function filterProducts(products, filters) {
     // Initialize a boolean variable to store the match status
     let match = true;
 
-    // Check if the product has the tags specified in the filters
-    // If the filters.tags array is not empty, use the some() method to check if any of the product tags matches any of the filter tags
-    // If none of the product tags matches any of the filter tags, set the match variable to false
+    // Match if the product has the tags specified in the filters
     if (
       tags.length > 0 &&
-      !product.Tags.some((tag) => filters.tags.includes(tag))
+      !product.Tags.some((tag) => filters.tags.includes(tag.toLowerCase()))
     ) {
       match = false;
     }
 
-    // Check if the product has the category specified in the filters
-    // If the filters.category is not an empty string, compare it with the product category using the === operator
-    // If the product category does not match the filter category, set the match variable to false
-    if (category !== "" && product.Category !== category) {
+    // Match if the product has the category specified in the filters
+    if (category !== "" && product.Category.toLowerCase() !== category) {
       match = false;
     }
 
-    // Check if the product has the name specified in the filters
-    // If the filters.searchQuery is not an empty string, use the includes() method to check if the product name contains the search query
-    // If the product name does not contain the search query, set the match variable to false
+    // Match if the product has the name specified in the filters
     if (
       searchQuery !== "" &&
       !product.Name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -50,23 +47,23 @@ export function filterProducts(products, filters) {
       match = false;
     }
 
-    // Check if the product has the collection specified in the filters
-    // If the filters.collections array is not empty, use the === operator to check if the product collection matches any of the filter collections
-    // If the product collection does not match any of the filter collections, set the match variable to false
-    if (collections.length > 0 && !collections.includes(product.Collection)) {
+    // Match if the product has the collection specified in the filters
+    if (
+      collections.length > 0 &&
+      !collections.includes(product.Collection.toLowerCase())
+    ) {
       match = false;
     }
 
-    // Check if the product has the type specified in the filters
-    // If the filters.productTypes array is not empty, use the === operator to check if the product type matches any of the filter product types
-    // If the product type does not match any of the filter product types, set the match variable to false
-    if (productTypes.length > 0 && !productTypes.includes(product.Type)) {
+    // Match if the product has the type specified in the filters
+    if (
+      productTypes.length > 0 &&
+      !productTypes.includes(product.Type.toLowerCase())
+    ) {
       match = false;
     }
 
-    // Check if the product has the price specified in the filters
-    // If the filters.priceRange object has both min and max properties, use the >= and <= operators to check if the product price is within the range
-    // If the product price is not within the range, set the match variable to false
+    // Match if the product has the price specified in the filters
     if (
       priceRange.min > -1 &&
       priceRange.max > 0 &&
@@ -76,8 +73,10 @@ export function filterProducts(products, filters) {
     }
 
     // check if seller is not selected go to next step
-    // return only products with selected seller
-    if (seller != "" && product.Seller !== seller) {
+    if (
+      seller != "" &&
+      product.Seller.toLowerCase() !== seller[0].toLowerCase()
+    ) {
       match = false;
     }
 
@@ -88,11 +87,13 @@ export function filterProducts(products, filters) {
         // return true if product have selected option
         return selectedOptions.some(
           (option) =>
-            option.title === title &&
-            options.some((opt) => opt === option.selectedOption)
+            option.title.toLowerCase() === title.toLowerCase() &&
+            options.some((opt) => {
+              return opt.toLowerCase() === option.selectedOption.toLowerCase();
+            })
         );
       });
-      // only return product with selected options
+      // // only return product with selected options
       if (!matchedProducts) match = false;
     }
 
@@ -103,10 +104,6 @@ export function filterProducts(products, filters) {
   }
 
   // Sort the filteredProducts array according to the filters.sortBy property
-  // If the filters.sortBy is not an empty string, use the sort() method to sort the array
-  // If the filters.sortBy is "high to low", sort the array in descending order of price
-  // If the filters.sortBy is "low to high", sort the array in ascending order of price
-  // If the filters.sortBy is a tag keyword, sort the array by placing the products with that tag first
   if (filters.sortBy !== "") {
     filteredProducts.sort((a, b) => {
       if (filters.sortBy === "high to low") {
@@ -128,7 +125,8 @@ export function filterProducts(products, filters) {
       }
     });
   }
-
+  // console.log(filteredProducts);
+  // console.log(paginateProducts(filteredProducts));
   // Return the filteredProducts array
   return filteredProducts;
 }

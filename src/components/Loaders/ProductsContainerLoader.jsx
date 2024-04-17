@@ -10,7 +10,7 @@ function ProductsContainerLoader({ title }) {
         {title}
       </h2>
       {/* products container */}
-      <div className="w-full overflow-auto scroll-smooth styled-scroll-bar">
+      <div className="w-full overflow-auto scroll-smooth hidden-scroll-bar">
         {/* right scroll button */}
         <div className="h-72 bg-gradient-to-l from-gray-50/0 transition-all duration-500 to-gray-50 w-16 md:w-24 absolute z-10 left-0 top-9 flex items-center justify-start opacity-50">
           <button className="text-lg md:text-2xl p-2 bg-gray-100 shadow-2xl rounded-md mx-2">

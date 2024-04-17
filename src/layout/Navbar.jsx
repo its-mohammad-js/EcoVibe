@@ -70,7 +70,11 @@ const MobileNavbar = () => {
           </div>
         </div>
         {/* search bar */}
-        <div className="flex items-center rounded-xl w-11/12 mx-auto bg-slate-50 border border-slate-300 justify-between px-3 py-2 gap-x-2">
+        <div
+          className={`${
+            location.pathname === "/EcoVibe/Explore-Products" && "hidden"
+          } flex items-center rounded-xl w-11/12 mx-auto bg-slate-50 border border-slate-300 justify-between px-3 py-2 gap-x-2`}
+        >
           <BiSearch className="text-2xl" />
           <input
             type="text"
@@ -284,7 +288,7 @@ const DesktopNavbar = () => {
   }
 
   return (
-    <div className="hidden md:flex flex-col mx-auto 2xl:max-w-screen-2xl">
+    <div className="flex flex-col mx-auto 2xl:max-w-screen-2xl">
       {/* header (only display on home page) */}
       <div
         className={`${
@@ -320,14 +324,14 @@ const DesktopNavbar = () => {
           <motion.p
             initial={{ y: 10 }}
             whileInView={{ y: 0 }}
-            className="text-xl lg:text-4xl text-primary-600 mb-1"
+            className="text-xl md:text-4xl text-primary-600 mb-1"
           >
             <BsShopWindow />
           </motion.p>
           <motion.p
             initial={{ x: -40 }}
             whileInView={{ x: 0 }}
-            className="lg:text-3xl whitespace-nowrap font-bold"
+            className="md:text-3xl whitespace-nowrap font-bold"
           >
             Eco Vibe
           </motion.p>
@@ -356,13 +360,13 @@ const DesktopNavbar = () => {
                   <TbCategory />
                 )}
               </span>
-              <span className="text-lg line-clamp-1">Add Category</span>
+              <span className="text-lg line-clamp-1">All Categories</span>
             </button>
-
+            {/* categories menu */}
             <div
               className={`${
                 categoryMenuShow ? "block" : "hidden"
-              } absolute w-48 px-4 py-2 left-0 top-12 z-20 bg-gray-100 rounded-md`}
+              } absolute w-48 px-4 py-2 left-0 top-12 z-50 shadow-md bg-gray-100 rounded-md`}
             >
               <ul>
                 {supportedCategories.map((category, index) => (
@@ -475,12 +479,12 @@ const DesktopNavbar = () => {
               <ul className="h-full w-1/3 flex flex-col gap-y-2 justify-evenly">
                 <h4 className="text-2xl font-bold">New Arrivals</h4>
                 {supportedCategories[subMenu].productTypes.map(
-                  (type, index) => (
+                  ({ title }, index) => (
                     <li
                       key={index}
                       className="text-lg cursor-pointer hover:text-accent-200 w-fit"
                     >
-                      {type}
+                      {title}
                     </li>
                   )
                 )}
