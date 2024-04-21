@@ -15,8 +15,11 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { routesInfo } from "../helpers/constants";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+  const navigate = useNavigate();
+
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8">
       <div
@@ -45,7 +48,15 @@ function Footer() {
           {/* main information */}
           <div className="w-full md:w-1/5 md:px-4 py-2 flex flex-col gap-y-4 md:gap-y-0 items-start justify-evenly h-full">
             {/* logo */}
-            <div className="flex items-end w-full md:w-fit justify-center gap-x-2.5 cursor-pointer">
+            <div
+              onClick={() => {
+                // navigate to home page
+                navigate("/EcoVibe/");
+                // reload page
+                window.location.reload();
+              }}
+              className="flex items-end w-full md:w-fit justify-center gap-x-2.5 cursor-pointer"
+            >
               <motion.p
                 initial={{ y: 10 }}
                 whileInView={{ y: 0 }}

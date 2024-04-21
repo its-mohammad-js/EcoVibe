@@ -1,5 +1,3 @@
-import { paginateProducts } from "./constants";
-
 export function filterProducts(products, filters) {
   // if filters are empty return products
   if (!filters) {
@@ -125,8 +123,6 @@ export function filterProducts(products, filters) {
       }
     });
   }
-  // console.log(filteredProducts);
-  // console.log(paginateProducts(filteredProducts));
-  // Return the filteredProducts array
+
   return filteredProducts;
 }

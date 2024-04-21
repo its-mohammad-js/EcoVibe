@@ -1,19 +1,14 @@
 import { BiCart, BiChevronDown, BiMenu, BiSearch } from "react-icons/bi";
 import {
-  FaArrowDown,
   FaArrowRight,
   FaCheck,
   FaHeart,
   FaHome,
-  FaLaptop,
   FaShoppingBag,
-  FaSun,
-  FaTshirt,
   FaUser,
 } from "react-icons/fa";
-import { GiClothes } from "react-icons/gi";
-import { MdClose, MdHealthAndSafety, MdHomeWork, MdMenu } from "react-icons/md";
-import { BsBrush, BsShopWindow } from "react-icons/bs";
+import { MdClose, MdMenu } from "react-icons/md";
+import { BsShopWindow } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { routesInfo, supportedCategories } from "../helpers/constants";
 import { motion } from "framer-motion";
@@ -45,6 +40,7 @@ const MobileNavbar = () => {
   const location = useLocation();
   // mobile menu state
   const [menuisShow, setMenuIsShow] = useState(false);
+  const [searchQuery, setQuery] = useState("");
   const navigate = useNavigate();
 
   return (
@@ -70,24 +66,31 @@ const MobileNavbar = () => {
           </div>
         </div>
         {/* search bar */}
-        <div
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            navigate(`/EcoVibe/Explore-Products/searchQuery=${searchQuery}`);
+          }}
           className={`${
-            location.pathname === "/EcoVibe/Explore-Products" && "hidden"
+            location.pathname !== "/EcoVibe/" && "hidden"
           } flex items-center rounded-xl w-11/12 mx-auto bg-slate-50 border border-slate-300 justify-between px-3 py-2 gap-x-2`}
         >
           <BiSearch className="text-2xl" />
+
           <input
             type="text"
+            value={searchQuery}
+            onChange={(e) => setQuery(e.target.value)}
             className="focus:outline-none w-full bg-inherit"
-            placeholder="Search something"
+            placeholder="I'm Shoppnig For..."
           />
-        </div>
+        </form>
         {/* categories section */}
         <div className={`${location.pathname !== "/EcoVibe/" && "hidden"} `}>
           {/* title */}
           <div className="flex items-center justify-between px-3 py-1">
             <h2 className="font-bold">Categories</h2>
-            <Link>
+            <Link to="/EcoVibe/Explore-Products">
               <span className="text-sm flex text-gray-700 items-center justify-center gap-x-1">
                 Show More <FaArrowRight className="text-xs font-thin" />
               </span>
@@ -95,41 +98,27 @@ const MobileNavbar = () => {
           </div>
           {/* category icons */}
           <div className="flex items-center sm:justify-center gap-x-4 overflow-auto px-6 py-2">
-            <div className="flex flex-col items-center justify-between gap-y-2">
-              <span className="bg-primary-100 p-3 rounded-full">
-                <GiClothes className="text-3xl text-primary-500" />
-              </span>
+            {supportedCategories.map((cat, index) => (
+              <button
+                onClick={() => {
+                  navigate(
+                    `/EcoVibe/Explore-Products/category=${cat.title.toLocaleLowerCase()}`
+                  );
+                }}
+                key={index}
+                className="flex flex-col items-center justify-between gap-y-2"
+              >
+                <span className="bg-primary-100 p-3 rounded-full w-16 h-16">
+                  <img
+                    src={cat.iconURl}
+                    alt={cat.title}
+                    className="w-full h-full"
+                  />
+                </span>
 
-              <p className="text-sm line-clamp-1">Fashion</p>
-            </div>
-            <div className="flex flex-col items-center justify-between gap-y-2">
-              <span className="bg-primary-100 p-3 rounded-full">
-                <FaLaptop className="text-3xl text-primary-500" />
-              </span>
-
-              <p className="text-sm line-clamp-1">Electronics</p>
-            </div>
-            <div className="flex flex-col items-center justify-between gap-y-2">
-              <span className="bg-primary-100 p-3 rounded-full">
-                <MdHomeWork className="text-3xl text-primary-500" />
-              </span>
-
-              <p className="text-sm line-clamp-1">Home Decor</p>
-            </div>
-            <div className="flex flex-col items-center justify-between gap-y-2">
-              <span className="bg-primary-100 p-3 rounded-full">
-                <MdHealthAndSafety className="text-3xl text-primary-500" />
-              </span>
-
-              <p className="text-sm line-clamp-1">Health</p>
-            </div>
-            <div className="flex flex-col items-center justify-between gap-y-2">
-              <span className="bg-primary-100 p-3 rounded-full">
-                <BsBrush className="text-3xl text-primary-500" />
-              </span>
-
-              <p className="text-sm line-clamp-1">Beauty</p>
-            </div>
+                <p className="text-sm line-clamp-1">{cat.title}</p>
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -260,29 +249,26 @@ const DesktopNavbar = () => {
   const [categoryMenuShow, setCategoryMenu] = useState(false);
   // search query state
   const [searchQuery, setSearchQuery] = useState({
-    categories: [],
+    category: "",
     searchText: "",
   });
-  // check search query categories list
-  const isInCategories = (category) =>
-    searchQuery.categories.find((cat) => cat === category);
 
   // change categories list in search query
-  function changeCategoryHandler(category) {
+  function changeCategoryHandler(cat) {
     // if user is in home page add change categories list
-    if (location.pathname === "/EcoVibe/")
-      isInCategories(category)
-        ? setSearchQuery((prev) => ({
-            ...prev,
-            categories: [...prev.categories.filter((cat) => cat !== category)],
-          }))
-        : setSearchQuery((prev) => ({
-            ...prev,
-            categories: [...prev.categories, category],
-          }));
+    if (location.pathname === "/EcoVibe/") {
+      setSearchQuery((prev) => ({
+        ...prev,
+        category: prev.category === cat ? "" : cat,
+      }));
+    }
     // else if user in other page redirect to filtered ptoducts page
     else {
-      navigate("/EcoVibe/");
+      setSearchQuery({
+        category: "",
+        searchText: "",
+      });
+      navigate(`/EcoVibe/Explore-Products/category=${cat.toLocaleLowerCase()}`);
       setCategoryMenu(false);
     }
   }
@@ -318,7 +304,12 @@ const DesktopNavbar = () => {
       <div className="w-full flex items-center justify-between px-8 py-4 border-b border-gray-200">
         {/* logo */}
         <div
-          onClick={() => navigate("/EcoVibe/")}
+          onClick={() => {
+            // navigate to home page
+            navigate("/EcoVibe/");
+            // reload page
+            window.location.reload();
+          }}
           className="flex items-end justify-center gap-x-1.5 cursor-pointer"
         >
           <motion.p
@@ -337,7 +328,19 @@ const DesktopNavbar = () => {
           </motion.p>
         </div>
         {/* search input */}
-        <div className="flex items-center flex-1 px-4 lg:px-16 h-12">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setCategoryMenu(false);
+            navigate(
+              `/EcoVibe/Explore-Products/category=${searchQuery.category.toLocaleLowerCase()}&searchQuery=${
+                searchQuery.searchText
+              }`
+            );
+          }}
+          className="flex items-center flex-1 px-4 lg:px-16 h-12"
+        >
+          {/* categories menu */}
           <div
             className={`${
               location.pathname === "/EcoVibe/"
@@ -348,6 +351,7 @@ const DesktopNavbar = () => {
             <button
               onClick={() => setCategoryMenu((prev) => !prev)}
               className="flex items-center gap-x-2 cursor-pointer peer"
+              type="button"
             >
               <span
                 className={`${
@@ -362,7 +366,7 @@ const DesktopNavbar = () => {
               </span>
               <span className="text-lg line-clamp-1">All Categories</span>
             </button>
-            {/* categories menu */}
+            {/* categories list */}
             <div
               className={`${
                 categoryMenuShow ? "block" : "hidden"
@@ -377,7 +381,9 @@ const DesktopNavbar = () => {
                   >
                     <span
                       className={`${
-                        isInCategories(category.title) ? "visible" : "invisible"
+                        searchQuery.category === category.title
+                          ? "visible"
+                          : "invisible"
                       }`}
                     >
                       <FaCheck />
@@ -390,7 +396,7 @@ const DesktopNavbar = () => {
               </ul>
             </div>
           </div>
-
+          {/* search input */}
           <input
             type="text"
             value={searchQuery.searchText}
@@ -405,15 +411,17 @@ const DesktopNavbar = () => {
             } bg-gray-100 px-4 py-2.5 border border-gray-300 h-full focus:outline-none xl:w-2/3`}
             placeholder="Im Shopping For..."
           />
-
-          <span
+          {/* search button */}
+          <button
+            type="submit"
             className={` ${
               location.pathname === "/EcoVibe/" ? "block" : "hidden"
-            } bg-primary-400 text-white text-2xl rounded-r-md h-full flex items-center px-4`}
+            } bg-primary-500 text-white text-2xl rounded-r-md h-full flex items-center px-4`}
           >
             <BiSearch />
-          </span>
-        </div>
+          </button>
+        </form>
+
         {/* side buttons */}
         <div className="flex items-center justify-center gap-x-2 xl:gap-x-4">
           <div className=" hidden xl:flex flex-col items-start px-4 text-gray-600">
@@ -482,13 +490,27 @@ const DesktopNavbar = () => {
                   ({ title }, index) => (
                     <li
                       key={index}
+                      onClick={() => {
+                        navigate(
+                          `/EcoVibe/Explore-Products/productTypes=${title.toLocaleLowerCase()}`
+                        );
+                      }}
                       className="text-lg cursor-pointer hover:text-accent-200 w-fit"
                     >
                       {title}
                     </li>
                   )
                 )}
-                <button className="px-4 py-2 bg-primary-400 hover:bg-primary-600 transition-all text-white text-lg rounded-md justify-self-end">
+                <button
+                  onClick={() =>
+                    navigate(
+                      `/EcoVibe/Explore-Products/category=${supportedCategories[
+                        subMenu
+                      ].title.toLocaleLowerCase()}`
+                    )
+                  }
+                  className="px-4 py-2 bg-primary-400 hover:bg-primary-600 transition-all text-white text-lg rounded-md justify-self-end"
+                >
                   See More ...
                 </button>
               </ul>
@@ -496,20 +518,27 @@ const DesktopNavbar = () => {
               <ul className="h-full w-1/3 flex flex-col gap-y-2 justify-evenly">
                 <h4 className="text-2xl font-bold">Trend's</h4>
 
-                <li className="text-lg cursor-pointer hover:text-accent-200 w-fit">
-                  tag
-                </li>
-                <li className="text-lg cursor-pointer hover:text-accent-200 w-fit">
-                  tag
-                </li>
-                <li className="text-lg cursor-pointer hover:text-accent-200 w-fit">
-                  tag
-                </li>
-                <li className="text-lg cursor-pointer hover:text-accent-200 w-fit">
-                  tag
-                </li>
+                {supportedCategories[subMenu].collections.map(
+                  ({ title }, index) =>
+                    index < 4 && (
+                      <li
+                        onClick={() => {
+                          navigate(
+                            `/EcoVibe/Explore-Products/collections=${title.toLocaleLowerCase()}`
+                          );
+                        }}
+                        key={index}
+                        className="text-lg cursor-pointer hover:text-accent-200 w-fit"
+                      >
+                        {title}
+                      </li>
+                    )
+                )}
 
-                <button className="px-4 py-1.5 transition-all border-2 border-primary-300 text-primary-300 hover:bg-primary-300 hover:text-white text-lg rounded-md justify-self-end">
+                <button
+                  onClick={() => navigate("/EcoVibe/Explore-Products/")}
+                  className="px-4 py-1.5 transition-all border-2 border-primary-300 text-primary-300 hover:bg-primary-300 hover:text-white text-lg rounded-md justify-self-end"
+                >
                   Explore
                 </button>
               </ul>
@@ -539,13 +568,36 @@ const DesktopNavbar = () => {
 
         {/* sub links */}
         <div className="flex items-center justify-center gap-x-3 text-lg">
-          <Link className="hover:text-primary-400 transition-all">Mens</Link>
-          <Link className="hover:text-primary-400 transition-all">Womens</Link>
-          <Link className="hover:text-primary-400 transition-all">Kids</Link>
-          <Link className="hover:text-primary-400 transition-all">
+          <Link
+            to="EcoVibe/Explore-Products/collections=men"
+            className="hover:text-primary-400 transition-all"
+          >
+            Mens
+          </Link>
+          <Link
+            to="EcoVibe/Explore-Products/collections=women"
+            className="hover:text-primary-400 transition-all"
+          >
+            Womens
+          </Link>
+          <Link
+            to="EcoVibe/Explore-Products/collections=Kids"
+            className="hover:text-primary-400 transition-all"
+          >
+            Kids
+          </Link>
+          <Link
+            to="EcoVibe/Explore-Products/category=electronics"
+            className="hover:text-primary-400 transition-all"
+          >
             Electronics
           </Link>
-          <Link className="hover:text-primary-400 transition-all">Kitchen</Link>
+          <Link
+            to="EcoVibe/Explore-Products/collections=kitchen"
+            className="hover:text-primary-400 transition-all"
+          >
+            Kitchen
+          </Link>
           <Link className="hover:text-primary-400 transition-all">News</Link>
           <Link className="hover:text-primary-400 transition-all">
             Contact Us

@@ -19,6 +19,8 @@ export const supportedCategories = [
       { title: "Leather" },
       { title: "Sneakers" },
     ],
+    iconURl:
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ffashion%20icon.png?alt=media&token=dbda043b-0da0-4db3-ab84-108c30458858",
     bannerUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fsub-menu-banner%20(1).webp?alt=media&token=f82da5a4-9b48-42e3-b463-28bf39f069d4",
   },
@@ -37,6 +39,8 @@ export const supportedCategories = [
       { title: "Headphones" },
       { title: "Smart Watches" },
     ],
+    iconURl:
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FElectronics%20Icon.png?alt=media&token=9c895c63-7407-4ac4-91aa-8f7773f05bfc",
     bannerUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fsub-menu-banner%20(2).webp?alt=media&token=755ce2e1-12bf-422e-a3aa-34e128db1385",
   },
@@ -54,6 +58,8 @@ export const supportedCategories = [
       { title: "Vases" },
       { title: "Candles" },
     ],
+    iconURl:
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FHome%20Decor%20Icon.png?alt=media&token=8e12c6f6-b906-4d19-935f-1682ba47e2c6",
     bannerUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fsub-menu-banner%20(3).webp?alt=media&token=be4ac31d-065f-45aa-bea4-b3c884bd724a",
   },
@@ -63,6 +69,7 @@ export const supportedCategories = [
       { title: "Vita boost" },
       { title: "Glow life" },
       { title: "Zen Fuel" },
+      { title: "Healty Routine" },
     ],
     productTypes: [
       { title: "Vitamins" },
@@ -70,6 +77,8 @@ export const supportedCategories = [
       { title: "Yoga Blocks" },
       { title: "Resistance Bands" },
     ],
+    iconURl:
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FHealth%20Icon.png?alt=media&token=9f25a2a6-014b-4dd1-bfad-8da910d4f57c",
     bannerUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fsub-menu-banner%20(4).webp?alt=media&token=75fcc7d4-2e79-463f-92fb-119b3500ab61",
   },
@@ -88,6 +97,8 @@ export const supportedCategories = [
       { title: "Hair Styling Tools" },
       { title: "Perfumes" },
     ],
+    iconURl:
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FBeauty%20Icon.png?alt=media&token=b295adaa-c91c-4406-9e76-105e5e438d64",
     bannerUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fsub-menu-banner%20(5).webp?alt=media&token=e40fdb29-7f67-4fe8-8d76-0bd2b1e4067f",
   },
@@ -175,24 +186,28 @@ export const heroSectionsInfo = {
       subTitle:
         "Nourishing Your Body, Honoring the Earth🌿💧Pure Wellness in Every DropNature's Bounty Bottled for Your Beauty Glow Naturally with Organic Elixir",
       img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fshop%20page%20hero%20banner%20(2).webp?alt=media&token=ff1fee30-083b-4f44-8663-d23d9e8b3e19",
+      query: "/EcoVibe/Explore-Products/category=health and wellness",
     },
     {
       title: "World of Sound",
       subTitle:
         "Enhancing Every Beat of Your Life* 🎶❤️Music to Your Ears, Style to Your Soul* 🎵🔥Cutting-Edge Technology for an Acoustic Adventure",
       img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fshop%20page%20hero%20banner%20(3).webp?alt=media&token=d5487376-c296-4018-a8f3-87c9cc11cb4f",
+      query: "/EcoVibe/Explore-Products/collections=world of sounds",
     },
     {
       title: "at Your Fingertips",
       subTitle:
         "Connecting the World at Your Fingertips* 🌐📱Empowering Communication and Innovation 🔥💬Unleashing Possibilities with Every Touch ✨📞Elevating Your Digital Experience with Style 🚀📲",
       img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fshop%20page%20hero%20banner%20(4).webp?alt=media&token=ee3f5fbd-15d5-43aa-8a7b-0ea855e60458",
+      query: "/EcoVibe/Explore-Products/productTypes=smart phones",
     },
     {
       title: "Style Meets Comfort",
       subTitle:
         "Wear Your Style, Express Your Personality Comfort Meets Fashion in Every Stitch💁‍♂️ Every Thread Tells a Story of Urban Cool🧵📖 Unleash Your Wardrobe with Versatile Essentials",
       img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fshop%20page%20hero%20banner%20(1).webp?alt=media&token=21378e69-8d04-452d-b5fa-f7734dd9dff4",
+      query: "/EcoVibe/Explore-Products/productTypes=t-shirts",
     },
   ],
 };
@@ -218,8 +233,8 @@ export const fakeArray = (length) => {
 };
 
 // paginate product (useable for any array)
-export function paginateProducts(products) {
-  const pageSize = 12;
+export function paginateProducts(products, divideTo) {
+  const pageSize = divideTo;
   const numberOfPages = Math.ceil(products.length / pageSize);
 
   const paginatedProducts = [];
@@ -235,4 +250,20 @@ export function paginateProducts(products) {
   }
 
   return paginatedProducts;
+}
+
+// transform query string to filter object
+export function queryToFilterObject(queryParams) {
+  if (!queryParams.filters) {
+    return "";
+  }
+
+  const query = queryParams?.filters?.split("&");
+  const keyQuery = query.map((filter) => {
+    let keyFilter = filter.split("=");
+
+    return { type: keyFilter[0], payload: keyFilter[1] };
+  });
+
+  return keyQuery;
 }

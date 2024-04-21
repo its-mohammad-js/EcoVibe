@@ -1,29 +1,36 @@
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const slidesData = [
   {
     title: "November Outfits",
     bgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fcollection%20shop%20banner%20(3).webp?alt=media&token=327f8f92-d2a0-4754-9f47-c3018ae26d6b",
+    query: "/EcoVibe/Explore-Products/collections=november outfits",
   },
   {
     title: "Cashmere Set",
     bgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fcollection%20shop%20banner%20(2).webp?alt=media&token=08c6a462-3a98-4489-8fb1-c3820cb411f2",
+    query: "/EcoVibe/Explore-Products/collections=cashmere set",
   },
   {
     title: "The New Nordic",
     bgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fcollection%20shop%20banner%20(4).webp?alt=media&token=a8e07234-efa8-4397-955e-60262be5abc4",
+    query: "/EcoVibe/Explore-Products/collections=new nordic",
   },
   {
     title: "The Leather",
     bgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fcollection%20shop%20banner%20(1).webp?alt=media&token=d21063fd-7de0-403c-8760-d433d3245eae",
+    query: "/EcoVibe/Explore-Products/collections=leather",
   },
 ];
 
 function BestSellingItems() {
+  const navigate = useNavigate();
+
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8">
       <div
@@ -60,7 +67,13 @@ function BestSellingItems() {
               <h6 className="text-2xl font-semibold text-white cursor-pointer group-hover:text-3xl transition-all duration-300">
                 {slide.title}
               </h6>
-              <button className="w-fit flex items-center justify-center gap-x-1.5 text-lg text-gray-200 border-b-2 border-gray-200">
+              <button
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  navigate(slide.query);
+                }}
+                className="w-fit flex items-center justify-center gap-x-1.5 text-lg text-gray-200 border-b-2 border-gray-200"
+              >
                 <span>Collection</span>
                 <span>
                   <FaArrowRight />

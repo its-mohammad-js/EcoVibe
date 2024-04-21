@@ -1,6 +1,7 @@
 import Slider from "react-slick";
 import { heroSectionsInfo } from "../../helpers/constants";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ShopHeroSection() {
   const settings = {
@@ -8,11 +9,11 @@ function ShopHeroSection() {
     speed: 1200,
     dots: true,
     appendDots: appendDotsFunc,
-    fade: true,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 1800,
   };
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
 
   // customize pagination controll (dots) (jsx)
   function appendDotsFunc(e) {
@@ -39,37 +40,45 @@ function ShopHeroSection() {
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-4 md:mt-2">
       <Slider ref={sliderRef} {...settings} className="mx-2">
-        {heroSectionsInfo.shopPage.map((banner, index) => (
-          <div
-            className="w-full h-48 rounded-md md:h-[34rem] relative focus:outline-none"
-            key={index}
-          >
-            {/* slide background image */}
-            <div className="absolute inset-0 -z-10">
-              {/* background blur filter on moblie screens */}
-              <div className="absolute inset-0 bg-primary-50/40 backdrop-blur-sm rounded-md md:hidden"></div>
-              <img
-                src={banner.img}
-                alt="hero section banner"
-                className="w-full h-full object-cover rounded-md"
-              />
-            </div>
-
-            <div className="h-full w-full md:w-2/4 flex flex-col justify-evenly md:justify-center gap-y-4 md:gap-y-8 px-4 py-2">
-              <div className="flex flex-col gap-y-2">
-                <h2 className="text-2xl md:text-5xl font-bold">
-                  {banner.title}
-                </h2>
-                <p className="line-clamp-3 md:line-clamp-none font-semibold text-sm md:text-xl">
-                  {banner.subTitle}
-                </p>
+        {heroSectionsInfo.shopPage.map((banner, index) => {
+          return (
+            <div
+              className="w-full h-48 rounded-md md:h-[34rem] relative focus:outline-none"
+              key={index}
+            >
+              {/* slide background image */}
+              <div className="absolute inset-0 -z-10">
+                {/* background blur filter on moblie screens */}
+                <div className="absolute inset-0 bg-primary-50/40 backdrop-blur-sm rounded-md md:hidden"></div>
+                <img
+                  src={banner.img}
+                  alt="hero section banner"
+                  className="w-full h-full object-cover rounded-md"
+                />
               </div>
-              <button className="w-fit md:text-lg px-4 py-1 md:py-2 md:px-8 text-white text-sm bg-primary-950 rounded-md">
-                Shop Now
-              </button>
+
+              <div className="h-full w-full md:w-2/4 flex flex-col justify-evenly md:justify-center gap-y-4 md:gap-y-8 px-4 py-2">
+                <div className="flex flex-col gap-y-2">
+                  <h2 className="text-2xl md:text-5xl font-bold">
+                    {banner.title}
+                  </h2>
+                  <p className="line-clamp-3 md:line-clamp-none font-semibold text-sm md:text-xl">
+                    {banner.subTitle}
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                    navigate(banner.query);
+                  }}
+                  className="w-fit md:text-lg px-4 py-1 md:py-2 md:px-8 text-white text-sm bg-primary-950 rounded-md"
+                >
+                  Shop Now
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </Slider>
     </div>
   );

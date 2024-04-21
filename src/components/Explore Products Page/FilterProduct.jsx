@@ -16,12 +16,11 @@ import {
   getCategoryData,
 } from "../../helpers/constants";
 import FilterOptionRow from "./FilterOptionRow";
-import { PiRowsLight } from "react-icons/pi";
-import { BsGrid } from "react-icons/bs";
 import { getProductOption } from "../../helpers/productOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFilterReducer as setFilter } from "src/redux/filters/filterSlice";
 import MultiThumbRange from "./MultiThumbRange";
+import { useNavigate, useParams } from "react-router-dom";
 
 function FilterProduct() {
   // check screen size of user device
@@ -35,10 +34,19 @@ function FilterProduct() {
     sort: false,
     filters: false,
   });
+  const searchParams = useParams();
+  const navigate = useNavigate();
+
   // change filters on each action
   const changeFilterHandler = (payload) => {
+    // dispatch actions
     dispatch(setFilter(payload));
+    // clear query
+    if (searchParams.filters && searchParams.filters.length) {
+      navigate("/EcoVibe/Explore-Products/");
+    }
   };
+
   // get category data
   const { collections, productTypes } = getCategoryData(
     selectedFilters.category.toString()
@@ -47,11 +55,11 @@ function FilterProduct() {
   const productOptions = getProductOption(selectedFilters.productTypes[0]);
   // filter row's data
   const filterOptionRows = [
-    // {
-    //   title: "Categories",
-    //   filterKey: "category",
-    //   filterOptions: supportedCategories,
-    // },
+    {
+      title: "Categories",
+      filterKey: "category",
+      filterOptions: supportedCategories,
+    },
     {
       title: "Product Type",
       filterKey: "productTypes",

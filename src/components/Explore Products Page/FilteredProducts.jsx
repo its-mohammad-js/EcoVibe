@@ -1,16 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "../../redux/products/productsSlice";
 import ProductCard from "../Products/ProductCard";
-import { calculateAverage, fakeArray } from "../../helpers/constants";
-import { FaStar } from "react-icons/fa";
+import {
+  calculateAverage,
+  fakeArray,
+  paginateProducts,
+} from "../../helpers/constants";
+import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa";
+import PaginationButtons from "./PaginationButtons";
+import { useParams } from "react-router-dom";
 
 function FilteredProducts() {
   // get selected filters
   const filters = useSelector((state) => state.filters);
   // get products data
   const { loading, data, error } = useSelector((state) => state.products);
-  // redux dispatcher
+  // paginated product
+  const paginatedProduct = paginateProducts(data, 8);
   const dispatch = useDispatch();
 
   // get filtered products on each filter change
@@ -18,18 +25,12 @@ function FilteredProducts() {
     dispatch(
       getFilteredProducts({
         category: filters.category[0],
-        // problem with key word on app strategy
         tags: filters.tags,
         searchQuery: filters.searchQuery,
-        // problem with key word on app strategy
         collections: filters.collections,
-        // problem on key words in databse
         productTypes: filters.productTypes,
-        // may have problem with property types
         priceRange: filters.priceRange,
-        // problem on seller key words in filter function
         seller: filters.seller,
-        // problem with key word on data base
         selectedOptions: filters.selectedOptions,
       })
     );
@@ -47,15 +48,16 @@ function FilteredProducts() {
       </div>
     );
 
-  if (data[0] && !loading)
+  if (paginatedProduct.length && !loading)
     return (
-      <div className="ml-auto w-full md:w-[78%] min-h-screen">
+      <div className="ml-auto w-full md:w-[78%] relative">
+        {/* products grid */}
         <div
-          id="wrapper"
-          className="w-full md:w-[98%] h-full mx-auto rounded-md flex flex-col md:flex-row gap-y-2 sm:gap-y-3 md:gap-0 items-center flex-wrap px-1.5 py-2"
+          id="products-wrapper"
+          className="w-full min-h-screen md:w-[98%] h-full mx-auto rounded-md flex flex-col md:flex-row gap-y-2 sm:gap-y-3 md:gap-0 items-center md:items-start flex-wrap px-1.5 py-2"
         >
           {/* product cards */}
-          {data.map((item, index) => {
+          {paginatedProduct[filters.page].products.map((item, index) => {
             return (
               <div
                 key={index}
@@ -100,6 +102,8 @@ function FilteredProducts() {
             );
           })}
         </div>
+        {/* page buttons */}
+        <PaginationButtons productsData={paginatedProduct} />
       </div>
     );
 }

@@ -10,9 +10,10 @@ import BestSellers from "src/components/Home Page/BestSellers";
 import TopCategories from "src/components/Home Page/TopCategories";
 import BestSellingBanners from "src/components/Home Page/BestSellingBanners";
 import NewArrivals from "src/components/Home Page/NewArrivals";
-import TopBrands from "../../components/Home Page/TopBrands";
+import TopBrands from "src/components/Home Page/TopBrands";
 import { motion } from "framer-motion";
-import Testimonials from "../../components/Home Page/Testimonials";
+import Testimonials from "src/components/Home Page/Testimonials";
+import { useNavigate } from "react-router-dom";
 
 // url of simple banner home page
 export const bannerIcon =
@@ -21,6 +22,7 @@ export const bannerIcon =
 function HomePage() {
   const { loading, data } = useSelector((state) => state.products);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // get all products data from data base
   useEffect(() => {
@@ -96,7 +98,13 @@ function HomePage() {
                 purchase uniquely yours! 🛍️
               </p>
             </div>
-            <button className="w-fit text-xl hover:bg-primary-50 hover:text-primary-950 transition-all px-6 py-3 bg-primary-950 rounded-xl text-white self-end">
+            <button
+              onClick={() => {
+                window.scrollTo(0, 0);
+                navigate(`/EcoVibe/Explore-Products/`);
+              }}
+              className="w-fit text-xl hover:bg-primary-50 hover:text-primary-950 transition-all px-6 py-3 bg-primary-950 rounded-xl text-white self-end"
+            >
               Shop Now
             </button>
           </div>

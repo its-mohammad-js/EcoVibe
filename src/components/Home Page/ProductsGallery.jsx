@@ -1,4 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const galleryData = {
   menTshirts: {
@@ -34,15 +35,20 @@ const galleryData = {
 };
 
 function ProductsGallery() {
+  const navigate = useNavigate();
+
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-4 md:mt-10">
       {/* title */}
       <div className="w-full px-2 my-1 md:my-4 md:px-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold md:text-3xl">Top Products</h2>
 
-        <span className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer">
+        <button
+          onClick={() => navigate("/EcoVibe/Explore-Products/tags=best sell")}
+          className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer"
+        >
           View All <FaArrowRight className="text-xs md:text-base" />
-        </span>
+        </button>
       </div>
       {/* products gallery */}
       <div

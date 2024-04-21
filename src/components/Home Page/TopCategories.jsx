@@ -1,21 +1,27 @@
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const categoriesInfo = [
   {
     title: "Living Room",
     img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(2).webp?alt=media&token=cf33d03f-9c23-4147-b0d1-68f0406c1ebf",
+    query: "collections=living room",
   },
   {
     title: "Bedroom",
     img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(3).webp?alt=media&token=d8bd5490-7788-4d96-a259-447eb697d031",
+    query: "collections=bedroom",
   },
   {
     title: "Kitchen",
     img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(1).webp?alt=media&token=d4384226-4073-4f41-94d6-6094a93f7ab3",
+    query: "collections=kitchen",
   },
 ];
 
 function TopCategories() {
+  const navigate = useNavigate();
+
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8">
       <div
@@ -35,7 +41,15 @@ function TopCategories() {
           {/* slide title */}
           <div className="z-10 h-full w-full px-4 py-2 md:px-6 md:py-4 flex items-start flex-col gap-y-2">
             <h2 className="text-3xl md:text-4xl">{categoriesInfo[0].title}</h2>
-            <button className="flex items-center gap-x-1 border-b-2 border-b-black">
+            <button
+              onClick={() => {
+                window.scrollTo(0, 0);
+                navigate(
+                  `/EcoVibe/Explore-Products/${categoriesInfo[0].query}`
+                );
+              }}
+              className="flex items-center gap-x-1 border-b-2 border-b-black"
+            >
               <span>Shop Now</span>
               <span>
                 <FaArrowRight />
@@ -60,7 +74,15 @@ function TopCategories() {
               <h2 className="text-3xl md:text-4xl">
                 {categoriesInfo[1].title}
               </h2>
-              <button className="flex items-center gap-x-1 border-b-2 border-b-black">
+              <button
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  navigate(
+                    `/EcoVibe/Explore-Products/${categoriesInfo[0].query}`
+                  );
+                }}
+                className="flex items-center gap-x-1 border-b-2 border-b-black"
+              >
                 <span>Shop Now</span>
                 <span>
                   <FaArrowRight />
@@ -83,7 +105,15 @@ function TopCategories() {
               <h2 className="text-3xl md:text-4xl">
                 {categoriesInfo[2].title}
               </h2>
-              <button className="flex items-center gap-x-1 border-b-2 border-b-black">
+              <button
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  navigate(
+                    `/EcoVibe/Explore-Products/${categoriesInfo[0].query}`
+                  );
+                }}
+                className="flex items-center gap-x-1 border-b-2 border-b-black"
+              >
                 <span>Shop Now</span>
                 <span>
                   <FaArrowRight />

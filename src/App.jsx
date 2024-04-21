@@ -16,7 +16,7 @@ function App() {
           <Route path="/EcoVibe/" element={<HomePage />} />
           <Route path="/EcoVibe/Shop" element={<ShopPage />} />
           <Route
-            path="/EcoVibe/Explore-Products"
+            path="/EcoVibe/Explore-Products/:filters?"
             element={<ExploreProducts />}
           />
         </Routes>

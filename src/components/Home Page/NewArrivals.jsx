@@ -5,6 +5,7 @@ import { calculateAverage } from "../../helpers/constants";
 import { FaCartPlus, FaPlus } from "react-icons/fa6";
 import ReactStars from "react-stars";
 import { Tilt } from "@jdion/tilt-react";
+import { useNavigate } from "react-router-dom";
 
 const producttypes = [
   {
@@ -12,28 +13,34 @@ const producttypes = [
     price: 150,
     thumbnail:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fair%20jordan%20model.png?alt=media&token=5e569c59-11d1-45d3-8589-d0a560a62b98",
+    query: "productTypes=shoes",
   },
   {
     title: "Smart Phone",
     price: 500,
     thumbnail:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fsmart%20phone%20model.png?alt=media&token=d090cbd1-6776-4efb-96eb-f7948ddc360e",
+    query: "productTypes=smart phones",
   },
   {
     title: "Organic Oil",
     price: 50,
     thumbnail:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Foil%20bottle%20model.png?alt=media&token=2ee748cf-406b-4518-8dec-dec00f5ce4a2",
+    query: "category=health and wellness",
   },
   {
-    title: "Hoodie's",
+    title: "Fashion's",
     price: 10,
     thumbnail:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fhoodie%20model.png?alt=media&token=4649d945-b71f-431a-a786-bd076f376db9",
+    query: "category=fashion",
   },
 ];
 
 function NewArrivals() {
+  const navigate = useNavigate();
+
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8 flex flex-col gap-y-6 md:gap-y-8 px-4">
       {/* best product types */}
@@ -71,7 +78,13 @@ function NewArrivals() {
                     </span>
                   </p>
                 </div>
-                <button className="bg-primary-50 font-semibold hover:bg-accent-500 hover:text-white transition-all text-base self-end px-4 w-fit py-2 rounded-xl">
+                <button
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                    navigate(`/EcoVibe/Explore-Products/${product.query}`);
+                  }}
+                  className="bg-primary-50 font-semibold hover:bg-accent-500 hover:text-white transition-all text-base self-end px-4 w-fit py-2 rounded-xl"
+                >
                   Shop Now
                 </button>
               </div>
@@ -96,7 +109,13 @@ function NewArrivals() {
               </span>
             </p>
           </div>
-          <button className="self-end px-6 py-3 bg-primary-700 hover:bg-primary-600 hover:-translate-y-2 shadow-2xl shadow-transparent hover:shadow-primary-500 transition-all mt-4 md:mt-0 md:mb-2 text-white rounded-xl">
+          <button
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate(`/EcoVibe/Explore-Products/`);
+            }}
+            className="self-end px-6 py-3 bg-primary-700 hover:bg-primary-600 hover:-translate-y-2 shadow-2xl shadow-transparent hover:shadow-primary-500 transition-all mt-4 md:mt-0 md:mb-2 text-white rounded-xl"
+          >
             Explore Shop
           </button>
         </div>

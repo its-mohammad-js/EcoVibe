@@ -1,14 +1,30 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { filterProducts } from "../../helpers/filterPorducts";
 import ProductCard from "./ProductCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ProductsContainerLoader from "../Loaders/ProductsContainerLoader";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { changeFilterReducer as setFilter } from "src/redux/filters/filterSlice";
 
 function ProductsContainer({ isLoading, products, filterObject, title }) {
   // filter products data by trend tag
   const filteredPrdocts = filterProducts(products, filterObject);
   // ref to products container
   const containerRef = useRef();
+  const navigate = useNavigate();
+
+  function navigateToExplore() {
+    // get filter key
+    const filterKey = Object.keys(filterObject)[0];
+    // get filter value
+    const filterVal = Object.values(filterObject).toLocaleString();
+
+    // navigate to explore page with query
+    navigate(`/EcoVibe/Explore-Products/${filterKey}=${filterVal}`);
+    // scroll up :)
+    window.scrollTo(0, 0);
+  }
 
   if (isLoading) {
     return <ProductsContainerLoader title={title} />;
@@ -21,9 +37,12 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
         <div className="w-full px-2 my-1 md:px-4 flex items-center justify-between">
           <h2 className="text-2xl font-bold  md:text-3xl">{title}</h2>
 
-          <span className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer">
+          <button
+            onClick={navigateToExplore}
+            className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer"
+          >
             View All <FaArrowRight className="text-xs md:text-base" />
-          </span>
+          </button>
         </div>
         {/* products container */}
         <div

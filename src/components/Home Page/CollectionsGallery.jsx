@@ -9,7 +9,7 @@ import SimpleBanner from "./SimpleBanner";
 function CollectionsGallery({ products, isLoading }) {
   // get summer collectionfrom all products
   const summerCollection = filterProducts(products, {
-    collections: ["Summer"],
+    collections: ["summer"],
   });
 
   if (isLoading) return <CollectionGalleryLoader />;
@@ -52,10 +52,16 @@ function CollectionsGallery({ products, isLoading }) {
 export default CollectionsGallery;
 
 const CustomeProductCard = ({ product, minimal }) => {
+  // get product colors from product options
+  const productColors = product?.Options?.filter(
+    (opt) => opt.title.toLowerCase() === "color"
+  );
+
   return (
     <div className="w-full h-80 lg:h-96 bg-gray-300/35 rounded-xl cursor-pointer">
       <div className="w-full h-3/5 relative">
         <img
+          loading="lazy"
           src={product.Thumbnail}
           alt={product.Name}
           className="w-full h-full rounded-t-md object-cover"
@@ -72,32 +78,34 @@ const CustomeProductCard = ({ product, minimal }) => {
           <span className="text-xs my-0.5">{product.Tags[0]}</span>
           <h2 className="font-bold">{product.Name}</h2>
 
-          <p
+          <div
             className={`${
               minimal && "hidden"
             } flex items-center justify-center gap-x-2 mt-2`}
           >
-            {product.Options.Color.map((color, index) => (
-              <span
-                style={{ backgroundColor: color }}
-                className="p-2 rounded-full border border-gray-400"
-                key={index}
-              ></span>
-            ))}
+            {productColors.map((color, index) =>
+              color.options.map((opt) => (
+                <span
+                  style={{ backgroundColor: opt }}
+                  className="p-2 md:p-3 rounded-full border border-gray-400 hover:border-gray-800 transition-all"
+                  key={index}
+                ></span>
+              ))
+            )}
             <span className="text-sm ml-0.5">+5 more ...</span>
-          </p>
+          </div>
         </div>
 
         <p className="mt-1 font-bold flex items-center w-full justify-between">
           <span>${product.Price}</span>
           <div>
-            {/* <ReactStars
+            <ReactStars
               count={5}
               value={calculateAverage(product.Stars)}
               size={minimal ? 12 : 18}
               color2={"#ffd700"}
               edit={false}
-            /> */}
+            />
           </div>
         </p>
       </div>

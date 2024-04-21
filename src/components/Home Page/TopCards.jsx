@@ -1,5 +1,6 @@
 import { FaArrowRight } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 
 const slidesInfo = [
@@ -9,6 +10,7 @@ const slidesInfo = [
     offer: 40,
     bgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20card%20banner%20%20(1).webp?alt=media&token=5eaf487e-d10c-4184-9285-f6ea7eaf38e0",
+    query: "productTypes=smart phones",
   },
   {
     title: "Sale of the Month",
@@ -16,6 +18,7 @@ const slidesInfo = [
     offer: 25,
     bgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20card%20banner%20%20(1).jpg?alt=media&token=dae1321a-eda1-4803-bf01-f4080497ac28",
+    query: "category=fashion",
   },
   {
     title: "home decor collection!",
@@ -23,6 +26,7 @@ const slidesInfo = [
     offer: 10,
     bgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20card%20banner%20%20(2).webp?alt=media&token=5cf5b497-3d2c-40a4-9ed8-f4365a3802b9",
+    query: "category=home decor",
   },
 ];
 
@@ -82,7 +86,9 @@ function TopCards() {
 
 export default TopCards;
 
-const Card = ({ bgUrl, title, subTitle, offer }) => {
+const Card = ({ bgUrl, title, subTitle, offer, query }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="w-full md:w-1/3 h-[500px] md:h-[550px] relative md:hover:-translate-y-6 transition-all duration-500 md:group-hover:scale-95 md:hover:!scale-105">
       {/* background image */}
@@ -97,7 +103,7 @@ const Card = ({ bgUrl, title, subTitle, offer }) => {
       <div className="h-full w-full z-10 flex flex-col items-center py-6 lg:py-8 rounded-md">
         <div className="flex flex-col items-center gap-y-4">
           <p className="text-gray-200 text-lg">{subTitle}</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-100 cursor-pointer">
+          <h2 className="text-3xl text-center md:text-4xl font-bold text-gray-100 cursor-pointer">
             {title}
           </h2>
           <p className="text-gray-200 text-xl">
@@ -108,7 +114,13 @@ const Card = ({ bgUrl, title, subTitle, offer }) => {
           </p>
         </div>
 
-        <button className="flex items-center my-4 md:my-6 gap-x-2 text-xl text-accent-800 hover:bg-accent-50/60 transition-all duration-500 bg-white px-4 py-2 md:px-6 md:py-3 rounded-xl">
+        <button
+          onClick={() => {
+            window.scrollTo(0, 0);
+            navigate(`/EcoVibe/Explore-Products/${query}`);
+          }}
+          className="flex items-center my-4 md:my-6 gap-x-2 text-xl text-accent-800 hover:bg-accent-50/60 transition-all duration-500 bg-white px-4 py-2 md:px-6 md:py-3 rounded-xl"
+        >
           <span>Shop Now</span>
           <FaArrowRight />
         </button>
