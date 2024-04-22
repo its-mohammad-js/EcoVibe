@@ -15,7 +15,6 @@ function ExploreProducts() {
   useEffect(() => {
     // destructure qeury to key / value array
     const query = queryToFilterObject(queryParams);
-    console.log(query);
     // dispatch filters
     if (query.length) {
       query.forEach((filter) => {
@@ -33,7 +32,7 @@ function ExploreProducts() {
 
   return (
     <>
-      <div className="mx-auto min-h-screen 2xl:max-w-screen-2xl flex flex-col gap-y-6 md:px-2">
+      <div className="mx-auto min-h-screen 2xl:max-w-screen-2xl flex flex-col md:gap-y-2 md:px-2">
         {/* search / sort and filter product */}
         <FilterProduct />
         {/* filtered product */}

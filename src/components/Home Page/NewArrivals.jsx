@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { filterProducts } from "../../helpers/filterPorducts";
 import { calculateAverage } from "../../helpers/constants";
-import { FaCartPlus, FaPlus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
 import ReactStars from "react-stars";
 import { Tilt } from "@jdion/tilt-react";
 import { useNavigate } from "react-router-dom";
@@ -135,6 +135,12 @@ const CustomizedProducts = () => {
   const filteredProducts = filterProducts(data, { tags: ["background"] });
   // generate a random index
   const randomIndex = Math.floor(Math.random() * filteredProducts.length);
+  // get product color options
+  const productsColors = filteredProducts?.map(
+    (product) =>
+      product.Options.filter((opt) => opt.title.toLowerCase() === "color")[0]
+        .options
+  );
 
   return (
     <div
@@ -209,17 +215,16 @@ const CustomizedProducts = () => {
 
               <div className="w-full h-2/3 flex items-center justify-evenly">
                 {/* return each color option of product as a span */}
-                {filteredProducts[randomIndex].Options[0].options.map(
-                  (opt, index) => (
+                {data.length &&
+                  productsColors[randomIndex].map((opt, index) => (
                     <span
                       key={index}
                       style={{
                         backgroundColor: opt,
                       }}
-                      className="p-4 rounded-full border-4 border-gray-800 hover:border-white transition-all"
+                      className="p-3.5 md:p-4 rounded-full border-4 border-gray-800 hover:border-white transition-all"
                     ></span>
-                  )
-                )}
+                  ))}
               </div>
             </Tilt>
 
@@ -228,11 +233,21 @@ const CustomizedProducts = () => {
               <h2 className="text-base md:text-xl text-white">Rate Product</h2>
 
               <div className="w-full h-5/6 flex items-center justify-evenly md:[&>span]:text-3xl [&>span]:cursor-pointer">
-                <span>👌</span>
-                <span>😄</span>
-                <span>🙂</span>
-                <span>☹️</span>
-                <span>😒</span>
+                <span className="md:hover:-translate-y-2 transition-all hover:scale-105">
+                  👌
+                </span>
+                <span className="md:hover:-translate-y-2 transition-all hover:scale-105">
+                  😄
+                </span>
+                <span className="md:hover:-translate-y-2 transition-all hover:scale-105">
+                  🙂
+                </span>
+                <span className="md:hover:-translate-y-2 transition-all hover:scale-105">
+                  ☹️
+                </span>
+                <span className="md:hover:-translate-y-2 transition-all hover:scale-105">
+                  😒
+                </span>
               </div>
             </Tilt>
           </motion.div>

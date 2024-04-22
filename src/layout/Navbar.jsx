@@ -240,13 +240,9 @@ const MobileNavbar = () => {
 const DesktopNavbar = () => {
   // detect pathname for desktop navbar
   const location = useLocation();
-  // mega menu state
-  const [menuisShow, setMenuIsShow] = useState(false);
   // sub menu content state
   const [subMenu, setSubMenu] = useState(0);
   const navigate = useNavigate();
-  // category menu state
-  const [categoryMenuShow, setCategoryMenu] = useState(false);
   // search query state
   const [searchQuery, setSearchQuery] = useState({
     category: "",
@@ -269,7 +265,6 @@ const DesktopNavbar = () => {
         searchText: "",
       });
       navigate(`/EcoVibe/Explore-Products/category=${cat.toLocaleLowerCase()}`);
-      setCategoryMenu(false);
     }
   }
 
@@ -305,10 +300,7 @@ const DesktopNavbar = () => {
         {/* logo */}
         <div
           onClick={() => {
-            // navigate to home page
             navigate("/EcoVibe/");
-            // reload page
-            window.location.reload();
           }}
           className="flex items-end justify-center gap-x-1.5 cursor-pointer"
         >
@@ -331,7 +323,6 @@ const DesktopNavbar = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            setCategoryMenu(false);
             navigate(
               `/EcoVibe/Explore-Products/category=${searchQuery.category.toLocaleLowerCase()}&searchQuery=${
                 searchQuery.searchText
@@ -349,8 +340,7 @@ const DesktopNavbar = () => {
             } px-4 py-2 relative bg-gray-100 border-gray-200 border-2 group`}
           >
             <button
-              onClick={() => setCategoryMenu((prev) => !prev)}
-              className="flex items-center gap-x-2 cursor-pointer peer"
+              className="flex items-center gap-x-2 cursor-pointer peer group"
               type="button"
             >
               <span
@@ -359,7 +349,7 @@ const DesktopNavbar = () => {
                 } text-2xl`}
               >
                 {location.pathname !== "/EcoVibe/" ? (
-                  <BiChevronDown />
+                  <BiChevronDown className="rotate-180 group-hover:rotate-0 transition-all" />
                 ) : (
                   <TbCategory />
                 )}
@@ -368,9 +358,7 @@ const DesktopNavbar = () => {
             </button>
             {/* categories list */}
             <div
-              className={`${
-                categoryMenuShow ? "block" : "hidden"
-              } absolute w-48 px-4 py-2 left-0 top-12 z-50 shadow-md bg-gray-100 rounded-md`}
+              className={`absolute w-48 invisible opacity-0 peer-hover:visible peer-hover:opacity-100 hover:visible hover:opacity-100 duration-500 transition-all px-4 py-2 left-0 top-12 z-50 shadow-md bg-gray-100 rounded-md`}
             >
               <ul>
                 {supportedCategories.map((category, index) => (
@@ -446,19 +434,14 @@ const DesktopNavbar = () => {
         } items-center justify-between px-8 py-4 relative`}
       >
         {/* mega menu button */}
-        <button
-          onClick={() => setMenuIsShow((prev) => !prev)}
-          className="px-4 py-3 bg-secondary-500 text-white hover:bg-primary-700 transition-all rounded-md cursor-pointer flex items-center gap-x-2"
-        >
+        <button className="px-4 py-3 bg-secondary-500 text-white hover:bg-primary-700 transition-all rounded-md cursor-pointer flex items-center gap-x-2 group peer">
           {/* menu button */}
           <span className="text-2xl">
             <MdMenu />
           </span>
           <span>All Categories</span>
           <span
-            className={`${
-              menuisShow && "rotate-180"
-            } text-3xl transition-all duration-300`}
+            className={`group-hover:rotate-180 text-3xl transition-all duration-300`}
           >
             <BiChevronDown />
           </span>
@@ -466,7 +449,7 @@ const DesktopNavbar = () => {
 
         {/* mega menu (categories & product types) */}
         <div
-          className={`${menuisShow ? "block" : "hidden"} absolute top-24 z-20`}
+          className={`invisible opacity-0 peer-hover:visible peer-hover:opacity-100 hover:visible hover:opacity-100 duration-[600ms] absolute top-[5.2rem] z-20`}
         >
           <div className="flex flex-col gap-y-2 px-4 py-2 w-72 rounded-md bg-slate-100 tooltip relative">
             {/* categories */}
@@ -474,7 +457,7 @@ const DesktopNavbar = () => {
               <button
                 onClick={() => setSubMenu(index)}
                 key={index}
-                className="text-lg group cursor-pointer peer text-slate-950 group hover:text-primary-300 transition-all flex items-center justify-between"
+                className="text-lg group cursor-pointer peer focus:text-primary-400 text-slate-950 group hover:text-primary-400 transition-all flex items-center justify-between"
               >
                 <span>{category.title}</span>
                 <span className="text-xl">

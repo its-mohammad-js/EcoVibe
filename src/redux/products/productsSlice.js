@@ -18,10 +18,14 @@ export const getFilteredProducts = createAsyncThunk(
       }));
       // filter merged data by filter object
       const filteredData = filterProducts(mergedData, payload);
+      // throw error if no product find
+      if (!filteredData.length) {
+        throw new Error("No products found!");
+      }
       // finnaly return data
       return filteredData;
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       return rejectWithValue(error.message);
     }
   }

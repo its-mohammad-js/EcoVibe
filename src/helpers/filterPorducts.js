@@ -1,3 +1,6 @@
+import { retry } from "@reduxjs/toolkit/query";
+import { calculateAverage } from "./constants";
+
 export function filterProducts(products, filters) {
   // if filters are empty return products
   if (!filters) {
@@ -14,6 +17,8 @@ export function filterProducts(products, filters) {
     priceRange = { min: 0, max: 1000 },
     seller = "",
     selectedOptions = [],
+    sortBy = "",
+    relevant = "most",
   } = filters;
 
   // Initialize an empty array to store the filtered products
@@ -102,26 +107,40 @@ export function filterProducts(products, filters) {
   }
 
   // Sort the filteredProducts array according to the filters.sortBy property
-  if (filters.sortBy !== "") {
-    filteredProducts.sort((a, b) => {
-      if (filters.sortBy === "high to low") {
-        return b.Price - a.Price;
-      } else if (filters.sortBy === "low to high") {
-        return a.Price - b.Price;
-      } else if (
-        a.Tags.includes(filters.sortBy) &&
-        !b.Tags.includes(filters.sortBy)
-      ) {
-        return -1;
-      } else if (
-        !a.Tags.includes(filters.sortBy) &&
-        b.Tags.includes(filters.sortBy)
-      ) {
-        return 1;
-      } else {
-        return 0;
+  if (sortBy !== "") {
+    filteredProducts = filteredProducts.sort((productA, productB) => {
+      switch (sortBy) {
+        case "Popular":
+          return (
+            calculateAverage(productB.Stars) - calculateAverage(productA.Stars)
+          );
+        case "High To Low":
+          return Number(productB.Price) - Number(productA.Price);
+        case "Low To High":
+          return Number(productA.Price) - Number(productB.Price);
+        case "Best Sell":
+          return productA.Tags.find((tag) => tag.toLowerCase() === "trend");
+        default:
+          return productA;
       }
     });
+  }
+
+  if (relevant) {
+    switch (relevant) {
+      case "most":
+        return filteredProducts;
+      case "least":
+        return filteredProducts.reverse();
+      default:
+        break;
+    }
+  }
+
+  if (!products.length) {
+    throw new Error(
+      "Uh oh! We can't seem to connect. Try refreshing the page."
+    );
   }
 
   return filteredProducts;

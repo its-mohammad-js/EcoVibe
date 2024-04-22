@@ -5,6 +5,7 @@ import ReactStars from "react-stars";
 import { calculateAverage } from "../../helpers/constants";
 import CollectionGalleryLoader from "../Loaders/CollectionGalleryLoader";
 import SimpleBanner from "./SimpleBanner";
+import { useId } from "react";
 
 function CollectionsGallery({ products, isLoading }) {
   // get summer collectionfrom all products
@@ -14,7 +15,8 @@ function CollectionsGallery({ products, isLoading }) {
 
   if (isLoading) return <CollectionGalleryLoader />;
 
-  if (summerCollection.length && !isLoading)
+  // return when all selected products are fetched
+  if (summerCollection.length >= 4 && !isLoading)
     return (
       <>
         <div className="mx-auto 2xl:max-w-screen-2xl mt-6 bg-gray-100 py-4 lg:py-6">
@@ -27,20 +29,28 @@ function CollectionsGallery({ products, isLoading }) {
             id="wrapper"
             className="flex flex-col gap-y-3 lg:flex-row lg:gap-x-3 items-center px-2 py-1 lg:px-4 lg:py-2 lg:h-[450px]"
           >
-            <CustomeProductCard product={summerCollection[0]} />
+            <CustomeProductCard
+              product={summerCollection[0]}
+              key={summerCollection[0].id}
+            />
 
             <div className="flex items-center gap-x-3 w-full">
               <CustomeProductCard
                 product={summerCollection[1]}
+                key={summerCollection[1].id}
                 minimal={true}
               />
               <CustomeProductCard
                 product={summerCollection[2]}
+                key={summerCollection[2].id}
                 minimal={true}
               />
             </div>
 
-            <CustomeProductCard product={summerCollection[3]} />
+            <CustomeProductCard
+              product={summerCollection[3]}
+              key={summerCollection[3].id}
+            />
           </div>
         </div>
         {/* offer banner (only visible on moblie) */}

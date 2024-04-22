@@ -9,7 +9,7 @@ function ShopHeroSection() {
     speed: 1200,
     dots: true,
     appendDots: appendDotsFunc,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 1800,
   };
   const sliderRef = useRef(null);

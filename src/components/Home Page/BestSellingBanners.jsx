@@ -48,7 +48,7 @@ function BestSellingBanners() {
         {bannersInfo.map((banner, index) => (
           <Tilt
             key={index}
-            className="w-full md:w-2/5 h-48 md:h-64 relative cursor-pointer"
+            className="w-full md:w-2/5 h-48 md:h-64 relative cursor-pointer group"
           >
             <div className="w-full h-full">
               {/* banner background */}
@@ -56,7 +56,7 @@ function BestSellingBanners() {
                 <img
                   src={banner.bgurl}
                   alt="banner-pic"
-                  className="w-full h-full object-cover object-top rounded-xl"
+                  className="w-full h-full object-cover object-top rounded-xl group-hover:object-left-bottom transition-all duration-1000"
                 />
               </div>
               {/* banner description */}

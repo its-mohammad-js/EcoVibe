@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import ProductsContainer from "../Products/ProductsContainer";
+import ProductsContainer from "../ProductsContainer/ProductsContainer";
 import { motion } from "framer-motion";
 import { filterProducts } from "../../helpers/filterPorducts";
 import { useMediaQuery } from "react-responsive";

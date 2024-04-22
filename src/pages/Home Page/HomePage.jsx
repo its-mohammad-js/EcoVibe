@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/redux/products/productsSlice";
 import HeroSection from "src/components/Home Page/HomeHeroSection";
-import ProductsContainer from "src/components/Products/ProductsContainer";
+import ProductsContainer from "src/components/ProductsContainer/ProductsContainer";
 import CollectionsGallery from "src/components/Home Page/CollectionsGallery";
 import ProductsGallery from "src/components/Home Page/ProductsGallery";
 import TopCards from "src/components/Home Page/TopCards";
@@ -26,7 +26,7 @@ function HomePage() {
 
   // get all products data from data base
   useEffect(() => {
-    dispatch(getFilteredProducts());
+    dispatch(getFilteredProducts({ sortBy: "" }));
   }, []);
 
   return (

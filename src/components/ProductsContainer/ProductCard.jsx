@@ -8,7 +8,7 @@ function ProductCard(props) {
   const { Thumbnail, Name, Price, Stars } = props;
 
   return (
-    <div className="flex flex-col items-center justify-between hover:-translate-y-0.5 duration-500 h-72 md:h-80 md:w-56 w-44 bg-gray-50 rounded-lg hover:shadow-md transition-all">
+    <div className="flex flex-col items-center justify-between hover:-translate-y-0.5 duration-500 h-72 md:h-80 md:w-56 w-44 bg-gray-50 rounded-lg hover:shadow-md transition-all cursor-pointer">
       {/* product cover */}
       <div className="w-full h-3/5 relative">
         <img
@@ -24,7 +24,9 @@ function ProductCard(props) {
       </div>
       {/* product description */}
       <div className="flex flex-col justify-between px-3 py-1.5 md:px-4 md:py-2 h-2/5 w-full">
-        <h2 className="font-bold line-clamp-2 md:mt-1">{Name}</h2>
+        <h2 className="font-bold line-clamp-2 md:mt-1 hover:text-primary-700 transition-all">
+          {Name}
+        </h2>
 
         <div className="w-full flex items-center justify-between py-1">
           <div className="">

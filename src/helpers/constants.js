@@ -267,3 +267,6 @@ export function queryToFilterObject(queryParams) {
 
   return keyQuery;
 }
+
+export const errorIconUrl =
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FError%20Ilustration.png?alt=media&token=44e6f168-e69d-4f7b-8f82-b5129fdf535b";

@@ -50,10 +50,8 @@ function Footer() {
             {/* logo */}
             <div
               onClick={() => {
-                // navigate to home page
+                window.scrollTo(0, 0);
                 navigate("/EcoVibe/");
-                // reload page
-                window.location.reload();
               }}
               className="flex items-end w-full md:w-fit justify-center gap-x-2.5 cursor-pointer"
             >

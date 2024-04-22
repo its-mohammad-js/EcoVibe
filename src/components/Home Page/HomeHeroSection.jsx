@@ -2,6 +2,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { heroSectionsInfo } from "../../helpers/constants";
 
 import SimpleBanner from "./SimpleBanner";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -18,9 +19,9 @@ const HeroSection = () => {
           </div>
           <div className="bg-black bg-opacity-25 backdrop-blur-sm hover:backdrop-blur-md transition-all duration-300 absolute w-full h-full z-10 flex flex-col items-start justify-center px-6 py-2 rounded-md">
             <h1 className="text-white text-3xl md:text-5xl font-bold">
-              Fresh & Healthy <br />
-              <span className="text-primary-500">Organic&nbsp;</span>
-              Food
+              Stay
+              <span className="text-primary-500">&nbsp;connected</span> <br />
+              anywhere, anytime!
             </h1>
             <div className="flex flex-col items-start justify-between md:gap-y-4 gap-y-2 md:px-4 mf:py-2 px-2 py-1 border-l-4 mt-2 border-primary-600">
               <p className="text-white text-lg md:text-xl cursor-pointer">
@@ -33,9 +34,12 @@ const HeroSection = () => {
                 Free shipping on all your order.
               </span>
             </div>
-            <button className="md:px-10 px-4 font-semibold hover:bg-primary-700 hover:text-white transition-all duration-500 py-2 bg-white text-primary-600 ml-2 mt-4 rounded-lg text-sm md:text-lg">
+            <Link
+              to="Explore-Products/productTypes=smart phones"
+              className="md:px-10 px-4 font-semibold hover:bg-primary-700 hover:text-white transition-all duration-500 py-2 bg-white text-primary-600 ml-2 mt-4 rounded-lg text-sm md:text-lg"
+            >
               Shop Now
-            </button>
+            </Link>
           </div>
         </div>
         <div className="flex w-full h-1/4 md:h-full md:w-1/3 items-center md:flex-col justify-between gap-x-2 cursor-pointer">
@@ -58,10 +62,13 @@ const HeroSection = () => {
               <span className="md:text-sm text-gray-300 text-xs md:block hidden">
                 Only Fashion & clothes
               </span>
-              <button className="md:px-3 md:py-1.5 text-xs px-2 py-1 md:text-base bg-primary-400 rounded-lg text-white flex items-center justify-center gap-x-2 hover:scale-110 transition-all duration-300">
+              <Link
+                to="Explore-Products/tags=best sell"
+                className="md:px-3 md:py-1.5 text-xs px-2 py-1 md:text-base bg-primary-400 rounded-lg text-white flex items-center justify-center gap-x-2 hover:scale-110 transition-all duration-300"
+              >
                 <span>Shop Now</span>
                 <FaArrowLeft className="rotate-180" />
-              </button>
+              </Link>
             </div>
           </div>
           <div className="md:w-full w-1/2 md:h-[240px] h-24 rounded-md bg-accent-400 relative">
@@ -80,10 +87,13 @@ const HeroSection = () => {
               <p className="text-white text-xs md:text-2xl lg:text-3xl font-bold border-b md:border-b-4 border-b-primary-500">
                 Special Products <br /> Deal of the Month
               </p>
-              <button className="md:px-3 md:py-1.5 px-2 py-1 text-xs md:text-lg rounded-lg text-white flex items-center justify-center gap-x-2 hover:scale-110 transition-all duration-300">
+              <Link
+                to="Explore-Products/category=fashion"
+                className="md:px-3 md:py-1.5 px-2 py-1 text-xs md:text-lg rounded-lg text-white flex items-center justify-center gap-x-2 hover:scale-110 transition-all duration-300"
+              >
                 <span>Shop Now</span>
                 <FaArrowLeft className="rotate-180" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

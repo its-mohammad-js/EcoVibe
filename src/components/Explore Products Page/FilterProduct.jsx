@@ -125,7 +125,7 @@ function FilterProduct() {
             onClick={() =>
               setMenuIsOpen((prev) => ({ ...prev, sort: !prev.sort }))
             }
-            className="bg-gray-50 md:bg-transparent w-full border-2 border-gray-200 px-3 py-1.5 rounded-lg flex items-center gap-x-2 text-lg md:font-medium"
+            className="bg-gray-50 md:bg-transparent w-full border-2 border-gray-200 px-3 py-1.5 rounded-lg flex items-center gap-x-2 md:font-medium"
           >
             <span>{menuIsOpen.sort ? <MdClose /> : <BiSort />}</span>
             <span className="line-clamp-1">{selectedFilters.sortBy}</span>
@@ -135,7 +135,7 @@ function FilterProduct() {
             onClick={() => setMenuIsOpen((prev) => ({ ...prev, sort: false }))}
             className={`${
               !menuIsOpen.sort || !isMobile ? "hidden" : ""
-            } fixed inset-0 bg-gray-950/65`}
+            } fixed inset-0 z-10 bg-gray-950/65`}
           ></div>
           {/* sort menu */}
           <div
@@ -188,7 +188,7 @@ function FilterProduct() {
             onClick={() =>
               setMenuIsOpen((prev) => ({ ...prev, filters: true }))
             }
-            className="bg-gray-50 border-2 w-full border-gray-200 px-3 py-1.5 rounded-lg flex items-center gap-x-2 text-lg md:hidden"
+            className="bg-gray-50 border-2 w-full border-gray-200 px-3 py-1.5 rounded-lg flex items-center gap-x-2 md:hidden"
           >
             <span>
               <FaFilter />
@@ -342,7 +342,12 @@ function FilterProduct() {
             </div>
 
             {/* close modal button (only on mobile screens) */}
-            <button className="px-4 py-2 md:hidden bg-primary-500 hover:bg-transparent border-2 border-transparent hover:border-primary-950 hover:text-primary-950 transition-all duration-300 rounded-md text-lg text-white font-semibold">
+            <button
+              onClick={() => {
+                setMenuIsOpen({ sort: false, filters: false });
+              }}
+              className="px-4 py-2 md:hidden bg-primary-500 hover:bg-transparent border-2 border-transparent hover:border-primary-950 hover:text-primary-950 transition-all duration-300 rounded-md text-lg text-white font-semibold"
+            >
               Show Items
             </button>
           </div>

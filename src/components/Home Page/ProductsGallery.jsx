@@ -1,5 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const galleryData = {
   menTshirts: {
@@ -7,30 +7,35 @@ const galleryData = {
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(2).webp?alt=media&token=fa0b6eb1-6bfd-487d-9cf9-2392cab8c623",
     title: "T-Shirt for men's",
     offer: "30%",
+    query: "Explore-Products/collections=men&productTypes=t-shirts",
   },
   menConverse: {
     imgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(1).webp?alt=media&token=21d0139d-5906-41ce-a471-6027b474dc56",
     title: "Men's Converse sneakers",
     offer: "40%",
+    query: "Explore-Products/collections=sneakers",
   },
   sweaterWomen: {
     imgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(5).webp?alt=media&token=85676e73-3572-443d-9697-deea3cb0e13d",
     title: "Sweater For Women",
     offer: "30-60%",
+    query: "Explore-Products/collections=women",
   },
   womenTshirts: {
     imgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(4).webp?alt=media&token=17802fd8-2f17-4e2e-ba9c-238d87b58de8",
     title: "T-shirt For Womens",
     offer: "40-50%",
+    query: "Explore-Products/collections=men&productTypes=t-shirts",
   },
   fashionBags: {
     imgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(3).webp?alt=media&token=2719153d-f9dd-40c8-a93d-306ec2b63e64",
     title: "Fashoinable Bag Women",
     offer: "20%",
+    query: "Explore-Products/category=fashion",
   },
 };
 
@@ -66,9 +71,13 @@ function ProductsGallery() {
               />
 
               <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
-                <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
+                <Link
+                  to={galleryData.menTshirts.query}
+                  onClick={() => window.scrollTo(0, 0)}
+                  className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all"
+                >
                   view more ...
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -90,11 +99,15 @@ function ProductsGallery() {
                 className="w-full h-full object-cover rounded-md"
               />
 
-              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
-                <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
+              <Link
+                to={galleryData.menConverse.query}
+                onClick={() => window.scrollTo(0, 0)}
+                className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center"
+              >
+                <span className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
                   view more ...
-                </button>
-              </div>
+                </span>
+              </Link>
             </div>
 
             <p className="flex flex-col items-center px-2 py-1 ">
@@ -117,11 +130,15 @@ function ProductsGallery() {
               className="w-full h-full object-cover rounded-md"
             />
 
-            <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
-              <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
+            <Link
+              to={galleryData.sweaterWomen.query}
+              onClick={() => window.scrollTo(0, 0)}
+              className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center"
+            >
+              <span className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
                 view more ...
-              </button>
-            </div>
+              </span>
+            </Link>
           </div>
 
           <p className="flex flex-col h-1/4 md:h-1/6 items-center justify-center px-2 py-1 md:px-4 md:py-2">
@@ -144,11 +161,15 @@ function ProductsGallery() {
                 className="w-full h-full object-cover rounded-md"
               />
 
-              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
-                <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
+              <Link
+                onClick={() => window.scrollTo(0, 0)}
+                to={galleryData.womenTshirts.query}
+                className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center"
+              >
+                <span className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
                   view more ...
-                </button>
-              </div>
+                </span>
+              </Link>
             </div>
 
             <p className="flex flex-col items-center px-2 py-1 ">
@@ -169,11 +190,15 @@ function ProductsGallery() {
                 className="w-full h-full object-cover rounded-md"
               />
 
-              <div className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center">
-                <button className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
+              <Link
+                onClick={() => window.scrollTo(0, 0)}
+                to={galleryData.fashionBags.query}
+                className="inset-0 bg-gray-300/70 absolute rounded invisible h-0 group-hover:h-full group-hover:visible ease-linear duration-500 flex items-center justify-center"
+              >
+                <span className="px-2 py-1 bg-white/65 text-black font-bold border-2 border-gray-300 rounded-md text-sm hidden group-hover:block md:text-lg hover:scale-110 transition-all">
                   view more ...
-                </button>
-              </div>
+                </span>
+              </Link>
             </div>
 
             <p className="flex flex-col items-center px-2 py-1 ">

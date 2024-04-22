@@ -40,7 +40,6 @@ function TopCards() {
     speed: 1200,
     slidesToShow: 1,
     slidesToScroll: 1,
-    fade: isMobile,
     appendDots: appendDotsFunc,
   };
 

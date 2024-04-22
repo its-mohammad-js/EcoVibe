@@ -1,11 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { filterProducts } from "../../helpers/filterPorducts";
 import ProductCard from "./ProductCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ProductsContainerLoader from "../Loaders/ProductsContainerLoader";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { changeFilterReducer as setFilter } from "src/redux/filters/filterSlice";
 
 function ProductsContainer({ isLoading, products, filterObject, title }) {
   // filter products data by trend tag
