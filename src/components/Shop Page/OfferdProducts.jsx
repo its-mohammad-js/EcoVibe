@@ -3,6 +3,7 @@ import ProductsContainer from "../ProductsContainer/ProductsContainer";
 import { motion } from "framer-motion";
 import { filterProducts } from "../../helpers/filterPorducts";
 import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
 
 function OfferdProducts() {
   const { loading, data } = useSelector((state) => state.products);
@@ -10,6 +11,7 @@ function OfferdProducts() {
   const offeredProducts = filterProducts(data, { tags: ["background"] });
   // detect screen size
   const isMobile = useMediaQuery({ maxWidth: 480 });
+  const navigate = useNavigate();
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl flex flex-col gap-y-6">
@@ -50,6 +52,10 @@ function OfferdProducts() {
               (product, index) =>
                 (isMobile && index > 0) || (
                   <motion.div
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      navigate(`/EcoVibe/Products/${product.id}`);
+                    }}
                     initial={{ scale: 0, rotateX: 180 }}
                     whileInView={{ scale: 1, rotateX: 0 }}
                     transition={{
@@ -58,7 +64,7 @@ function OfferdProducts() {
                       delay: index / 2,
                     }}
                     key={index}
-                    className="w-16 h-16 bg-gray-50 md:w-20 md:h-20 rounded-full relative"
+                    className="w-16 h-16 bg-gray-50 md:w-20 md:h-20 rounded-full relative cursor-pointer"
                   >
                     <img
                       src={product.Thumbnail}

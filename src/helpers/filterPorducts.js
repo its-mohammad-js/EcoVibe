@@ -1,4 +1,3 @@
-import { retry } from "@reduxjs/toolkit/query";
 import { calculateAverage } from "./constants";
 
 export function filterProducts(products, filters) {

@@ -277,7 +277,7 @@ const DesktopNavbar = () => {
         } w-full border-b border-gray-200 items-center justify-between px-8 py-2`}
       >
         {/* header links */}
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-5">
           {routesInfo.map(({ title, path }, index) => (
             <Link
               key={index}
@@ -329,7 +329,9 @@ const DesktopNavbar = () => {
               }`
             );
           }}
-          className="flex items-center flex-1 px-4 lg:px-16 h-12"
+          className={`${
+            location.pathname === "/EcoVibe/" ? "flex-1" : "w-fit"
+          } flex items-center px-4 lg:px-16 h-12`}
         >
           {/* categories menu */}
           <div
@@ -409,7 +411,43 @@ const DesktopNavbar = () => {
             <BiSearch />
           </button>
         </form>
-
+        {/* quick access links */}
+        <div
+          className={`${
+            location.pathname === "/EcoVibe/" ? "!hidden" : "flex-1"
+          } hidden lg:flex items-center justify-start gap-x-4 xl:gap-x-8 px-2`}
+        >
+          <Link
+            to="/EcoVibe/"
+            className="text-xl hover:text-primary-600 transition-all"
+          >
+            Home
+          </Link>
+          <Link
+            to="/EcoVibe/Shop"
+            className="text-xl hover:text-primary-600 transition-all"
+          >
+            Shop
+          </Link>
+          <Link
+            to="/EcoVibe/Explore-products/"
+            className="text-xl hover:text-primary-600 transition-all"
+          >
+            Explore
+          </Link>
+          <Link
+            to="/EcoVibe/"
+            className="text-xl hover:text-primary-600 transition-all"
+          >
+            Contact
+          </Link>
+          <Link
+            to="/EcoVibe/"
+            className="text-xl hover:text-primary-600 transition-all"
+          >
+            About Me
+          </Link>
+        </div>
         {/* side buttons */}
         <div className="flex items-center justify-center gap-x-2 xl:gap-x-4">
           <div className=" hidden xl:flex flex-col items-start px-4 text-gray-600">

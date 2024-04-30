@@ -141,6 +141,7 @@ const CustomizedProducts = () => {
       product.Options.filter((opt) => opt.title.toLowerCase() === "color")[0]
         .options
   );
+  const navigate = useNavigate();
 
   return (
     <div
@@ -179,7 +180,15 @@ const CustomizedProducts = () => {
           >
             {/* product details */}
             <div className="flex w-full items-center justify-between">
-              <h6 className="line-clamp-1 cursor-pointer text-2xl font-bold hover:text-primary-800 transition-all">
+              <h6
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  navigate(
+                    `/EcoVibe/Products/${filteredProducts[randomIndex].id}`
+                  );
+                }}
+                className="line-clamp-1 cursor-pointer text-2xl font-bold hover:text-primary-800 transition-all"
+              >
                 {filteredProducts[randomIndex].Name}
               </h6>
               <button className="text-xl p-2.5 group hover:bg-primary-700 transition-all rounded-full bg-primary-950 text-gray-300">
@@ -197,9 +206,15 @@ const CustomizedProducts = () => {
             </div>
             <div className="h-4/6 w-full">
               <img
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  navigate(
+                    `/EcoVibe/Products/${filteredProducts[randomIndex].id}`
+                  );
+                }}
                 src={filteredProducts[randomIndex].Thumbnail}
                 alt={filteredProducts[randomIndex].Name}
-                className="w-full h-full object-cover rounded-2xl"
+                className="w-full h-full object-cover rounded-2xl cursor-pointer"
               />
             </div>
             <div className="w-full text-center text-accent-800/80 text-2xl mt-3 font-bold">

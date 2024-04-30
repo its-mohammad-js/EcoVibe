@@ -3,7 +3,6 @@ import { BiDollar, BiSort } from "react-icons/bi";
 import {
   FaCheck,
   FaFilter,
-  FaInfoCircle,
   FaSearch,
   FaSortAmountDown,
   FaTrash,
@@ -16,11 +15,11 @@ import {
   getCategoryData,
 } from "../../helpers/constants";
 import FilterOptionRow from "./FilterOptionRow";
-import { getProductOption } from "../../helpers/productOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFilterReducer as setFilter } from "src/redux/filters/filterSlice";
 import MultiThumbRange from "./MultiThumbRange";
 import { useNavigate, useParams } from "react-router-dom";
+import ProductOptions from "./ProductOptions";
 
 function FilterProduct() {
   // check screen size of user device
@@ -51,8 +50,6 @@ function FilterProduct() {
   const { collections, productTypes } = getCategoryData(
     selectedFilters.category.toString()
   );
-  // get option's of specific product
-  const productOptions = getProductOption(selectedFilters.productTypes[0]);
   // filter row's data
   const filterOptionRows = [
     {
@@ -305,40 +302,7 @@ function FilterProduct() {
                 </div>
               </div>
               {/* product options filter */}
-              <div>
-                <h4 className="text-2xl font-bold flex items-center my-2">
-                  <span>
-                    <BiSort />
-                  </span>
-                  <span>Product Options :</span>
-                </h4>
-                <div className="flex flex-col gap-y-4">
-                  {selectedFilters.productTypes.length === 1 &&
-                  productOptions.length ? (
-                    productOptions.map(({ title, options }, index) => (
-                      <FilterOptionRow
-                        isMobile={isMobile}
-                        key={index}
-                        title={title}
-                        filterKey={"selectedOptions"}
-                        filterOptions={options}
-                        selectedFilters={selectedFilters}
-                        changeFilterHandler={changeFilterHandler}
-                        isOption={true}
-                      />
-                    ))
-                  ) : (
-                    <div className="w-full h-10 gap-x-1.5 font-medium flex items-center justify-center">
-                      <span className="mb-0.5">
-                        <FaInfoCircle />
-                      </span>
-                      <span className="text-sm">
-                        Please Select A Specific Product Type !
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
+              <ProductOptions onSelectOption={changeFilterHandler} />
             </div>
 
             {/* close modal button (only on mobile screens) */}

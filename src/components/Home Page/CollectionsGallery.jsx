@@ -6,6 +6,7 @@ import { calculateAverage } from "../../helpers/constants";
 import CollectionGalleryLoader from "../Loaders/CollectionGalleryLoader";
 import SimpleBanner from "./SimpleBanner";
 import { useId } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CollectionsGallery({ products, isLoading }) {
   // get summer collectionfrom all products
@@ -66,15 +67,22 @@ const CustomeProductCard = ({ product, minimal }) => {
   const productColors = product?.Options?.filter(
     (opt) => opt.title.toLowerCase() === "color"
   );
+  const navigate = useNavigate();
+
+  console.log(product.id);
 
   return (
-    <div className="w-full h-80 lg:h-96 bg-gray-300/35 rounded-xl cursor-pointer">
+    <div className="w-full h-80 lg:h-96 bg-gray-300/35 rounded-xl">
       <div className="w-full h-3/5 relative">
         <img
+          onClick={() => {
+            window.scrollTo(0, 0);
+            navigate(`/EcoVibe/Products/${product.id}`);
+          }}
           loading="lazy"
           src={product.Thumbnail}
           alt={product.Name}
-          className="w-full h-full rounded-t-md object-cover"
+          className="w-full h-full rounded-t-md object-cover cursor-pointer"
         />
 
         <button className="absolute top-2 right-2 text-xl md:text-2xl bg-gray-50/60 p-1.5 hover:scale-110 transition-all duration-300 rounded-full group">
@@ -86,7 +94,15 @@ const CustomeProductCard = ({ product, minimal }) => {
       <div className="flex flex-col items-start h-2/5 justify-between px-4 py-2">
         <div>
           <span className="text-xs my-0.5">{product.Tags[0]}</span>
-          <h2 className="font-bold">{product.Name}</h2>
+          <h2
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate(`/EcoVibe/Products/${product.id}`);
+            }}
+            className="font-bold hover:text-primary-600 transition-all cursor-pointer"
+          >
+            {product.Name}
+          </h2>
 
           <div
             className={`${

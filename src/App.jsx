@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ProductDetailsPage from "./pages/Product Detail Page/ProductDetailsPage";
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
           <Route
             path="/EcoVibe/Explore-Products/:filters?"
             element={<ExploreProducts />}
+          />
+          <Route
+            path="/EcoVibe/Products/:productId?"
+            element={<ProductDetailsPage />}
           />
         </Routes>
       </AppLayout>

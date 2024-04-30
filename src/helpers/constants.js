@@ -270,3 +270,24 @@ export function queryToFilterObject(queryParams) {
 
 export const errorIconUrl =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FError%20Ilustration.png?alt=media&token=44e6f168-e69d-4f7b-8f82-b5129fdf535b";
+
+// get product option by product type
+export const getProductOption = (productType, optionsList = []) => {
+  if (!productType || !optionsList.length || !optionsList) {
+    return [];
+  }
+
+  const productOptions = optionsList.filter(
+    (opt) => opt.productType.toLocaleLowerCase() === productType
+  )[0].productOptions;
+
+  if (productOptions.length > 0) {
+    const reducedOptions = productOptions?.map((opt) => {
+      const updatedOptions = opt.options.map((opt) => ({ title: opt }));
+
+      return { title: opt.title, options: updatedOptions };
+    });
+
+    return reducedOptions;
+  }
+};

@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
 
 const MultiRangeSlider = ({ min, max, onChange }) => {
+  // get selected range
+  const priceRange = useSelector((state) => state.filters?.priceRange);
   // value of range inputs
   const [{ minVal, maxVal }, setRange] = useState({
     minVal: min,
@@ -17,13 +20,21 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
     [min, max]
   );
 
+  // reset  multi range style on clear price range
+  useEffect(() => {
+    if (priceRange && priceRange.min === min && priceRange.max === max) {
+      range.current.style.width = "100%";
+      setRange({ minVal: min, maxVal: max });
+    }
+  }, [priceRange]);
+
   // on range change handler
   function changeInputHandler({ target }) {
     if (target.name === "maxVal") {
-      if (target.value <= minVal) return;
+      if (target.value <= minVal + 20) return;
     }
     if (target.name === "minVal") {
-      if (target.value >= maxVal) return;
+      if (target.value >= maxVal - 20) return;
     }
     // set range state
     setRange((prev) => ({ ...prev, [target.name]: Number(target.value) }));

@@ -10,6 +10,7 @@ import { FaEye, FaHeart, FaStar } from "react-icons/fa";
 import PaginationButtons from "./PaginationButtons";
 import { BiCart } from "react-icons/bi";
 import FilteredProductsLoader from "../Loaders/FilteredProductsLoader";
+import { useNavigate } from "react-router-dom";
 
 function FilteredProducts() {
   // get selected filters
@@ -19,9 +20,7 @@ function FilteredProducts() {
   // paginated product
   const paginatedProduct = paginateProducts(data, 8);
   const dispatch = useDispatch();
-
-  console.clear();
-  console.log(error && !loading);
+  const navigate = useNavigate();
 
   // get filtered products on each filter change
   useEffect(() => {
@@ -73,7 +72,7 @@ function FilteredProducts() {
             return (
               <div
                 key={index}
-                className="w-[48%] md:w-1/4 md:border h-64 md:h-96 cursor-pointer bg-gray-50 rounded-md md:rounded-none shadow-2xl shadow-gray-500/10 hover:shadow-gray-800 transition-all duration-500 group hover:z-10"
+                className="w-[48%] md:w-1/4 md:border h-64 md:h-96 bg-gray-50 rounded-md md:rounded-none shadow-2xl shadow-gray-500/10 hover:shadow-gray-800 transition-all duration-500 group hover:z-10"
               >
                 <div className="w-full h-1/2 md:h-2/3 relative bg-gradient-to-br from-primary-100 via-gray-200 to-primary-500/50 rounded-t-md md:rounded-none">
                   {/* quick access buttons */}
@@ -101,7 +100,13 @@ function FilteredProducts() {
                 {/* product details */}
                 <div className="w-full h-1/2 md:h-1/3 flex flex-col justify-evenly gap-y-4 px-2.5 py-1.5">
                   {/* product name */}
-                  <h4 className="line-clamp-1 group-hover:text-primary-500 transition-all md:text-lg">
+                  <h4
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      navigate(`/EcoVibe/Products/${item.id}`);
+                    }}
+                    className="line-clamp-1 cursor-pointer group-hover:text-primary-500 transition-all md:text-lg"
+                  >
                     {item.Name}
                   </h4>
                   <div className="flex flex-col gap-y-2 md:flex-row md:items-center">
