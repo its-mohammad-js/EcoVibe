@@ -7,6 +7,7 @@ import { SiGmail } from "react-icons/si";
 import { useDispatch } from "react-redux";
 import {
   signInWithEmail,
+  signInWithGitHub,
   signInWithGoogle,
 } from "../../../redux/auth/regularUsers/regluarUsersSlice";
 
@@ -120,7 +121,11 @@ function SignIn() {
           {/* quick sign in button's */}
           <hr />
           <div className="flex flex-col gap-y-4 w-11/12 md:w-full">
+            {/* sign in with github */}
             <button
+              onClick={() => {
+                dispatch(signInWithGitHub());
+              }}
               type="button"
               className="flex items-center justify-between gap-x-2 px-4 py-3 bg-gray-950 hover:bg-gray-800 transition-all rounded-md"
             >
