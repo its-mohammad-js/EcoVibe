@@ -1,10 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
-import { auth, db } from "../../../config/firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, db, googleProvider } from "../../../config/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // create new cell for user data on data base
@@ -71,13 +67,15 @@ export const signInWithGoogle = createAsyncThunk(
   async (payload, { fulfillWithValue, rejectWithValue }) => {
     try {
       // authenticate usr with google
-      const { user } = await signInWithPopup(auth, GoogleAuthProvider);
+      const { user } = await signInWithPopup(auth, googleProvider);
+      console.log(user);
       // create new cell on database for user
       await createUserDataCell(user?.uid);
       // disptach success after two requests
       console.log("signed in successfuly !");
       return fulfillWithValue({ uid: user?.uid, userName: user?.email });
     } catch (error) {
+      console.log(error);
       // dispatch failure
       return rejectWithValue(error?.message);
     }

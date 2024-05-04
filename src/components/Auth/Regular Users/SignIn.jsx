@@ -87,7 +87,7 @@ function SignIn() {
             errors={errors}
           />
           {/* password inputs */}
-          <div className="max-w-full flex flex-col items-center gap-4 lg:flex-row lg:items-start">
+          <div className="w-full flex flex-col items-center gap-4 lg:flex-row lg:items-start">
             <Input
               name="password"
               placeholder={"Enter Password"}
