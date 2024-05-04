@@ -91,6 +91,7 @@ export const signInWithGitHub = createAsyncThunk(
   "userData/signInWithGitHub",
   async (payload, { rejectWithValue, fulfillWithValue }) => {
     try {
+      console.log("payload");
       // authenticate user with github
       const { user } = await signInWithPopup(auth, gitHubProvider);
       // create new data cell for user on database
