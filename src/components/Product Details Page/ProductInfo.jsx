@@ -13,29 +13,6 @@ import {
 import ReactStars from "react-stars";
 import { calculateAverage } from "../../helpers/constants";
 
-const fakeFaqs = [
-  {
-    title: "How to Buy product",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum mollitia nobis ea laboriosam aperiam corrupti recusandae amet ducimus soluta eaque repudiandae cum quisquam, praesentium voluptate fugiat consequuntur earum, ratione id.",
-  },
-  {
-    title: "Sign In",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum mollitia nobis ea laboriosam aperiam corrupti recusandae amet ducimus soluta eaque repudiandae cum quisquam, praesentium voluptate fugiat consequuntur earum, ratione id.",
-  },
-  {
-    title: "How to Become A seller",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum mollitia nobis ea laboriosam aperiam corrupti recusandae amet ducimus soluta eaque repudiandae cum quisquam, praesentium voluptate fugiat consequuntur earum, ratione id.",
-  },
-  {
-    title: "How to reject product",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum mollitia nobis ea laboriosam aperiam corrupti recusandae amet ducimus soluta eaque repudiandae cum quisquam, praesentium voluptate fugiat consequuntur earum, ratione id.",
-  },
-];
-
 function ProductInfo() {
   const { data, loading } = useSelector((state) => state.products);
   const dispatch = useDispatch();
