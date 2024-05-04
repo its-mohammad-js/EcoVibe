@@ -44,17 +44,37 @@ export const getUserData = createAsyncThunk(
   }
 );
 
-// create new account with email & password
-export const signInWithEmail = createAsyncThunk(
+// create new account on different method's
+export const signIn = createAsyncThunk(
   "userData/signInEmail",
   async (payload, { fulfillWithValue, rejectWithValue }) => {
     try {
-      // create new account with email & userName
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        payload.email,
-        payload.password
-      );
+      let user = {};
+      // switch onsign in available sign in method
+      switch (payload?.method) {
+        case "emailPass":
+          // create new account with email & pass
+          await createUserWithEmailAndPassword(
+            auth,
+            payload.email,
+            payload.password
+          ).then((res) => (user = res.user));
+          break;
+        case "gitHub":
+          // create new account with github
+          await signInWithPopup(auth, gitHubProvider).then(
+            (res) => (user = res.user)
+          );
+          break;
+        case "google":
+          // create new account with google
+          await signInWithPopup(auth, googleProvider).then(
+            (res) => (user = res.user)
+          );
+          break;
+        default:
+          throw new Error("Error : Unknown Action !");
+      }
       // create a cell on data base for user
       await createUserDataCell(user?.uid);
       // disptach success after two requests
@@ -67,45 +87,7 @@ export const signInWithEmail = createAsyncThunk(
   }
 );
 
-// create new account with google
-export const signInWithGoogle = createAsyncThunk(
-  "userData/signInWithGoogle",
-  async (payload, { fulfillWithValue, rejectWithValue }) => {
-    try {
-      // authenticate usr with google
-      const { user } = await signInWithPopup(auth, googleProvider);
-      // create new cell on database for user
-      await createUserDataCell(user?.uid);
-      // disptach success after two requests
-      console.log("signed in successfuly !");
-      return fulfillWithValue({ uid: user?.uid, userName: user?.email });
-    } catch (error) {
-      console.log(error);
-      // dispatch failure
-      return rejectWithValue(error?.message);
-    }
-  }
-);
-// create new account with gitHub
-export const signInWithGitHub = createAsyncThunk(
-  "userData/signInWithGitHub",
-  async (payload, { rejectWithValue, fulfillWithValue }) => {
-    try {
-      console.log("payload");
-      // authenticate user with github
-      const { user } = await signInWithPopup(auth, gitHubProvider);
-      // create new data cell for user on database
-      await createUserDataCell(user?.uid);
-      // disptach success after two requests
-      console.log("signed in successfuly !");
-      return fulfillWithValue({ uid: user?.uid, userName: user?.email });
-    } catch (error) {
-      console.log(error);
-      return rejectWithValue(error?.message);
-    }
-  }
-);
-
+// default state
 const defaultUserData = {
   userName: "",
   uid: "",
@@ -122,42 +104,16 @@ const userSlice = createSlice({
   name: "userData",
   initialState: defaultUserData,
   extraReducers: (builder) => {
-    // sign in with email Reducer
-    builder.addCase(signInWithEmail.pending, (state, action) => {
+    // sign in Reducer
+    builder.addCase(signIn.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(signInWithEmail.fulfilled, (state, { payload }) => {
+    builder.addCase(signIn.fulfilled, (state, { payload }) => {
       state.loading = false;
       state.uid = payload.uid;
       state.userName = payload.userName;
     });
-    builder.addCase(signInWithEmail.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
-    // sign in with google reducer
-    builder.addCase(signInWithGoogle.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(signInWithGoogle.fulfilled, (state, { payload }) => {
-      state.loading = false;
-      state.uid = payload.uid;
-      state.userName = payload.userName;
-    });
-    builder.addCase(signInWithGoogle.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
-    // sign in with gitHub provider
-    builder.addCase(signInWithGitHub.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(signInWithGitHub.fulfilled, (state, { payload }) => {
-      state.loading = false;
-      state.uid = payload.uid;
-      state.userName = payload.userName;
-    });
-    builder.addCase(signInWithGitHub.rejected, (state, action) => {
+    builder.addCase(signIn.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
@@ -169,7 +125,5 @@ const userSlice = createSlice({
   },
 });
 
-// action creator
-export const { authUserWithEmail } = userSlice.actions;
 // export main reducer
 export default userSlice.reducer;

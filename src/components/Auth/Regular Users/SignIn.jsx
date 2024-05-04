@@ -5,11 +5,7 @@ import { FaFacebook } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { SiGmail } from "react-icons/si";
 import { useDispatch } from "react-redux";
-import {
-  signInWithEmail,
-  signInWithGitHub,
-  signInWithGoogle,
-} from "../../../redux/auth/regularUsers/regluarUsersSlice";
+import { signIn } from "../../../redux/auth/regularUsers/regluarUsersSlice";
 
 const figureIcon =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ffisrt-step-figure-removebg-preview-6630e8a5af594.webp?alt=media&token=8e2e91b9-95a1-4416-866a-1bfe555ce0c9";
@@ -75,7 +71,13 @@ function SignIn() {
         {/* user information input's */}
         <form
           onSubmit={handleSubmit((data) => {
-            dispatch(signInWithEmail(data));
+            dispatch(
+              signIn({
+                email: data.email,
+                password: data.password,
+                method: "emailPass",
+              })
+            );
           })}
           className="mt-4 flex flex-col items-center md:items-stretch gap-y-4"
         >
@@ -124,7 +126,7 @@ function SignIn() {
             {/* sign in with github */}
             <button
               onClick={() => {
-                dispatch(signInWithGitHub());
+                dispatch(signIn({ method: "gitHub" }));
               }}
               type="button"
               className="flex items-center justify-between gap-x-2 px-4 py-3 bg-gray-950 hover:bg-gray-800 transition-all rounded-md"
@@ -139,7 +141,7 @@ function SignIn() {
             {/* sign in with google */}
             <button
               onClick={() => {
-                dispatch(signInWithGoogle());
+                dispatch(signIn({ method: "google" }));
               }}
               type="button"
               className="flex items-center justify-between gap-x-2 px-4 py-2 border border-gray-300 bg-gray-50 hover:bg-gray-100 transition-all rounded-md"
