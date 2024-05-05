@@ -37,6 +37,7 @@ function Navbar() {
 export default Navbar;
 
 const MobileNavbar = () => {
+  const userData = useSelector((state) => state.userData);
   // detect pathname for mobile navbar
   const location = useLocation();
   // mobile menu state
@@ -142,7 +143,7 @@ const MobileNavbar = () => {
                 <FaUser className="text-2xl" />
               </div>
               <div className="flex flex-col justify-between items-start">
-                <h2>Guest User</h2>
+                <h2>{userData?.uid ? "Authenticated" : "Guest User"}</h2>
                 <p className="text-sm">+12394595</p>
               </div>
             </div>
