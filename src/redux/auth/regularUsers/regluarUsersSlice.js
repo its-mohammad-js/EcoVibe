@@ -6,7 +6,7 @@ import {
   gitHubProvider,
   googleProvider,
 } from "../../../config/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 // create new cell for user data on data base
 async function createUserDataCell(userId) {
@@ -17,6 +17,7 @@ async function createUserDataCell(userId) {
     orders: [],
     wishlist: [],
     notifications: [],
+    personalInformation: {},
     userId: userId,
   };
   try {
@@ -77,6 +78,20 @@ export const signIn = createAsyncThunk(
       }
       // create a cell on data base for user
       await createUserDataCell(user?.uid);
+      // store necessary user information's in local storage
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          uid: user?.uid,
+          currentStep: "second-step",
+          cartData: [],
+          interests: [],
+          orders: [],
+          wishlist: [],
+          notifications: [],
+          personalInformation: {},
+        })
+      );
       // disptach success after two requests
       console.log("signed in successfuly !");
       return fulfillWithValue({ uid: user?.uid, userName: user?.email });
@@ -87,22 +102,68 @@ export const signIn = createAsyncThunk(
   }
 );
 
+export const updateUserData = createAsyncThunk(
+  "userData/updateUserData",
+  async (payload, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      // read stored user data on local storage
+      const localUserData = JSON.parse(localStorage.getItem("userData"));
+      // get user UID
+      const userId = auth.currentUser?.uid;
+      // reference to user Data
+      const userDataRef = doc(db, "users", userId);
+      // update selected field on data base
+      await updateDoc(userDataRef, { [payload.field]: payload.data });
+      // update userData on local data storage
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          ...localUserData,
+          [payload.field]: payload.data,
+          currentStep: payload.step || "second-step",
+        })
+      );
+      // update local state
+      return fulfillWithValue(payload);
+    } catch (error) {
+      console.log(error?.message);
+      // dispatch failure
+      return rejectWithValue(error?.message);
+    }
+  }
+);
+
 // default state
 const defaultUserData = {
+  loading: false,
+  error: "",
   userName: "",
   uid: "",
+  currentStep: "first-step",
   cartData: [],
   interests: [],
   orders: [],
   wishlist: [],
   notifications: [],
-  loading: false,
-  error: "",
+  personalInformation: {},
 };
 
 const userSlice = createSlice({
   name: "userData",
   initialState: defaultUserData,
+  // regular reducers
+  reducers: {
+    getLocalUserData: (state, action) => {
+      const localData = JSON.parse(localStorage.getItem("userData"));
+
+      if (localData) {
+        for (const key in localData) {
+          state[key] = localData[key];
+        }
+      }
+    },
+  },
+  // async reducers
   extraReducers: (builder) => {
     // sign in Reducer
     builder.addCase(signIn.pending, (state, action) => {
@@ -112,6 +173,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.uid = payload.uid;
       state.userName = payload.userName;
+      state.currentStep = "second-step";
     });
     builder.addCase(signIn.rejected, (state, action) => {
       state.loading = false;
@@ -122,8 +184,23 @@ const userSlice = createSlice({
       console.log(payload);
       state = payload;
     });
+    // update user data
+    builder.addCase(updateUserData.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateUserData.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state[payload.field] = payload.data;
+      state.currentStep = payload?.step || state.currentStep;
+    });
+    builder.addCase(updateUserData.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
   },
 });
 
+// export (non-async) actions
+export const { getLocalUserData } = userSlice.actions;
 // export main reducer
 export default userSlice.reducer;

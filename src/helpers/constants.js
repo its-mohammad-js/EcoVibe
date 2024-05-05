@@ -291,3 +291,15 @@ export const getProductOption = (productType, optionsList = []) => {
     return reducedOptions;
   }
 };
+
+export const avatarsUrl = [
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(1).webp?alt=media&token=208a6a73-f31d-436a-b416-98752a90c7a9",
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(2).webp?alt=media&token=5fb1eddd-e6e8-4f79-97b6-1db11d7391a9",
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(3).webp?alt=media&token=85d7fa87-7582-4448-b7d8-21d3f90f2d90",
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(4).webp?alt=media&token=32ddcde1-d894-4728-9216-9ea17380b277",
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(5).webp?alt=media&token=5a4b12ac-30ef-4040-8d8e-44409f67f249",
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(6).webp?alt=media&token=17962c08-7ae4-4d9a-bd02-76ffce915e0c",
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(7).webp?alt=media&token=fe2d9a0d-14dd-4c54-808d-7b88f4873927",
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(8).webp?alt=media&token=e1edd546-1f06-4422-9ca4-7c3db381023b",
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(9).webp?alt=media&token=a7ce6cd5-c425-47d1-8723-6f6c9e861259",
+];

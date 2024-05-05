@@ -26,6 +26,7 @@ import {
 } from "react-icons/tb";
 import { IoIosArrowForward } from "react-icons/io";
 import { useMediaQuery } from "react-responsive";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const isMobile = useMediaQuery({ maxWidth: 480 });
@@ -238,6 +239,7 @@ const MobileNavbar = () => {
 };
 
 const DesktopNavbar = () => {
+  const userData = useSelector((state) => state.userData);
   // detect pathname for desktop navbar
   const location = useLocation();
   // sub menu content state
@@ -455,7 +457,7 @@ const DesktopNavbar = () => {
             <span>+123456789</span>
           </div>
           <div className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl">
-            <FaUser />
+            {userData?.uid ? "Authed" : <FaUser />}
           </div>
           <div className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl">
             <FaHeart />
