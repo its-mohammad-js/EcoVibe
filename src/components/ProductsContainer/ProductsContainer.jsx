@@ -4,6 +4,9 @@ import ProductCard from "./ProductCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ProductsContainerLoader from "../Loaders/ProductsContainerLoader";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
+import { isInArray, toggleElementInArray } from "../../helpers/constants";
 
 function ProductsContainer({ isLoading, products, filterObject, title }) {
   // filter products data by trend tag
@@ -11,17 +14,29 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
   // ref to products container
   const containerRef = useRef();
   const navigate = useNavigate();
+  // get user wish list
+  const { wishlist } = useSelector((state) => state.userData);
+  const dispatch = useDispatch();
 
+  // navigate to explore page on product click event
   function navigateToExplore() {
     // get filter key
     const filterKey = Object.keys(filterObject)[0];
     // get filter value
     const filterVal = Object.values(filterObject).toLocaleString();
-
+    console.log("pl");
     // navigate to explore page with query
     navigate(`/EcoVibe/Explore-Products/${filterKey}=${filterVal}`);
     // scroll up :)
     window.scrollTo(0, 0);
+  }
+
+  // add / remove product from wish list
+  function toggleWishList(productId) {
+    // update wish list
+    const updatedWishList = toggleElementInArray(wishlist, productId);
+    // update wish list with new values
+    dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
   }
 
   if (isLoading) {
@@ -62,7 +77,12 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
           {/* products wrapper */}
           <div className="inline-flex items-center gap-x-8 px-4 py-2">
             {filteredPrdocts.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <ProductCard
+                key={product.id}
+                productData={product}
+                onProductLike={toggleWishList}
+                isLiked={isInArray(wishlist, product.id)}
+              />
             ))}
           </div>
 

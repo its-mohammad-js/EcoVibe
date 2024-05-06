@@ -3,10 +3,13 @@ import { calculateAverage } from "../../helpers/constants";
 import ReactStars from "react-stars";
 import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function ProductCard(props) {
+function ProductCard({ productData, onProductLike, isLiked }) {
   // destructur product data from props
-  const { Thumbnail, Name, Price, Stars } = props;
+  const { Thumbnail, Name, Price, Stars, id } = productData;
+  // get loading state
+  const { loading } = useSelector((state) => state.userData);
 
   const navigate = useNavigate();
 
@@ -17,16 +20,24 @@ function ProductCard(props) {
         <img
           onClick={() => {
             window.scrollTo(0, 0);
-            navigate(`/EcoVibe/Products/${props.id}`);
+            navigate(`/EcoVibe/Products/${id}`);
           }}
           src={Thumbnail}
           alt={Name}
           className="rounded-lg h-full w-full object-cover"
         />
         {/* like button */}
-        <button className="absolute top-2 right-2 text-xl md:text-2xl bg-gray-50/60 p-1.5 hover:scale-110 transition-all duration-300 rounded-full group">
-          <BiHeart className="group-hover:hidden" />
-          <FaHeart className="hidden group-hover:block group-hover:text-red-600 transition-all" />
+        <button
+          onClick={() => onProductLike(id)}
+          disabled={loading}
+          className="absolute top-2 right-2 text-xl md:text-2xl bg-gray-50/60 p-1.5 hover:scale-110 transition-all duration-300 rounded-full group disabled:opacity-70 disabled:cursor-progress"
+        >
+          <BiHeart className={`${isLiked && "!hidden"} group-hover:hidden`} />
+          <FaHeart
+            className={`${
+              isLiked && "!block text-red-600"
+            } hidden group-hover:block group-hover:text-red-600 transition-all`}
+          />
         </button>
       </div>
       {/* product description */}
@@ -34,7 +45,7 @@ function ProductCard(props) {
         <h2
           onClick={() => {
             window.scrollTo(0, 0);
-            navigate(`/EcoVibe/Products/${props.id}`);
+            navigate(`/EcoVibe/Products/${id}`);
           }}
           className="font-bold line-clamp-2 md:mt-1 hover:text-primary-700 transition-all"
         >

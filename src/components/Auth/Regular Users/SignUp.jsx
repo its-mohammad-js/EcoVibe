@@ -5,13 +5,13 @@ import { FaFacebook } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { SiGmail } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../../../redux/auth/regularUsers/regluarUsersSlice";
+import { signUp } from "../../../redux/auth/regularUsers/regluarUsersSlice";
 import { useNavigate } from "react-router-dom";
 
 const figureIcon =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ffisrt-step-figure-removebg-preview-6630e8a5af594.webp?alt=media&token=8e2e91b9-95a1-4416-866a-1bfe555ce0c9";
 
-function SignIn() {
+function SignUp() {
   const { loading } = useSelector((state) => state.userData);
   const {
     register,
@@ -21,6 +21,7 @@ function SignIn() {
   } = useForm();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const inputOptions = {
     email: {
@@ -52,7 +53,6 @@ function SignIn() {
         value === watch().password || "Passwords do not match",
     },
   };
-  const navigate = useNavigate();
 
   return (
     <div className="flex items-center justify-center gap-x-4 md:gap-x-6 lg:gap-x-14">
@@ -75,7 +75,7 @@ function SignIn() {
         <form
           onSubmit={handleSubmit((data) => {
             dispatch(
-              signIn({
+              signUp({
                 email: data.email,
                 password: data.password,
                 method: "emailPass",
@@ -87,7 +87,7 @@ function SignIn() {
           {/* email input */}
           <Input
             name="email"
-            loading={loading}
+            isLoading={loading}
             placeholder={"Example@ex.com"}
             register={register}
             validation={inputOptions.email}
@@ -97,7 +97,7 @@ function SignIn() {
           <div className="w-full flex flex-col items-center gap-4 lg:flex-row lg:items-start">
             <Input
               name="password"
-              loading={loading}
+              isLoading={loading}
               placeholder={"Enter Password"}
               register={register}
               validation={inputOptions.password}
@@ -106,7 +106,7 @@ function SignIn() {
 
             <Input
               name="password_repeat"
-              loading={loading}
+              isLoading={loading}
               placeholder={"Re-peat Password"}
               register={register}
               validation={inputOptions.password_repeat}
@@ -133,7 +133,7 @@ function SignIn() {
             {/* sign in with github */}
             <button
               onClick={() => {
-                dispatch(signIn({ method: "gitHub" }));
+                dispatch(signUp({ method: "gitHub" }));
               }}
               disabled={loading}
               type="button"
@@ -149,7 +149,7 @@ function SignIn() {
             {/* sign in with google */}
             <button
               onClick={() => {
-                dispatch(signIn({ method: "google" }));
+                dispatch(signUp({ method: "google" }));
               }}
               type="button"
               disabled={loading}
@@ -173,7 +173,7 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignUp;
 
 const Input = ({
   register,
@@ -181,18 +181,18 @@ const Input = ({
   validation,
   errors,
   placeholder,
-  loading,
+  isLoading,
 }) => {
   return (
     <div className="w-11/12 md:w-full">
       <div
         className={`${
           (errors[name]?.message && "!border-red-500") ||
-          (loading && "animate-pulse bg-gray-100")
+          (isLoading && "animate-pulse shadow-md")
         } flex items-center justify-center border border-gray-300 rounded-md px-2 focus-within:border-gray-500 transition-all`}
       >
         <input
-          disabled={loading}
+          disabled={isLoading}
           type="text"
           {...register(name, validation)}
           className="px-4 py-2 text-lg flex-1 focus:outline-none peer order-2 bg-transparent"

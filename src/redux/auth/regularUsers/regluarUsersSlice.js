@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import {
   auth,
   db,
@@ -29,24 +33,38 @@ async function createUserDataCell(userId) {
   }
 }
 
-export const getUserData = createAsyncThunk(
+// read user data
+export const logInUser = createAsyncThunk(
   "userData/getUserData",
-  async ({ userId }, { fulfillWithValue, rejectWithValue }) => {
+  async (payload, { fulfillWithValue, rejectWithValue }) => {
     try {
-      // refrence to collection of products in database
-      const usersDataRef = doc(db, "users", userId);
-      // get user data from data base with user id
-      const userData = await getDoc(usersDataRef);
-      // merge user data
-      return fulfillWithValue(userData.data());
+      // log in with email and password
+      const { user } = await signInWithEmailAndPassword(
+        auth,
+        payload.email,
+        payload.password
+      );
+      // reference to user data on data base
+      const userDataRef = doc(db, "users", user?.uid);
+      // get user data from database
+      const userData = await getDoc(userDataRef);
+      // store user data to local storage
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          ...userData.data(),
+          uid: user?.uid,
+          currentStep: "completed",
+        })
+      );
     } catch (error) {
-      return rejectWithValue(error?.message || "An Unknown Error Happend");
+      console.log(error);
     }
   }
 );
 
 // create new account on different method's
-export const signIn = createAsyncThunk(
+export const signUp = createAsyncThunk(
   "userData/signInEmail",
   async (payload, { fulfillWithValue, rejectWithValue }) => {
     try {
@@ -102,6 +120,7 @@ export const signIn = createAsyncThunk(
   }
 );
 
+// update a specofic field of user data
 export const updateUserData = createAsyncThunk(
   "userData/updateUserData",
   async (payload, { rejectWithValue, fulfillWithValue }) => {
@@ -148,6 +167,7 @@ const defaultUserData = {
   personalInformation: {},
 };
 
+// main state
 const userSlice = createSlice({
   name: "userData",
   initialState: defaultUserData,
@@ -166,24 +186,24 @@ const userSlice = createSlice({
   // async reducers
   extraReducers: (builder) => {
     // sign in Reducer
-    builder.addCase(signIn.pending, (state, action) => {
+    builder.addCase(signUp.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(signIn.fulfilled, (state, { payload }) => {
+    builder.addCase(signUp.fulfilled, (state, { payload }) => {
       state.loading = false;
       state.uid = payload.uid;
       state.userName = payload.userName;
       state.currentStep = "second-step";
     });
-    builder.addCase(signIn.rejected, (state, action) => {
+    builder.addCase(signUp.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
     // get user data reducer
-    builder.addCase(getUserData.fulfilled, (state, { payload }) => {
-      console.log(payload);
-      state = payload;
-    });
+    // builder.addCase(getUserData.fulfilled, (state, { payload }) => {
+    //   console.log(payload);
+    //   state = payload;
+    // });
     // update user data
     builder.addCase(updateUserData.pending, (state, action) => {
       state.loading = true;

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const stepsInfo = [
   {
@@ -23,23 +23,24 @@ const stepsInfo = [
   },
 ];
 
-function RegularUserSignIn() {
+function RegularUserSignUp() {
   const { currentStep } = useSelector((state) => state.userData);
   const navigate = useNavigate();
 
-  // naviagte to current step
+  // naviagte to current step or home page if steps are completed
   useEffect(() => {
     switch (currentStep) {
       case "first-step":
-        navigate("/EcoVibe/Sign-in/first-step/authentication");
+        navigate("/EcoVibe/Sign-up/first-step/authentication");
         break;
       case "second-step":
-        navigate("/EcoVibe/Sign-in/second-step/personal-details");
+        navigate("/EcoVibe/Sign-up/second-step/personal-details");
         break;
       case "third-step":
-        navigate("/EcoVibe/Sign-in/third-step/user-intersets");
+        navigate("/EcoVibe/Sign-up/third-step/user-intersets");
         break;
       case "completed":
+        window.scrollTo(0, 0);
         navigate("/EcoVibe/");
         break;
       default:
@@ -88,4 +89,4 @@ function RegularUserSignIn() {
   );
 }
 
-export default RegularUserSignIn;
+export default RegularUserSignUp;

@@ -1,4 +1,4 @@
-import { calculateAverage } from "./constants";
+import { calculateAverage, isInArray } from "./constants";
 
 export function filterProducts(products, filters) {
   // if filters are empty return products
@@ -18,6 +18,7 @@ export function filterProducts(products, filters) {
     selectedOptions = [],
     sortBy = "",
     relevant = "most",
+    idList = [],
   } = filters;
 
   // Initialize an empty array to store the filtered products
@@ -97,6 +98,10 @@ export function filterProducts(products, filters) {
       });
       // // only return product with selected options
       if (!matchedProducts) match = false;
+    }
+
+    if (idList.length && idList && !isInArray(idList, product?.id)) {
+      match = false;
     }
 
     // If the match variable is still true after checking all the filters, push the product to the filteredProducts array

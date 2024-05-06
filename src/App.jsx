@@ -6,14 +6,15 @@ import ExploreProducts from "./pages/Explore Products Page/ExploreProductsPage";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductDetailsPage from "./pages/Product Detail Page/ProductDetailsPage";
-import RegularUserSignIn from "./pages/Regular User Auth Page/RegularUserSignIn";
-import RegularUserLogIn from "./pages/Regular User Auth Page/RegularUserLogIn";
-import SignIn from "./components/Auth/Regular Users/SignIn";
+import RegularUserSignUp from "./pages/Regular User Auth Page/RegularUserSignUp";
+import RegularUserSign from "./pages/Regular User Auth Page/RegularUserSign";
+import SignUp from "./components/Auth/Regular Users/SignUp";
 import PersonalDetailsForm from "./components/Auth/Regular Users/PersonalDetailsForm";
 import UserInterestsForm from "./components/Auth/Regular Users/UserInterestsForm";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getLocalUserData } from "./redux/auth/regularUsers/regluarUsersSlice";
+import WishListPage from "./pages/WishList Page/WishListPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,8 +39,8 @@ function App() {
           element={<ProductDetailsPage />}
         />
         {/* regular user auth pages */}
-        <Route path="/EcoVibe/Sign-in/" element={<RegularUserSignIn />}>
-          <Route path="first-step/authentication" element={<SignIn />} />
+        <Route path="/EcoVibe/Sign-up/" element={<RegularUserSignUp />}>
+          <Route path="first-step/authentication" element={<SignUp />} />
           <Route
             path="second-step/personal-details"
             element={<PersonalDetailsForm />}
@@ -49,7 +50,9 @@ function App() {
             element={<UserInterestsForm />}
           />
         </Route>
-        <Route path="/EcoVibe/Log-in/" element={<RegularUserLogIn />} />
+        <Route path="/EcoVibe/Sign-in/" element={<RegularUserSign />} />
+        {/*  */}
+        <Route path="/EcoVibe/Wish-list/" element={<WishListPage />} />
       </Routes>
     </AppLayout>
   );

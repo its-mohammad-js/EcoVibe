@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* transparent color on autofill inputs  */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
 body {
   font-family: "Roboto", sans-serif;
 }
@@ -92,6 +100,7 @@ body::-webkit-scrollbar-thumb {
   z-index: 2;
 }
 
+/* thumb slider  */
 /* Removing the default appearance */
 .thumb,
 .thumb::-webkit-slider-thumb {

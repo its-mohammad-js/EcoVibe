@@ -2,17 +2,33 @@ import { BiHeart } from "react-icons/bi";
 import { filterProducts } from "../../helpers/filterPorducts";
 import { FaHeart } from "react-icons/fa";
 import ReactStars from "react-stars";
-import { calculateAverage } from "../../helpers/constants";
+import {
+  calculateAverage,
+  isInArray,
+  toggleElementInArray,
+} from "../../helpers/constants";
 import CollectionGalleryLoader from "../Loaders/CollectionGalleryLoader";
 import SimpleBanner from "./SimpleBanner";
-import { useId } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
 
 function CollectionsGallery({ products, isLoading }) {
   // get summer collectionfrom all products
   const summerCollection = filterProducts(products, {
     collections: ["summer"],
   });
+  const { wishlist, loading } = useSelector((state) => state.userData);
+  const dispatch = useDispatch();
+
+  // add / remove product from wish list
+  function toggleWishList(productId) {
+    console.log(productId);
+    // update wish list
+    const updatedWishList = toggleElementInArray(wishlist, productId);
+    // update wish list with new values
+    dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
+  }
 
   if (isLoading) return <CollectionGalleryLoader />;
 
@@ -31,17 +47,26 @@ function CollectionsGallery({ products, isLoading }) {
             className="flex flex-col gap-y-3 lg:flex-row lg:gap-x-3 items-center px-2 py-1 lg:px-4 lg:py-2 lg:h-[450px]"
           >
             <CustomeProductCard
+              isLoading={loading}
+              onProductLike={toggleWishList}
+              isLiked={isInArray(wishlist, summerCollection[0].id)}
               product={summerCollection[0]}
               key={summerCollection[0].id}
             />
 
             <div className="flex items-center gap-x-3 w-full">
               <CustomeProductCard
+                isLoading={loading}
+                onProductLike={toggleWishList}
+                isLiked={isInArray(wishlist, summerCollection[1].id)}
                 product={summerCollection[1]}
                 key={summerCollection[1].id}
                 minimal={true}
               />
               <CustomeProductCard
+                isLoading={loading}
+                onProductLike={toggleWishList}
+                isLiked={isInArray(wishlist, summerCollection[2].id)}
                 product={summerCollection[2]}
                 key={summerCollection[2].id}
                 minimal={true}
@@ -49,6 +74,9 @@ function CollectionsGallery({ products, isLoading }) {
             </div>
 
             <CustomeProductCard
+              isLoading={loading}
+              onProductLike={toggleWishList}
+              isLiked={isInArray(wishlist, summerCollection[3].id)}
               product={summerCollection[3]}
               key={summerCollection[3].id}
             />
@@ -62,14 +90,18 @@ function CollectionsGallery({ products, isLoading }) {
 
 export default CollectionsGallery;
 
-const CustomeProductCard = ({ product, minimal }) => {
+const CustomeProductCard = ({
+  product,
+  minimal,
+  onProductLike,
+  isLiked,
+  isLoading,
+}) => {
   // get product colors from product options
   const productColors = product?.Options?.filter(
     (opt) => opt.title.toLowerCase() === "color"
   );
   const navigate = useNavigate();
-
-  console.log(product.id);
 
   return (
     <div className="w-full h-80 lg:h-96 bg-gray-300/35 rounded-xl">
@@ -85,9 +117,19 @@ const CustomeProductCard = ({ product, minimal }) => {
           className="w-full h-full rounded-t-md object-cover cursor-pointer"
         />
 
-        <button className="absolute top-2 right-2 text-xl md:text-2xl bg-gray-50/60 p-1.5 hover:scale-110 transition-all duration-300 rounded-full group">
-          <BiHeart className="group-hover:hidden" />
-          <FaHeart className="hidden group-hover:block group-hover:text-red-600 transition-all" />
+        <button
+          disabled={isLoading}
+          onClick={() => {
+            onProductLike(product.id);
+          }}
+          className="absolute top-2 right-2 text-xl md:text-2xl bg-gray-50/60 p-1.5 hover:scale-110 transition-all duration-300 rounded-full group disabled:opacity-90 disabled:cursor-progress"
+        >
+          <BiHeart className={`${isLiked && "!hidden"} group-hover:hidden`} />
+          <FaHeart
+            className={`${
+              isLiked && "!block text-red-600"
+            } hidden group-hover:block group-hover:text-red-600 transition-all`}
+          />
         </button>
       </div>
 

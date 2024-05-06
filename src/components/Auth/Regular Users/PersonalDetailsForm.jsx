@@ -7,38 +7,39 @@ import { storage } from "../../../config/firebase";
 import { avatarsUrl } from "../../../helpers/constants";
 import { CgClose } from "react-icons/cg";
 import { MdClose } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../../../redux/auth/regularUsers/regluarUsersSlice";
 import { useNavigate } from "react-router-dom";
 
 const inputOptions = {
   first_name: {
-    // required: "First Name Is Required",
-    // minLength: {
-    //   value: 3,
-    //   message: "Minimum Length Is 4 Characters",
-    // },
+    required: "First Name Is Required",
+    minLength: {
+      value: 3,
+      message: "Minimum Length Is 4 Characters",
+    },
   },
   last_name: {
-    // required: "Last Name Is Required",
-    // minLength: {
-    //   value: 3,
-    //   message: "Minimum Length Is 3 Characters",
-    // },
+    required: "Last Name Is Required",
+    minLength: {
+      value: 3,
+      message: "Minimum Length Is 3 Characters",
+    },
   },
   address: {
-    // required: "Address Is Required",
-    // minLength: {
-    //   value: 10,
-    //   message: "Minimum Length Is 10 Characters",
-    // },
+    required: "Address Is Required",
+    minLength: {
+      value: 10,
+      message: "Minimum Length Is 10 Characters",
+    },
   },
   gender: {
-    // required: "Please Select Your Gender",
+    required: "Please Select Your Gender",
   },
 };
 
 function PersonalDetailsForm() {
+  const { loading } = useSelector((state) => state.userData);
   // profile picture state
   const [profilePic, setProfile] = useState({
     isLoading: false,
@@ -50,10 +51,12 @@ function PersonalDetailsForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log(isValid);
 
   // upload new picture to firebase storage
   async function uploadProfilePic(selectedPic) {
@@ -109,7 +112,7 @@ function PersonalDetailsForm() {
         <div className="flex items-center justify-center mb-4 md:mb-6">
           <div
             className={`${
-              profilePic.isLoading && "animate-pulse"
+              profilePic.isLoading || loading ? "animate-pulse" : ""
             } w-36 h-36 flex justify-center bg-gradient-to-tr from-primary-200 via-gray-100 to-primary-500 rounded-full relative`}
           >
             {/* default image */}
@@ -191,6 +194,7 @@ function PersonalDetailsForm() {
             name={"first_name"}
             errors={errors}
             validation={inputOptions.first_name}
+            isLoading={loading}
           />
           {/* family name */}
           <Input
@@ -200,6 +204,7 @@ function PersonalDetailsForm() {
             register={register}
             errors={errors}
             validation={inputOptions.last_name}
+            isLoading={loading}
           />
         </div>
         {/* address */}
@@ -210,6 +215,7 @@ function PersonalDetailsForm() {
           validation={inputOptions.address}
           errors={errors}
           placeholder={"City, Street, Building, etc..."}
+          isLoading={loading}
         />
         {/* gender */}
         <div className="mb-4 md:m-0">
@@ -264,19 +270,29 @@ function PersonalDetailsForm() {
 
 export default PersonalDetailsForm;
 
-const Input = ({ title, placeholder, register, name, validation, errors }) => {
+const Input = ({
+  title,
+  placeholder,
+  register,
+  name,
+  validation,
+  errors,
+  isLoading,
+}) => {
   return (
     <div className="mb-4 md:m-0">
       <h6 className="text-lg text-gray-600 mb-2">{title}</h6>
       <div
         className={`${
-          errors[name]?.message && "!border-red-500"
+          (errors[name]?.message && "!border-red-500") ||
+          (isLoading && "animate-pulse shadow-md")
         } flex items-center justify-center border border-gray-300 rounded-md px-2 focus-within:border-gray-500 transition-all`}
       >
         <input
+          disabled={isLoading}
           type="text"
           {...register(name, validation)}
-          className="px-2 py-2 text-lg flex-1 focus:outline-none peer"
+          className="px-2 py-2 text-lg flex-1 focus:outline-none peer disabled:animate-pulse bg-transparent disabled:cursor-not-allowed"
           placeholder={placeholder}
         />
         <span className="text-2xl text-gray-300 transition-all">

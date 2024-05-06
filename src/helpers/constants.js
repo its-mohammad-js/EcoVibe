@@ -233,7 +233,7 @@ export const fakeArray = (length) => {
 };
 
 // paginate product (useable for any array)
-export function paginateProducts(products, divideTo) {
+export function paginateElements(products, divideTo) {
   const pageSize = divideTo;
   const numberOfPages = Math.ceil(products.length / pageSize);
 

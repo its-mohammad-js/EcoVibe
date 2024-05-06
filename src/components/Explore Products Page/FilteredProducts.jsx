@@ -4,13 +4,16 @@ import { getFilteredProducts } from "../../redux/products/productsSlice";
 import {
   calculateAverage,
   errorIconUrl,
-  paginateProducts,
+  isInArray,
+  paginateElements,
+  toggleElementInArray,
 } from "../../helpers/constants";
 import { FaEye, FaHeart, FaStar } from "react-icons/fa";
 import PaginationButtons from "./PaginationButtons";
 import { BiCart } from "react-icons/bi";
 import FilteredProductsLoader from "../Loaders/FilteredProductsLoader";
 import { useNavigate } from "react-router-dom";
+import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
 
 function FilteredProducts() {
   // get selected filters
@@ -18,9 +21,13 @@ function FilteredProducts() {
   // get products data
   const { loading, data, error } = useSelector((state) => state.products);
   // paginated product
-  const paginatedProduct = paginateProducts(data, 8);
+  const paginatedProduct = paginateElements(data, 8);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // get user wish list
+  const { wishlist, loading: isLoading } = useSelector(
+    (state) => state.userData
+  );
 
   // get filtered products on each filter change
   useEffect(() => {
@@ -39,6 +46,14 @@ function FilteredProducts() {
       })
     );
   }, [filters]);
+
+  // add / remove product from wish list
+  function toggleWishList(productId) {
+    // update wish list
+    const updatedWishList = toggleElementInArray(wishlist, productId);
+    // update wish list with new values
+    dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
+  }
 
   if (loading) return <FilteredProductsLoader />;
 
@@ -77,7 +92,14 @@ function FilteredProducts() {
                 <div className="w-full h-1/2 md:h-2/3 relative bg-gradient-to-br from-primary-100 via-gray-200 to-primary-500/50 rounded-t-md md:rounded-none">
                   {/* quick access buttons */}
                   <div className="absolute inset-0 rounded-t-md md:rounded-none flex flex-col gap-y-2 px-2 py-1 md:px-3 md:py-1.5 items-end">
-                    <button className="p-1.5 md:p-2 rounded-full bg-gray-50 text-gray-300 hover:text-red-500 transition-all">
+                    <button
+                      onClick={() => toggleWishList(item.id)}
+                      disabled={isLoading}
+                      className={`${
+                        isInArray(wishlist, item.id) &&
+                        "!text-red-600 hover:scale-110"
+                      } p-1.5 md:p-2 rounded-full bg-gray-50 text-gray-300 hover:text-red-500 transition-all disabled:opacity-95 disabled:cursor-wait`}
+                    >
                       <FaHeart className="md:text-xl" />
                     </button>
                     <button className="p-1.5 peer md:p-2 rounded-full bg-gray-50 text-gray-300 hover:text-gray-950 focus:text-gray-950 transition-all hidden md:block">
