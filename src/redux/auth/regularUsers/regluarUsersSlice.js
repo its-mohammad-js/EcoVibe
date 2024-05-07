@@ -141,19 +141,16 @@ export const updateUserData = createAsyncThunk(
             payload.step || localUserData?.uid ? "second-step" : "fisrt-step",
         })
       );
-      console.log("local base done");
       // get user UID
       const userId = auth.currentUser?.uid || localUserData?.uid || "";
       // reference to user Data
       const userDataRef = doc(db, "users", userId);
       // update selected field on data base
       await updateDoc(userDataRef, { [payload.field]: payload.data });
-      console.log("database done");
       // update local state
       return fulfillWithValue(payload);
     } catch (error) {
-      console.log("error");
-      console.log(error);
+      console.log(error?.message);
       // dispatch failure
       return rejectWithValue(error?.message);
     }
