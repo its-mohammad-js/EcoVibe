@@ -125,6 +125,7 @@ export const updateUserData = createAsyncThunk(
   "userData/updateUserData",
   async (payload, { rejectWithValue, fulfillWithValue }) => {
     try {
+      console.log("start");
       // read stored user data on local storage
       const localUserData = JSON.parse(localStorage.getItem("userData"));
       // get user UID
@@ -142,9 +143,11 @@ export const updateUserData = createAsyncThunk(
           currentStep: payload.step || "second-step",
         })
       );
+      console.log("done");
       // update local state
       return fulfillWithValue(payload);
     } catch (error) {
+      console.log("error");
       console.log(error?.message);
       // dispatch failure
       return rejectWithValue(error?.message);
