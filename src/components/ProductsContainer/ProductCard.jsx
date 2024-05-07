@@ -35,7 +35,7 @@ function ProductCard({ productData, onProductLike, isLiked }) {
           <BiHeart className={`${isLiked && "!hidden"} group-hover:hidden`} />
           <FaHeart
             className={`${
-              isLiked && "!block text-red-600"
+              isLiked ? "!block text-red-600" : ""
             } hidden group-hover:block group-hover:text-red-600 transition-all`}
           />
         </button>
@@ -49,7 +49,8 @@ function ProductCard({ productData, onProductLike, isLiked }) {
           }}
           className="font-bold line-clamp-2 md:mt-1 hover:text-primary-700 transition-all"
         >
-          {Name}
+          {Name} <br />{" "}
+          <span className="text-red-500"> {isLiked && "liked"}</span>
         </h2>
 
         <div className="w-full flex items-center justify-between py-1">

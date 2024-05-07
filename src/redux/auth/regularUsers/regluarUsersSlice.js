@@ -131,7 +131,7 @@ export const updateUserData = createAsyncThunk(
     try {
       // read stored user data on local storage
       const localUserData = JSON.parse(localStorage.getItem("userData"));
-      // update userData on local data storage
+      // update userData on local data storage (for both guest & authenticated user's)
       localStorage.setItem(
         "userData",
         JSON.stringify({
@@ -141,15 +141,21 @@ export const updateUserData = createAsyncThunk(
             payload.step || localUserData?.uid ? "second-step" : "fisrt-step",
         })
       );
-      // get user UID
-      const userId = auth.currentUser?.uid || localUserData?.uid || "";
-      // reference to user Data
-      const userDataRef = doc(db, "users", userId);
-      // update selected field on data base
-      await updateDoc(userDataRef, { [payload.field]: payload.data });
-      // update local state
+      console.log("local storage updated");
+      // update user data on database (only for authenticated users)
+      if (localUserData?.uid) {
+        // get user UID
+        const userId = auth.currentUser?.uid || localUserData?.uid || "";
+        // reference to user Data
+        const userDataRef = doc(db, "users", userId);
+        // update selected field on data base
+        await updateDoc(userDataRef, { [payload.field]: payload.data });
+        // update local state
+        console.log("data base ok");
+      }
       return fulfillWithValue(payload);
     } catch (error) {
+      console.log("error");
       console.log(error?.message);
       // dispatch failure
       return rejectWithValue(error?.message);
@@ -214,6 +220,7 @@ const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(updateUserData.fulfilled, (state, { payload }) => {
+      console.log("main state updated succsesfully");
       state.loading = false;
       state[payload.field] = payload.data;
       state.currentStep = payload?.step || state.currentStep;

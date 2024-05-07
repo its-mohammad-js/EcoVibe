@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "../../redux/products/productsSlice";
 import { filterProducts } from "../../helpers/filterPorducts";
-import { IoCloseCircle, IoCloseOutline } from "react-icons/io5";
+import { IoCloseOutline } from "react-icons/io5";
 import { toggleElementInArray } from "../../helpers/constants";
 import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
 
