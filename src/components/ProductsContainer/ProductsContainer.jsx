@@ -34,9 +34,9 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
   // add / remove product from wish list
   function toggleWishList(productId) {
     // update wish list
-    const updatedWishList = toggleElementInArray(wishlist, productId);
+    // const updatedWishList = toggleElementInArray(wishlist, productId);
     // update wish list with new values
-    dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
+    dispatch(updateUserData({ data: [productId], field: "wishlist" }));
   }
 
   if (isLoading) {
@@ -81,7 +81,8 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
                 key={product.id}
                 productData={product}
                 onProductLike={toggleWishList}
-                isLiked={isInArray(wishlist, product.id)}
+                isLiked={false}
+                // isLiked={isInArray(wishlist, product.id)}
               />
             ))}
           </div>

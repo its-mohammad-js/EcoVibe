@@ -58,7 +58,7 @@ function HomePage() {
         </div>
       </aside>
       {/* Collections Gallery Section */}
-      <CollectionsGallery isLoading={loading} products={data} />
+      {/* <CollectionsGallery isLoading={loading} products={data} /> */}
       {/* Product Types Gallery */}
       <ProductsGallery />
       {/* Offer Cards */}

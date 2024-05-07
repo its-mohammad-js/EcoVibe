@@ -125,6 +125,7 @@ export const updateUserData = createAsyncThunk(
   "userData/updateUserData",
   async (payload, { rejectWithValue, fulfillWithValue }) => {
     try {
+      console.log(payload);
       console.log("start");
       // read stored user data on local storage
       const localUserData = JSON.parse(localStorage.getItem("userData"));
