@@ -67,6 +67,10 @@ export const logInUser = createAsyncThunk(
 export const signUp = createAsyncThunk(
   "userData/signInEmail",
   async (payload, { fulfillWithValue, rejectWithValue }) => {
+    // read geust user wish list from local storage
+    const localWishList = JSON.parse(
+      localStorage.getItem("userData")
+    )?.wishlist;
     try {
       let user = {};
       // switch onsign in available sign in method
@@ -105,7 +109,7 @@ export const signUp = createAsyncThunk(
           cartData: [],
           interests: [],
           orders: [],
-          wishlist: [],
+          wishlist: localWishList || [],
           notifications: [],
           personalInformation: {},
         })
@@ -125,26 +129,25 @@ export const updateUserData = createAsyncThunk(
   "userData/updateUserData",
   async (payload, { rejectWithValue, fulfillWithValue }) => {
     try {
-      console.log(payload);
       // read stored user data on local storage
       const localUserData = JSON.parse(localStorage.getItem("userData"));
-      // get user UID
-      // const userId = auth.currentUser?.uid;
-      // reference to user Data
-      // const userDataRef = doc(db, "users", userId);
-      // update selected field on data base
-      // await updateDoc(userDataRef, { [payload.field]: payload.data });
       // update userData on local data storage
       localStorage.setItem(
         "userData",
         JSON.stringify({
           ...localUserData,
           [payload.field]: payload.data,
-          testField: "test",
-          // currentStep: payload.step || "second-step",
+          currentStep: payload.step || "second-step",
         })
       );
-      console.log("done");
+      console.log("local base done");
+      // get user UID
+      const userId = auth.currentUser?.uid || localUserData?.uid || "";
+      // reference to user Data
+      const userDataRef = doc(db, "users", userId);
+      // update selected field on data base
+      await updateDoc(userDataRef, { [payload.field]: payload.data });
+      console.log("database done");
       // update local state
       return fulfillWithValue(payload);
     } catch (error) {
