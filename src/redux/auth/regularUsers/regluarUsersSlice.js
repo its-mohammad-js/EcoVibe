@@ -148,7 +148,7 @@ export const updateUserData = createAsyncThunk(
       return fulfillWithValue(payload);
     } catch (error) {
       console.log("error");
-      console.log(error?.message);
+      console.log(error);
       // dispatch failure
       return rejectWithValue(error?.message);
     }
