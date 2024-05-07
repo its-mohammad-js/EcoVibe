@@ -126,22 +126,22 @@ export const updateUserData = createAsyncThunk(
   async (payload, { rejectWithValue, fulfillWithValue }) => {
     try {
       console.log(payload);
-      console.log("start");
       // read stored user data on local storage
       const localUserData = JSON.parse(localStorage.getItem("userData"));
       // get user UID
-      const userId = auth.currentUser?.uid;
+      // const userId = auth.currentUser?.uid;
       // reference to user Data
-      const userDataRef = doc(db, "users", userId);
+      // const userDataRef = doc(db, "users", userId);
       // update selected field on data base
-      await updateDoc(userDataRef, { [payload.field]: payload.data });
+      // await updateDoc(userDataRef, { [payload.field]: payload.data });
       // update userData on local data storage
       localStorage.setItem(
         "userData",
         JSON.stringify({
           ...localUserData,
           [payload.field]: payload.data,
-          currentStep: payload.step || "second-step",
+          testField: "test",
+          // currentStep: payload.step || "second-step",
         })
       );
       console.log("done");
