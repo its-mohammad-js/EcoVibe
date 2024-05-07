@@ -137,7 +137,8 @@ export const updateUserData = createAsyncThunk(
         JSON.stringify({
           ...localUserData,
           [payload.field]: payload.data,
-          currentStep: payload.step || "second-step",
+          currentStep:
+            payload.step || localUserData?.uid ? "second-step" : "fisrt-step",
         })
       );
       console.log("local base done");
