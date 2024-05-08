@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -11,17 +12,18 @@ import {
   googleProvider,
 } from "../../../config/firebase";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { avatarsUrl } from "../../../helpers/constants";
 
 // create new cell for user data on data base
-async function createUserDataCell(userId) {
+async function createUserDataCell(userId, guestUserData) {
   // user collection object model :
   const newUserCollection = {
     cartData: [],
     interests: [],
     orders: [],
-    wishlist: [],
+    wishlist: guestUserData?.wishlist || [],
     notifications: [],
-    personalInformation: {},
+    personalInformation: guestUserData?.personalInformation || {},
     userId: userId,
   };
   try {
@@ -33,32 +35,86 @@ async function createUserDataCell(userId) {
   }
 }
 
-// read user data
-export const logInUser = createAsyncThunk(
+// sign in user
+export const signInUser = createAsyncThunk(
   "userData/getUserData",
   async (payload, { fulfillWithValue, rejectWithValue }) => {
     try {
-      // log in with email and password
-      const { user } = await signInWithEmailAndPassword(
-        auth,
-        payload.email,
-        payload.password
-      );
+      let user = {};
+      // sign in methods
+      switch (payload.method) {
+        // sign in with email & password
+        case "emailPass":
+          await signInWithEmailAndPassword(
+            auth,
+            payload.email,
+            payload.password
+          ).then((res) => (user = res.user));
+          break;
+        // sign in with google account
+        case "google":
+          await signInWithPopup(auth, googleProvider).then(
+            ({ user: { uid, photoURL } }) => (user = { uid, photoURL })
+          );
+          break;
+        // sign in with github account
+        case "github":
+          await signInWithPopup(auth, gitHubProvider).then(
+            ({ user: { uid, photoURL } }) => (user = { uid, photoURL })
+          );
+          break;
+        default:
+          throw new Error("Unknown Sign In Action Method...");
+      }
       // reference to user data on data base
       const userDataRef = doc(db, "users", user?.uid);
+      // check user is existing or not
       // get user data from database
-      const userData = await getDoc(userDataRef);
-      // store user data to local storage
-      localStorage.setItem(
-        "userData",
-        JSON.stringify({
-          ...userData.data(),
+      const userStoredData = await getDoc(userDataRef);
+      // read wishlist data ofguest user from local storage
+      const geustUserWishlist =
+        JSON.parse(localStorage.getItem("userData"))?.wishlist || [];
+      // create new cell on data base for new users (who signed-in with social media account's)
+      if (!userStoredData.data()) {
+        // combine authenticate data with guest user data
+        const finalUserData = {
+          uid: user?.uid,
+          wishlist: geustUserWishlist,
+          cartData: [],
+          personalInformation: {
+            profilePic: user.photoURL || avatarsUrl[2],
+          },
+          orders: [],
+          notifications: [],
+          interests: [],
+          currentStep: "second-step",
+        };
+        // create new cell on data base with gue
+        await createUserDataCell(user?.uid, {
+          wishlist: finalUserData?.wishlist,
+          personalInformation: finalUserData?.personalInformation,
+        });
+        // store user data in local storage
+        localStorage.setItem("userData", JSON.stringify(finalUserData));
+        // dispatch success
+        return fulfillWithValue(finalUserData);
+      }
+      // if user is already authenticated (existing users)
+      else {
+        const finalUserData = {
+          ...userStoredData.data(),
           uid: user?.uid,
           currentStep: "completed",
-        })
-      );
+        };
+        // store user data to local storage
+        localStorage.setItem("userData", JSON.stringify(finalUserData));
+        // dispatch success
+        return fulfillWithValue(finalUserData);
+      }
     } catch (error) {
       console.log(error);
+      // dispatch failure
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -86,20 +142,23 @@ export const signUp = createAsyncThunk(
         case "gitHub":
           // create new account with github
           await signInWithPopup(auth, gitHubProvider).then(
-            (res) => (user = res.user)
+            ({ user: { uid, photoURL } }) => (user = { uid, photoURL })
           );
           break;
         case "google":
           // create new account with google
           await signInWithPopup(auth, googleProvider).then(
-            (res) => (user = res.user)
+            ({ user: { uid, photoURL } }) => (user = { uid, photoURL })
           );
           break;
         default:
           throw new Error("Error : Unknown Action !");
       }
       // create a cell on data base for user
-      await createUserDataCell(user?.uid);
+      await createUserDataCell(user?.uid, {
+        wishlist: localWishList || [],
+        personalInformation: { profilePic: user.photoURL || avatarsUrl[2] },
+      });
       // store necessary user information's in local storage
       localStorage.setItem(
         "userData",
@@ -111,7 +170,7 @@ export const signUp = createAsyncThunk(
           orders: [],
           wishlist: localWishList || [],
           notifications: [],
-          personalInformation: {},
+          personalInformation: { profilePic: user.photoURL || avatarsUrl[2] },
         })
       );
       // disptach success after two requests
@@ -141,7 +200,6 @@ export const updateUserData = createAsyncThunk(
             payload.step || localUserData?.uid ? "second-step" : "fisrt-step",
         })
       );
-      console.log("local storage updated");
       // update user data on database (only for authenticated users)
       if (localUserData?.uid) {
         // get user UID
@@ -155,7 +213,6 @@ export const updateUserData = createAsyncThunk(
       }
       return fulfillWithValue(payload);
     } catch (error) {
-      console.log("error");
       console.log(error?.message);
       // dispatch failure
       return rejectWithValue(error?.message);
@@ -196,7 +253,7 @@ const userSlice = createSlice({
   },
   // async reducers
   extraReducers: (builder) => {
-    // sign in Reducer
+    // sign up Reducer
     builder.addCase(signUp.pending, (state, action) => {
       state.loading = true;
     });
@@ -210,17 +267,28 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    // get user data reducer
-    // builder.addCase(getUserData.fulfilled, (state, { payload }) => {
-    //   console.log(payload);
-    //   state = payload;
-    // });
+    // sign in Reducer
+    builder.addCase(signInUser.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(signInUser.fulfilled, (state, { payload }) => {
+      // merge state with user data
+      if (payload) {
+        for (const key in payload) {
+          state[key] = payload[key];
+        }
+      }
+      state.loading = false;
+    });
+    builder.addCase(signInUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
     // update user data
     builder.addCase(updateUserData.pending, (state, action) => {
       state.loading = true;
     });
     builder.addCase(updateUserData.fulfilled, (state, { payload }) => {
-      console.log("main state updated succsesfully");
       state.loading = false;
       state[payload.field] = payload.data;
       state.currentStep = payload?.step || state.currentStep;

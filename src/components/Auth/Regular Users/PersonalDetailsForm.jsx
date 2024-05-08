@@ -1,5 +1,5 @@
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
@@ -39,11 +39,13 @@ const inputOptions = {
 };
 
 function PersonalDetailsForm() {
-  const { loading } = useSelector((state) => state.userData);
+  const { loading, personalInformation } = useSelector(
+    (state) => state.userData
+  );
   // profile picture state
   const [profilePic, setProfile] = useState({
     isLoading: false,
-    profilePicUrl: "",
+    profilePicUrl: personalInformation.profilePic || "",
   });
   // avatar picker modal state
   const [modalShow, setModalShow] = useState(false);
@@ -56,7 +58,15 @@ function PersonalDetailsForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(isValid);
+  // change profile state if profile already set
+  useEffect(() => {
+    if (personalInformation?.profilePic) {
+      setProfile((prev) => ({
+        ...prev,
+        profilePicUrl: personalInformation.profilePic,
+      }));
+    }
+  }, [personalInformation]);
 
   // upload new picture to firebase storage
   async function uploadProfilePic(selectedPic) {
@@ -245,7 +255,7 @@ function PersonalDetailsForm() {
         <div className="w-full mt-2 flex items-center justify-end gap-x-2">
           {/* submit button */}
           <button
-            // disabled={profilePic.isLoading || !isValid}
+            disabled={profilePic.isLoading || !isValid}
             type="submit"
             className="px-4 disabled:bg-gray-300 py-2 md:text-lg hover:bg-primary-800 bg-primary-500 transition-all text-white rounded-md w-fit"
           >

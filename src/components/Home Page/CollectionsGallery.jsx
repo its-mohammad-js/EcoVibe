@@ -23,7 +23,6 @@ function CollectionsGallery({ products, isLoading }) {
 
   // add / remove product from wish list
   function toggleWishList(productId) {
-    console.log(productId);
     // update wish list
     const updatedWishList = toggleElementInArray(wishlist, productId);
     // update wish list with new values

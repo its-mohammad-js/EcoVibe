@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductDetailsPage from "./pages/Product Detail Page/ProductDetailsPage";
 import RegularUserSignUp from "./pages/Regular User Auth Page/RegularUserSignUp";
-import RegularUserSign from "./pages/Regular User Auth Page/RegularUserSign";
+import RegularUserSignIn from "./pages/Regular User Auth Page/RegularUserSignIn";
 import SignUp from "./components/Auth/Regular Users/SignUp";
 import PersonalDetailsForm from "./components/Auth/Regular Users/PersonalDetailsForm";
 import UserInterestsForm from "./components/Auth/Regular Users/UserInterestsForm";
@@ -50,7 +50,7 @@ function App() {
             element={<UserInterestsForm />}
           />
         </Route>
-        <Route path="/EcoVibe/Sign-in/" element={<RegularUserSign />} />
+        <Route path="/EcoVibe/Sign-in/" element={<RegularUserSignIn />} />
         {/*  */}
         <Route path="/EcoVibe/Wish-list/" element={<WishListPage />} />
       </Routes>

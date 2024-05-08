@@ -30,14 +30,24 @@ import { useSelector } from "react-redux";
 
 function Navbar() {
   const isMobile = useMediaQuery({ maxWidth: 480 });
+  const userData = useSelector((state) => state.userData);
 
-  return <>{isMobile ? <MobileNavbar /> : <DesktopNavbar />}</>;
+  // console.log(userData);
+
+  return (
+    <>
+      {isMobile ? (
+        <MobileNavbar {...userData} />
+      ) : (
+        <DesktopNavbar {...userData} />
+      )}
+    </>
+  );
 }
 
 export default Navbar;
 
-const MobileNavbar = () => {
-  const userData = useSelector((state) => state.userData);
+const MobileNavbar = ({ userData }) => {
   // detect pathname for mobile navbar
   const location = useLocation();
   // mobile menu state
@@ -140,7 +150,15 @@ const MobileNavbar = () => {
           <div className="w-full h-20 bg-gray-200 flex items-center justify-between px-4">
             <div className="flex items-center justify-center gap-x-3">
               <div className="w-10 h-10 bg-gray-400 rounded-full flex items-center justify-center">
-                <FaUser className="text-2xl" />
+                {userData?.profilePic ? (
+                  <img
+                    src={userData?.profilePic}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <FaUser className="text-2xl" />
+                )}
               </div>
               <div className="flex flex-col justify-between items-start">
                 <h2>{userData?.uid ? "Authenticated" : "Guest User"}</h2>
@@ -239,8 +257,7 @@ const MobileNavbar = () => {
   );
 };
 
-const DesktopNavbar = () => {
-  const userData = useSelector((state) => state.userData);
+const DesktopNavbar = ({ personalInformation }) => {
   // detect pathname for desktop navbar
   const location = useLocation();
   // sub menu content state
@@ -457,8 +474,18 @@ const DesktopNavbar = () => {
             <span>Need Help ?</span>
             <span>+123456789</span>
           </div>
-          <div className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl">
-            {userData?.uid ? "Authed" : <FaUser />}
+          <div className="w-12 h-12 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl">
+            {personalInformation?.profilePic ? (
+              <img
+                src={personalInformation?.profilePic}
+                loading="lazy"
+                className="w-full h-full object-cover rounded-full"
+              />
+            ) : (
+              <div className="p-3 flex items-center justify-center">
+                <FaUser className="text-2xl" />
+              </div>
+            )}
           </div>
           <div className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl">
             <FaHeart />

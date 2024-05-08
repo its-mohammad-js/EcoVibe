@@ -32,7 +32,7 @@ function WishListPage() {
           className="px-2
          py-2 flex flex-col gap-y-4"
         >
-          {/* title */}
+          {/* header */}
           <div className="text-center my-4">
             <h4 className="text-3xl font-medium">My Wishlist</h4>
             <p className="mt-2">
@@ -42,41 +42,26 @@ function WishListPage() {
             </p>
           </div>
           {/* products container */}
-
-          <div className="flex flex-col gap-y-4">
+          <div className="flex items-center justify-between gap-y-4 flex-wrap">
             {filterProducts(data, { idList: wishlist }).map(
               (
                 { Name, Thumbnail, Price, Description, Category, id },
                 index
               ) => (
                 <div
+                  className="flex flex-col items-center w-[48%] h-44 bg-red-700 rounded-md relative"
                   key={index}
-                  className={`${
-                    listLoading && "animate-pulse"
-                  } w-full h-32 md:h-44 border border-gray-200 bg-gray-50/50 shadow-md rounded-md flex items-center md:px-4 md:py-2`}
                 >
                   {/* product image */}
-                  <div className="w-[40%] md:w-40 h-full">
+                  <div className="h-full w-full">
                     <img
                       src={Thumbnail}
                       alt={Name}
-                      className="w-full h-full object-cover rounded-md md:rounded-full"
+                      className="w-full h-full rounded-md object-cover"
                     />
                   </div>
-                  {/* product summary */}
-                  <div className="h-full flex justify-evenly flex-col flex-1 px-2">
-                    <p className="text-lg">${Price}</p>
-                    <span className="line-clamp-2 text-sm">{Description}</span>
-                    <button className="bg-primary-500 text-gray-50 py-1 px-3 w-fit rounded-md text-sm">
-                      Move To Cart
-                    </button>
-                  </div>
-                  {/* remove button */}
-                  <div className="h-full px-2 py-1.5">
-                    <button onClick={() => removeProductFromCart(id)}>
-                      <IoCloseOutline className="text-2xl" />
-                    </button>
-                  </div>
+                  {/* product dtails */}
+                  <div className="absolute w-11/12 h-20"></div>
                 </div>
               )
             )}
