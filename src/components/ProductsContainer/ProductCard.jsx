@@ -47,7 +47,7 @@ function ProductCard({ productData, onProductLike, isLiked }) {
             window.scrollTo(0, 0);
             navigate(`/EcoVibe/Products/${id}`);
           }}
-          className="font-bold line-clamp-2 md:mt-1 hover:text-primary-700 transition-all"
+          className="font-bold line-clamp-2 w-fit md:mt-1 hover:text-primary-700 transition-all"
         >
           {Name}
         </h2>

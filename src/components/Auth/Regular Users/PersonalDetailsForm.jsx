@@ -6,10 +6,8 @@ import { FaCheck } from "react-icons/fa6";
 import { storage } from "../../../config/firebase";
 import { avatarsUrl } from "../../../helpers/constants";
 import { CgClose } from "react-icons/cg";
-import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../../../redux/auth/regularUsers/regluarUsersSlice";
-import { useNavigate } from "react-router-dom";
 
 const inputOptions = {
   first_name: {
@@ -56,7 +54,6 @@ function PersonalDetailsForm() {
     formState: { errors, isValid },
   } = useForm();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // change profile state if profile already set
   useEffect(() => {
@@ -255,22 +252,11 @@ function PersonalDetailsForm() {
         <div className="w-full mt-2 flex items-center justify-end gap-x-2">
           {/* submit button */}
           <button
-            disabled={profilePic.isLoading || !isValid}
+            // disabled={profilePic.isLoading || !isValid}
             type="submit"
             className="px-4 disabled:bg-gray-300 py-2 md:text-lg hover:bg-primary-800 bg-primary-500 transition-all text-white rounded-md w-fit"
           >
             Next
-          </button>
-          {/* skip button */}
-          <button
-            type="button"
-            onClick={() => {
-              window.scrollTo(0, 0);
-              navigate("/EcoVibe/sign-in/third-step/user-intersets");
-            }}
-            className="text-primary-500 disabled:cursor-not-allowed md:text-lg px-4 py-2"
-          >
-            Skip...
           </button>
         </div>
       </form>
@@ -306,7 +292,11 @@ const Input = ({
           placeholder={placeholder}
         />
         <span className="text-2xl text-gray-300 transition-all">
-          <FaCheck className={`${errors[name]?.message && "text-red-500"} `} />
+          {!errors[name]?.message ? (
+            <FaCheck />
+          ) : (
+            <CgClose className="text-red-500" />
+          )}
         </span>
       </div>
 

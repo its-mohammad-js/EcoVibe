@@ -155,3 +155,33 @@ body::-webkit-scrollbar-thumb {
   pointer-events: all;
   position: relative;
 }
+
+.gradient-background {
+  background: linear-gradient(
+    317deg,
+    deepskyblue,
+    darkviolet,
+    blue,
+    #08cbfc,
+    #9608fc,
+    #9608fc,
+    #9608fc,
+    blue,
+    blue,
+    blue
+  );
+  background-size: 420% 420%;
+  animation: gradient-animation 25s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

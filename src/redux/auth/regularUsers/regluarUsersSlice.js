@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -25,6 +24,7 @@ async function createUserDataCell(userId, guestUserData) {
     notifications: [],
     personalInformation: guestUserData?.personalInformation || {},
     userId: userId,
+    currentStep: guestUserData?.currentStep || "second-step",
   };
   try {
     // create new cell on data base for user
@@ -54,13 +54,15 @@ export const signInUser = createAsyncThunk(
         // sign in with google account
         case "google":
           await signInWithPopup(auth, googleProvider).then(
-            ({ user: { uid, photoURL } }) => (user = { uid, photoURL })
+            ({ user: { uid, photoURL, email, displayName } }) =>
+              (user = { uid, photoURL, name: displayName || email })
           );
           break;
         // sign in with github account
         case "github":
           await signInWithPopup(auth, gitHubProvider).then(
-            ({ user: { uid, photoURL } }) => (user = { uid, photoURL })
+            ({ user: { uid, photoURL, email, displayName } }) =>
+              (user = { uid, photoURL, name: displayName || email })
           );
           break;
         default:
@@ -83,6 +85,7 @@ export const signInUser = createAsyncThunk(
           cartData: [],
           personalInformation: {
             profilePic: user.photoURL || avatarsUrl[2],
+            first_name: user?.name || "not set",
           },
           orders: [],
           notifications: [],
@@ -93,6 +96,7 @@ export const signInUser = createAsyncThunk(
         await createUserDataCell(user?.uid, {
           wishlist: finalUserData?.wishlist,
           personalInformation: finalUserData?.personalInformation,
+          currentStep: finalUserData?.currentStep,
         });
         // store user data in local storage
         localStorage.setItem("userData", JSON.stringify(finalUserData));
@@ -186,8 +190,12 @@ export const signUp = createAsyncThunk(
 // update a specofic field of user data
 export const updateUserData = createAsyncThunk(
   "userData/updateUserData",
-  async (payload, { rejectWithValue, fulfillWithValue }) => {
+  async (payload, { rejectWithValue, fulfillWithValue, getState }) => {
     try {
+      // read curent step from state
+      const {
+        userData: { currentStep },
+      } = getState();
       // read stored user data on local storage
       const localUserData = JSON.parse(localStorage.getItem("userData"));
       // update userData on local data storage (for both guest & authenticated user's)
@@ -197,7 +205,9 @@ export const updateUserData = createAsyncThunk(
           ...localUserData,
           [payload.field]: payload.data,
           currentStep:
-            payload.step || localUserData?.uid ? "second-step" : "fisrt-step",
+            payload.step ||
+            (localUserData?.uid && "second-step") ||
+            "first-step",
         })
       );
       // update user data on database (only for authenticated users)
@@ -206,10 +216,11 @@ export const updateUserData = createAsyncThunk(
         const userId = auth.currentUser?.uid || localUserData?.uid || "";
         // reference to user Data
         const userDataRef = doc(db, "users", userId);
-        // update selected field on data base
-        await updateDoc(userDataRef, { [payload.field]: payload.data });
-        // update local state
-        console.log("data base ok");
+        // update selected field on data base (with current user step)
+        await updateDoc(userDataRef, {
+          [payload.field]: payload.data,
+          currentStep: payload.step || currentStep,
+        });
       }
       return fulfillWithValue(payload);
     } catch (error) {
@@ -224,7 +235,6 @@ export const updateUserData = createAsyncThunk(
 const defaultUserData = {
   loading: false,
   error: "",
-  userName: "",
   uid: "",
   currentStep: "first-step",
   cartData: [],

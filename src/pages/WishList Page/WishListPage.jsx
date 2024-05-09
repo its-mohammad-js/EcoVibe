@@ -47,7 +47,7 @@ function WishListPage() {
         {/* header (user profile) */}
         <div className="h-32 relative">
           {/* gradient bg */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-primary-500 to-primary-950 rounded-md -z-10"></div>
+          <div className="absolute inset-0 gradient-background rounded-md -z-10"></div>
           {/* user info */}
           <div className="w-full h-full bg-primary-50/50 backdrop-blur-sm rounded-md flex items-center justify-between gap-x-2">
             {/* profile pic */}
@@ -65,7 +65,9 @@ function WishListPage() {
             {/* personal information */}
             <div className="h-full flex-1 flex flex-col items-start justify-center gap-y-1">
               <h4 className="text-2xl md:text-3xl font-medium">
-                {uid ? userName : "Guest User"}
+                {uid
+                  ? personalInformation.first_name || "Not set!"
+                  : "Guest User"}
               </h4>
               <p className="text-primary-800">
                 wish-list&nbsp;(<span>{wishlist.length}</span>)
