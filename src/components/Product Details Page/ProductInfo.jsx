@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFilteredProducts } from "../../redux/products/productsSlice";
@@ -11,7 +11,11 @@ import {
   FaPlus,
 } from "react-icons/fa";
 import ReactStars from "react-stars";
-import { calculateAverage } from "../../helpers/constants";
+import {
+  calculateAverage,
+  toggleElementInArray,
+} from "../../helpers/constants";
+import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
 
 function ProductInfo() {
   const { data, loading } = useSelector((state) => state.products);
@@ -19,6 +23,7 @@ function ProductInfo() {
   const params = useParams();
   const productData = data.find((product) => product.id === params.productId);
   const sliderRef = useRef();
+  // slider options
   const settings = {
     dots: false,
     infinite: true,
@@ -26,9 +31,39 @@ function ProductInfo() {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // appendDots: appendDotsFunc,
   };
   const navigate = useNavigate();
+  // get user data
+  const { cartData, wishlist } = useSelector((state) => state.userData);
+  // product selected options
+  const [orderInfo, setOrder] = useState({
+    quantity: 1,
+  });
+
+  function toggleWishList() {
+    const updatedWishList = toggleElementInArray(wishlist, productData.id);
+
+    dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
+  }
+
+  function toggleCartData() {
+    // // product data object model
+    // const productData = {
+    //   id,
+    //   quantity: 1,
+    //   selectedOptions: [{ [Options[0].title]: Options[0].options[0] }],
+    //   Thumbnail,
+    //   Name,
+    // };
+    // // check cart Data for existing product
+    // const productIndex = cartData.findIndex((product) => product.id === id);
+    // // toggle cart data
+    // const updatedCartData = !productIndex
+    //   ? [...cartData, productData]
+    //   : cartData.filter((product) => product.id !== id);
+    // // update cart data with new value
+    // dispatch(updateUserData({ data: updatedCartData, field: "cartData" }));
+  }
 
   // check products data & send request to data base
   useEffect(() => {
@@ -38,6 +73,22 @@ function ProductInfo() {
       dispatch(getFilteredProducts({ sortBy: "" }));
     }
   }, [params]);
+
+  // set order info to default options
+  useEffect(() => {
+    if (productData) {
+      // tranform product options array to default options object
+      const defaultOptions = productData.Options.reduce((acc, item) => {
+        acc[item.title] = item.options[0];
+        return acc;
+      }, {});
+
+      // set order info with default options
+      setOrder((prev) => ({ ...prev, ...defaultOptions }));
+    }
+  }, [productData]);
+
+  console.log(orderInfo);
 
   if (loading) return <p>loading...</p>;
 
@@ -123,23 +174,61 @@ function ProductInfo() {
             <div className="flex flex-col gap-y-2 mt-4">
               <div className="flex items-center justify-between gap-x-2">
                 <div className="w-1/3 flex justify-center bg-gray-100 rounded-md">
-                  <span className="w-1/3 py-2.5 flex items-center justify-center cursor-pointer rounded-md hover:bg-primary-600 hover:text-gray-50 transition-all">
+                  <button
+                    onClick={() =>
+                      setOrder((prev) => ({
+                        ...prev,
+                        quantity: prev.quantity + 1,
+                      }))
+                    }
+                    className="w-1/3 py-2.5 flex items-center justify-center cursor-pointer rounded-md hover:bg-primary-600 hover:text-gray-50 transition-all"
+                  >
                     <FaPlus />
+                  </button>
+                  <span className="w-1/3 py-2.5 text-center">
+                    {orderInfo.quantity}
                   </span>
-                  <span className="w-1/3 py-2.5 text-center">1</span>
-                  <span className="w-1/3 py-2.5 flex items-center justify-center cursor-pointer rounded-md hover:bg-gray-950 hover:text-gray-50 transition-all">
+                  <button
+                    onClick={() =>
+                      setOrder((prev) => ({
+                        ...prev,
+                        quantity: prev.quantity + 1,
+                      }))
+                    }
+                    className="w-1/3 py-2.5 flex items-center justify-center cursor-pointer rounded-md hover:bg-gray-950 hover:text-gray-50 transition-all"
+                  >
                     <FaMinus />
-                  </span>
+                  </button>
                 </div>
-                <button className="flex px-4 py-1.5 items-center md:text-lg justify-center gap-x-1 w-2/3 border-2 border-gray-800 hover:border-primary-600 hover:text-primary-600 rounded-md">
+                <button
+                  onClick={() => {
+                    toggleWishList();
+                  }}
+                  disabled={wishlist.find((id) => id === productData.id)}
+                  className="flex px-4 py-1.5 disabled:opacity-50 items-center md:text-lg justify-center gap-x-1 w-2/3 border-2 border-gray-800 hover:border-primary-600 hover:text-primary-600 rounded-md"
+                >
                   <span className="text-lg">
                     <FaHeart />
                   </span>
-                  <span>Wish List</span>
+                  <span>
+                    {!wishlist.find((id) => id === productData.id)
+                      ? "Add To Wishlist"
+                      : "Already liked"}
+                  </span>
                 </button>
               </div>
-              <button className="px-4 py-2 bg-primary-600 md:text-xl text-gray-50 hover:bg-primary-50 hover:text-primary-950 transition-all rounded-md">
-                Add to Cart
+              <button
+                onClick={() => {
+                  toggleCartData;
+                }}
+                disabled={cartData.find(
+                  (product) => product.id === productData.id
+                )}
+                className="px-4 py-2 bg-primary-600 disabled:bg-gray-600 md:text-xl text-gray-50 hover:bg-primary-50 hover:text-primary-950 transition-all rounded-md"
+              >
+                {cartData.find((product) => product.id === productData.id)
+                  ? "Already in cart"
+                  : "Add To cart"}
               </button>
             </div>
             {/* product marks  */}
@@ -229,18 +318,22 @@ function ProductInfo() {
                     {/* picker action */}
                     <div className="flex items-center flex-wrap gap-x-4 gap-y-2">
                       {options.map((opt, index) => (
-                        <span
+                        <button
                           key={index}
+                          onClick={() => {
+                            setOrder((prev) => ({ ...prev, [title]: opt }));
+                          }}
                           style={{
                             background: title.toLowerCase() === "color" && opt,
                           }}
+                          disabled={orderInfo[title] === opt}
                           className={`${
                             title.toLowerCase() === "color" &&
-                            "!p-3.5 !rounded-full border-2 border-gray-100 hover:!border-gray-600"
-                          } line-clamp-1 cursor-pointer capitalize px-3 py-1.5 transition-all bg-gray-50 border rounded-md border-gray-300 hover:bg-primary-400 hover:border-primary-400 hover:text-white`}
+                            "!p-3.5 !rounded-full border-2 border-gray-100 hover:!border-gray-600 disabled:border-primary-400"
+                          } line-clamp-1 disabled:bg-primary-400 disabled:text-white cursor-pointer capitalize px-3 py-1.5 transition-all bg-gray-50 border rounded-md border-gray-300 hover:bg-primary-400 hover:border-primary-400 hover:text-white`}
                         >
                           {title.toLowerCase() !== "color" && opt}
-                        </span>
+                        </button>
                       ))}
                     </div>
 

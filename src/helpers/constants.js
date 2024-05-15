@@ -292,6 +292,11 @@ export const getProductOption = (productType, optionsList = []) => {
   }
 };
 
+// genrate a unique id
+export function generateId(baseId = "") {
+  return `${baseId}` + `${Date.now()}` + `${Math.random()}`;
+}
+
 export const avatarsUrl = [
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(1).webp?alt=media&token=208a6a73-f31d-436a-b416-98752a90c7a9",
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FPrimary%20pics%2Favatar%20%20(2).webp?alt=media&token=5fb1eddd-e6e8-4f79-97b6-1db11d7391a9",

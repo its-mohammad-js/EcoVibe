@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import FilterProduct from "../../components/Explore Products Page/FilterProduct";
-import FilteredProducts from "../../components/Explore Products Page/FilteredProducts";
-import { useDispatch, useSelector } from "react-redux";
-import { getFilteredProducts } from "../../redux/products/productsSlice";
-import { useParams, useSearchParams } from "react-router-dom";
+import ProductGrid from "../../components/Explore Products Page/ProductGrid";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { changeFilterReducer as setFilter } from "src/redux/filters/filterSlice";
 import { queryToFilterObject } from "../../helpers/constants";
 
@@ -12,6 +11,7 @@ function ExploreProducts() {
   const dispatch = useDispatch();
   const queryParams = useParams();
 
+  // effect query params to products rquest
   useEffect(() => {
     // destructure qeury to key / value array
     const query = queryToFilterObject(queryParams);
@@ -24,7 +24,7 @@ function ExploreProducts() {
       // clear filters
       dispatch(setFilter({ type: "clear" }));
     }
-
+    // clear filters
     return () => {
       dispatch(setFilter({ type: "clear" }));
     };
@@ -36,7 +36,7 @@ function ExploreProducts() {
         {/* search / sort and filter product */}
         <FilterProduct />
         {/* filtered product */}
-        <FilteredProducts />
+        <ProductGrid />
       </div>
     </>
   );

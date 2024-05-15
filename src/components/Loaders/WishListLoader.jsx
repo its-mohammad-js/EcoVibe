@@ -2,12 +2,12 @@ import { SlClose } from "react-icons/sl";
 import { fakeArray } from "../../helpers/constants";
 import { BiCartAlt } from "react-icons/bi";
 
-function WishListLoader() {
+function WishListLoader({ length }) {
   return (
-    <div className="flex w-full items-center justify-between md:px-6 md:py-2 gap-y-4 md:gap-x-4 md:gap-y-6 flex-wrap md:mx-auto md:max-h-[30rem] md:overflow-auto styled-scroll-bar">
-      {fakeArray(8).map((index) => (
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:px-2 md:max-h-[30rem] overflow-auto styled-scroll-bar">
+      {fakeArray(length || 12).map((index) => (
         <div
-          className="flex flex-col items-center w-[48%] md:w-1/4 lg:w-1/5 h-44 lg:h-56 xl:h-72 bg-gray-100 shadow-md rounded-md relative animate-pulse"
+          className="flex flex-col items-center h-44 lg:h-56 xl:h-72 bg-gray-100 shadow-md rounded-md relative animate-pulse"
           key={index}
         >
           {/* remove product button */}

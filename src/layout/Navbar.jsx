@@ -32,8 +32,6 @@ function Navbar() {
   const isMobile = useMediaQuery({ maxWidth: 480 });
   const userData = useSelector((state) => state.userData);
 
-  // console.log(userData);
-
   return (
     <>
       {isMobile ? (
@@ -47,7 +45,7 @@ function Navbar() {
 
 export default Navbar;
 
-const MobileNavbar = ({ userData }) => {
+const MobileNavbar = ({ personalInformation, uid }) => {
   // detect pathname for mobile navbar
   const location = useLocation();
   // mobile menu state
@@ -72,9 +70,13 @@ const MobileNavbar = ({ userData }) => {
           </h2>
 
           <div className="flex items-center justify-center gap-x-2.5">
-            <BiCart className="text-3xl" />
+            <button onClick={() => navigate("/EcoVibe/cart")}>
+              <BiCart className="text-3xl" />
+            </button>
 
-            <FaHeart className="text-2xl" />
+            <button onClick={() => navigate("/EcoVibe/wish-list")}>
+              <FaHeart className="text-2xl" />
+            </button>
           </div>
         </div>
         {/* search bar */}
@@ -147,22 +149,26 @@ const MobileNavbar = ({ userData }) => {
           } w-3/4 h-full bg-gray-100 z-10 transition-all duration-500 flex flex-col items-center`}
         >
           {/* user profile information */}
-          <div className="w-full h-20 bg-gray-200 flex items-center justify-between px-4">
+          <div className="w-full h-20 bg-gray-200 flex items-center justify-between px-4 py-2">
             <div className="flex items-center justify-center gap-x-3">
-              <div className="w-10 h-10 bg-gray-400 rounded-full flex items-center justify-center">
-                {userData?.profilePic ? (
+              <div className="size-14 bg-gray-100 rounded-full flex items-center justify-center">
+                {personalInformation.profilePic ? (
                   <img
-                    src={userData?.profilePic}
+                    src={personalInformation?.profilePic}
                     loading="lazy"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-full"
                   />
                 ) : (
                   <FaUser className="text-2xl" />
                 )}
               </div>
               <div className="flex flex-col justify-between items-start">
-                <h2>{userData?.uid ? "Authenticated" : "Guest User"}</h2>
-                <p className="text-sm">+12394595</p>
+                <h2>
+                  {uid
+                    ? personalInformation?.first_name || "Not set!"
+                    : "Guest User"}
+                </h2>
+                {/* <p className="text-sm">+12394595</p> */}
               </div>
             </div>
             <div className="">
@@ -487,12 +493,18 @@ const DesktopNavbar = ({ personalInformation }) => {
               </div>
             )}
           </div>
-          <div className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl">
+          <button
+            onClick={() => navigate("/EcoVibe/wish-list")}
+            className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
+          >
             <FaHeart />
-          </div>
-          <div className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl">
+          </button>
+          <button
+            onClick={() => navigate("/EcoVibe/cart")}
+            className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
+          >
             <BiCart />
-          </div>
+          </button>
         </div>
       </div>
       {/* sub menu (only dispaly on home page) */}

@@ -3,21 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "../../redux/products/productsSlice";
 import { filterProducts } from "../../helpers/filterPorducts";
 import { SlClose } from "react-icons/sl";
-import { avatarsUrl, toggleElementInArray } from "../../helpers/constants";
+import {
+  avatarsUrl,
+  generateId,
+  toggleElementInArray,
+} from "../../helpers/constants";
 import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
 import { BiCartAlt } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import WishListLoader from "../../components/Loaders/WishListLoader";
+import { BsCartCheck } from "react-icons/bs";
 
 function WishListPage() {
   // user data
-  const {
-    wishlist,
-    loading: listLoading,
-    userName,
-    personalInformation,
-    uid,
-  } = useSelector((state) => state.userData);
+  const { wishlist, personalInformation, uid, cartData } = useSelector(
+    (state) => state.userData
+  );
   // product list data
   const { data, error, loading } = useSelector((state) => state.products);
   // redux dispatcher
@@ -32,6 +33,31 @@ function WishListPage() {
     dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
   }
 
+  // add product to cart
+  function addToCart({ Options, Name, Thumbnail, id, Price, Category }) {
+    // order product with default options
+    const defaultOrder = {
+      orderId: generateId(id),
+      orderData: Date.now(),
+      productId: id,
+      Category,
+      Name,
+      Thumbnail,
+      Price,
+      quantity: 1,
+      selectedOption: [
+        {
+          title: Options[0].title,
+          option: Options[0].options[0],
+        },
+      ],
+    };
+
+    dispatch(
+      updateUserData({ data: [...cartData, defaultOrder], field: "cartData" })
+    );
+  }
+
   // get selected products data
   useEffect(() => {
     dispatch(getFilteredProducts({ sortBy: "" }));
@@ -39,11 +65,7 @@ function WishListPage() {
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl">
-      <div
-        id="wrapper"
-        className="px-2
-         py-2 flex flex-col gap-y-4"
-      >
+      <div id="wrapper" className="px-2 py-2 md:px-4 flex flex-col gap-y-4">
         {/* header (user profile) */}
         <div className="h-32 relative">
           {/* gradient bg */}
@@ -77,14 +99,11 @@ function WishListPage() {
         </div>
         {/* products container */}
         {!loading ? (
-          <div className="flex w-full items-center justify-between md:px-6 md:py-2 gap-y-4 md:gap-x-4 md:gap-y-6 flex-wrap md:mx-auto md:max-h-[30rem] md:overflow-auto styled-scroll-bar">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:px-2 md:max-h-[30rem] overflow-auto styled-scroll-bar">
             {filterProducts(data, { idList: wishlist, sortBy: sortList }).map(
-              (
-                { Name, Thumbnail, Price, Description, Category, id },
-                index
-              ) => (
+              ({ Name, Thumbnail, Price, Options, Category, id }, index) => (
                 <div
-                  className="flex flex-col items-center w-[48%] md:w-1/4 lg:w-1/5 h-44 lg:h-56 xl:h-72 bg-gray-100 shadow-md rounded-md relative"
+                  className="flex flex-col items-center h-44 lg:h-56 xl:h-72 bg-gray-100 shadow-md rounded-md relative"
                   key={index}
                 >
                   {/* remove product button */}
@@ -119,8 +138,27 @@ function WishListPage() {
                       </p>
                     </div>
                     {/* add to cart btn */}
-                    <button className="p-3 text-xl md:text-3xl bg-primary-500 hover:bg-primary-800 transition-all text-gray-50 rounded-xl">
-                      <BiCartAlt />
+                    <button
+                      onClick={() => {
+                        addToCart({
+                          Options,
+                          Name,
+                          Thumbnail,
+                          id,
+                          Price,
+                          Category,
+                        });
+                      }}
+                      disabled={cartData.find(
+                        ({ productId }) => productId === id
+                      )}
+                      className="p-3 text-xl md:text-3xl bg-primary-500 hover:bg-primary-800 transition-all text-gray-50 rounded-xl disabled:bg-gray-600"
+                    >
+                      {cartData.find(({ productId }) => productId === id) ? (
+                        <BsCartCheck />
+                      ) : (
+                        <BiCartAlt />
+                      )}
                     </button>
                   </div>
                 </div>
@@ -128,7 +166,7 @@ function WishListPage() {
             )}
           </div>
         ) : (
-          <WishListLoader />
+          <WishListLoader length={wishlist?.length} />
         )}
       </div>
     </div>

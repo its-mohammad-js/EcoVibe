@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getLocalUserData } from "./redux/auth/regularUsers/regluarUsersSlice";
 import WishListPage from "./pages/WishList Page/WishListPage";
+import CartPage from "./pages/Cart Page/CartPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,8 @@ function App() {
         <Route path="/EcoVibe/Sign-in/" element={<RegularUserSignIn />} />
         {/*  */}
         <Route path="/EcoVibe/Wish-list/" element={<WishListPage />} />
+
+        <Route path="/EcoVibe/cart" element={<CartPage />} />
       </Routes>
     </AppLayout>
   );
