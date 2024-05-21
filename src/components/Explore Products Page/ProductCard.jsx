@@ -54,24 +54,24 @@ function ProductCard({ productData }) {
   function addProductToCart({ Name, Thumbnail, id, Options, Price, Category }) {
     // set cart action ref to product id
     setActions((prev) => ({ ...prev, orderRef: id }));
+    // get default options of product
+    let defaultOptions = [];
+    Options.forEach(({ title, options }) => {
+      if (options.length > 1)
+        defaultOptions.push({ title, option: options[0] });
+    });
     // order product with default options
     const defaultOrder = {
       orderId: generateId(id),
-      orderData: Date.now(),
+      orderDate: Date.now(),
       productId: id,
       Category,
       Name,
       Thumbnail,
       Price,
       quantity: 1,
-      selectedOption: [
-        {
-          title: Options[0].title,
-          option: Options[0].options[0],
-        },
-      ],
+      selectedOption: defaultOptions,
     };
-
     // add product with default order to cart
     dispatch(
       updateUserData({ data: [...cartData, defaultOrder], field: "cartData" })

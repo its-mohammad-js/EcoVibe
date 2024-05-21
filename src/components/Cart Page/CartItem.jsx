@@ -2,24 +2,37 @@ import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
+import { useEffect, useState } from "react";
 
 function CartItem({ orderDetails }) {
+  const [actionRef, setActionRef] = useState("");
+  // necessary data & hooks
   const { cartData, loading } = useSelector((state) => state.userData);
   const isMobile = useMediaQuery({ maxWidth: 480 });
   const dispatch = useDispatch();
 
+  // remove product order from cart
   function removeProduct() {
+    setActionRef(orderDetails.orderId);
+    // filter orders by id
     const updatedCart = cartData.filter(
       ({ orderId }) => orderId !== orderDetails.orderId
     );
-
+    // update cart data with new data
     dispatch(updateUserData({ data: updatedCart, field: "cartData" }));
   }
+
+  // reset action ref after each action
+  useEffect(() => {
+    if (actionRef !== "" && !loading) {
+      setActionRef("");
+    }
+  }, []);
 
   return (
     <div
       className={`${
-        loading && "animate-pulse"
+        loading && actionRef === orderDetails.orderId && "animate-pulse"
       } bg-gray-100/80 rounded-md flex items-center h-36 md:h-40 px-2 py-1 relative`}
     >
       {/* product tumbnail */}
@@ -31,6 +44,7 @@ function CartItem({ orderDetails }) {
         />
 
         <button
+          disabled={loading}
           onClick={removeProduct}
           className="size-8 bg-slate-100 absolute top-1.5 left-1.5 md:left-auto md:right-2 md:text-lg md:size-9 rounded-full text-red-500"
         >
@@ -42,7 +56,7 @@ function CartItem({ orderDetails }) {
         {/* title */}
         <div className="">
           {/* product Category */}
-          <p className="text-xs font-medium md:text-sm">
+          <p className="text-xs font-medium md:text-sm line-clamp-1 text-gray-500">
             <span>{orderDetails.Category}</span>
           </p>
           {/* order title */}

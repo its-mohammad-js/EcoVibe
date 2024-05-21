@@ -1,21 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "../../redux/products/productsSlice";
-import {
-  calculateAverage,
-  errorIconUrl,
-  generateId,
-  isInArray,
-  paginateElements,
-  toggleElementInArray,
-} from "../../helpers/constants";
-import { FaEye, FaHeart, FaStar } from "react-icons/fa";
+import { errorIconUrl, paginateElements } from "../../helpers/constants";
 import PaginationButtons from "./PaginationButtons";
-import { BiCart } from "react-icons/bi";
 import FilteredProductsLoader from "../Loaders/FilteredProductsLoader";
 import { useNavigate } from "react-router-dom";
-import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
-import { BsCartCheck } from "react-icons/bs";
 import ProductCard from "./ProductCard";
 
 function ProductGrid() {
@@ -25,8 +14,8 @@ function ProductGrid() {
   const { loading, data, error } = useSelector((state) => state.products);
   // paginated product
   const paginatedProduct = paginateElements(data, 8);
+  // necessary hooks
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // get filtered products on each filter change
   useEffect(() => {

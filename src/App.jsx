@@ -52,7 +52,7 @@ function App() {
           />
         </Route>
         <Route path="/EcoVibe/Sign-in/" element={<RegularUserSignIn />} />
-        {/*  */}
+        {/* user personal pages */}
         <Route path="/EcoVibe/Wish-list/" element={<WishListPage />} />
 
         <Route path="/EcoVibe/cart" element={<CartPage />} />
