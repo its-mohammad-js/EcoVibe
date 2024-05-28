@@ -260,6 +260,12 @@ const userSlice = createSlice({
         }
       }
     },
+    logout: (state) => {
+      // reomve user data form local storage
+      localStorage.removeItem("userData");
+
+      state = defaultUserData;
+    },
   },
   // async reducers
   extraReducers: (builder) => {
@@ -311,6 +317,6 @@ const userSlice = createSlice({
 });
 
 // export (non-async) actions
-export const { getLocalUserData } = userSlice.actions;
+export const { getLocalUserData, logout } = userSlice.actions;
 // export main reducer
 export default userSlice.reducer;

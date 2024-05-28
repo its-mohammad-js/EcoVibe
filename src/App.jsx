@@ -16,6 +16,9 @@ import { useEffect } from "react";
 import { getLocalUserData } from "./redux/auth/regularUsers/regluarUsersSlice";
 import WishListPage from "./pages/WishList Page/WishListPage";
 import CartPage from "./pages/Cart Page/CartPage";
+import RegularUserProfile from "./pages/PofilePages/RegularUserProfile";
+import CheckoutPage from "./pages/Checkout Page/CheckoutPage";
+import OrdersPage from "./pages/Orders Page/OrdersPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,8 +57,10 @@ function App() {
         <Route path="/EcoVibe/Sign-in/" element={<RegularUserSignIn />} />
         {/* user personal pages */}
         <Route path="/EcoVibe/Wish-list/" element={<WishListPage />} />
-
         <Route path="/EcoVibe/cart" element={<CartPage />} />
+        <Route path="/EcoVibe/checkout" element={<CheckoutPage />} />
+        <Route path="/EcoVibe/orders" element={<OrdersPage />} />
+        <Route path="/EcoVibe/profile" element={<RegularUserProfile />} />
       </Routes>
     </AppLayout>
   );

@@ -21,7 +21,6 @@ function SignUp() {
   } = useForm();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const inputOptions = {
     email: {

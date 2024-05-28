@@ -271,6 +271,9 @@ export function queryToFilterObject(queryParams) {
 export const errorIconUrl =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FError%20Ilustration.png?alt=media&token=44e6f168-e69d-4f7b-8f82-b5129fdf535b";
 
+export const loadingIcon =
+  "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fsystem-regular-716-spinner-three-dots.gif?alt=media&token=fbe156be-357d-4102-adf4-f5121375448a";
+
 // get product option by product type
 export const getProductOption = (productType, optionsList = []) => {
   if (!productType || !optionsList.length || !optionsList) {

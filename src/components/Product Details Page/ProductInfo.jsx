@@ -7,6 +7,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ReactStars from "react-stars";
 import { calculateAverage } from "../../helpers/constants";
 import OrderBox from "./OrderBox";
+import ProductInfoLoader from "../Loaders/ProductInfoLoader";
 
 function ProductInfo() {
   const { data, loading } = useSelector((state) => state.products);
@@ -34,7 +35,7 @@ function ProductInfo() {
     }
   }, [params]);
 
-  if (loading) return <p>loading...</p>;
+  if (loading) return <ProductInfoLoader />;
 
   if (data.length && !loading)
     return (
@@ -54,13 +55,13 @@ function ProductInfo() {
                     <FaArrowRight />
                   </button>
                 </div>
-                <Slider {...settings} ref={sliderRef} className=" md:mx-auto">
+                <Slider {...settings} ref={sliderRef} className="md:mx-auto">
                   {productData.Images.map((imgUrl, index) => (
                     <img
                       key={index}
                       src={imgUrl}
                       alt={productData.Name}
-                      className="w-full h-full"
+                      className="size-full min-h-80"
                     />
                   ))}
                 </Slider>
