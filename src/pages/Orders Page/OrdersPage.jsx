@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import OrderRow from "../../components/Orders Page/OrderRow";
 
 function OrdersPage() {
   const { orders } = useSelector((state) => state.userData);
@@ -6,23 +7,23 @@ function OrdersPage() {
   console.log(orders);
 
   return (
-    <div className="mx-auto 2xl:max-w-screen-2xl px-4 py-2">
-      <div id="wrapper" className="w-full border-2 rounded-md">
-        {/* header */}
-        <div className="">
-          <div className="flex items-center justify-between py-4 px-2">
-            <h6 className="text-lg font-bold">Order Details</h6>
+    <div className="mx-auto 2xl:max-w-screen-2xl lg:px-4 lg:py-2 gradient-background -mb-6 lg:-mb-8">
+      <div
+        id="wrapper"
+        className="w-full border-2 lg:rounded-md bg-gray-50 py-2"
+      >
+        {/* <div className="flex justify-between px-4 py-2 border-y-2">
+          <p>Item</p>
+          <p>Quantity</p>
+          <p>Price</p>
+          <p>Date</p>
+        </div> */}
 
-            <p className="font-medium">Total Price : 0</p>
-          </div>
-
-          <div className="w-full border-y border-gray-300 px-1 py-0.5">
-            <h6 className="text-lg font-medium">Items :</h6>
-          </div>
+        <div className="flex flex-col gap-y-2 px-2 py-1">
+          {orders.map((order, index) => (
+            <OrderRow {...order} key={index} />
+          ))}
         </div>
-
-        {/* orders */}
-        <div className="">{orders?.length}</div>
       </div>
     </div>
   );

@@ -201,7 +201,7 @@ function ProductInfo() {
           </div>
         </div>
         {/* options table */}
-        <div className="w-11/12 mx-auto">
+        <div className="mx-auto px-4 lg:px-6">
           {productData.Options && (
             <table className="w-full">
               <thead>

@@ -5,6 +5,8 @@ import { FaCheck } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
+import { useNavigate } from "react-router-dom";
+import { generateId } from "../../helpers/constants";
 
 const inputsOption = {
   full_Name: {
@@ -71,6 +73,7 @@ function PaymentInfo({ shippingMethod }) {
     slidesToShow: 2,
     slidesToScroll: 2,
   };
+  const navigate = useNavigate();
   const sliderRef = useRef(null);
 
   // set value with user personal information
@@ -109,6 +112,7 @@ function PaymentInfo({ shippingMethod }) {
 
   function addNewOrder(formData) {
     const orderData = {
+      orderId: `#${Date.now()}`,
       paymentInfo: formData,
       shippingMethod: { title: shippingMethod?.title },
       orders: cartData,

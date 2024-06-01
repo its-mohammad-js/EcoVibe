@@ -1,5 +1,6 @@
 import { FaBitcoin, FaCcMastercard, FaPaypal } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function CheckoutSummary() {
   // necessary data
@@ -9,6 +10,8 @@ function CheckoutSummary() {
     (acc, order) => acc + Number(order.Price),
     0
   );
+  // necessary hooks
+  const navigate = useNavigate();
 
   return (
     <div className="mt-4 flex flex-col items-center gap-y-3 px-4 py-3 bg-slate-100 rounded-md md:w-80 md:ml-auto">
@@ -19,7 +22,10 @@ function CheckoutSummary() {
       <p className="text-sm text-gray-500">
         Shipping,taxes & discounts calcuted
       </p>
-      <button className="py-2 text-lg bg-primary-500 w-full text-gray-50 rounded">
+      <button
+        onClick={() => navigate("/EcoVibe/checkout")}
+        className="py-2 text-lg bg-primary-500 w-full text-gray-50 rounded"
+      >
         Checkout
       </button>
       <span className="text-sm text-gray-500">Secured Payments By</span>

@@ -263,7 +263,7 @@ const MobileNavbar = ({ personalInformation, uid }) => {
   );
 };
 
-const DesktopNavbar = ({ personalInformation }) => {
+const DesktopNavbar = ({ personalInformation, uid }) => {
   // detect pathname for desktop navbar
   const location = useLocation();
   // sub menu content state
@@ -480,7 +480,12 @@ const DesktopNavbar = ({ personalInformation }) => {
             <span>Need Help ?</span>
             <span>+123456789</span>
           </div>
-          <div className="w-12 h-12 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl">
+          <button
+            onClick={() =>
+              navigate(uid ? "/EcoVibe/profile" : "/EcoVibe/Sign-in/")
+            }
+            className="w-12 h-12 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
+          >
             {personalInformation?.profilePic ? (
               <img
                 src={personalInformation?.profilePic}
@@ -492,7 +497,7 @@ const DesktopNavbar = ({ personalInformation }) => {
                 <FaUser className="text-2xl" />
               </div>
             )}
-          </div>
+          </button>
           <button
             onClick={() => navigate("/EcoVibe/wish-list")}
             className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"

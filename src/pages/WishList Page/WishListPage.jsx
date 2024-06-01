@@ -13,6 +13,7 @@ import { BiCartAlt } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import WishListLoader from "../../components/Loaders/WishListLoader";
 import { BsCartCheck } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 function WishListPage() {
   // user data
@@ -21,8 +22,9 @@ function WishListPage() {
   );
   // product list data
   const { data, error, loading } = useSelector((state) => state.products);
-  // redux dispatcher
+  // necessary data & hooks
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // sort product list by :
   const [sortList, setSortList] = useState("High To Low");
 
@@ -61,8 +63,21 @@ function WishListPage() {
 
   // get selected products data
   useEffect(() => {
-    dispatch(getFilteredProducts({ sortBy: "" }));
+    if (wishlist.length) dispatch(getFilteredProducts({ sortBy: "" }));
   }, []);
+
+  if (!wishlist?.length)
+    return (
+      <div className="h-screen flex flex-col items-center justify-center">
+        <h6 className="text-2xl font-bold lg:text-4xl">Wish List Is Empty</h6>
+        <button
+          onClick={() => navigate("/EcoVibe/Explore-products/")}
+          className="px-4 py-2 bg-primary-500 mt-4 rounded-md text-white lg:text-lg"
+        >
+          Explore Products
+        </button>
+      </div>
+    );
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl">
