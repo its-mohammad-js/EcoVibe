@@ -76,13 +76,6 @@ function RegularUserSignIn() {
             <p className="text-sm md:text-base">
               Become part of the Eco Vibe community! Sign in to your account to
               explore sustainable fashion.
-              <span
-                onClick={() => navigate("/EcoVibe/Sign-up/")}
-                className="text-sm text-primary-400 mx-1 cursor-pointer"
-              >
-                <span className="hidden md:inline">New user?</span> Create an
-                account
-              </span>
             </p>
           </div>
           {/* sign up form */}
@@ -137,12 +130,12 @@ function RegularUserSignIn() {
             </div>
             {/* log in with quick action's */}
             <div className="mt-6">
-              <p className="flex items-center justify-center">
+              <div className="flex items-center justify-center">
                 <span className="absolute bg-gray-50 text-gray-700">
                   Sign In with Social Account
                 </span>
                 <span className="w-full h-0.5 bg-gray-200"></span>
-              </p>
+              </div>
               {/* sign up with social account buttons */}
               <div className="flex items-center justify-center gap-x-4 mt-6">
                 <button
@@ -165,6 +158,17 @@ function RegularUserSignIn() {
                 >
                   <FaGithub />
                 </button>
+              </div>
+              <div
+                onClick={() =>
+                  navigate("/EcoVibe/Sign-up/first-step/authentication")
+                }
+                className="flex items-center justify-center mt-6 mb-2"
+              >
+                <span className="absolute bg-gray-50 text-gray-700">
+                  Create New Account
+                </span>
+                <span className="w-full h-0.5 bg-gray-200"></span>
               </div>
             </div>
           </form>

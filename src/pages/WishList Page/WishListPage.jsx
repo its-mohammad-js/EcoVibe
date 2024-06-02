@@ -3,11 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "../../redux/products/productsSlice";
 import { filterProducts } from "../../helpers/filterPorducts";
 import { SlClose } from "react-icons/sl";
-import {
-  avatarsUrl,
-  generateId,
-  toggleElementInArray,
-} from "../../helpers/constants";
+import { generateId, toggleElementInArray } from "../../helpers/constants";
 import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
 import { BiCartAlt } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";

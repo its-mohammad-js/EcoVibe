@@ -19,6 +19,8 @@ import CartPage from "./pages/Cart Page/CartPage";
 import RegularUserProfile from "./pages/PofilePages/RegularUserProfile";
 import CheckoutPage from "./pages/Checkout Page/CheckoutPage";
 import OrdersPage from "./pages/Orders Page/OrdersPage";
+import { Toaster } from "react-hot-toast";
+import { useMediaQuery } from "react-responsive";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +32,7 @@ function App() {
 
   return (
     <AppLayout>
+      <Toaster />
       <Routes>
         {/* main pages */}
         <Route path="/EcoVibe/" element={<HomePage />} />

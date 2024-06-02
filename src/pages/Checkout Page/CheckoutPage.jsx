@@ -2,15 +2,24 @@ import { useSelector } from "react-redux";
 import OrderSummary from "../../components/Checkout Page/OrderSummary";
 import PaymentInfo from "../../components/Checkout Page/PaymentInfo";
 import ShipingDetails from "../../components/Checkout Page/ShipingDetails";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function CheckoutPage() {
-  const { loading, cartData } = useSelector((state) => state.userData);
+  const { loading, cartData, uid } = useSelector((state) => state.userData);
   // shiping details
   const [shipMethod, setShipMethod] = useState(null);
   // necessary data & hooks
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(uid);
+    if (!uid) {
+      toast("Looks like you're not signed in yet!");
+      navigate("/EcoVibe/Sign-in");
+    }
+  }, []);
 
   if (!cartData.length)
     return (

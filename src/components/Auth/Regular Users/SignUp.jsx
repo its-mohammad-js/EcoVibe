@@ -21,6 +21,7 @@ function SignUp() {
   } = useForm();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const inputOptions = {
     email: {
@@ -129,6 +130,14 @@ function SignUp() {
           {/* quick sign in button's */}
           <hr />
           <div className="flex flex-col gap-y-4 w-11/12 md:w-full">
+            <button
+              type="button"
+              onClick={() => navigate("/EcoVibe/sign-in")}
+              className="relative w-full flex items-center justify-center"
+            >
+              <p className="bg-white px-2">Already have account ? </p>
+              <p className="w-full absolute h-0.5 bg-gray-300 -z-10 top-1/2"></p>
+            </button>
             {/* sign in with github */}
             <button
               onClick={() => {

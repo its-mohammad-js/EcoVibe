@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import CommentsList from "./CommentsList";
+import ProductReviewLoader from "../Loaders/ProductReviewLoader";
 
 function ProductReviews() {
   const [{ commentsList, error, loading }, setList] = useState({
@@ -46,13 +47,22 @@ function ProductReviews() {
       {/* submit new comment form */}
       <AddCommentInputs fetchComments={fetchComments} />
       {/* comments list */}
-      {!loading ? (
-        <CommentsList
-          commentsData={commentsList}
-          fetchComments={fetchComments}
-        />
+      {commentsList.length ? (
+        !loading ? (
+          <CommentsList
+            commentsData={commentsList}
+            fetchComments={fetchComments}
+          />
+        ) : (
+          <ProductReviewLoader />
+        )
       ) : (
-        <p>loading</p>
+        <div className="flex items-center justify-center py-2 h-44">
+          <p className="text-lg font-medium">
+            Be the first one to share your thoughts about this product! Write a
+            review now and help others make informed decisions!... 💬
+          </p>
+        </div>
       )}
     </div>
   );

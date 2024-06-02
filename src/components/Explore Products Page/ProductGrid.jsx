@@ -61,7 +61,7 @@ function ProductGrid() {
         {/* products grid */}
         <div
           id="products-wrapper"
-          className="w-full min-h-screen md:w-[98%] h-full mx-auto rounded-md flex justify-between md:justify-start gap-y-4 gap-x-2 md:gap-0 flex-wrap px-1.5 py-2"
+          className="w-full lg:min-h-screen md:w-[98%] h-full mx-auto rounded-md grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-0 px-1.5 py-2"
         >
           {/* product cards */}
           {paginatedProduct[filters.page].products.map((item, index) => (
@@ -69,7 +69,9 @@ function ProductGrid() {
           ))}
         </div>
         {/* page buttons */}
-        <PaginationButtons productsData={paginatedProduct} />
+        {data.length >= 8 && (
+          <PaginationButtons productsData={paginatedProduct} />
+        )}
       </div>
     );
 }

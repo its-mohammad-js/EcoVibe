@@ -1,15 +1,27 @@
 import CartFilters from "../../components/Cart Page/CartFilters";
 import ItemsGrid from "../../components/Cart Page/ItemsGrid";
 import CheckoutSummary from "../../components/Cart Page/CheckoutSummary";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function CartPage() {
-  const { cartData, loading } = useSelector((state) => state.userData);
   const [filters, setFilters] = useState({
     searchQuery: "",
     sortValue: "",
   });
+  // necessary data & hooks
+  const { cartData, loading, uid } = useSelector((state) => state.userData);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(uid);
+    if (!uid) {
+      toast("Looks like you're not signed in yet!");
+      navigate("/EcoVibe/Sign-in");
+    }
+  }, []);
 
   function onFiltersChange(type, value) {
     setFilters((prev) => ({ ...prev, [type]: value }));

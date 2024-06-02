@@ -27,6 +27,9 @@ import {
 import { IoIosArrowForward } from "react-icons/io";
 import { useMediaQuery } from "react-responsive";
 import { useSelector } from "react-redux";
+import { IoHomeOutline } from "react-icons/io5";
+import { FiShoppingCart } from "react-icons/fi";
+import { AiOutlineShopping } from "react-icons/ai";
 
 function Navbar() {
   const isMobile = useMediaQuery({ maxWidth: 480 });
@@ -151,7 +154,12 @@ const MobileNavbar = ({ personalInformation, uid }) => {
           {/* user profile information */}
           <div className="w-full h-20 bg-gray-200 flex items-center justify-between px-4 py-2">
             <div className="flex items-center justify-center gap-x-3">
-              <div className="size-14 bg-gray-100 rounded-full flex items-center justify-center">
+              <div
+                onClick={() => {
+                  if (uid) navigate("/EcoVibe/profile");
+                }}
+                className="size-14 bg-gray-100 rounded-full flex items-center justify-center"
+              >
                 {personalInformation.profilePic ? (
                   <img
                     src={personalInformation?.profilePic}
@@ -184,7 +192,7 @@ const MobileNavbar = ({ personalInformation, uid }) => {
               className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
             >
               <span className="text-3xl">
-                <FaHome />
+                <IoHomeOutline />
               </span>
               <h3 className="text-base">Home</h3>
             </div>
@@ -193,29 +201,50 @@ const MobileNavbar = ({ personalInformation, uid }) => {
               className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
             >
               <span className="text-3xl">
-                <FaShoppingBag />
+                <FiShoppingCart />
               </span>
               <h3 className="text-base">Shop</h3>
             </div>
-            <div className="flex items-center justify-start gap-x-2 px-4 py-4 w-full">
+            <div
+              onClick={() => navigate("/EcoVibe/Explore-Products/")}
+              className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
+            >
               <span className="text-3xl">
                 <TbCategory />
               </span>
               <h3 className="text-base">Shop By Category</h3>
             </div>
-            <div className="flex items-center justify-start gap-x-2 px-4 py-4 w-full">
+            <div
+              onClick={() => navigate("/EcoVibe/orders")}
+              className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
+            >
               <span className="text-3xl">
                 <TbClock />
               </span>
               <h3 className="text-base">My Orders</h3>
             </div>
-            <div className="flex items-center justify-start gap-x-2 px-4 py-4 w-full">
+            <div
+              onClick={() => navigate("/EcoVibe/cart")}
+              className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
+            >
+              <span className="text-3xl">
+                <AiOutlineShopping />
+              </span>
+              <h3 className="text-base">Cart</h3>
+            </div>
+            <div
+              onClick={() => navigate("/EcoVibe/wish-list")}
+              className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
+            >
               <span className="text-3xl">
                 <TbHeart />
               </span>
-              <h3 className="text-base">Favorites</h3>
+              <h3 className="text-base">Wish List</h3>
             </div>
-            <div className="flex items-center justify-start gap-x-2 px-4 py-4 w-full">
+            <div
+              onClick={() => navigate("/EcoVibe/")}
+              className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
+            >
               <span className="text-3xl">
                 <TbEyeQuestion />
               </span>
@@ -245,12 +274,19 @@ const MobileNavbar = ({ personalInformation, uid }) => {
               </span>
               <h3 className="text-base">Privacy Policy</h3>
             </div>
-            <div className="flex items-center justify-start gap-x-2 px-4 py-4 w-full">
-              <span className="text-3xl">
-                <TbLogin />
-              </span>
-              <h3 className="text-base">Sign In</h3>
-            </div>
+            {!uid && (
+              <div
+                onClick={() =>
+                  navigate("/EcoVibe/sign-up/first-step/authentication")
+                }
+                className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
+              >
+                <span className="text-3xl">
+                  <TbLogin />
+                </span>
+                <h3 className="text-base">Sign up</h3>
+              </div>
+            )}
           </div>
         </div>
         {/* menu background */}

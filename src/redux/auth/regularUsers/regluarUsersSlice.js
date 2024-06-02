@@ -12,6 +12,7 @@ import {
 } from "../../../config/firebase";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { avatarsUrl } from "../../../helpers/constants";
+import toast from "react-hot-toast";
 
 // create new cell for user data on data base
 async function createUserDataCell(userId, guestUserData) {
@@ -261,6 +262,7 @@ const userSlice = createSlice({
       }
     },
     logout: (state) => {
+      toast.success("You logged out successfully");
       // reomve user data form local storage
       localStorage.removeItem("userData");
 
@@ -274,6 +276,7 @@ const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(signUp.fulfilled, (state, { payload }) => {
+      toast.success("Welcome to eco vibe");
       state.loading = false;
       state.uid = payload.uid;
       state.userName = payload.userName;
@@ -288,6 +291,7 @@ const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(signInUser.fulfilled, (state, { payload }) => {
+      toast.success("Welcome back");
       // merge state with user data
       if (payload) {
         for (const key in payload) {

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import AddCommentInputs from "./AddCommentInputs";
 import ReactStars from "react-stars";
-import { useMediaQuery } from "react-responsive";
 
 function CommentsList({ commentsData, fetchComments }) {
   const [replyTo, setReplyTo] = useState("");

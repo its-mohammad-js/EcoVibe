@@ -2,13 +2,25 @@ import ProfilePicEdit from "../../components/ProfilePage/RegularUser/ProfilePicE
 import PersonalInformationForm from "../../components/ProfilePage/RegularUser/PersonalInformationForm";
 import UserInterests from "../../components/ProfilePage/RegularUser/UserInterests";
 import CreditCardEdit from "../../components/ProfilePage/RegularUser/CreditCardEdit";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/auth/regularUsers/regluarUsersSlice";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 function RegularUserProfile() {
+  // necessary data & hooks
+  const { cartData, loading, uid } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(uid);
+    if (!uid) {
+      toast("Looks like you're not signed in yet!");
+      navigate("/EcoVibe/Sign-in");
+    }
+  }, []);
 
   function logoutHandler() {
     dispatch(logout());
