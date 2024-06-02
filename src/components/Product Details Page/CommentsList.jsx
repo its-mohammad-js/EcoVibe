@@ -1,9 +1,11 @@
 import { useState } from "react";
 import AddCommentInputs from "./AddCommentInputs";
 import ReactStars from "react-stars";
+import { useMediaQuery } from "react-responsive";
 
 function CommentsList({ commentsData, fetchComments }) {
   const [replyTo, setReplyTo] = useState("");
+  const [showReplies, setShowReplies] = useState("");
 
   return (
     <div className="flex flex-col my-4 gap-y-4 max-h-[30rem] overflow-auto w-full styled-scroll-bar">
@@ -31,10 +33,28 @@ function CommentsList({ commentsData, fetchComments }) {
               />
             )}
           </div>
+
           <div className="flex flex-col px-4 gap-y-4">
-            {comment.replies.map((reply, index) => (
-              <CommentRow {...reply} key={index} />
-            ))}
+            {comment.replies.map((reply, index) => {
+              if (showReplies !== comment.commentId)
+                return (
+                  index === 1 && (
+                    <>
+                      <CommentRow {...reply} key={index} />
+                      <button
+                        onClick={() => setShowReplies(comment.commentId)}
+                        className="relative flex items-center justify-center"
+                      >
+                        <p className="bg-white w-fit px-2 font-bold lg:text-lg">
+                          Show All Replies
+                        </p>
+                        <span className="w-full h-0.5 bg-gray-200 absolute right-0 top-1/2 bottom-1/2 -z-10"></span>
+                      </button>
+                    </>
+                  )
+                );
+              else return <CommentRow {...reply} key={index} />;
+            })}
           </div>
         </div>
       ))}

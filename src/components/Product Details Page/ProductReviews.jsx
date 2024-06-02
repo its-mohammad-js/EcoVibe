@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import AddCommentInputs from "./AddCommentInputs";
-import CommentRow from "./CommentRow";
 import { useParams } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
