@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { BiTrash } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { updateUserData } from "../../redux/auth/regularUsers/regluarUsersSlice";
 import { useNavigate } from "react-router-dom";
-import { generateId } from "../../helpers/constants";
+import { useMediaQuery } from "react-responsive";
 
 const inputsOption = {
   full_Name: {
@@ -62,16 +61,15 @@ function PaymentInfo({ shippingMethod }) {
   } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const [selectedCard, setCard] = useState("");
+  const isMobile = useMediaQuery({ maxWidth: 480 });
   const settings = {
     dots: true,
     infinite: true,
     arrows: false,
     speed: 1200,
-    slidesToShow: 1,
-    slidesToScroll: 1,
     appendDots: appendDotsFunc,
-    slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToShow: !isMobile ? 2 : 1,
+    slidesToScroll: !isMobile ? 2 : 1,
   };
   const navigate = useNavigate();
   const sliderRef = useRef(null);
