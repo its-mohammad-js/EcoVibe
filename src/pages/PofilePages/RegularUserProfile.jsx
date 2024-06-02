@@ -27,7 +27,7 @@ function RegularUserProfile() {
           MY PROFILE <br />
           <span className="text-sm hidden md:inline text-gray-200">
             Change Your Personal Information, <br /> Add Credit Card, Enjoy Eco
-            Vibe :)
+            Vibe
           </span>
         </h4>
         <button

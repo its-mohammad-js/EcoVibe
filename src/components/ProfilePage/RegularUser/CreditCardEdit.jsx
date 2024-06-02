@@ -1,27 +1,9 @@
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import AddCreditCardForm from "./AddCreditCardFOrm";
+import AddCreditCardForm from "./AddCreditCardForm";
 import Slider from "react-slick";
-import { FaArrowLeft, FaArrowRight, FaTrash } from "react-icons/fa";
 import { BiTrash } from "react-icons/bi";
 import { updateUserData } from "../../../redux/auth/regularUsers/regluarUsersSlice";
-
-const inputOptions = {
-  name: {
-    minLength: {
-      value: 3,
-      message: "Minimum Length Is 3 Characters",
-    },
-    required: "Name is required",
-  },
-  cardNumber: {
-    pattern: {
-      value: /^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/,
-      message: "Invalid Card Number",
-    },
-  },
-};
 
 function CreditCardEdit() {
   const [modalIsShow, setModal] = useState(false);
