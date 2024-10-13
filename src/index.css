@@ -12,6 +12,10 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Roboto", sans-serif;
 }
@@ -28,6 +32,18 @@ body {
 
 .styled-scroll-bar::-webkit-scrollbar-thumb {
   background-color: #666666;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.horizontal-scroll-bar::-webkit-scrollbar {
+  height: 0.5rem;
+  background-color: #e7e6e6;
+  border-radius: 30px;
+}
+
+.horizontal-scroll-bar::-webkit-scrollbar-thumb {
+  background-color: #a3a3a3;
   border-radius: 20px;
   cursor: pointer;
 }
@@ -59,12 +75,6 @@ body::-webkit-scrollbar-thumb {
   height: 20px;
   background-color: inherit;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
-
-@media screen and (max-width: 480px) {
-  .tooltip::before {
-    display: none;
-  }
 }
 
 .slider__wrapper {
@@ -184,4 +194,15 @@ body::-webkit-scrollbar-thumb {
   100% {
     background-position: 0% 50%;
   }
+}
+
+.inner-shadow {
+  -webkit-box-shadow: inset 0px 50px 15px 11px #a2adf68a;
+  box-shadow: inset 0px 30px 15px 11px #a2adf68a;
+}
+
+.focused-message_shadow {
+  -webkit-box-shadow: -32px 46px 201px 41px rgba(0, 0, 0, 0.21);
+  -moz-box-shadow: -32px 46px 201px 41px rgba(0, 0, 0, 0.21);
+  box-shadow: -32px 46px 201px 41px rgba(0, 0, 0, 0.21);
 }
