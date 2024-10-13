@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AddCreditCardForm from "/src/common/UI elements/Forms/AddCreditCardForm";
+// import AddCreditCardForm from "/src/common/UI elements/Forms/AddCreditCardForm";
 import Slider from "react-slick";
 import { BiTrash } from "react-icons/bi";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
@@ -109,7 +109,7 @@ function CreditCardEdit() {
           modalIsShow ? "visible opacity-100" : "invisible opacity-0"
         } transition-all duration-200`}
       >
-        <AddCreditCardForm onModalClose={() => setModal(false)} />
+        {/* <AddCreditCardForm onModalClose={() => setModal(false)} /> */}
       </div>
     </div>
   );
