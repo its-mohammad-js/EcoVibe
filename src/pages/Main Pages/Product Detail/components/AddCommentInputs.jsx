@@ -7,7 +7,7 @@ import { db } from "src/config/firebase";
 import { checkUserAuthentication, generateId } from "constants";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import TextInput from "UI/forms/TextInput";
+import TextInput from "/src/common/UI elements/Forms/TextInput";
 
 const inputOptions = [
   { name: "first_name" },
