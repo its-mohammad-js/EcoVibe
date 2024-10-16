@@ -102,7 +102,7 @@ function MessagesRoom({ deleteRoom }) {
     return (
       <div
         className={`${
-          selectedRoom ? "w-full flex" : "hidden"
+          selectedRoom ? "w-full flex" : "hidd en"
         } lg:!flex flex-col lg:w-3/4 bg-slate-300 items-center justify-center relative h-screen`}
       >
         <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />

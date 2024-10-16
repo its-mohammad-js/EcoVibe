@@ -4,7 +4,6 @@ import MessageLayout from "./MessageRow/MessageLayout";
 import { useRoomsData } from "../RoomsContext";
 import { useSelector } from "react-redux";
 import TextAlert from "../../../../../common/UI elements/Alerts/TextAlert";
-import toast from "react-hot-toast";
 
 const MessageList = () => {
   // context menu state
@@ -62,9 +61,7 @@ const MessageList = () => {
         <div
           ref={messagesWrapperRef}
           onContextMenu={(e) => e.preventDefault()}
-          className={`${
-            selectedRoom?.messageList?.length < 9 && "justify-end"
-          } flex relative flex-col h-full gap-y-2 w-full overflow-auto px-2 pt-2 pb-2 bg-gray-300 flex-1 styled-scroll-bar`}
+          className={`flex relative flex-col h-full gap-y-2 w-full overflow-auto px-2 pt-2 pb-[4.25rem] bg-gray-300 flex-1 styled-scroll-bar`}
         >
           {selectedRoom.messageList.map(
             (message, index) =>
