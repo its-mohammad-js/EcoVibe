@@ -107,7 +107,7 @@ function MessageInput() {
     <div
       className={`${
         messageMode && "min-h-36 flex flex-col"
-      } w-full transition-all fixed bottom-0`}
+      } w-full transition-all fixed lg:static bottom-0`}
     >
       {/* reply header */}
       <div className={`${!messageMode ? "hidden" : "block"} w-full h-20`}>

@@ -41,7 +41,7 @@ function Navbar({ searchBar, setSearchBar, deleteRoom }) {
         e.preventDefault();
         setContextMenu(true);
       }}
-      className="w-full bg-gray-100 p-2 lg:px-4 flex items-center justify-between relative"
+      className="w-full bg-gray-100 p-2 lg:px-4 flex items-center justify-between lg:relative sticky top-0"
     >
       {/* user summary info & close room btn */}
       <div className="flex items-center">

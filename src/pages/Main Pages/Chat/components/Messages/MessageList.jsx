@@ -15,7 +15,7 @@ const MessageList = () => {
   });
   // message wrapper ref
   const messagesWrapperRef = useRef();
-  const { selectedRoom } = useRoomsData();
+  const { selectedRoom, messageMode } = useRoomsData();
   const { userId } = useSelector((state) => state.userData);
 
   // disable scroll on display context menu
@@ -61,7 +61,9 @@ const MessageList = () => {
         <div
           ref={messagesWrapperRef}
           onContextMenu={(e) => e.preventDefault()}
-          className={`flex relative flex-col h-full gap-y-2 w-full overflow-auto px-2 pt-2 pb-[4.25rem] bg-gray-300 flex-1 styled-scroll-bar`}
+          className={`${
+            messageMode ? "pb-[9.25rem]" : "pb-[4.25rem]"
+          } flex relative flex-col h-full gap-y-2 w-full lg:!pb-1 overflow-auto px-2 pt-2  bg-gray-300 flex-1 styled-scroll-bar`}
         >
           {selectedRoom.messageList.map(
             (message, index) =>
