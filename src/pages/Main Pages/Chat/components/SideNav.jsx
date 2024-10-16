@@ -20,8 +20,6 @@ function SideNav({ onCloseNav, navIsShow, openContacts }) {
   );
   const navigate = useNavigate();
 
-  
-
   return (
     <>
       <div

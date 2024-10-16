@@ -9,8 +9,12 @@ const RoomsProvider = createContext();
 function RoomsContext({ children }) {
   // all rooms data
   const [rooms, setRooms] = useState([]);
+  // selected room state
   const [selectedRoom, setSelectedRoom] = useState(null);
+  // selected message state
   const [selectedMessage, setSelectedMessage] = useState(null);
+  // selected message mode state (edit || reply)
+  const [messageMode, setMode] = useState(null);
   // necessary data & hooks
   const params = useParams();
   const { userId } = useSelector((state) => state.userData);
@@ -21,31 +25,36 @@ function RoomsContext({ children }) {
     const roomsRef = ref(db, "rooms");
 
     onValue(roomsRef, (snapshot) => {
-      const allRooms = Object.entries(snapshot.val()).map(([k, val]) => ({
-        ...val,
-        roomId: k,
-      }));
-
-      const filteredRooms = allRooms
-        .filter(({ roomId }) => roomId.includes(userId))
-        .map((room) => ({
-          roomId: room.roomId,
-          messageList: room.messageList,
-          owner: room[userId],
-          reciver: {
-            ...find(
-              room,
-              (v, key) =>
-                key !== userId && key !== "roomId" && key !== "messageList"
-            ),
-            reciverId: Object.keys(room).find(
-              (key) =>
-                key !== userId && key !== "roomId" && key !== "messageList"
-            ),
-          },
+      if (!snapshot.exists()) {
+        setRooms([]);
+      } else {
+        const allRooms = Object.entries(snapshot.val()).map(([k, val]) => ({
+          ...val,
+          roomId: k,
         }));
 
-      setRooms(filteredRooms);
+        const filteredRooms = allRooms
+          .filter(({ members }) => members.includes(userId))
+          .map((room) => ({
+            roomId: room.roomId,
+            messageList: room.messageList,
+            members: room.members,
+            owner: room[userId],
+            reciver: {
+              ...find(
+                room,
+                (v, key) =>
+                  key !== userId && key !== "roomId" && key !== "messageList"
+              ),
+              reciverId: Object.keys(room).find(
+                (key) =>
+                  key !== userId && key !== "roomId" && key !== "messageList"
+              ),
+            },
+          }));
+
+        setRooms(filteredRooms);
+      }
     });
   }, [userId]);
 
@@ -53,6 +62,7 @@ function RoomsContext({ children }) {
   useEffect(() => {
     if (!selectedRoom) {
       setSelectedMessage(null);
+      setMode(null);
     }
   }, [selectedRoom]);
 
@@ -79,6 +89,8 @@ function RoomsContext({ children }) {
         setSelectedRoom,
         selectedMessage,
         setSelectedMessage,
+        messageMode,
+        setMode,
       }}
     >
       {children}

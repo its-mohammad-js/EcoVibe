@@ -2,33 +2,35 @@ import { AiOutlineLeft, AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { useRoomsData } from "../RoomsContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ChatRow from "./ChatRow";
+import ChatColumn from "./ChatColumn";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 
-function ChatList({ openSideNav }) {
-  const { rooms, setSelectedRoom } = useRoomsData();
+function ChatList({ openSideNav, deleteRoom }) {
+  const { rooms, setSelectedRoom, selectedRoom } = useRoomsData();
   const navigate = useNavigate();
   const [searchQuery, setQuery] = useState("");
   useHorizontalTouchScroll(".contacts-container");
 
+  // search messages
   function searchMessages(query) {
     const allMessages = rooms
       .flatMap((room) => room.messageList)
       .map((message) => ({
         messageList: [message],
-        reciver: rooms.find(({ roomId }) => roomId.includes(message.senderId))
+        reciver: rooms.find(({ roomId }) => roomId.includes(message?.senderId))
           ?.reciver,
-        roomId: rooms.find(({ roomId }) => roomId.includes(message.senderId))
+        roomId: rooms.find(({ roomId }) => roomId.includes(message?.senderId))
           ?.roomId,
       }));
 
     const filteredMessages = allMessages.filter(({ messageList }) =>
-      messageList[0].content.toLowerCase().includes(query)
+      messageList[0]?.content?.toLowerCase()?.includes(query)
     );
 
     return filteredMessages;
   }
 
+  // search contacts
   function searchContacts(query) {
     const filteredRooms = rooms.filter(
       ({ reciver }) =>
@@ -41,8 +43,12 @@ function ChatList({ openSideNav }) {
   }
 
   return (
-    <div className="lg:!block lg:w-1/4 bg-gray-50 flex flex-col h-screen">
-      {/* navbar */}
+    <div
+      className={`${
+        selectedRoom && "hidden"
+      } lg:!block lg:w-1/4 w-full bg-gray-50 flex flex-col h-screen`}
+    >
+      {/* header  */}
       <div className="lg:h-1/6">
         <div className="bg-gray-50 p-4 border-b border-gray-200">
           <div className="flex items-center justify-end gap-x-1.5 cursor-pointer relative">
@@ -111,20 +117,27 @@ function ChatList({ openSideNav }) {
         )}
       </div>
       {/* messages / rooms list */}
-      <div className="overflow-auto w-full lg:h-5/6 styled-scroll-bar scroll-smooth relative">
+      <div className="overflow-auto w-full h-5/6 styled-scroll-bar scroll-smooth relative">
         <div className="flex flex-col lg:gap-y-4">
+          <h2
+            className={`${
+              !searchQuery?.length && "hidden"
+            } block px-4  py-1 w-full bg-gray-200 sticky z-10 my-2`}
+          >
+            Found {searchMessages(searchQuery).length} Messages
+          </h2>
           {/* list of rooms and messages */}
           {searchQuery
             ? searchMessages(searchQuery).map((room, index) => (
-                <>
-                  <h2 className="first:block hidden px-4  py-1 w-full bg-gray-200 sticky z-10 -mb-4">
-                    Found {searchMessages(searchQuery).length} Messages
-                  </h2>
-                  <ChatRow key={index} room={room} mode="message" />
-                </>
+                <ChatColumn key={index} room={room} mode="message" />
               ))
             : rooms.map((room, index) => (
-                <ChatRow key={index} room={room} mode="user" />
+                <ChatColumn
+                  key={index}
+                  room={room}
+                  mode="user"
+                  deleteRoom={deleteRoom}
+                />
               ))}
         </div>
       </div>

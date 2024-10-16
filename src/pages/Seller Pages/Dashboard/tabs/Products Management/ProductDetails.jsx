@@ -8,7 +8,7 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "src/config/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/reducers/products/productsSlice";
-import WarningModal from "UI/Alerts/WarningModal";
+import IconicWarningAlert from "UI/Alerts/IconicAlert";
 
 function ProductDetails({ selectedItem, onModalClose, getProducts }) {
   // description state
@@ -187,7 +187,7 @@ function ProductDetails({ selectedItem, onModalClose, getProducts }) {
       {/* alert modal (ask user to delete product) */}
       {isSelected && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-950/80 backdrop-blur">
-          <WarningModal
+          <IconicWarningAlert
             title="Are you sure you want to delete this product?"
             subTitle="Cancel"
             callBack={deleteProduct}

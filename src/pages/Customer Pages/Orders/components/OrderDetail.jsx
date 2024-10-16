@@ -7,7 +7,7 @@ import { BiArrowBack } from "react-icons/bi";
 import toast from "react-hot-toast";
 import { db } from "src/config/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import WarningModal from "UI/Alerts/WarningModal";
+import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import { useNavigate } from "react-router-dom";
 import useDisableScroll from "../../../../common/hooks/UseDisableScroll";
 
@@ -273,7 +273,7 @@ function OrderDetail({ order, onModalClose, updateOrders }) {
           ></div>
           {/* warning alert */}
           {!canceling && (
-            <WarningModal
+            <IconicWarningAlert
               title="Are Sure About To Cancel This Order ?"
               subTitle="Back To Orders"
               callBack={changeOrder}

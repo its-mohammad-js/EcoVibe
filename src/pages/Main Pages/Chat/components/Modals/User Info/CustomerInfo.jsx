@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useRoomsData } from "../RoomsContext";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "/src/config/firebase";
 import { useSelector } from "react-redux";
@@ -13,6 +12,7 @@ import {
   RadarChart,
   ResponsiveContainer,
 } from "recharts";
+import { useRoomsData } from "../../RoomsContext";
 
 const CustomerInfo = () => {
   // orders state
@@ -150,14 +150,16 @@ const LastOrders = ({ loading, orders }) => {
     return (
       <div className="w-full h-2/5">
         <h4 className="text-lg font-bold">Orders of this customer:</h4>
-        <div className="px-2 py-1 overflow-auto styled-scroll-bar">
+        <div className="px-2 pb-12 lg:py-1 h-[75%] lg:h-auto overflow-auto styled-scroll-bar">
           <div className="flex flex-col gap-y-4">
             {orders.map((order, index) => (
               <div
                 key={index}
-                className="w-full h-20 bg-gray-200 cursor-pointer rounded-md px-2 py-1 flex flex-col justify-evenly"
+                className="w-full h-24 bg-gray-200 cursor-pointer rounded-md px-2 py-1 flex flex-col justify-evenly"
               >
-                <h4 className="line-clamp-1 font-bold">{order.orderId}</h4>
+                <h4 className="line-clamp-1 break-words font-bold">
+                  {order.orderId}
+                </h4>
                 <div className="flex items-center justify-between">
                   <p>
                     <span className="font-semibold">Total price:</span> $

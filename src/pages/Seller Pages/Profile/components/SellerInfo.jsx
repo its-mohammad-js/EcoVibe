@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AiOutlineMail } from "react-icons/ai";
 import { getDatabase, ref, set } from "firebase/database";
-import { generateId } from "constants";
 
 function SellerInfo({ seller, onEditHandler }) {
   const { sellerData, loading } = seller || {};
@@ -27,8 +26,9 @@ function SellerInfo({ seller, onEditHandler }) {
         ...sellerData.businessInformation,
         userType: sellerData.userType,
       },
+      members: [userId, params.id],
     });
-    navigate(`/EcoVibe/Messages/${roomId}`);
+    navigate(`/EcoVibe/Messages/`);
   }
 
   if (!loading && sellerData)

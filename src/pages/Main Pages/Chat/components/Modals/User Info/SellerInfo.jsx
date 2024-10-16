@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineMail, AiOutlineUser } from "react-icons/ai";
 import UserInfoSellerReviewsLoader from "UI/Loaders/UserInfoSellerReviewsLoader";
 import { db } from "/src/config/firebase";
-import { useRoomsData } from "../RoomsContext";
+import { useRoomsData } from "../../RoomsContext";
 
 const SellerInfo = () => {
   const {
@@ -50,7 +50,7 @@ const SellerInfo = () => {
         <div className="">
           {/* seller biography */}
           <h4 className="text-lg font-bold">Biography</h4>
-          <p className="line-clamp-4 mt-1">
+          <p className="line-clamp-2 lg:line-clamp-4 mt-1">
             {seller?.biography ||
               "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident blanditiis sed velit, doloribus ipsam possimus tenetur autem! Amet dolorum excepturi earum, tempore exercitationem in quos sapiente voluptates nam aperiam molestiae"}
           </p>
@@ -104,35 +104,37 @@ const LastReviews = ({ seller }) => {
 
   if (!loading && reviews.length)
     return (
-      <div className="h-2/5 overflow-auto absolute w-full bottom-1 styled-scroll-bar">
-        <h4 className="sticky text-lg font-bold top-0 z-10 bg-gray-100">
+      <div className="flex flex-col">
+        <h4 className="text-lg font-bold z-10 bg-gray-100">
           {reviews?.length} Reviews
         </h4>
-        <div className="flex flex-col gap-y-4 py-2 px-1">
-          {reviews.map((review, i) => (
-            <div
-              key={i}
-              className="h-32 flex flex-col items-start py-1.5 cursor-pointer border-b border-gray-300 hover:border-none hover:bg-gray-200 rounded-md p-1.5"
-            >
-              {/* rerview summary */}
-              <div className="flex items-center justify-between w-full gap-x-2">
-                <div className="size-8 rounded-full gradient-background bg-opacity-80">
-                  <img
-                    src={review.authorProfile}
-                    alt="author-profile"
-                    className="size-full rounded-full"
-                  />
+        <div className="h-[35%] lg:h-2/5 bg-gray-100 overflow-auto absolute w-full bottom-1 styled-scroll-bar pb-6 lg:pb-0">
+          <div className="flex flex-col gap-y-4 py-2 px-1">
+            {reviews.map((review, i) => (
+              <div
+                key={i}
+                className="h-32 flex flex-col items-start py-1.5 cursor-pointer border-b border-gray-300 hover:border-none hover:bg-gray-200 rounded-md p-1.5"
+              >
+                {/* rerview summary */}
+                <div className="flex items-center justify-between w-full gap-x-2">
+                  <div className="size-8 rounded-full gradient-background bg-opacity-80">
+                    <img
+                      src={review.authorProfile}
+                      alt="author-profile"
+                      className="size-full rounded-full"
+                    />
+                  </div>
+                  <h2 className="line-clamp-1 w-3/5 font-bold text-start">
+                    {review.content.first_name}
+                  </h2>
+                  <p className="">{getReviewDate(review.date)}</p>
                 </div>
-                <h2 className="line-clamp-1 w-3/5 font-bold text-start">
-                  {review.content.first_name}
-                </h2>
-                <p className="">{getReviewDate(review.date)}</p>
+                <div className="line-clamp-2 lg:line-clamp-3 mt-0.5 text-pretty py-1.5">
+                  {review.content.review}
+                </div>
               </div>
-              <div className="line-clamp-3 mt-0.5 text-pretty py-1.5">
-                {review.content.review}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     );

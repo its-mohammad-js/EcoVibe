@@ -1,7 +1,9 @@
 import SellerInfo from "./SellerInfo";
 import CustomerInfo from "./CustomerInfo";
-import { useRoomsData } from "../RoomsContext";
 import { useEffect, useState } from "react";
+import { useRoomsData } from "../../RoomsContext";
+import { AiOutlineLeft } from "react-icons/ai";
+import useDisableScroll from "../../../../../../common/hooks/UseDisableScroll";
 
 function UserInfo({ modalShow, onCloseModal }) {
   const [infoTab, setInfo] = useState(null);
@@ -22,23 +24,29 @@ function UserInfo({ modalShow, onCloseModal }) {
             !modalShow
               ? "invisible opacity-0 translate-x-28"
               : "visible opacity-100 translate-x-0"
-          } w-full lg:w-96 fixed top-0 right-0 ease-in-out h-screen bg-gray-100 z-50 transition-all px-4 py-2`}
+          } w-full lg:w-96 fixed top-0 right-0 ease-in-out h-screen bg-gray-100 z-50 transition-all px-2.5 lg:px-4 py-2`}
         >
-          {/* close btn */}
           <div
             className={`${
               reciver.userType === "both" ? "block" : "hidden"
-            } w-full flex items-center justify-between`}
+            } w-full flex py-2 items-center justify-between`}
           >
+            <button className="absolute left-2 text-3xl lg:hidden">
+              <AiOutlineLeft />
+            </button>
             <button
               onClick={() => setInfo("seller")}
-              className="px-4 hover:text-gray-700 rounded-md w-1/2"
+              className={`${
+                infoTab === "seller" && "text-gray-950"
+              } px-4 hover:text-gray-700 rounded-md w-1/2`}
             >
               Seller Info
             </button>
             <button
               onClick={() => setInfo("customer")}
-              className="px-4 hover:text-gray-700 rounded-md w-1/2"
+              className={`${
+                infoTab === "customer" && "text-gray-950"
+              } px-4 text-gray-500 lg:hover:text-gray-700 rounded-md w-1/2`}
             >
               Customer Info
             </button>

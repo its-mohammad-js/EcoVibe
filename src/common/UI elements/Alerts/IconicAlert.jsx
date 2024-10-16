@@ -1,7 +1,7 @@
 import { CgClose } from "react-icons/cg";
 import { CiWarning } from "react-icons/ci";
 
-function WarningModal({ title, subTitle, callBack, onClose }) {
+function IconicWarningAlert({ title, subTitle, callBack, onClose }) {
   return (
     <div className="w-11/12 lg:w-72 bg-gray-50 relative px-4 py-2 flex flex-col items-center text-center gap-2 border-t-8 border-amber-500">
       <button
@@ -30,4 +30,4 @@ function WarningModal({ title, subTitle, callBack, onClose }) {
   );
 }
 
-export default WarningModal;
+export default IconicWarningAlert;
