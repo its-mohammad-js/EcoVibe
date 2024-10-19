@@ -4,7 +4,7 @@ function OrderTypeMessage({ message }) {
   return (
     <div className=" lg:w-72 h-20 border-l-4 relative border-gray-600 flex items-center gap-x-2.5 px-2 py-1">
       {/* order thumbnail */}
-      <div className="size-16 lg:size-20 bg-gray-100 hover:bg-gray-100/90 transition-all overflow-hidden grid z-10 rounded-full grid-cols-2 grid-rows-2">
+      <div className="size-16 lg:size-20 bg-gray-100 hover:bg-gray-100/90 transition-all overflow-hidden grid z-0 rounded-full grid-cols-2 grid-rows-2">
         {message.order.thumbnails.map(
           (src, i) =>
             i < 3 && (
