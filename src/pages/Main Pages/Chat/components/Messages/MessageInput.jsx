@@ -11,6 +11,7 @@ import { FiPaperclip } from "react-icons/fi";
 import { GoPin } from "react-icons/go";
 import { BsBox } from "react-icons/bs";
 import ShareContentModal from "../Modals/Share Content/ShareContentModal";
+import toast from "react-hot-toast";
 
 function MessageInput() {
   // message content state
@@ -207,6 +208,7 @@ function MessageInput() {
             ></div>
           </div>
         </>
+        {/* main input */}
         <textarea
           rows={inputRows}
           value={message}
@@ -216,7 +218,10 @@ function MessageInput() {
               messageMode === "edit" ? editMessage() : sendMessage();
             }
           }}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => {
+            toast(window.innerHeight);
+            setMessage(e.target.value);
+          }}
           type="text"
           placeholder="write new message"
           className="px-4 py-2.5 resize-none transition-all min-h-12 flex-1 outline-none text-lg text-wrap bg-transparent styled-scroll-bar"
