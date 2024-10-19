@@ -19,6 +19,10 @@ function MessagesRoom({ deleteRoom }) {
     results: [],
   });
 
+  function getHeight() {
+    toast(window.innerHeight);
+  }
+
   // update last room
   useEffect(() => {
     if (selectedRoom) {
@@ -108,7 +112,14 @@ function MessagesRoom({ deleteRoom }) {
       >
         <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
 
-        <div className="fixed inset-0 bg-gray-400 flex items-center justify-center text-2xl font-bold flex-col"></div>
+        <div className="fixed inset-0 bg-gray-400 flex items-center justify-center text-2xl font-bold flex-col">
+          <button
+            onClick={() => getHeight()}
+            className="px-4 py-2 my-2 text-base font-normal bg-primary-500 text-gray-50 rounded-md"
+          >
+            get height
+          </button>
+        </div>
 
         {/* <MessageList /> */}
         {searchBar.barIsShow ? (
