@@ -103,9 +103,9 @@ function MessagesRoom({ deleteRoom }) {
       <div
         className={`${
           selectedRoom ? "w-full flex" : "hidd en"
-        } lg:!flex flex-col lg:w-3/4 bg-slate-400 items-center justify-center relative`}
+        } lg:!flex flex-col lg:w-3/4 bg-slate-400 items-center justify-center relative max-h-screen`}
       >
-        <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
+        {/* <Navbar {...{ searchBar, setSearchBar, deleteRoom }} /> */}
 
         {/* <MessageList /> */}
         {searchBar.barIsShow ? (
