@@ -4,6 +4,7 @@ import { useRoomsData } from "../RoomsContext";
 import { useEffect, useState } from "react";
 import MessageList from "./MessageList";
 import { AiOutlineRight } from "react-icons/ai";
+import toast from "react-hot-toast";
 
 function MessagesRoom({ deleteRoom }) {
   const [lastRoom, setLastRoom] = useState(null);
@@ -17,20 +18,10 @@ function MessagesRoom({ deleteRoom }) {
     selectedIndex: 0,
     results: [],
   });
-  const [testHeight, setTestHeight] = useState(0);
 
-  useEffect(() => {
-    setTestHeight(window.innerHeight);
-    function handleResize() {
-      setTestHeight(window.innerHeight);
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  function getHeight() {
+    toast(window.innerHeight);
+  }
 
   // update last room
   useEffect(() => {
@@ -121,8 +112,13 @@ function MessagesRoom({ deleteRoom }) {
       >
         <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
 
-        <div className="fixed inset-0 bg-gray-400 flex items-center justify-center text-2xl font-bold">
-          {testHeight}
+        <div className="fixed inset-0 bg-gray-400 flex items-center justify-center text-2xl font-bold flex-col">
+          <button
+            onClick={() => getHeight()}
+            className="px-4 py-2 my-2 text-base font-normal bg-primary-500 text-gray-50 rounded-md"
+          >
+            get height
+          </button>
         </div>
 
         {/* <MessageList /> */}
