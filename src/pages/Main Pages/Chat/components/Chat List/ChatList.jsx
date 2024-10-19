@@ -46,7 +46,7 @@ function ChatList({ openSideNav, deleteRoom }) {
     <div
       className={`${
         selectedRoom && "hidden"
-      } lg:!block lg:w-1/4 w-full bg-gray-50 flex flex-col h-screen`}
+      } lg:!block lg:w-1/4 w-full bg-gray-50 flex flex-col`}
     >
       {/* header  */}
       <div className="lg:h-1/6">

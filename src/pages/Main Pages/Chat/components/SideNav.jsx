@@ -27,7 +27,7 @@ function SideNav({ onCloseNav, navIsShow, openContacts }) {
           navIsShow
             ? "translate-x-0 opacity-100 visible"
             : "-translate-x-16 opacity-0 invisible"
-        } absolute transition-all ease-linear z-50 max-w-20 h-screen bg-gray-50 px-4 py-2 flex flex-col items-center gap-y-6 border-r-2`}
+        } absolute transition-all ease-linear z-50 max-w-20 h-full bg-gray-50 px-4 py-2 flex flex-col items-center gap-y-6 border-r-2`}
       >
         <button
           onClick={() => onCloseNav()}

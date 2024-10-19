@@ -17,6 +17,20 @@ function MessagesRoom({ deleteRoom }) {
     selectedIndex: 0,
     results: [],
   });
+  const [testHeight, setTestHeight] = useState(0);
+
+  useEffect(() => {
+    setTestHeight(window.innerHeight);
+    function handleResize() {
+      setTestHeight(window.innerHeight);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // update last room
   useEffect(() => {
@@ -107,7 +121,11 @@ function MessagesRoom({ deleteRoom }) {
       >
         <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
 
-        <MessageList />
+        <div className="fixed inset-0 bg-gray-400 flex items-center justify-center text-2xl font-bold">
+          {testHeight}
+        </div>
+
+        {/* <MessageList /> */}
         {searchBar.barIsShow ? (
           <div className="w-full h-16 bg-gray-50 flex items-center px-4 py-2 relative">
             <h4 className="text-lg font-bold">
