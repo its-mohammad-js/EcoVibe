@@ -106,7 +106,8 @@ function MessagesRoom({ deleteRoom }) {
         } lg:!flex flex-col lg:w-3/4 bg-slate-300 items-center justify-center relative h-screen`}
       >
         <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
-        <MessageList />
+        <div className="w-full h-fit flex-1 bg-red-50">test container</div>
+        {/* <MessageList /> */}
         {searchBar.barIsShow ? (
           <div className="w-full h-16 bg-gray-50 flex items-center px-4 py-2 relative">
             <h4 className="text-lg font-bold">
