@@ -3,11 +3,11 @@ import Footer from "./Footer";
 
 function AppLayout({ children }) {
   return (
-    <div>
-      <Navbar />
+    <>
+      {/* <Navbar /> */}
       {children}
-      <Footer />
-    </div>
+      {/* <Footer /> */}
+    </>
   );
 }
 
