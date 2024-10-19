@@ -48,7 +48,7 @@ function ChatPage() {
     <RoomsContext>
       <div className="mx-auto 2xl:max-w-screen-2xl -mb-8 fixed inset-0 bg-gray-50 z-50">
         {/* wrapper */}
-        <div className="lg:flex justify-between h-screen">
+        <div className="lg:flex justify-between">
           {/* side buttons */}
           <SideNav
             onCloseNav={() => setSideNav(false)}
