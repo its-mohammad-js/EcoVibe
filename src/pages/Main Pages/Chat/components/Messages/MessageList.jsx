@@ -63,11 +63,11 @@ const MessageList = () => {
           onContextMenu={(e) => e.preventDefault()}
           className={`${
             messageMode ? "pb-[9.25rem]" : "pb-[4.25rem]"
-          } flex relative flex-col h-full gap-y-2 w-full overflow-auto px-2 lg:!pb-1 pt-4 lg:pt-2 bg-gray-300 flex-1 styled-scroll-bar`}
+          } flex relative flex-col h-full gap-y-2 w-full overflow-auto px-2 lg:!pb-1 pt-20 lg:pt-2 bg-gray-300 flex-1 styled-scroll-bar`}
         >
           {selectedRoom.messageList.map(
             (message, index) =>
-              message.visibleTo.includes(userId) && (
+              message?.visibleTo?.includes(userId) && (
                 <MessageLayout
                   message={message}
                   key={index}
