@@ -46,7 +46,7 @@ function ChatPage() {
 
   return (
     <RoomsContext>
-      <div className="mx-auto 2xl:max-w-screen-2xl fixed inset-0 bg-gray-50 z-50 max-h-screen">
+      <div className="mx-auto 2xl:max-w-screen-2xl bg-gray-50 z-50 max-h-screen">
         {/* wrapper */}
         <div className="lg:flex justify-between">
           {/* side buttons */}
