@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RoomsContext from "./components/RoomsContext";
 import ChatList from "./components/Chat List/ChatList";
 import SideNav from "./components/SideNav";

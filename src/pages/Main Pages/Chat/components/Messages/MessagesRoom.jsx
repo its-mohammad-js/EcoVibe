@@ -18,10 +18,24 @@ function MessagesRoom({ deleteRoom }) {
     selectedIndex: 0,
     results: [],
   });
+  // page height state (test mode)
+  const [testHeight, setHeight] = useState(null);
 
-  function getHeight() {
-    toast(window.innerHeight);
-  }
+  // set screen size (test mode)
+  useEffect(() => {
+    if (!testHeight) {
+      setHeight(window.visualViewport.height);
+    }
+    function getHeight() {
+      setHeight(window.visualViewport.height);
+    }
+
+    window.addEventListener("resize", getHeight);
+
+    return () => {
+      window.removeEventListener("resize", getHeight);
+    };
+  }, []);
 
   // update last room
   useEffect(() => {
@@ -106,22 +120,23 @@ function MessagesRoom({ deleteRoom }) {
   if (selectedRoom)
     return (
       <div
+        style={{ height: testHeight || "100vh" }}
         className={`${
           selectedRoom ? "w-full flex" : "hidd en"
-        } lg:!flex flex-col lg:w-3/4 bg-slate-400 items-center justify-center relative h-fit max-h-screen`}
+        } lg:!flex flex-col lg:w-3/4 bg-slate-400 items-center justify-center  relative`}
       >
         <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
 
-        <div className="fixed inset-0 bg-gray-400 flex items-center justify-center text-2xl font-bold flex-col">
+        {/* <div className="flex-1 w-full bg-gray-400 flex items-center justify-center text-2xl font-bold flex-col">
           <button
-            onClick={() => getHeight()}
+            // onClick={() => getHeight()}
             className="px-4 py-2 my-2 text-base font-normal bg-primary-500 text-gray-50 rounded-md"
           >
             get height
           </button>
-        </div>
+        </div> */}
 
-        {/* <MessageList /> */}
+        <MessageList />
         {searchBar.barIsShow ? (
           <div className="w-full h-16 bg-gray-50 flex items-center px-4 py-2 relative">
             <h4 className="text-lg font-bold">
