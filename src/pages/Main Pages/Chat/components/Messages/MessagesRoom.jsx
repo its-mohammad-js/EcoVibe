@@ -108,67 +108,58 @@ function MessagesRoom({ deleteRoom }) {
   //   };
   // }, [lastRoom]);
 
-  // if (!selectedRoom)
-  //   return (
-  //     <div className="hidden w-3/4 bg-slate-200 lg:flex items-center justify-center relative">
-  //       <p className="text-lg font-bold bg-gray-50/50 backdrop-blur-sm px-4 py-2 rounded-xl cursor-pointer">
-  //         Please Select A Chat First...
-  //       </p>
-  //     </div>
-  //   );
-
-  // if (selectedRoom)
-  return (
-    <div
-      style={{ height: roomHeight || "100vh" }}
-      className={`${
-        selectedRoom ? "w-full flex" : "hidd en"
-      } lg:!flex flex flex-col lg:w-3/4 !w-full bg-slate-400 items-center justify-between relative`}
-    >
-      <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
-
-      <div className="flex-1 w-full bg-gray-400 flex items-center justify-center text-2xl font-bold flex-col">
-        <button
-          // onClick={() => getHeight()}
-          className="px-4 py-2 my-2 text-base font-normal bg-primary-500 text-gray-50 rounded-md"
-        >
-          get height
-        </button>
+  if (!selectedRoom)
+    return (
+      <div className="hidden w-3/4 bg-slate-200 lg:flex items-center justify-center relative">
+        <p className="text-lg font-bold bg-gray-50/50 backdrop-blur-sm px-4 py-2 rounded-xl cursor-pointer">
+          Please Select A Chat First...
+        </p>
       </div>
+    );
 
-      {/* <MessageList /> */}
-      {searchBar.barIsShow ? (
-        <div className="w-full h-16 bg-gray-50 flex items-center px-4 py-2 relative">
-          <h4 className="text-lg font-bold">
-            {searchBar.searchQuery?.length
-              ? selectedIndex
-                ? `${selectedIndex + 1} of ${results?.length}`
-                : `${results?.length} Messages Find`
-              : `Search Between ${selectedRoom.messageList?.length} Messages`}
-          </h4>
+  if (selectedRoom)
+    return (
+      <div
+        style={{ height: roomHeight || "100vh" }}
+        className={`${
+          selectedRoom ? "w-full flex" : "hidden"
+        } lg:!flex flex-col lg:w-3/4 bg-slate-400 items-center justify-between relative`}
+      >
+        <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
 
-          <div className="flex flex-col absolute bg-gray-50/40 rounded-3xl backdrop-blur-sm right-8 gap-y-2 -top-28">
-            <button
-              disabled={selectedIndex === results.length - 1}
-              onClick={() => scrollToMessage("up")}
-              className="p-2.5 text-2xl rounded-full bg-gray-100 -rotate-90 disabled:opacity-50 transition-all"
-            >
-              <AiOutlineRight />
-            </button>
-            <button
-              disabled={!selectedIndex}
-              onClick={() => scrollToMessage("down")}
-              className="p-2.5 text-2xl rounded-full bg-gray-100 rotate-90 disabled:opacity-50 transition-all"
-            >
-              <AiOutlineRight />
-            </button>
+        <MessageList />
+        {searchBar.barIsShow ? (
+          <div className="w-full h-16 bg-gray-50 flex items-center px-4 py-2 relative">
+            <h4 className="text-lg font-bold">
+              {searchBar.searchQuery?.length
+                ? selectedIndex
+                  ? `${selectedIndex + 1} of ${results?.length}`
+                  : `${results?.length} Messages Find`
+                : `Search Between ${selectedRoom.messageList?.length} Messages`}
+            </h4>
+
+            <div className="flex flex-col absolute bg-gray-50/40 rounded-3xl backdrop-blur-sm right-8 gap-y-2 -top-28">
+              <button
+                disabled={selectedIndex === results.length - 1}
+                onClick={() => scrollToMessage("up")}
+                className="p-2.5 text-2xl rounded-full bg-gray-100 -rotate-90 disabled:opacity-50 transition-all"
+              >
+                <AiOutlineRight />
+              </button>
+              <button
+                disabled={!selectedIndex}
+                onClick={() => scrollToMessage("down")}
+                className="p-2.5 text-2xl rounded-full bg-gray-100 rotate-90 disabled:opacity-50 transition-all"
+              >
+                <AiOutlineRight />
+              </button>
+            </div>
           </div>
-        </div>
-      ) : (
-        <MessageInput />
-      )}
-    </div>
-  );
+        ) : (
+          <MessageInput />
+        )}
+      </div>
+    );
 }
 
 export default MessagesRoom;

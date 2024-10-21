@@ -58,10 +58,10 @@ function ChatPage() {
           {/* main comps */}
           <div className="flex-1 flex">
             {/* chats list */}
-            {/* <ChatList
+            <ChatList
               openSideNav={() => setSideNav(true)}
               deleteRoom={deleteRoom}
-            /> */}
+            />
             {/* messages */}
             <MessagesRoom deleteRoom={deleteRoom} />
             {/* search contacts modal */}

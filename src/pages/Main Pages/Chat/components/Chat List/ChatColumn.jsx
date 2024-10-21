@@ -22,6 +22,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
   const [lastMessageDate, setLastDate] = useState("");
   // necessary data
   const { setSelectedRoom, setSelectedMessage, rooms } = useRoomsData();
+  const testRef = useRef();
 
   // calculate last meesage date
   useEffect(() => {
@@ -49,10 +50,13 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
     }
   }, [createdAt]);
 
+  console.log(testRef.current.offsetWidth);
+
   return (
     <>
       {/* chat column */}
       <div
+        ref={testRef}
         onContextMenu={(e) => {
           e.preventDefault();
           setPosition({ x: e.clientX, y: e.clientY });
@@ -71,7 +75,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
           const findedRoom = rooms.find(({ roomId }) => roomId === room.roomId);
           setSelectedRoom(findedRoom);
         }}
-        className="w-full h-24 relative rounded-md flex items-center hover:bg-gray-300/30 transition-all cursor-pointer gap-x-2 px-4 py-2"
+        className="w-full h-24 relative select-none rounded-md flex items-center hover:bg-gray-300/30 transition-all cursor-pointer gap-x-2 px-4 py-2"
       >
         {/* user profile */}
         <div className="relative">
@@ -120,7 +124,8 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
       <div
         style={{
           top: position.y,
-          left: position.x,
+          left: position.x / 2,
+          // right: position.x - 500,
         }}
         ref={contextMenuRef}
         className={`${

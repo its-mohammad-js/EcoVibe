@@ -5,6 +5,7 @@ import useOutSideClick from "hooks/UseOutsideClick";
 import OrderTypeMessage from "./OrderTypeMessage";
 import LocationTypeMessage from "./LocationTypeMessage";
 import ProductTypeMessage from "./ProductTypeMessage";
+import toast from "react-hot-toast";
 
 function MessageLayout({
   message,
@@ -77,7 +78,7 @@ function MessageLayout({
       } ${
         selectedMessage?.uiid === message.uiid &&
         "!bg-gray-900 text-gray-50 focused-message_shadow"
-      } px-3 py-1.5 w-fit rounded-md flex flex-col items-end gap-y-1 transition-all cursor-pointer max-w-[95%] lg:max-w-[60%]`}
+      } px-3 py-1.5 w-fit select-none rounded-md flex flex-col items-end gap-y-1 transition-all cursor-pointer max-w-[95%] lg:max-w-[60%]`}
     >
       {/* main message */}
       <div
@@ -151,6 +152,15 @@ function MessageLayout({
           className="px-4 py-2 text-gray-950 bg-gray-100 rounded-md hover:bg-gray-950 hover:text-gray-50 transition-all border-b border-b-gray-300"
         >
           reply
+        </button>
+        <button
+          disabled={message?.type !== "text"}
+          onClick={() => {
+            toast("not developed yet:)");
+          }}
+          className="disabled:hidden px-4 py-2 text-gray-950 bg-gray-100 rounded-md hover:bg-gray-950 hover:text-gray-50 transition-all border-b border-b-gray-300"
+        >
+          copy
         </button>
         <button
           onClick={() => {

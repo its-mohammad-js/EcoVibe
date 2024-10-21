@@ -219,7 +219,6 @@ function MessageInput() {
             }
           }}
           onChange={(e) => {
-            toast(window.visualViewport.height);
             setMessage(e.target.value);
           }}
           type="text"
