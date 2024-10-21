@@ -71,7 +71,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
           const findedRoom = rooms.find(({ roomId }) => roomId === room.roomId);
           setSelectedRoom(findedRoom);
         }}
-        className="w-full h-20 lg:h-24 relative rounded-md flex items-center hover:bg-gray-300/30 transition-all cursor-pointer gap-x-2 px-4 py-2"
+        className="w-full h-24 relative rounded-md flex items-center hover:bg-gray-300/30 transition-all cursor-pointer gap-x-2 px-4 py-2"
       >
         {/* user profile */}
         <div className="relative">

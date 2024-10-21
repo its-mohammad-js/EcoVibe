@@ -133,10 +133,10 @@ function Navbar({ searchBar, setSearchBar, deleteRoom }) {
         </div>
       </div>
       {/* user info modal */}
-      <UserInfo
+      {/* <UserInfo
         modalShow={userDetails}
         onCloseModal={() => setUserDetails(null)}
-      />
+      /> */}
       {/* search bar */}
       <div
         className={`${
