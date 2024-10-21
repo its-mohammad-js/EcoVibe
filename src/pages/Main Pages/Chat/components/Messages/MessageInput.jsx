@@ -35,6 +35,7 @@ function MessageInput() {
   const { first_name, last_name, business_name, userType } =
     selectedRoom?.reciver || {};
   const testRef = useRef();
+  const [virtualKeyboard, setVirtualKeyboard] = useState(false);
 
   // useEffect(() => {
   //   console.log(testRef.current);
@@ -239,7 +240,10 @@ function MessageInput() {
           // onClick={(e) => e.preventDefault()}
           // onFocus={(e) => e.preventDefault()}
           // onTouchStart={(e) => e.preventDefault()}
-          onTouchEnd={(e) => e.preventDefault()}
+          onTouchEnd={(e) => {
+            setVirtualKeyboard(true);
+            e.preventDefault();
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter" && message.length) {
               e.preventDefault();
@@ -263,6 +267,14 @@ function MessageInput() {
         >
           <AiOutlineSend />
         </button>
+      </div>
+
+      <div
+        className={`${
+          virtualKeyboard ? "block" : "hidden"
+        } w-full h-44 bg-gray-100 flex items-center justify-center`}
+      >
+        virtual keyboard
       </div>
     </div>
   );
