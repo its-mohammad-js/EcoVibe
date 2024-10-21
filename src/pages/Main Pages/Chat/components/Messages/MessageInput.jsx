@@ -36,26 +36,26 @@ function MessageInput() {
     selectedRoom?.reciver || {};
   const testRef = useRef();
 
-  useEffect(() => {
-    console.log(testRef.current);
+  // useEffect(() => {
+  //   console.log(testRef.current);
 
-    function disableTouch(e) {
-      if (testRef.current && !testRef.current.contains(e.target)) {
-        console.log("ok");
-        e.preventDefault();
-      }
-    }
+  //   function disableTouch(e) {
+  //     if (testRef.current && !testRef.current.contains(e.target)) {
+  //       console.log("ok");
+  //       e.preventDefault();
+  //     }
+  //   }
 
-    window.addEventListener("touchmove", disableTouch);
-    window.addEventListener("touchstart", disableTouch);
-    window.addEventListener("touchend", disableTouch);
+  //   window.addEventListener("touchmove", disableTouch);
+  //   window.addEventListener("touchstart", disableTouch);
+  //   window.addEventListener("touchend", disableTouch);
 
-    return () => {
-      window.removeEventListener("touchmove", disableTouch);
-      window.removeEventListener("touchstart", disableTouch);
-      window.removeEventListener("touchend", disableTouch);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("touchmove", disableTouch);
+  //     window.removeEventListener("touchstart", disableTouch);
+  //     window.removeEventListener("touchend", disableTouch);
+  //   };
+  // }, []);
 
   // set message input rows
   useEffect(() => {
@@ -236,6 +236,10 @@ function MessageInput() {
         <textarea
           rows={inputRows}
           value={message}
+          // onClick={(e) => e.preventDefault()}
+          // onFocus={(e) => e.preventDefault()}
+          // onTouchStart={(e) => e.preventDefault()}
+          onTouchEnd={(e) => e.preventDefault()}
           onKeyDown={(e) => {
             if (e.key === "Enter" && message.length) {
               e.preventDefault();
