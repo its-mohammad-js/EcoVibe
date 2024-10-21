@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import RoomsContext from "./components/RoomsContext";
 import ChatList from "./components/Chat List/ChatList";
 import SideNav from "./components/SideNav";
@@ -17,8 +17,6 @@ function ChatPage() {
 
   // delete chat room handler
   function deleteRoom(roomId, rooms) {
-    console.log("ok");
-
     // take a copy from selected room
     const roomIndex = rooms.findIndex((room) => room.roomId === roomId);
     const roomClone = { ...rooms[roomIndex] };
@@ -46,9 +44,9 @@ function ChatPage() {
 
   return (
     <RoomsContext>
-      <div className="mx-auto 2xl:max-w-screen-2xl bg-gray-50 z-50 fixed inset-0">
+      <div className="mx-auto 2xl:max-w-screen-2xl bg-gray-500 z-50 fixed inset-0">
         {/* wrapper */}
-        <div className="lg:flex justify-between h-screen">
+        <div className="lg:flex justify-between h-full">
           {/* side buttons */}
           <SideNav
             onCloseNav={() => setSideNav(false)}
@@ -56,19 +54,19 @@ function ChatPage() {
             openContacts={() => setContactsShow(true)}
           />
           {/* main comps */}
-          <div className="flex-1 flex">
+          <div className="flex-1 flex h-full">
             {/* chats list */}
-            <ChatList
+            {/* <ChatList
               openSideNav={() => setSideNav(true)}
               deleteRoom={deleteRoom}
-            />
+            /> */}
             {/* messages */}
             <MessagesRoom deleteRoom={deleteRoom} />
             {/* search contacts modal */}
             {/* <ContactsModal
-              modalIsShow={contactsShow}
-              onCloseModal={() => setContactsShow(false)}
-            /> */}
+            modalIsShow={contactsShow}
+            onCloseModal={() => setContactsShow(false)}
+          /> */}
           </div>
         </div>
       </div>

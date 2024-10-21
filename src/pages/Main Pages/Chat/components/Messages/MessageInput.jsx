@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlineClose, AiOutlineMail, AiOutlineSend } from "react-icons/ai";
 import { getDatabase, ref, update, serverTimestamp } from "firebase/database";
 import { useSelector } from "react-redux";
@@ -34,6 +34,28 @@ function MessageInput() {
   } = useRoomsData();
   const { first_name, last_name, business_name, userType } =
     selectedRoom?.reciver || {};
+  const testRef = useRef();
+
+  useEffect(() => {
+    console.log(testRef.current);
+
+    function disableTouch(e) {
+      if (testRef.current && !testRef.current.contains(e.target)) {
+        console.log("ok");
+        e.preventDefault();
+      }
+    }
+
+    window.addEventListener("touchmove", disableTouch);
+    window.addEventListener("touchstart", disableTouch);
+    window.addEventListener("touchend", disableTouch);
+
+    return () => {
+      window.removeEventListener("touchmove", disableTouch);
+      window.removeEventListener("touchstart", disableTouch);
+      window.removeEventListener("touchend", disableTouch);
+    };
+  }, []);
 
   // set message input rows
   useEffect(() => {
@@ -106,9 +128,10 @@ function MessageInput() {
 
   return (
     <div
+      ref={testRef}
       className={`${
         messageMode && "min-h-36 flex flex-col"
-      } w-full transition-all lg:static`}
+      } w-full transition-all`}
     >
       {/* reply header */}
       <div className={`${!messageMode ? "hidden" : "block"} w-full h-20`}>
@@ -147,6 +170,7 @@ function MessageInput() {
       </div>
       {/* main input & context menu */}
       <div className="w-full bg-gray-50 px-4 pb-2 pt-1 flex items-end justify-between relative">
+        {/* share content menu */}
         <>
           {/* share content btn */}
           <button className="text-3xl text-gray-900 py-2 rounded-md peer">
@@ -225,6 +249,7 @@ function MessageInput() {
           placeholder="write new message"
           className="px-4 py-2.5 resize-none transition-all min-h-12 flex-1 outline-none text-lg text-wrap bg-transparent styled-scroll-bar"
         />
+        {/* send message btn */}
         <button
           disabled={!message.length}
           onClick={() =>

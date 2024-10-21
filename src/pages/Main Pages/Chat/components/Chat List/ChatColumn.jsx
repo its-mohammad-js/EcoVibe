@@ -22,7 +22,6 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
   const [lastMessageDate, setLastDate] = useState("");
   // necessary data
   const { setSelectedRoom, setSelectedMessage, rooms } = useRoomsData();
-  const testRef = useRef();
 
   // calculate last meesage date
   useEffect(() => {
@@ -50,13 +49,10 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
     }
   }, [createdAt]);
 
-  console.log(testRef.current.offsetWidth);
-
   return (
     <>
       {/* chat column */}
       <div
-        ref={testRef}
         onContextMenu={(e) => {
           e.preventDefault();
           setPosition({ x: e.clientX, y: e.clientY });
@@ -124,8 +120,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
       <div
         style={{
           top: position.y,
-          left: position.x / 2,
-          // right: position.x - 500,
+          left: position.x / 1.7,
         }}
         ref={contextMenuRef}
         className={`${

@@ -4,9 +4,9 @@ import Footer from "./Footer";
 function AppLayout({ children }) {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

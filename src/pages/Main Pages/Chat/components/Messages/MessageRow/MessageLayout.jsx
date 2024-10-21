@@ -51,7 +51,7 @@ function MessageLayout({
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "center",
+        block: "end",
       });
     }
   }, [selectedMessage]);
