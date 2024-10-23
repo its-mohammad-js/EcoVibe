@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import { useRoomsData } from "../RoomsContext";
 import { useEffect, useRef, useState } from "react";
 import MessageList from "./MessageList";
-import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
 import useDisableScroll from "../../../../../common/hooks/UseDisableScroll";
 import toast from "react-hot-toast";
 
@@ -21,6 +21,11 @@ function MessagesRoom({ deleteRoom }) {
   });
   // page height state
   const [roomHeight, setHeight] = useState(null);
+  const [{ opacity, rotate }, setEl] = useState({
+    opacity: 0,
+    rotate: 0,
+  });
+  const testRef = useRef();
 
   // set room height on resizes
   // note: This hook is used because of the unexpected screen resize behavior, particularly when focusing on the message input and the keyboard is displayed on Android devices.
@@ -30,12 +35,59 @@ function MessagesRoom({ deleteRoom }) {
     }
     function getHeight() {
       setHeight(window.visualViewport.height);
+      setFocus(true);
     }
 
     window.addEventListener("resize", getHeight);
 
     return () => {
       window.removeEventListener("resize", getHeight);
+    };
+  }, []);
+
+  useEffect(() => {
+    // const onStart = () => {};
+    const onMove = (e) => {
+      const touch = e.touches[0];
+      const viewportTop = touch.pageY;
+      const result = touch.screenY - viewportTop;
+      const opacity = (viewportTop - touch.screenY).toFixed() / 50 + 1.5;
+      const deg = (opacity * 85).toFixed();
+
+      // if (result.toFixed() < -10) {
+      //   e.preventDefalut();
+      // }
+
+      // toast(deg < 0 ? 0 : deg > 180 ? 180 : deg);
+
+      if (result.toFixed() < 87) {
+        setEl({
+          opacity: opacity / 2,
+          rotate: deg < 0 ? 0 : deg > 180 ? 180 : deg,
+        });
+      }
+    };
+    const onEnd = (e) => {
+      const touch = e.changedTouches[0];
+      const viewportTop = touch.pageY;
+      const result = touch.screenY - viewportTop;
+
+      if (result.toFixed() < 0) {
+        toast("done !");
+      }
+
+      if (result.toFixed() < 87) {
+        testRef.current.scrollIntoView({ block: "start", behavior: "smooth" });
+        setEl({ rotate: 0, opacity: 0 });
+      }
+    };
+
+    window.addEventListener("touchmove", onMove);
+    window.addEventListener("touchend", onEnd);
+
+    return () => {
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
     };
   }, []);
 
@@ -125,11 +177,13 @@ function MessagesRoom({ deleteRoom }) {
       style={{ height: roomHeight || window.visualViewport.height }}
       className={`${
         selectedRoom ? "w-full flex" : "hi dden"
-      } lg:! flex flex-col lg:w-3/4 !w-full h-full bg-slate-400 items-center justify-between relative`}
+      } lg:! flex flex-col lg:w-3/4 !w-full h-full bg-slate-400 items-center justify-center relative`}
     >
-      <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
+      <div ref={testRef} className="w-full">
+        <Navbar {...{ searchBar, setSearchBar, deleteRoom }} />
+      </div>
 
-      <div className="bg-yellow-100 flex-1 w-full"></div>
+      <div className="bg-yellow-100 flex-1  w-full"></div>
 
       {/* <MessageList /> */}
       {searchBar.barIsShow ? (
@@ -162,6 +216,23 @@ function MessagesRoom({ deleteRoom }) {
       ) : (
         <MessageInput />
       )}
+
+      <div
+        style={{
+          opacity: opacity,
+        }}
+        className="absolute w-full h-32 -bottom-32 z-50 transition-all flex items-center justify-center gap-x-2"
+      >
+        <p
+          style={{
+            rotate: `${rotate}deg`,
+          }}
+          className="transition-all text-2xl rotate-180 duration-700"
+        >
+          <AiOutlineDown />
+        </p>
+        <h4 className="text-lg font-bold">Back To Chat List!</h4>
+      </div>
     </div>
   );
 }
