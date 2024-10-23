@@ -33,7 +33,7 @@ const SellerInfo = () => {
         </div>
       </div>
       {/* seller primary information */}
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-2 h-1/3">
         {/* seller business informations */}
         <div className="flex items-center justify-center gap-x-3">
           <p className="text-lg font-semibold w-3/5">Shop Name</p>
@@ -47,17 +47,19 @@ const SellerInfo = () => {
           <p className="text-lg font-semibold w-3/5">Email</p>
           <p className="w-2/5 line-clamp-1">{seller?.email}</p>
         </div>
-        <div className="">
+        <div>
           {/* seller biography */}
           <h4 className="text-lg font-bold">Biography</h4>
-          <p className="line-clamp-2 lg:line-clamp-4 mt-1">
+          <p className="line-clamp-4 lg:line-clamp-4 mt-1">
             {seller?.biography ||
               "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident blanditiis sed velit, doloribus ipsam possimus tenetur autem! Amet dolorum excepturi earum, tempore exercitationem in quos sapiente voluptates nam aperiam molestiae"}
           </p>
         </div>
       </div>
       {/* seller testimonials */}
-      <LastReviews seller={seller} />
+      <div className="w-full h-1/3 justify-self-end">
+        <LastReviews seller={seller} />
+      </div>
     </div>
   );
 };
@@ -104,11 +106,11 @@ const LastReviews = ({ seller }) => {
 
   if (!loading && reviews.length)
     return (
-      <div className="flex flex-col">
-        <h4 className="text-lg font-bold z-10 bg-gray-100">
+      <div className="flex flex-col h-full">
+        <h4 className="text-lg font-bold z-10 bg-gray- 100">
           {reviews?.length} Reviews
         </h4>
-        <div className="h-[35%] lg:h-2/5 bg-gray-100 overflow-auto absolute w-full bottom-1 styled-scroll-bar pb-6 lg:pb-0">
+        <div className="lg:h-2/5 bg-gray-100 overflow-auto styled-scroll-bar pb-6 lg:pb-0">
           <div className="flex flex-col gap-y-4 py-2 px-1">
             {reviews.map((review, i) => (
               <div

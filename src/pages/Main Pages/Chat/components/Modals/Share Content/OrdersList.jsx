@@ -179,7 +179,7 @@ function OrdersList({ onCloseModal }) {
                   className="w-full cursor-pointer hover:bg-gray-300 transition-all h-28 bg-gray-200 rounded-md flex items-center px-2 py-2 gap-x-2.5 relative"
                 >
                   {/* order thumbnail */}
-                  <div className="w-1/4 h-20 bg-gray-100 overflow-hidden grid z-10 rounded-full grid-cols-2 grid-rows-2">
+                  <div className="size-20 bg-gray-100 overflow-hidden grid z-10 rounded-full grid-cols-2 grid-rows-2">
                     {orders.items.map(
                       ({ Thumbnail }, i) =>
                         i < 3 && (
@@ -193,7 +193,7 @@ function OrdersList({ onCloseModal }) {
                   </div>
                   {/* order title & total price */}
                   <div className="w-4/6">
-                    <h4 className="line-clamp-1 font-bold mb-1.5 w-11/12">
+                    <h4 className="line-clamp-1 break-words font-bold mb-1.5 w-11/12">
                       {orderId}
                     </h4>
                     <p className="text-gray-800 font-semibold">

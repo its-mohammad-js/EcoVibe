@@ -49,7 +49,7 @@ function ChatList({ openSideNav, deleteRoom }) {
       } lg:!block lg:w-1/4 w-full bg-gray-50 flex flex-col`}
     >
       {/* header  */}
-      <div className="lg:h-1/6">
+      <div className="lg:h-1/6 pt-1.5">
         <div className="bg-gray-50 p-4 border-b border-gray-200">
           <div className="flex items-center justify-end gap-x-1.5 cursor-pointer relative">
             <h2 className="text-xl font-bold">Messages</h2>
@@ -80,13 +80,15 @@ function ChatList({ openSideNav, deleteRoom }) {
         </div>
       </div>
       {/* contact list */}
-      <div className="overflow-x-auto overflow-y-hidden mx-auto pr-4 py-1 hidden-scroll-bar w-[20.5rem] contacts-container">
+      <div
+        className={`overflow-x-auto overflow-y-hidden mx-auto pr-4 py-1 hidden-scroll-bar w-[20.5rem] contacts-container`}
+      >
         {searchQuery && (
-          <div className="flex items-center gap-x-4 select-none">
+          <div className="flex items-center gap-x-4 select-none mb-8">
             {searchContacts(searchQuery).map((room, index) => (
               <div
                 key={index}
-                className="h-full w-24 gap-y-1 flex flex-col justify-center items-center "
+                className="w-24 gap-y-1 flex flex-col items-center justify-center"
               >
                 <div
                   onClick={() => setSelectedRoom(room)}
@@ -105,7 +107,7 @@ function ChatList({ openSideNav, deleteRoom }) {
                 </div>
                 <p
                   onClick={() => setSelectedRoom(room)}
-                  className="line-clamp-2 text-sm text-center w-full cursor-pointer"
+                  className="line-clamp-2 break-words w-10/12 text-sm text-center cursor-pointer"
                 >
                   {room.reciver.userType === "customer"
                     ? room.reciver.first_name + " " + room.reciver.last_name
@@ -122,7 +124,7 @@ function ChatList({ openSideNav, deleteRoom }) {
           <h2
             className={`${
               !searchQuery?.length && "hidden"
-            } block px-4  py-1 w-full bg-gray-200 sticky z-10 my-2`}
+            } block px-4  py-1 w-full bg-gray-200 sticky top0 z-10 my-2`}
           >
             Found {searchMessages(searchQuery).length} Messages
           </h2>

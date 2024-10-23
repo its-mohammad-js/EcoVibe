@@ -4,9 +4,9 @@ import Footer from "./Footer";
 function AppLayout({ children }) {
   return (
     <>
-      {/* <Navbar /> */}
+      {location.pathname !== "/EcoVibe/messages" && <Navbar />}
       {children}
-      {/* <Footer /> */}
+      {location.pathname !== "/EcoVibe/messages" && <Footer />}
     </>
   );
 }

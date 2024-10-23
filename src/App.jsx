@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import { Toaster } from "react-hot-toast";
 import { getUserData } from "./reducers/auth/userDataSlice";
 import AppLayout from "./layout/AppLayout";

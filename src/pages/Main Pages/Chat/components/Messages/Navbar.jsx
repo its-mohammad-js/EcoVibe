@@ -11,9 +11,8 @@ import UserInfo from "../Modals/User Info/UserInfo";
 import { useRoomsData } from "../RoomsContext";
 import { HiDotsVertical } from "react-icons/hi";
 import useOutSideClick from "../../../../../common/hooks/UseOutsideClick";
-import toast from "react-hot-toast";
 
-function Navbar({ searchBar, setSearchBar, deleteRoom }) {
+function Navbar({ searchBar, setSearchBar, deleteRoom, setShowAlert }) {
   // user info modal state
   const [userDetails, setUserDetails] = useState(null);
   // context menu state
@@ -24,7 +23,8 @@ function Navbar({ searchBar, setSearchBar, deleteRoom }) {
   );
   // necessary data
   const { barIsShow } = searchBar || {};
-  const { setSelectedRoom, selectedRoom, rooms } = useRoomsData();
+  const { setSelectedRoom, selectedRoom, rooms, setSelectedMessage } =
+    useRoomsData();
   const {
     profilePic,
     status,
@@ -41,7 +41,7 @@ function Navbar({ searchBar, setSearchBar, deleteRoom }) {
         e.preventDefault();
         setContextMenu(true);
       }}
-      className="w-full bg-gray-100 p-2 lg:px-4 flex items-center justify-between z-50 transition-all relative"
+      className="w-full bg-gray-100 p-2 lg:px-4 flex items-center justify-between z-30 transition-all relative"
     >
       {/* user summary info & close room btn */}
       <div className="flex items-center">
@@ -80,7 +80,10 @@ function Navbar({ searchBar, setSearchBar, deleteRoom }) {
         </div>
       </div>
       {/* context menu */}
-      <div ref={contextMenuRef} className="flex items-center gap-x-2">
+      <div
+        ref={contextMenuRef}
+        className="flex items-center gap-x-2 px-0.5 pt-1.5"
+      >
         <div className="relative">
           <button
             onClick={() => setContextMenu(!contextMenu)}
@@ -123,7 +126,10 @@ function Navbar({ searchBar, setSearchBar, deleteRoom }) {
               Close chat
             </button>
             <button
-              onClick={() => deleteRoom(selectedRoom.roomId, rooms)}
+              onClick={() => {
+                setShowAlert(true);
+                setContextMenu(false);
+              }}
               className="px-4 py-4 text-lg text-red-600 hover:bg-gray-200 transition-all flex items-center gap-x-3"
             >
               <AiOutlineDelete className="text-2xl " />
@@ -132,11 +138,11 @@ function Navbar({ searchBar, setSearchBar, deleteRoom }) {
           </div>
         </div>
       </div>
-      {/* user info modal */}
-      {/* <UserInfo
+      {/* user info side modal */}
+      <UserInfo
         modalShow={userDetails}
         onCloseModal={() => setUserDetails(null)}
-      /> */}
+      />
       {/* search bar */}
       <div
         className={`${
@@ -146,9 +152,10 @@ function Navbar({ searchBar, setSearchBar, deleteRoom }) {
         } absolute inset-0 bg-gray-100 transition-all flex items-center justify-center px-4`}
       >
         <button
-          onClick={() =>
-            setSearchBar((prev) => ({ ...prev, barIsShow: false }))
-          }
+          onClick={() => {
+            setSearchBar((prev) => ({ ...prev, barIsShow: false }));
+            setSelectedMessage(null);
+          }}
           className="text-3xl"
         >
           <AiOutlineLeft />

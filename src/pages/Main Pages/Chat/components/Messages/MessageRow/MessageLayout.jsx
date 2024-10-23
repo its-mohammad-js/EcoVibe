@@ -69,6 +69,20 @@ function MessageLayout({
       .split(",")[1];
   }
 
+  // copy text message to clipboard
+  const copyMessage = async () => {
+    try {
+      const input = document.createElement("input");
+      input.value = message.content;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      toast.success("copied to clipboard");
+    } catch (err) {
+      toast.error("Failed to copy message");
+    }
+  };
+
   return (
     <div
       className={`${
@@ -156,7 +170,7 @@ function MessageLayout({
         <button
           disabled={message?.type !== "text"}
           onClick={() => {
-            toast("not developed yet:)");
+            copyMessage();
           }}
           className="disabled:hidden px-4 py-2 text-gray-950 bg-gray-100 rounded-md hover:bg-gray-950 hover:text-gray-50 transition-all border-b border-b-gray-300"
         >

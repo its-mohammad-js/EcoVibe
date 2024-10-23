@@ -3,7 +3,7 @@ import CustomerInfo from "./CustomerInfo";
 import { useEffect, useState } from "react";
 import { useRoomsData } from "../../RoomsContext";
 import { AiOutlineLeft } from "react-icons/ai";
-import useDisableScroll from "../../../../../../common/hooks/UseDisableScroll";
+import toast from "react-hot-toast";
 
 function UserInfo({ modalShow, onCloseModal }) {
   const [infoTab, setInfo] = useState(null);
@@ -26,14 +26,17 @@ function UserInfo({ modalShow, onCloseModal }) {
               : "visible opacity-100 translate-x-0"
           } w-full lg:w-96 fixed top-0 right-0 ease-in-out h-screen bg-gray-100 z-50 transition-all px-2.5 lg:px-4 py-2`}
         >
+          <button
+            onClick={() => onCloseModal()}
+            className="absolute left-2 text-3xl lg:hidden z-50"
+          >
+            <AiOutlineLeft />
+          </button>
           <div
             className={`${
               reciver.userType === "both" ? "block" : "hidden"
             } w-full flex py-2 items-center justify-between`}
           >
-            <button className="absolute left-2 text-3xl lg:hidden">
-              <AiOutlineLeft />
-            </button>
             <button
               onClick={() => setInfo("seller")}
               className={`${

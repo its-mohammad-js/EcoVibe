@@ -44,7 +44,7 @@ function ChatPage() {
 
   return (
     <RoomsContext>
-      <div className="mx-auto 2xl:max-w-screen-2xl z-50 fixed inset-0 transition-all">
+      <div className="mx-auto 2xl:max-w-screen-2xl fixed inset-0 z-50">
         {/* wrapper */}
         <div className="lg:flex justify-between h-full">
           {/* side buttons */}
@@ -56,10 +56,10 @@ function ChatPage() {
           {/* main comps */}
           <div className="flex-1 flex h-full">
             {/* chats list */}
-            {/* <ChatList
+            <ChatList
               openSideNav={() => setSideNav(true)}
               deleteRoom={deleteRoom}
-            /> */}
+            />
             {/* messages */}
             <MessagesRoom deleteRoom={deleteRoom} />
             {/* search contacts modal */}
