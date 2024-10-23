@@ -31,11 +31,10 @@ function MessagesRoom({ deleteRoom }) {
   // note: This hook is used because of the unexpected screen resize behavior, particularly when focusing on the message input and the keyboard is displayed on Android devices.
   useEffect(() => {
     if (!roomHeight) {
-      setHeight(window.visualViewport.height);
+      setHeight(window.visualViewport.height / 2);
     }
     function getHeight() {
-      setHeight(window.visualViewport.height);
-      setFocus(true);
+      setHeight(window.visualViewport.height / 2);
     }
 
     window.addEventListener("resize", getHeight);
@@ -174,7 +173,7 @@ function MessagesRoom({ deleteRoom }) {
   // if (selectedRoom)
   return (
     <div
-      style={{ height: roomHeight || window.visualViewport.height }}
+      style={{ height: roomHeight }}
       className={`${
         selectedRoom ? "w-full flex" : "hi dden"
       } lg:! flex flex-col lg:w-3/4 !w-full h-full bg-slate-400 items-center justify-center relative`}
