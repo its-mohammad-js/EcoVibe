@@ -47,7 +47,7 @@ async function addDocumentToFirestore() {
     const ref = query(
       collection(db, "Stories"),
       where("createdAt", ">=", fiveMinutesAgo),
-      where("createdAt", "<", new Date())
+      // where("createdAt", "<", new Date())
     );
 
     const docs = await getDocs(ref).then(({ docs }) =>
