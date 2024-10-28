@@ -62,7 +62,7 @@ async function addDocumentToFirestore() {
         });
         console.log(`${i + 1}st doc has changed`);
       } catch (error) {
-        console.log("error on updating doc");
+        console.log("error on updating doc", error);
       }
     });
 
