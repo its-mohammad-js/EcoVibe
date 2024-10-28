@@ -15,4 +15,4 @@ jobs:
         with:
           node-version: "16" # Replace with your desired Node.js version
       - run: npm install
-      - run: node stories.mjs
+      - run: node '/src/common/utils/stories.mjs'
