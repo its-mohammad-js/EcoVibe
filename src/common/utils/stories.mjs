@@ -50,11 +50,11 @@ async function addDocumentToFirestore() {
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    docs.map(async (doc, i) => {
+    docs.map(async (data, i) => {
       try {
-        const docRef = doc(collection(db, "newCollection"), doc.id);
+        const docRef = doc(collection(db, "newCollection"), data.id);
         await setDoc(docRef, {
-          ...doc,
+          ...data,
           addedField: {
             test: true,
             message: "test is successfully done",
