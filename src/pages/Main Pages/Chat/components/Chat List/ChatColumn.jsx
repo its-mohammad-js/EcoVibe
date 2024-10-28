@@ -7,8 +7,14 @@ import TextAlert from "../../../../../common/UI elements/Alerts/TextAlert";
 
 const ChatColumn = ({ room, mode, deleteRoom }) => {
   // reciver data
-  const { profilePic, status, first_name, last_name, business_name, userType } =
-    room.reciver;
+  const {
+    profilePic,
+    last_seen,
+    first_name,
+    last_name,
+    business_name,
+    userType,
+  } = room.reciver;
   // context menu state
   const [contextMenu, setContextMenu] = useState(false);
   const contextMenuRef = useRef();
@@ -87,9 +93,11 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
             </div>
           )}
           <div
-            className={`${
-              status === "offline" ? "bg-gray-400" : "bg-green-400"
-            } ${
+            className={`
+              ${!last_seen?.status && "!bg-gray-400"}
+              ${
+                last_seen?.status === "offline" ? "bg-gray-400" : "bg-green-400"
+              } ${
               mode === "message" && "hidden"
             } absolute -bottom-1 size-5 right-1 rounded-full transition-all`}
           ></div>

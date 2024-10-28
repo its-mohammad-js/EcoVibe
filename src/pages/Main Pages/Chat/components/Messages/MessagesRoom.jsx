@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import MessageList from "./MessageList";
 import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
 import TextAlert from "../../../../../common/UI elements/Alerts/TextAlert";
+import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 function MessagesRoom({ deleteRoom }) {
-  const [lastRoom, setLastRoom] = useState(null);
   // search bar state
   const [searchBar, setSearchBar] = useState({
     barIsShow: false,
@@ -36,6 +38,7 @@ function MessagesRoom({ deleteRoom }) {
   const navRef = useRef();
   // warning alert state
   const [showAlert, setShowAlert] = useState(false);
+  const { userId } = useSelector((state) => state.userData);
 
   // set room height on resizes
   // note: This effect is used because of the unexpected screen resize behavior, particularly when focusing on the message input and the keyboard is displayed on Android devices.
@@ -113,13 +116,6 @@ function MessagesRoom({ deleteRoom }) {
     };
   }, [inputIsFocused, selectedRoom]);
 
-  // update last room
-  useEffect(() => {
-    if (selectedRoom) {
-      setLastRoom(selectedRoom);
-    }
-  }, []);
-
   // disable room search bar on replieng
   useEffect(() => {
     if (messageMode) {
@@ -163,26 +159,6 @@ function MessagesRoom({ deleteRoom }) {
       }));
     }
   }
-
-  // set last seen
-  // useEffect(() => {
-  //   if (!lastRoom) {
-  //     return;
-  //   }
-
-  //   const db = getDatabase();
-  //   const roomsRef = ref(db, `rooms/${lastRoom.roomId}`);
-
-  //   update(roomsRef, {
-  //     [userId]: { ...lastRoom?.owner, status: "online" },
-  //   });
-
-  //   return () => {
-  //     update(roomsRef, {
-  //       [userId]: { ...lastRoom?.owner, status: "offline" },
-  //     });
-  //   };
-  // }, [lastRoom]);
 
   if (!selectedRoom)
     return (

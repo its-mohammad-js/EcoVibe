@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useEffect, Fragment } from "react";
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { getUserData } from "./reducers/auth/userDataSlice";
 import AppLayout from "./layout/AppLayout";
@@ -76,7 +76,7 @@ function App() {
           <Route path="Wish-list" element={<WishListPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
-          <Route path="orders" element={<OrdersPage />} />
+          <Route path="orders/:orderId/:sellerId?" element={<OrdersPage />} />
         </Route>
         {/* customer personal pages */}
         <Route path="/EcoVibe/profile" element={<ProtectedRoute />}>

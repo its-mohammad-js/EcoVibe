@@ -48,12 +48,15 @@ function SideNav({ onCloseNav, navIsShow, openContacts }) {
           </button>
           {/* search messages btn */}
           <button
-            onClick={() => openContacts()}
+            onClick={() => {
+              onCloseNav();
+              openContacts();
+            }}
             className="text-3xl group flex items-center relative hover:bg-gray-200 transition-all px-2 rounded-lg py-2"
           >
             <AiOutlineSearch />
             <p className="absolute z-50 left-12 shadow-2xl shadow-gray-400 text-base bg-gray-50 border border-gray-300 px-4 py-1 rounded-xl invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all translate-y-10 group-hover:translate-y-0 text-nowrap">
-              Search
+              Search Contacts
             </p>
           </button>
           {/* orders page */}

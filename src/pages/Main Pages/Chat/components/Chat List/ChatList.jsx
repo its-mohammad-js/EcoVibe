@@ -6,7 +6,7 @@ import ChatColumn from "./ChatColumn";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 
 function ChatList({ openSideNav, deleteRoom }) {
-  const { rooms, setSelectedRoom, selectedRoom } = useRoomsData();
+  const { rooms, setSelectedRoom, selectedRoom, status } = useRoomsData();
   const navigate = useNavigate();
   const [searchQuery, setQuery] = useState("");
   useHorizontalTouchScroll(".contacts-container");
@@ -53,10 +53,6 @@ function ChatList({ openSideNav, deleteRoom }) {
         <div className="bg-gray-50 p-4 border-b border-gray-200">
           <div className="flex items-center justify-end gap-x-1.5 cursor-pointer relative">
             <h2 className="text-xl font-bold">Messages</h2>
-
-            <button onClick={() => navigate(-1)}>
-              <AiOutlineLeft className="-rotate-90" />
-            </button>
 
             <button
               onClick={() => openSideNav()}
@@ -129,18 +125,26 @@ function ChatList({ openSideNav, deleteRoom }) {
             Found {searchMessages(searchQuery).length} Messages
           </h2>
           {/* list of rooms and messages */}
-          {searchQuery
-            ? searchMessages(searchQuery).map((room, index) => (
-                <ChatColumn key={index} room={room} mode="message" />
-              ))
-            : rooms.map((room, index) => (
-                <ChatColumn
-                  key={index}
-                  room={room}
-                  mode="user"
-                  deleteRoom={deleteRoom}
-                />
-              ))}
+          {status ? (
+            <h4 className="px-2 py-1 absolute bottom-1/2 w-full flex justify-center">
+              <p className="px-4 py-1 text-lg font-bold bg-gray-200/80 rounded-xl">
+                {status}
+              </p>
+            </h4>
+          ) : searchQuery ? (
+            searchMessages(searchQuery).map((room, index) => (
+              <ChatColumn key={index} room={room} mode="message" />
+            ))
+          ) : (
+            rooms.map((room, index) => (
+              <ChatColumn
+                key={index}
+                room={room}
+                mode="user"
+                deleteRoom={deleteRoom}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

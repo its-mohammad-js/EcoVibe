@@ -1,10 +1,15 @@
-import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import { TbTrash } from "react-icons/tb";
 import { generateId } from "constants";
 import { useSelector } from "react-redux";
 import { storage } from "src/config/firebase";
+import { AiOutlineCheck } from "react-icons/ai";
+import { db } from "/src/config/firebase";
+import { collection, doc, setDoc } from "firebase/firestore";
+import toast from "react-hot-toast";
+import { serverTimestamp } from "firebase/database";
 
 function AddStoryModal({ onModalChange }) {
   const [file, setFile] = useState(null);
@@ -13,7 +18,9 @@ function AddStoryModal({ onModalChange }) {
     isUploaded: false,
     error: null,
   });
-  const { userId } = useSelector((state) => state.userData);
+  const { userId, businessInformation, personalInformation } = useSelector(
+    (state) => state.userData
+  );
 
   async function uplaodStroyPic() {
     try {
@@ -25,12 +32,14 @@ function AddStoryModal({ onModalChange }) {
       // ref to storage
       const productPicRef = ref(storage, `Story Images/${generateId()}`);
       // upload image to storage
-      await uploadBytes(productPicRef, file);
+      const res = await uploadBytes(productPicRef, file);
+      const url = await getDownloadURL(res.ref);
       setUplaoding({
         loading: false,
         isUploaded: true,
         error: null,
       });
+      createNewStory(url);
     } catch (error) {
       console.log(error);
       setUplaoding({
@@ -38,6 +47,32 @@ function AddStoryModal({ onModalChange }) {
         isUploaded: false,
         error: error,
       });
+    }
+  }
+
+  async function createNewStory(contentUrl) {
+    try {
+      let storyId = generateId(userId);
+      // ref to firestore
+      const storyRef = doc(collection(db, "Stories"), storyId);
+      // set a new story
+      await setDoc(storyRef, {
+        contentUrl: contentUrl,
+        id: storyId,
+        author: {
+          first_name:
+            businessInformation?.businessName ||
+            personalInformation?.first_name ||
+            personalInformation?.email,
+          last_name:
+            businessInformation?.career_title || personalInformation?.last_name,
+          createdAt: serverTimestamp(),
+        },
+        authorId: userId,
+      });
+      toast.success("story created successfully");
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -60,7 +95,7 @@ function AddStoryModal({ onModalChange }) {
       ) : (
         <div className="w-full h-5/6 relative flex flex-col items-center justify-center gap-y-4 py-3">
           <button
-            disabled={loading}
+            disabled={loading || isUploaded}
             onClick={() =>
               loading ? setFile(null) : console.log("remove pic from storage")
             }
@@ -75,6 +110,18 @@ function AddStoryModal({ onModalChange }) {
             src={URL.createObjectURL(file)}
             alt=""
           />
+          <div
+            className={`${
+              isUploaded ? "opacity-100 visible" : "opacity-0 invisible"
+            } absolute inset-0 bg-gray-800/80 transition-all backdrop-blur flex flex-col items-center justify-center`}
+          >
+            <p className="text-9xl text-green-600">
+              <AiOutlineCheck />
+            </p>
+            <h4 className="text-gray-50 text-xl font-bold bg-gray-950/50 px-4 py-1 rounded-md">
+              Content Successfully uploaded
+            </h4>
+          </div>
         </div>
       )}
       {/* action btn's */}

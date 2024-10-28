@@ -7,7 +7,7 @@ import OrdersList from "customerPages/Orders/components/OrdersList";
 import OrderDetail from "customerPages/Orders/components/OrderDetail";
 import OrdersPageLoader from "UI/Loaders/OrdersPageLoader";
 import { BiSearch } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function OrdersPage() {
   // all orders data
@@ -27,6 +27,7 @@ function OrdersPage() {
   const { userId } = useSelector((state) => state.userData);
   const [searchquery, setQuery] = useState("");
   const navigate = useNavigate();
+  const params = useParams();
 
   // get all related orders to this customer from database
   async function getOrders() {
@@ -59,6 +60,12 @@ function OrdersPage() {
     }
   }
 
+  useEffect(() => {
+    if (!loading && params?.orderId && orders?.length) {
+      onOrderDetail("open", `#${params.orderId}`, params.sellerId);
+    }
+  }, [loading, params]);
+
   // read orders on app mount
   useEffect(() => {
     getOrders();
@@ -83,6 +90,7 @@ function OrdersPage() {
         });
       }
     });
+
     return orderedProducts;
   }
 
@@ -106,15 +114,14 @@ function OrdersPage() {
     if (action === "open") {
       // find selected order
       let selectedOrder = {
-        ...orders.find((item) => item.orderId === orderId),
-        allOrders: orders.find((item) => item.orderId === orderId).orders,
+        ...orders?.find((item) => item.orderId === orderId),
+        allOrders: orders?.find((item) => item.orderId === orderId).orders,
       };
-
       // assign ordered items to selected order (instead of all orders of all sellers)
       selectedOrder.orders = getOrderedItems([selectedOrder]).filter(
         (item) => item.SellerId == sellerId
       );
-
+      // open order detail modal
       setDetail({ modalIsShow: true, order: selectedOrder });
     }
     // on close case

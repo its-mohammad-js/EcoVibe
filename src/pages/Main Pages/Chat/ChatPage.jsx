@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import RoomsContext from "./components/RoomsContext";
 import ChatList from "./components/Chat List/ChatList";
 import SideNav from "./components/SideNav";
 import MessagesRoom from "./components/Messages/MessagesRoom";
-import { getDatabase, ref, update, remove } from "firebase/database";
+import { getDatabase, ref, update, remove, goOffline } from "firebase/database";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import ContactsList from "./components/Modals/Contacts/ContactsList";
 
 function ChatPage() {
   // side nav state
@@ -63,10 +64,18 @@ function ChatPage() {
             {/* messages */}
             <MessagesRoom deleteRoom={deleteRoom} />
             {/* search contacts modal */}
-            {/* <ContactsModal
-            modalIsShow={contactsShow}
-            onCloseModal={() => setContactsShow(false)}
-          /> */}
+            <div
+              className={`${
+                contactsShow ? "opacity-100 visible" : "opacity-0 invisible"
+              } inset-0 fixed flex items-center justify-center z-50 transition-all`}
+            >
+              <ContactsList onCloseModal={() => setContactsShow(false)} />
+              {/* bg (close modal) */}
+              <div
+                onClick={() => setContactsShow(false)}
+                className="absolute inset-0 bg-gray-950/85 backdrop-blur-sm"
+              ></div>
+            </div>
           </div>
         </div>
       </div>

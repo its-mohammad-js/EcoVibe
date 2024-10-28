@@ -26,7 +26,6 @@ function OrderDetail({ order, onModalClose, updateOrders }) {
   const [cancelAlert, setAlert] = useState(false);
   const navigate = useNavigate();
   useDisableScroll();
-  console.log(SellerId);
 
   // change order delivery status
   async function changeOrder() {

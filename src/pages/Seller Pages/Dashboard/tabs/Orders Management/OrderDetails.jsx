@@ -35,7 +35,7 @@ function OrderDetails({ orderData, onModalClose }) {
       <div className="py-2 flex flex-col gap-y-1">
         <h4 className="flex gap-x-2 text-lg font-semibold">
           <p>ORDER ID:</p>
-          <p className="line-clamp-1 w-2/3">{orderId}</p>
+          <p className="line-clamp-1 w-2/3 break-words">{orderId}</p>
         </h4>
 
         <p className="text-sm text-gray-500">

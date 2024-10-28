@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { getDatabase, ref, update } from "firebase/database";
+import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
 import MessageLayout from "./MessageRow/MessageLayout";
 import { useRoomsData } from "../RoomsContext";
 import { useSelector } from "react-redux";
 import TextAlert from "../../../../../common/UI elements/Alerts/TextAlert";
+import toast from "react-hot-toast";
 
 const MessageList = () => {
+  const [lastRoom, setLastRoom] = useState(null);
   // context menu state
   const [contextMenu, setContextMenu] = useState(null);
   // warning alert state
@@ -44,6 +46,37 @@ const MessageList = () => {
       setAlert({ messageId: null, alertIsShow: false });
     }
   }
+
+  // update last room
+  useEffect(() => {
+    if (selectedRoom) {
+      setLastRoom(selectedRoom);
+    }
+  }, []);
+
+  // set last seen
+  useEffect(() => {
+    if (!lastRoom) {
+      return;
+    }
+    // db ref
+    const db = getDatabase();
+    const roomsRef = ref(db, `rooms/${lastRoom.roomId}/${userId}/last_seen`);
+    // set user status online
+    if (selectedRoom) {
+      update(roomsRef, {
+        status: "online",
+        date: serverTimestamp(),
+      });
+    }
+    // set user status offline
+    return () => {
+      update(roomsRef, {
+        status: "offline",
+        date: serverTimestamp(),
+      });
+    };
+  }, [lastRoom]);
 
   if (!selectedRoom?.messageList?.length)
     return (

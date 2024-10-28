@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   AiOutlineClose,
   AiOutlineDelete,
@@ -10,7 +10,7 @@ import {
 import UserInfo from "../Modals/User Info/UserInfo";
 import { useRoomsData } from "../RoomsContext";
 import { HiDotsVertical } from "react-icons/hi";
-import useOutSideClick from "../../../../../common/hooks/UseOutsideClick";
+import useOutSideClick from "hooks/UseOutsideClick";
 
 function Navbar({ searchBar, setSearchBar, deleteRoom, setShowAlert }) {
   // user info modal state
@@ -23,8 +23,7 @@ function Navbar({ searchBar, setSearchBar, deleteRoom, setShowAlert }) {
   );
   // necessary data
   const { barIsShow } = searchBar || {};
-  const { setSelectedRoom, selectedRoom, rooms, setSelectedMessage } =
-    useRoomsData();
+  const { setSelectedRoom, selectedRoom, setSelectedMessage } = useRoomsData();
   const {
     profilePic,
     status,
@@ -33,7 +32,20 @@ function Navbar({ searchBar, setSearchBar, deleteRoom, setShowAlert }) {
     business_name,
     userType,
     career_title,
+    last_seen,
   } = selectedRoom?.reciver || {};
+
+  function calculateLastSeenDate(date) {
+    // Create a Date object from the timestamp
+    const dateToCheck = new Date(date);
+
+    return dateToCheck.toLocaleTimeString("en-us", {
+      year: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
 
   return (
     <div
@@ -46,7 +58,12 @@ function Navbar({ searchBar, setSearchBar, deleteRoom, setShowAlert }) {
       {/* user summary info & close room btn */}
       <div className="flex items-center">
         {/* close rom btn */}
-        <button onClick={() => setSelectedRoom(null)} className="text-2xl">
+        <button
+          onClick={() => {
+            setSelectedRoom(null);
+          }}
+          className="text-2xl"
+        >
           <AiOutlineLeft />
         </button>
         {/* user summary info */}
@@ -72,7 +89,13 @@ function Navbar({ searchBar, setSearchBar, deleteRoom, setShowAlert }) {
               {userType === "customer" ? first_name : business_name}
             </p>
             <p className="-mt-1">
-              {userType === "customer" ? last_name : career_title}
+              {last_seen?.date
+                ? last_seen?.status === "offline"
+                  ? `last seen at ${calculateLastSeenDate(last_seen.date)}`
+                  : last_seen.status
+                : userType === "customer"
+                ? last_name
+                : career_title}
             </p>
           </h4>
 

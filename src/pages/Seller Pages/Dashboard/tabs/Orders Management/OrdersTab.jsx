@@ -28,6 +28,8 @@ function OrdersTab() {
   const params = useParams();
   const navigate = useNavigate();
 
+  console.log(params);
+
   // fetch orders on app mount
   useEffect(() => {
     getOrders();

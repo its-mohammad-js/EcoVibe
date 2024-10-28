@@ -16,6 +16,7 @@ import {
   FaTelegram,
   FaWhatsapp,
 } from "react-icons/fa";
+import SellersStories from "./components/SellersStories";
 
 function ShopPage() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function ShopPage() {
 
   return (
     <>
+      <SellersStories />
       {/* Hero Section */}
       <ShopHeroSection />
       {/* Header Sections With Orders */}

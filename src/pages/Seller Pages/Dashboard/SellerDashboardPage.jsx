@@ -18,7 +18,7 @@ function SellerDashboardPage() {
   useEffect(() => {
     if (userType === "customer") {
       toast.error("You aren't a selller yet please sign up as a seller");
-      navigate("/EcoVibe/seller-solutions");
+      navigate("/EcoVibe/sellers-solutions");
     }
   }, [userType]);
 
