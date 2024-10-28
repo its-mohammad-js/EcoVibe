@@ -66,8 +66,8 @@ function AddStoryModal({ onModalChange }) {
             personalInformation?.email,
           last_name:
             businessInformation?.career_title || personalInformation?.last_name,
-          createdAt: serverTimestamp(),
         },
+        createdAt: serverTimestamp(),
         authorId: userId,
       });
       toast.success("story created successfully");

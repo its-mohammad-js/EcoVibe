@@ -41,32 +41,36 @@ function isTwoDaysPassed(dateObject) {
 
 async function addDocumentToFirestore() {
   try {
+    const fiveMinutesAgo = new Date();
+    fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
+
     const ref = query(
-      collection(db, "newCollection"),
-      where("isRemove", "==", false)
+      collection(db, "Stories"),
+      where("createdAt", ">=", fiveMinutesAgo),
+      where("createdAt", "<", new Date())
     );
 
     const docs = await getDocs(ref).then(({ docs }) =>
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    docs.map(async (data, i) => {
-      try {
-        const docRef = doc(collection(db, "newCollection"), data.id);
-        await setDoc(docRef, {
-          ...data,
-          addedField: {
-            test: true,
-            message: "test is successfully done",
-          },
-        });
-        console.log(`${i + 1}st doc has changed`);
-      } catch (error) {
-        console.log("error on updating doc", error);
-      }
-    });
+    // docs.map(async (data, i) => {
+    //   try {
+    //     const docRef = doc(collection(db, "newCollection"), data.id);
+    //     await setDoc(docRef, {
+    //       ...data,
+    //       addedField: {
+    //         test: true,
+    //         message: "test is successfully done",
+    //       },
+    //     });
+    //     console.log(`${i + 1}st doc has changed`);
+    //   } catch (error) {
+    //     console.log("error on updating doc", error);
+    //   }
+    // });
 
-    console.log("successefully runed");
+    console.log(`successefully finded ${docs?.length} stories`);
   } catch (error) {
     console.error("Error on whole proccess");
     throw error; // Re-throw error for GitHub Action to fail

@@ -1,4 +1,4 @@
-# name: Add Document to Firestore
+# name: Remove Expired Stories
 
 # on:
 #   push:
