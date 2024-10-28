@@ -69,7 +69,7 @@ async function addDocumentToFirestore() {
     //     console.log("error on updating doc", error);
     //   }
     // });
-
+    console.log(navigator.language);
     console.log(`successefully finded ${docs?.length} stories`);
   } catch (error) {
     console.error("Error on whole proccess");
