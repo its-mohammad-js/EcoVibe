@@ -14,5 +14,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16" # Replace with your desired Node.js version
-      - run: npm install
+      - run: npm install firebase
       - run: node src/common/utils/stories.mjs

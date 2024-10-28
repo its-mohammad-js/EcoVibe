@@ -36,7 +36,7 @@ async function addDocumentToFirestore() {
     const ref = doc(collection(db, "newCollection"), "someId1234a");
     await setDoc(ref, {
       test: true,
-      caption: "it nearly to last tests...",
+      caption: "last test on npm i command",
     });
 
     console.log("successefully added to firebase");
