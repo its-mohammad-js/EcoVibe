@@ -42,35 +42,37 @@ function isTwoDaysPassed(dateObject) {
 async function addDocumentToFirestore() {
   try {
     const fiveMinutesAgo = new Date();
-    fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
+    console.log(fiveMinutesAgo.toDateString());
 
-    const ref = query(
-      collection(db, "Stories")
-      // where("createdAt", ">=", fiveMinutesAgo),
-      // where("createdAt", "<", new Date())
-    );
+    // fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
 
-    const docs = await getDocs(ref).then(({ docs }) =>
-      docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    );
+    // const ref = query(
+    //   collection(db, "Stories")
+    //   // where("createdAt", ">=", fiveMinutesAgo),
+    //   // where("createdAt", "<", new Date())
+    // );
 
-    // docs.map(async (data, i) => {
-    //   try {
-    //     const docRef = doc(collection(db, "newCollection"), data.id);
-    //     await setDoc(docRef, {
-    //       ...data,
-    //       addedField: {
-    //         test: true,
-    //         message: "test is successfully done",
-    //       },
-    //     });
-    //     console.log(`${i + 1}st doc has changed`);
-    //   } catch (error) {
-    //     console.log("error on updating doc", error);
-    //   }
-    // });
-    console.log(navigator.language);
-    console.log(`successefully finded ${docs?.length} stories`);
+    // const docs = await getDocs(ref).then(({ docs }) =>
+    //   docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    // );
+
+    // // docs.map(async (data, i) => {
+    // //   try {
+    // //     const docRef = doc(collection(db, "newCollection"), data.id);
+    // //     await setDoc(docRef, {
+    // //       ...data,
+    // //       addedField: {
+    // //         test: true,
+    // //         message: "test is successfully done",
+    // //       },
+    // //     });
+    // //     console.log(`${i + 1}st doc has changed`);
+    // //   } catch (error) {
+    // //     console.log("error on updating doc", error);
+    // //   }
+    // // });
+
+    // console.log(`successefully finded ${docs?.length} stories`);
   } catch (error) {
     console.error("Error on whole proccess");
     throw error; // Re-throw error for GitHub Action to fail
