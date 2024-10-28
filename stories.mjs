@@ -38,7 +38,7 @@ async function addDocumentToFirestore() {
       test: true,
     });
 
-    console.log("success");
+    console.log("successefully added to firebase");
   } catch (error) {
     console.error("Error adding document");
     throw error; // Re-throw error for GitHub Action to fail
