@@ -42,7 +42,13 @@ function isTwoDaysPassed(dateObject) {
 async function addDocumentToFirestore() {
   try {
     const fiveMinutesAgo = new Date();
-    console.log(fiveMinutesAgo.toDateString());
+    console.log(
+      fiveMinutesAgo.toLocaleTimeString("en-us", {
+        month: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    );
 
     // fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
 
