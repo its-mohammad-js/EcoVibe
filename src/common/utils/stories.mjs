@@ -1,5 +1,13 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, setDoc, doc, collection } from "firebase/firestore";
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdnuxel4imeAOVQVogRiHvqvrXb5qVRQw",
@@ -33,15 +41,34 @@ function isTwoDaysPassed(dateObject) {
 
 async function addDocumentToFirestore() {
   try {
-    const ref = doc(collection(db, "newCollection"), "someId1234a");
-    await setDoc(ref, {
-      test: true,
-      caption: "last test on npm i command",
+    const ref = query(
+      collection(db, "newCollection"),
+      where("isRemove", "==", false)
+    );
+
+    const docs = await getDocs(ref).then(({ docs }) =>
+      docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
+
+    docs.map(async (doc, i) => {
+      try {
+        const docRef = doc(collection(db, "newCollection"), doc.id);
+        await setDoc(docRef, {
+          ...doc,
+          addedField: {
+            test: true,
+            message: "test is successfully done",
+          },
+        });
+        console.log(`${i + 1}st doc has changed`);
+      } catch (error) {
+        console.log("error on updating doc");
+      }
     });
 
-    console.log("successefully added to firebase");
+    console.log("successefully runed");
   } catch (error) {
-    console.error("Error adding document");
+    console.error("Error on whole proccess");
     throw error; // Re-throw error for GitHub Action to fail
   }
 }
