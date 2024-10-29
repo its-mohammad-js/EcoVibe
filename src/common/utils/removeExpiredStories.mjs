@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, query, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  query,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdnuxel4imeAOVQVogRiHvqvrXb5qVRQw",
@@ -28,7 +34,7 @@ function isTwoDaysPassed(dateObject) {
   // Convert milliseconds to days
   const daysPassed = difference / (1000 * 60);
   // Check if two days have passed
-  return daysPassed >= 40;
+  return daysPassed >= 10;
 }
 
 async function addDocumentToFirestore() {
@@ -49,8 +55,24 @@ async function addDocumentToFirestore() {
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    docs.forEach((doc) => {
-      console.log(isTwoDaysPassed(doc.createdAt));
+    docs.forEach(async (doc, i) => {
+      try {
+        if (isTwoDaysPassed(doc.createdAt)) {
+          const storyRef = doc(collection(db, "Stories"), doc.id);
+
+          await deleteDoc(storyRef);
+
+          console.log(
+            `${i + 1}st story has been deleted, story created at ${
+              doc.createdAt
+            }`
+          );
+        } else {
+          console.log("wasent from 10 minutes before");
+        }
+      } catch (error) {
+        console.log("error on delete story");
+      }
     });
   } catch (error) {
     console.error("Error on whole proccess");
