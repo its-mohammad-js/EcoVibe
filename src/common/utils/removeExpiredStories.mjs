@@ -14,6 +14,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// check createAt date
+function isTwoDaysPassed(dateObject) {
+  if (!dateObject) return false;
+  // Convert the date object to a JavaScript Date object
+  const date = new Date(
+    dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
+  );
+  // Calculate the current time
+  const now = new Date();
+  // Calculate the difference in milliseconds
+  const difference = now.getTime() - date.getTime();
+  // Convert milliseconds to days
+  const daysPassed = difference / (1000 * 60 * 60 * 24);
+  // Check if two days have passed
+  return daysPassed >= 2;
+}
+
 async function addDocumentToFirestore() {
   try {
     // const time = await fetch(
@@ -24,7 +41,8 @@ async function addDocumentToFirestore() {
     // ).then((time) => time.json());
 
     // const stamp = time?.unixtime;
-
+    const now = new Date();
+    console.log(now.toDateString());
     const ref = query(collection(db, "Stories"));
 
     const docs = await getDocs(ref).then(({ docs }) =>
@@ -32,7 +50,7 @@ async function addDocumentToFirestore() {
     );
 
     docs.forEach((doc) => {
-      console.log(doc.createdAt);
+      console.log(isTwoDaysPassed(doc.createdAt));
     });
   } catch (error) {
     console.error("Error on whole proccess");
