@@ -5,6 +5,7 @@ import {
   query,
   getDocs,
   deleteDoc,
+  doc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -55,16 +56,16 @@ async function addDocumentToFirestore() {
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    docs.forEach(async (doc, i) => {
+    docs.forEach(async (story, i) => {
       try {
-        if (isTwoDaysPassed(doc.createdAt)) {
-          const storyRef = doc(collection(db, "Stories"), doc.id);
+        if (isTwoDaysPassed(story.createdAt)) {
+          const storyRef = doc(collection(db, "Stories"), story.id);
 
           await deleteDoc(storyRef);
 
           console.log(
             `${i + 1}st story has been deleted, story created at ${
-              doc.createdAt
+              story.createdAt
             }`
           );
         } else {
