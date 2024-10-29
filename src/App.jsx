@@ -34,25 +34,25 @@ import "slick-carousel/slick/slick-theme.css";
 import ChatPage from "./pages/Main Pages/Chat/ChatPage";
 
 function App() {
-  // useEffect(() => {
-  //   async function getTime() {
-  //     try {
-  //       const data = await fetch(
-  //         "http://worldtimeapi.org/api/timezone/America/New_York",
-  //         {
-  //           method: "GET",
-  //         }
-  //       ).then((time) => time.json());
+  useEffect(() => {
+    async function getTime() {
+      try {
+        const data = await fetch(
+          "http://worldtimeapi.org/api/timezone/America/New_York",
+          {
+            method: "GET",
+          }
+        ).then((time) => time.json());
 
-  //       // const newDate = new Date(data.utv)
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+        // const newDate = new Date(data.utv)
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-  //   getTime();
-  // }, []);
+    getTime();
+  }, []);
 
   const dispatch = useDispatch();
 

@@ -41,15 +41,12 @@ function isTwoDaysPassed(dateObject) {
 
 async function addDocumentToFirestore() {
   try {
-    const fiveMinutesAgo = new Date();
-    console.log(
-      fiveMinutesAgo.toLocaleTimeString("en-us", {
-        month: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    );
-
+    const data = await fetch(
+      "http://worldtimeapi.org/api/timezone/America/New_York",
+      {
+        method: "GET",
+      }
+    ).then((time) => time.json());
     // fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
 
     // const ref = query(
