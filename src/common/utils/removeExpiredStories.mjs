@@ -23,6 +23,8 @@ async function addDocumentToFirestore() {
       }
     ).then((time) => time.json());
 
+    console.log(time);
+
     const ref = query(collection(db, "Stories"));
 
     const docs = await getDocs(ref).then(({ docs }) =>
