@@ -71,7 +71,7 @@ async function addDocumentToFirestore() {
           console.log("wasent from 10 minutes before");
         }
       } catch (error) {
-        console.log("error on delete story");
+        console.log(error);
       }
     });
   } catch (error) {
