@@ -16,14 +16,14 @@ const db = getFirestore(app);
 
 async function addDocumentToFirestore() {
   try {
-    const time = await fetch(
-      "http://worldtimeapi.org/api/timezone/America/New_York",
-      {
-        method: "GET",
-      }
-    ).then((time) => time.json());
+    // const time = await fetch(
+    //   "http://worldtimeapi.org/api/timezone/America/New_York",
+    //   {
+    //     method: "GET",
+    //   }
+    // ).then((time) => time.json());
 
-    const stamp = time?.unixtime;
+    // const stamp = time?.unixtime;
 
     const ref = query(collection(db, "Stories"));
 
@@ -32,7 +32,7 @@ async function addDocumentToFirestore() {
     );
 
     docs.forEach((doc) => {
-      console.log(doc.createdAt, stamp);
+      console.log(doc.createdAt);
     });
   } catch (error) {
     console.error("Error on whole proccess");
