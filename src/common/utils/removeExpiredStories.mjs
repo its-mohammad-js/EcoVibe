@@ -28,7 +28,7 @@ function isTwoDaysPassed(dateObject) {
   // Convert milliseconds to days
   const daysPassed = difference / (1000 * 60);
   // Check if two days have passed
-  return daysPassed >= 10;
+  return daysPassed >= 40;
 }
 
 async function addDocumentToFirestore() {
