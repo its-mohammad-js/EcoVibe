@@ -60,7 +60,9 @@ async function addDocumentToFirestore() {
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    console.log(docs, time);
+    docs.forEach((doc, i) => {
+      console.log(doc.createdAt, date.unixTime);
+    });
   } catch (error) {
     console.error("Error on whole proccess");
     throw error; // Re-throw error for GitHub Action to fail
