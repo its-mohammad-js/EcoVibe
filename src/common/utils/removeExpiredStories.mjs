@@ -41,7 +41,7 @@ function isTwoDaysPassed(dateObject) {
 
 async function addDocumentToFirestore() {
   try {
-    const { unixtime } = await fetch(
+    const date = await fetch(
       "http://worldtimeapi.org/api/timezone/America/New_York",
       {
         method: "GET",
@@ -62,7 +62,7 @@ async function addDocumentToFirestore() {
 
     docs.map(async (data, i) => {
       try {
-        console.log(data.createAt, unixtime);
+        console.log(data.createAt, date.unixtime);
 
         // const docRef = doc(collection(db, "newCollection"), data.id);
         // await setDoc(docRef, {
