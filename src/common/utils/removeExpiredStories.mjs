@@ -26,7 +26,7 @@ function isTwoDaysPassed(dateObject) {
   // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
   // Convert milliseconds to days
-  const daysPassed = difference / (1000 * 60 * 60 * 24);
+  const daysPassed = difference / (1000 * 60);
   // Check if two days have passed
   return daysPassed >= 2;
 }
@@ -42,7 +42,7 @@ async function addDocumentToFirestore() {
 
     // const stamp = time?.unixtime;
     const now = new Date();
-    console.log(now.toDateString());
+    console.log(now.getTime());
     const ref = query(collection(db, "Stories"));
 
     const docs = await getDocs(ref).then(({ docs }) =>
