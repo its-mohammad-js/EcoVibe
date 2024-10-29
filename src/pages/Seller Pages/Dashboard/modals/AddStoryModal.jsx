@@ -7,9 +7,8 @@ import { useSelector } from "react-redux";
 import { storage } from "src/config/firebase";
 import { AiOutlineCheck } from "react-icons/ai";
 import { db } from "/src/config/firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
-import { serverTimestamp } from "firebase/database";
 
 function AddStoryModal({ onModalChange }) {
   const [file, setFile] = useState(null);

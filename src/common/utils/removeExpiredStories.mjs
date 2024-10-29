@@ -23,7 +23,7 @@ async function addDocumentToFirestore() {
       }
     ).then((time) => time.json());
 
-    console.log(time);
+    const stamp = time?.unixtime;
 
     const ref = query(collection(db, "Stories"));
 
@@ -31,8 +31,8 @@ async function addDocumentToFirestore() {
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    docs.forEach((doc, i) => {
-      console.log(doc.createdAt, time.unixTime);
+    docs.forEach((doc) => {
+      console.log(doc.createdAt, stamp);
     });
   } catch (error) {
     console.error("Error on whole proccess");
