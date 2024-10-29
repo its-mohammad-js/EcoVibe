@@ -41,7 +41,7 @@ function isTwoDaysPassed(dateObject) {
 
 async function addDocumentToFirestore() {
   try {
-    const data = await fetch(
+    const { unixtime } = await fetch(
       "http://worldtimeapi.org/api/timezone/America/New_York",
       {
         method: "GET",
@@ -49,31 +49,33 @@ async function addDocumentToFirestore() {
     ).then((time) => time.json());
     // fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
 
-    // const ref = query(
-    //   collection(db, "Stories")
-    //   // where("createdAt", ">=", fiveMinutesAgo),
-    //   // where("createdAt", "<", new Date())
-    // );
+    const ref = query(
+      collection(db, "Stories")
+      // where("createdAt", ">=", fiveMinutesAgo),
+      // where("createdAt", "<", new Date())
+    );
 
-    // const docs = await getDocs(ref).then(({ docs }) =>
-    //   docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    // );
+    const docs = await getDocs(ref).then(({ docs }) =>
+      docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
 
-    // // docs.map(async (data, i) => {
-    // //   try {
-    // //     const docRef = doc(collection(db, "newCollection"), data.id);
-    // //     await setDoc(docRef, {
-    // //       ...data,
-    // //       addedField: {
-    // //         test: true,
-    // //         message: "test is successfully done",
-    // //       },
-    // //     });
-    // //     console.log(`${i + 1}st doc has changed`);
-    // //   } catch (error) {
-    // //     console.log("error on updating doc", error);
-    // //   }
-    // // });
+    docs.map(async (data, i) => {
+      try {
+        console.log(data.createdAt, unixtime);
+
+        // const docRef = doc(collection(db, "newCollection"), data.id);
+        // await setDoc(docRef, {
+        //   ...data,
+        //   addedField: {
+        //     test: true,
+        //     message: "test is successfully done",
+        //   },
+        // });
+        // console.log(`${i + 1}st doc has changed`);
+      } catch (error) {
+        console.log("error on updating doc", error);
+      }
+    });
 
     // console.log(`successefully finded ${docs?.length} stories`);
   } catch (error) {
