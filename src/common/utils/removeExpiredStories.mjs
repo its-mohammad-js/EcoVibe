@@ -7,6 +7,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCdnuxel4imeAOVQVogRiHvqvrXb5qVRQw",
@@ -20,6 +21,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 // check createAt date
 function isTwoDaysPassed(dateObject) {
@@ -40,37 +42,31 @@ function isTwoDaysPassed(dateObject) {
 
 async function addDocumentToFirestore() {
   try {
-    // const time = await fetch(
-    //   "http://worldtimeapi.org/api/timezone/America/New_York",
-    //   {
-    //     method: "GET",
-    //   }
-    // ).then((time) => time.json());
+    const storiesRef = query(collection(db, "Stories"));
 
-    // const stamp = time?.unixtime;
-    const now = new Date();
-    console.log(now.getTime());
-    const ref = query(collection(db, "Stories"));
-
-    const docs = await getDocs(ref).then(({ docs }) =>
+    const docs = await getDocs(storiesRef).then(({ docs }) =>
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
     docs.forEach(async (story, i) => {
       try {
-        if (isTwoDaysPassed(story.createdAt)) {
-          const storyRef = doc(collection(db, "Stories"), story.id);
-
-          await deleteDoc(storyRef);
-
-          console.log(
-            `${i + 1}st story has been deleted, story created at ${
-              story.createdAt
-            }`
-          );
-        } else {
-          console.log("wasent from 10 minutes before");
-        }
+        // if (isTwoDaysPassed(story.createdAt)) {
+        // ref to content in storage
+        const contentRef = ref(storage, story.contentUrl);
+        await deleteObject(contentRef);
+        // ref to story in firestore
+        const storyRef = doc(collection(db, "Stories"), story.id);
+        // delete story from firestore
+        await deleteDoc(storyRef);
+        // dispatch delete report
+        console.log(
+          `${i + 1}st story has been deleted, story created at ${
+            story.createdAt
+          }`
+        );
+        // } else {
+        //   console.log("wasent from 10 minutes before");
+        // }
       } catch (error) {
         console.log(error);
       }
