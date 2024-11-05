@@ -1,14 +1,15 @@
 import { collection, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db } from "/src/config/firebase";
+import StoryModal from "./StoryModal";
 
 function SellersStories() {
-  const [{ error, loading, stories }, setStoreis] = useState({
-    stories: [],
+  const [{ error, loading, storiesList }, setStoreis] = useState({
+    storiesList: [],
     loading: false,
     error: null,
   });
-  const [selectedStory, setSelectedStory] = useState(null);
+  const [currentListIndex, setList] = useState(null);
 
   // get stories function
   async function getStories() {
@@ -21,11 +22,21 @@ function SellersStories() {
       const storiesData = await getDocs(storiesRef).then(({ docs }) =>
         docs.map((doc) => doc.data())
       );
+      const storiesByAuthor = storiesData.reduce((acc, story) => {
+        const { authorId } = story;
+        acc[authorId] = (acc[authorId] || []).concat(story);
+        return acc;
+      }, {});
+
       // dispatch success
-      setStoreis({ stories: storiesData, error: null, loading: false });
+      setStoreis({
+        storiesList: Object.values(storiesByAuthor),
+        error: null,
+        loading: false,
+      });
     } catch (error) {
       // dispatch failure
-      setStoreis({ error, loading: false, stories: [] });
+      setStoreis({ error, loading: false, storiesList: [] });
       console.log(error);
     }
   }
@@ -42,45 +53,32 @@ function SellersStories() {
       </div>
     );
 
-  if (!loading && stories.length)
+  if (!loading && storiesList)
     return (
       <>
-        <div className="mx-auto 2xl:max-w-screen-2xl px-4 py-2 flex items-center justify-start">
-          {stories.map((story, index) => (
+        <div className="mx-auto 2xl:max-w-screen-2xl px-4 py-2 flex gap-x-2.5 items-center justify-start">
+          {/* story lists */}
+          {storiesList.map((story, listIndex) => (
             <div
-              key={index}
-              onClick={() => setSelectedStory(story)}
+              key={listIndex}
+              onClick={() => setList(listIndex)}
               className="flex flex-col justify-center items-center cursor-pointer"
             >
               <img
-                src={story.contentUrl}
-                alt="content-thumbnail"
-                className="size-20 rounded-full"
+                src={story[0].authorProfilePic}
+                alt="author-profile"
+                className="size-20 rounded-full ring-2"
               />
-              <p className="font-semibold">{story.author.first_name}</p>
-              <p className="text-sm">{story.author.last_name}</p>
+              <p className="font-semibold">{story[0].author.first_name}</p>
+              <p className="text-sm">{story[0].author.last_name}</p>
             </div>
           ))}
         </div>
 
-        <div
-          className={`${
-            selectedStory ? "opacity-100 visible" : "invisible opacity-0"
-          } fixed inset-0 z-50 flex items-center transition-all justify-center`}
-        >
-          <div className="size-96 bg-gray-50 rounded-md overflow-hidden px-2 py-2 z-10">
-            <img
-              src={selectedStory?.contentUrl}
-              alt="story-content"
-              className="size-full rounded-md"
-            />
-          </div>
-
-          <div
-            onClick={() => setSelectedStory(null)}
-            className="absolute inset-0 bg-gray-900/50 backdrop-blur"
-          ></div>
-        </div>
+        {/* selected story modal */}
+        {currentListIndex !== null && (
+          <StoryModal {...{ currentListIndex, setList, storiesList }} />
+        )}
       </>
     );
 }

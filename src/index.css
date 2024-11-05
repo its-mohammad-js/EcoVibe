@@ -206,3 +206,13 @@ body::-webkit-scrollbar-thumb {
   -moz-box-shadow: -32px 46px 201px 41px rgba(0, 0, 0, 0.21);
   box-shadow: -32px 46px 201px 41px rgba(0, 0, 0, 0.21);
 }
+
+@keyframes increase-width {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+

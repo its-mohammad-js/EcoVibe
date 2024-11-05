@@ -8,7 +8,7 @@ import { storage } from "src/config/firebase";
 import { AiOutlineCheck } from "react-icons/ai";
 import { db } from "/src/config/firebase";
 import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
-import toast from "react-hot-toast";
+import toast, { LoaderIcon } from "react-hot-toast";
 
 function AddStoryModal({ onModalChange }) {
   const [file, setFile] = useState(null);
@@ -23,6 +23,7 @@ function AddStoryModal({ onModalChange }) {
 
   async function uplaodStroyPic() {
     try {
+      // dispatch loading
       setUplaoding({
         loading: true,
         isUploaded: false,
@@ -32,14 +33,21 @@ function AddStoryModal({ onModalChange }) {
       const productPicRef = ref(storage, `Story Images/${generateId()}`);
       // upload image to storage
       const res = await uploadBytes(productPicRef, file);
+      // get uploaded image url
       const url = await getDownloadURL(res.ref);
+      // create a new story
+      await createNewStory(url);
+      // dispatch success
       setUplaoding({
         loading: false,
         isUploaded: true,
         error: null,
       });
-      createNewStory(url);
+      // close modal
+      onModalChange(null);
     } catch (error) {
+      // dispatch failure
+      toast.error("there was an error on add story, please try again later");
       console.log(error);
       setUplaoding({
         loading: false,
@@ -68,6 +76,7 @@ function AddStoryModal({ onModalChange }) {
         },
         createdAt: serverTimestamp(),
         authorId: userId,
+        type: file?.type,
       });
       toast.success("story created successfully");
     } catch (error) {
@@ -75,71 +84,120 @@ function AddStoryModal({ onModalChange }) {
     }
   }
 
+  function hanldeSelectContent(file) {
+    if (file.size > 20 * 1024 * 1024) {
+      toast.error("File size exceeds 20MB limit.");
+      return;
+    }
+    const allowedTypes = [
+      "image/jpeg",
+      "image/webp",
+      "image/png",
+      "image/gif",
+      "video/mp4",
+      "video/webm",
+      "video/ogg",
+    ];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Only image, GIF, and video files are allowed.");
+      return;
+    } else {
+      setFile(file);
+    }
+  }
+
   return (
-    <div className="px-4 bg-gray-50 py-2 lg:px-6 lg:py-4 w-[95vw] lg:w-[50vw] xl:w-[40vw] h-5/6 lg:h-[80vh] mx-auto lg:border border-gray-200 lg:shadow hover:shadow-2xl transition-all duration-300 rounded-md flex flex-col">
-      {/* title */}
-      <h4 className="text-2xl font-bold">Add Story</h4>
-      {/* select media form */}
-      {!file ? (
-        <div className="w-full h-full relative  flex flex-col items-center justify-center gap-y-4">
-          <input
-            className="opacity-0 absolute inset-0 z-50 bg-red-300"
-            accept="image/jpeg, image/png, image/gif"
-            type="file"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          <MdAddCircle className="text-7xl text-primary-500" />
-          <h6 className="text-xl font-bold">Add media</h6>
-        </div>
-      ) : (
-        <div className="w-full h-5/6 relative flex flex-col items-center justify-center gap-y-4 py-3">
-          <button
-            disabled={loading || isUploaded}
-            onClick={() =>
-              loading ? setFile(null) : console.log("remove pic from storage")
-            }
-            className="absolute disabled:hidden z-50 -top-3 -right-3 p-2 text-red-500 bg-gray-50 text-2xl rounded-full border border-gray-200"
-          >
-            <TbTrash />
-          </button>
-          <img
-            className={`${
-              loading && "animate-pulse"
-            } size-full object-cover rounded-md`}
-            src={URL.createObjectURL(file)}
-            alt=""
-          />
-          <div
-            className={`${
-              isUploaded ? "opacity-100 visible" : "opacity-0 invisible"
-            } absolute inset-0 bg-gray-800/80 transition-all backdrop-blur flex flex-col items-center justify-center`}
-          >
-            <p className="text-9xl text-green-600">
-              <AiOutlineCheck />
-            </p>
-            <h4 className="text-gray-50 text-xl font-bold bg-gray-950/50 px-4 py-1 rounded-md">
-              Content Successfully uploaded
-            </h4>
+    <>
+      {/* main modal */}
+      <div className="px-4 z-20 bg-gray-50 py-2 lg:px-6 lg:py-4 w-[95vw] lg:w-[50vw] xl:w-[40vw] h-5/6 lg:h-[80vh] mx-auto lg:border border-gray-200 lg:shadow hover:shadow-2xl transition-all duration-300 rounded-md flex flex-col">
+        {/* title */}
+        <h4 className="text-2xl font-bold mb-2">Add New Story</h4>
+        {/* select media form */}
+        {!file ? (
+          <div className="w-full h-full relative flex flex-col items-center justify-center gap-y-4">
+            <input
+              className="opacity-0 absolute inset-0 z-50 bg-red-300"
+              accept="image/jpeg, image/webp, image/png, image/gif, video/mp4, video/webm, video/ogg"
+              type="file"
+              onChange={(e) => hanldeSelectContent(e.target.files[0])}
+            />
+            <MdAddCircle className="text-7xl text-primary-500" />
+            <h6 className="text-xl font-bold">Add media</h6>
           </div>
+        ) : (
+          // change content form
+          <div className="w-full h-5/6 relative flex flex-col items-center justify-center gap-y-4 py-3">
+            {/* reomve content btn */}
+            <button
+              disabled={loading || isUploaded}
+              onClick={() => setFile(null)}
+              className="absolute disabled:hidden z-50 -top-3 -right-3 p-2 text-red-500 bg-gray-50 text-2xl rounded-full border border-gray-200"
+            >
+              <TbTrash />
+            </button>
+            {/* content */}
+            {file?.type?.startsWith("image/") ? (
+              <img
+                className={`${
+                  loading && "animate-pulse"
+                } size-full object-cover rounded-md`}
+                src={URL.createObjectURL(file)}
+                alt=""
+              />
+            ) : (
+              <video width="320" height="240" controls className="size-full">
+                <source src={URL.createObjectURL(file)} type={file?.type} />
+                Your browser does not support the video tag.
+              </video>
+            )}
+            {/* loading screen */}
+            <div
+              className={`${
+                loading ? "opacity-100 visible" : "opacity-0 invisible"
+              } absolute w-full h-[95%] rounded-md gap-y-6 px-4 bg-gray-800/80 transition-all backdrop-blur flex flex-col items-center justify-center`}
+            >
+              <LoaderIcon className="size-24" />
+
+              <h4 className="text-gray-50 text-center text-xl font-bold bg-gray-950/50 px-4 py-1 rounded-md">
+                Please do not refresh the page while adding story.
+              </h4>
+            </div>
+            {/* success screen */}
+            <div
+              className={`${
+                isUploaded ? "opacity-100 visible" : "opacity-0 invisible"
+              } absolute w-full h-[96%] rounded-md  bg-gray-800/80 transition-all backdrop-blur flex flex-col items-center justify-center`}
+            >
+              <p className="text-9xl text-green-600">
+                <AiOutlineCheck />
+              </p>
+              <h4 className="text-gray-50 text-xl font-bold bg-gray-950/50 px-4 py-1 rounded-md">
+                Added to your stories
+              </h4>
+            </div>
+          </div>
+        )}
+        {/* action btn's */}
+        <div className="w-full h-1/6 flex items-center justify-end gap-2">
+          <button
+            disabled={loading}
+            onClick={() => onModalChange(null)}
+            className="px-4 py-2 disabled:hidden bg-gray-50 rounded-md text-primary-500 border-2 border-primary-500"
+          >
+            Cancel
+          </button>
+          <button
+            disabled={!file || loading}
+            onClick={uplaodStroyPic}
+            className="px-4 py-2 bg-primary-500 rounded-md text-gray-50 border-2 border-primary-500 disabled:opacity-50"
+          >
+            Upload
+          </button>
         </div>
-      )}
-      {/* action btn's */}
-      <div className="w-full h-1/6 flex items-center justify-end gap-2">
-        <button
-          onClick={() => onModalChange(null)}
-          className="px-4 py-2 bg-gray-50 rounded-md text-primary-500 border-2 border-primary-500"
-        >
-          Cancel
-        </button>
-        <button
-          disabled={!file}
-          onClick={uplaodStroyPic}
-          className="px-4 py-2 bg-primary-500 rounded-md text-gray-50 border-2 border-primary-500 disabled:opacity-50"
-        >
-          Upload
-        </button>
       </div>
-    </div>
+      {/* close modal locker */}
+      <div className={`${loading ? "block" : "hidden"} fixed inset-0`}></div>
+    </>
   );
 }
 
