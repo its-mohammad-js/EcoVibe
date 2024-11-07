@@ -102,9 +102,9 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
 
   // scroll to current list
   useEffect(() => {
-    if (isMobile) {
-      return;
-    }
+    // if (isMobile) {
+    //   return;
+    // }
     const currentSlide = document.querySelector(".currentSlide");
 
     if (currentSlide) {
