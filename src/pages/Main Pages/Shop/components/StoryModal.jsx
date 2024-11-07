@@ -101,20 +101,23 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
   // }, [currentSlideIndex, currentListIndex]);
 
   // scroll to current list
-  // useEffect(() => {
-  //   const currentSlide = document.querySelector(".currentSlide");
+  useEffect(() => {
+    if (isMobile) {
+      return;
+    }
+    const currentSlide = document.querySelector(".currentSlide");
 
-  //   if (currentSlide) {
-  //     const targetRect = currentSlide.getBoundingClientRect();
-  //     const containerRect = containerRef.current.getBoundingClientRect();
+    if (currentSlide) {
+      const targetRect = currentSlide.getBoundingClientRect();
+      const containerRect = containerRef.current.getBoundingClientRect();
 
-  //     const targetCenterX = targetRect.left + targetRect.width / 2;
-  //     const containerCenterX = containerRect.left + containerRect.width / 2;
+      const targetCenterX = targetRect.left + targetRect.width / 2;
+      const containerCenterX = containerRect.left + containerRect.width / 2;
 
-  //     const scrollOffset = targetCenterX - containerCenterX;
-  //     containerRef.current.scrollLeft += scrollOffset;
-  //   }
-  // }, [currentListIndex]);
+      const scrollOffset = targetCenterX - containerCenterX;
+      containerRef.current.scrollLeft += scrollOffset;
+    }
+  }, [currentListIndex]);
 
   // on change story / story list
   function changeStoryHandler(payload) {
@@ -324,10 +327,10 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
           </div>
         ))}
 
-        {/* <div
+        <div
           onClick={() => setList(null)}
           className="fixed inset-0 bg-gray-950/80 hidden lg:block"
-        ></div> */}
+        ></div>
       </div>
     </div>
   );
