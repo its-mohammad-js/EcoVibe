@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import toast, { LoaderIcon } from "react-hot-toast";
 import { useMediaQuery } from "react-responsive";
 import useDisableScroll from "../../../../common/hooks/UseDisableScroll";
+import { BiUser } from "react-icons/bi";
 
 function StoryModal({ currentListIndex, setList, storiesList }) {
   const [currentSlideIndex, setSlide] = useState(0);
@@ -16,7 +17,9 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
   const currentSlideRef = useRef();
   const [touchStart, setTouch] = useState(null);
   const [lastMove, setLastMove] = useState(null);
+  const wrapperRef = useRef();
 
+  // set current slide ref
   useEffect(() => {
     const currentSlide = document.querySelector(".currentSlide");
 
@@ -25,32 +28,35 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
 
   // change list index on left / right touch moves
   useEffect(() => {
+    const currentSlide = document.querySelector(".currentSlide");
+
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (!entry.isIntersecting) {
           // Update your state here (e.g., set a flag)
           if (lastMove !== null) {
-            setList(
+            console.log(lastMove);
+
+            const result =
               lastMove === "next"
                 ? currentListIndex === storiesList.length - 1
                   ? null
                   : currentListIndex + 1
-                : currentListIndex > 0
-                ? 0
-                : currentListIndex - 1
-            );
+                : currentListIndex - 1;
+
+            setList(result);
             setSlide(0);
           }
         }
       },
-      { threshold: 0.09 }
+      { threshold: 0.1 }
     ); // Observe when the slide is 100% out of view
-    if (currentSlideRef.current) {
-      observer.observe(currentSlideRef.current);
+    if (currentSlide) {
+      observer.observe(currentSlide);
     }
     return () => observer.disconnect(); // Clean up on unmount
-  }, [currentSlideRef, lastMove]);
+  }, [currentSlideRef, lastMove, currentListIndex]);
 
   // hidden parent scroll-bar on mount
   useEffect(() => {
@@ -61,52 +67,54 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
     };
   }, []);
 
-  // set timer to change current slide
-  useEffect(() => {
-    const changeSlideTimeout = setTimeout(() => {
-      changeStoryHandler("next");
-    }, timer);
+  // console.log(currentListIndex);
 
-    timerRef.current = changeSlideTimeout;
+  // // set timer to change current slide
+  // useEffect(() => {
+  //   const changeSlideTimeout = setTimeout(() => {
+  //     changeStoryHandler("next");
+  //   }, timer);
 
-    return () => {
-      clearTimeout(timerRef.current);
-    };
-  }, [currentListIndex, currentSlideIndex, timer]);
+  //   timerRef.current = changeSlideTimeout;
 
-  // set timer duration on different slides
-  useEffect(() => {
-    function handleUpdateTime(e) {
-      if (videoRef.current) {
-        const duration = e.target.duration.toFixed();
+  //   return () => {
+  //     clearTimeout(timerRef.current);
+  //   };
+  // }, [currentListIndex, currentSlideIndex, timer]);
 
-        setTimer(duration <= 60 ? duration * 1000 : 60000);
-      }
-    }
+  // // set timer duration on different slides
+  // useEffect(() => {
+  //   function handleUpdateTime(e) {
+  //     if (videoRef.current) {
+  //       const duration = e.target.duration.toFixed();
 
-    videoRef.current?.addEventListener("timeupdate", handleUpdateTime);
+  //       setTimer(duration <= 60 ? duration * 1000 : 60000);
+  //     }
+  //   }
 
-    return () => {
-      videoRef.current?.removeEventListener("timeupdate", handleUpdateTime);
-      setTimer(5000);
-    };
-  }, [currentSlideIndex, currentListIndex]);
+  //   videoRef.current?.addEventListener("timeupdate", handleUpdateTime);
+
+  //   return () => {
+  //     videoRef.current?.removeEventListener("timeupdate", handleUpdateTime);
+  //     setTimer(5000);
+  //   };
+  // }, [currentSlideIndex, currentListIndex]);
 
   // scroll to current list
-  useEffect(() => {
-    const currentSlide = document.querySelector(".currentSlide");
+  // useEffect(() => {
+  //   const currentSlide = document.querySelector(".currentSlide");
 
-    if (currentSlide) {
-      const targetRect = currentSlide.getBoundingClientRect();
-      const containerRect = containerRef.current.getBoundingClientRect();
+  //   if (currentSlide) {
+  //     const targetRect = currentSlide.getBoundingClientRect();
+  //     const containerRect = containerRef.current.getBoundingClientRect();
 
-      const targetCenterX = targetRect.left + targetRect.width / 2;
-      const containerCenterX = containerRect.left + containerRect.width / 2;
+  //     const targetCenterX = targetRect.left + targetRect.width / 2;
+  //     const containerCenterX = containerRect.left + containerRect.width / 2;
 
-      const scrollOffset = targetCenterX - containerCenterX;
-      containerRef.current.scrollLeft += scrollOffset;
-    }
-  }, [currentListIndex]);
+  //     const scrollOffset = targetCenterX - containerCenterX;
+  //     containerRef.current.scrollLeft += scrollOffset;
+  //   }
+  // }, [currentListIndex]);
 
   // on change story / story list
   function changeStoryHandler(payload) {
@@ -146,19 +154,22 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
   }
 
   return (
-    <div className="fixed bg-gray-950/80 inset-0 z-50 lg:flex items-center">
+    <div
+      ref={containerRef}
+      className="fixed bg-gray-950/80 inset-0 z-50 lg:flex items-center justify-center scroll-smooth overflow-auto snap-x snap-mandatory lg:snap-none"
+    >
       <div
         onTouchMove={(e) => onContainerTouchMove(e, "move")}
         onTouchStart={(e) => onContainerTouchMove(e, "start")}
-        ref={containerRef}
-        className="inline-flex items-center gap-x-8 lg:px-[50vw] size-full scroll-smooth overflow-auto snap-x snap-mandatory"
+        ref={wrapperRef}
+        className="inline-flex items-center lg:gap-x-8 size-full lg:px-[500vw]"
       >
-        <button
+        {/* <button
           onClick={() => setList(null)}
-          className="absolute z-50 text-gray-50 top-6 right-4 text-3xl bg-gray-600 p-2 rounded-full"
+          className="absolute lg:hidden z-50 text-gray-50 top-6 right-4 text-3xl bg-gray-600 p-2 rounded-full"
         >
           <AiOutlineClose />
-        </button>
+        </button> */}
 
         {/* all lists */}
         {storiesList.map((list, listIndex) => (
@@ -171,8 +182,8 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
             } flex-none h-full w-full lg:relative lg:w-96 transition-all duration-200 z-40 snap-start`}
           >
             {/* slides of selected list */}
-            {list.map(
-              (story, slideindex) =>
+            {list.map((story, slideindex) =>
+              currentListIndex === listIndex ? (
                 currentSlideIndex === slideindex && (
                   <div
                     key={slideindex}
@@ -222,55 +233,52 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
                         ))}
                       </div>
                       <div className="w-full px-2 flex items-center gap-2">
-                        <div className="size-10 bg-red-300 rounded-full"></div>
+                        <div className="size-10 bg-gray-50/20 rounded-full overflow-hidden flex items-center justify-center">
+                          {story?.authorProfilePic ? (
+                            <img
+                              src={story?.authorProfilePic}
+                              className="object-cover"
+                            />
+                          ) : (
+                            <BiUser className="text-4xl mt-2 text-gray-50" />
+                          )}
+                        </div>
                         <h6 className="text-gray-50 text-lg">
                           {story.author.first_name}
                         </h6>
                       </div>
                     </div>
                     {/* main content */}
-                    <div className="size-full relative z-40 overflow-hidden flex items-center justify-center">
-                      {currentListIndex === listIndex ? (
-                        slideindex === currentSlideIndex && (
-                          <>
-                            {story.type?.startsWith("image/") ? (
-                              <img
-                                src={story.contentUrl}
-                                alt="story-content"
-                                className="size-full object-contain"
-                              />
-                            ) : (
-                              <video
-                                ref={videoRef}
-                                autoPlay={currentSlideIndex === slideindex}
-                                className="size-full object-cover"
-                                src={story.contentUrl}
-                              ></video>
-                            )}
+                    <div className="size-full relative z-40 overflow-hidden flex items-center justify-center p-6">
+                      {
+                        <div className="size-full">
+                          {story.type?.startsWith("image/") ? (
+                            <img
+                              src={story.contentUrl}
+                              alt="story-content"
+                              className="size-full object-contain"
+                            />
+                          ) : (
+                            <video
+                              ref={videoRef}
+                              autoPlay={currentSlideIndex === slideindex}
+                              className="size-full object-cover"
+                              src={story.contentUrl}
+                            ></video>
+                          )}
 
-                            <div className="absolute z-50 inset-0 flex">
-                              <div
-                                onClick={() => changeStoryHandler("prev")}
-                                className="h-full w-2/5"
-                              ></div>
-                              <div
-                                onClick={() => changeStoryHandler("next")}
-                                className="h-full w-3/5"
-                              ></div>
-                            </div>
-                          </>
-                        )
-                      ) : (
-                        <div
-                          onClick={() => setList(listIndex)}
-                          className="size-full select-none flex flex-col gap-y-2 items-center justify-center"
-                        >
-                          <div className="size-28 bg-gray-300 rounded-full"></div>
-                          <h4 className="text-gray-50">
-                            {story.author?.first_name}
-                          </h4>
+                          <div className="absolute z-50 inset-0 flex">
+                            <div
+                              onClick={() => changeStoryHandler("prev")}
+                              className="h-full w-2/5"
+                            ></div>
+                            <div
+                              onClick={() => changeStoryHandler("next")}
+                              className="h-full w-3/5"
+                            ></div>
+                          </div>
                         </div>
-                      )}
+                      }
                     </div>
                     {/* send message input */}
                     <div className=""></div>
@@ -289,14 +297,37 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
                     </div>
                   </div>
                 )
+              ) : (
+                <div
+                  key={slideindex}
+                  className="size-full first-of-type:flex hidden relative bg-gray-950 lg:rounded-xl items-center"
+                >
+                  <div
+                    onClick={() => setList(listIndex)}
+                    className="size-full select-none flex flex-col gap-y-2 items-center justify-center"
+                  >
+                    <div className="size-28 bg-gray-50/20 overflow-hidden rounded-full">
+                      {story?.authorProfilePic ? (
+                        <img
+                          src={story?.authorProfilePic}
+                          className="object-cover"
+                        />
+                      ) : (
+                        <BiUser className="text-4xl mt-2 text-gray-50" />
+                      )}
+                    </div>
+                    <h4 className="text-gray-50">{story.author?.first_name}</h4>
+                  </div>
+                </div>
+              )
             )}
           </div>
         ))}
 
-        <div
+        {/* <div
           onClick={() => setList(null)}
           className="fixed inset-0 bg-gray-950/80 hidden lg:block"
-        ></div>
+        ></div> */}
       </div>
     </div>
   );

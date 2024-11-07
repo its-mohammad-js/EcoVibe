@@ -77,6 +77,7 @@ function AddStoryModal({ onModalChange }) {
         createdAt: serverTimestamp(),
         authorId: userId,
         type: file?.type,
+        authorProfilePic: personalInformation.profilePic,
       });
       toast.success("story created successfully");
     } catch (error) {
