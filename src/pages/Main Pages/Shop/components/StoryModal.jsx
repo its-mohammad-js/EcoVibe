@@ -57,13 +57,12 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
     return () => observer.disconnect(); // Clean up on unmount
   }, [currentSlideRef, lastMove, currentListIndex]);
 
+  // reset is changing slide state after list changed
   useEffect(() => {
     setTimeout(() => {
       setChangingSlide(false);
-    }, 800);
+    }, 500);
   }, [currentListIndex]);
-
-  console.log(isChangingSlide ? "ok now it changing" : "stoped");
 
   // hidden parent scroll-bar on mount
   useEffect(() => {
@@ -75,41 +74,42 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
   }, []);
 
   // set timer to change current slide
-  // useEffect(() => {
-  //   const changeSlideTimeout = setTimeout(() => {
-  //     changeStoryHandler("next");
-  //   }, timer);
+  useEffect(() => {
+    if (isChangingSlide) {
+      return;
+    }
 
-  //   timerRef.current = changeSlideTimeout;
+    const changeSlideTimeout = setTimeout(() => {
+      changeStoryHandler("next");
+    }, timer);
 
-  //   return () => {
-  //     clearTimeout(timerRef.current);
-  //   };
-  // }, [currentListIndex, currentSlideIndex, timer]);
+    timerRef.current = changeSlideTimeout;
+
+    return () => {
+      clearTimeout(timerRef.current);
+    };
+  }, [currentListIndex, currentSlideIndex, timer]);
 
   // set timer duration on different slides
-  // useEffect(() => {
-  //   function handleUpdateTime(e) {
-  //     if (videoRef.current) {
-  //       const duration = e.target.duration.toFixed();
+  useEffect(() => {
+    function handleUpdateTime(e) {
+      if (videoRef.current) {
+        const duration = e.target.duration.toFixed();
 
-  //       setTimer(duration <= 60 ? duration * 1000 : 60000);
-  //     }
-  //   }
+        setTimer(duration <= 60 ? duration * 1000 : 60000);
+      }
+    }
 
-  //   videoRef.current?.addEventListener("timeupdate", handleUpdateTime);
+    videoRef.current?.addEventListener("timeupdate", handleUpdateTime);
 
-  //   return () => {
-  //     videoRef.current?.removeEventListener("timeupdate", handleUpdateTime);
-  //     setTimer(5000);
-  //   };
-  // }, [currentSlideIndex, currentListIndex]);
+    return () => {
+      videoRef.current?.removeEventListener("timeupdate", handleUpdateTime);
+      setTimer(5000);
+    };
+  }, [currentSlideIndex, currentListIndex]);
 
   // scroll to current list
   useEffect(() => {
-    // if (isMobile) {
-    //   return;
-    // }
     const currentSlide = document.querySelector(".currentSlide");
 
     if (currentSlide) {
@@ -144,6 +144,7 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
     }
   }
 
+  // handle touch events (for mobile screens)
   function onContainerTouchEvents(e, type) {
     const eventType = e.type;
     const touch = e.touches[0];
@@ -161,6 +162,7 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
     }
   }
 
+  // paginate stories list based on current list index
   const paginatedLists = () => {
     return storiesList.map((list, listIndex) => {
       if (
@@ -174,8 +176,6 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
       }
     });
   };
-
-  // console.log(paginatedLists());
 
   return (
     <div
@@ -360,7 +360,7 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
         <div
           className={`${
             isChangingSlide ? "opacity-100 visible" : "invisible opacity-0"
-          } fixed inset-0 bg-red-300/50 z-50 transition-all`}
+          } fixed inset-0 bg-blue-300/50 z-50 transition-all`}
         ></div>
 
         <div
