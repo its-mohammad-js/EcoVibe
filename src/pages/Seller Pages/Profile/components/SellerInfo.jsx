@@ -22,9 +22,14 @@ function SellerInfo({ seller, onEditHandler }) {
   const navigate = useNavigate();
   const {
     sellerData: { userInfo, orders, products, reviews },
+    currentUserId,
+    isOwner,
   } = useProfileData();
   const { personalInformation, businessInformation } = userInfo || {};
+  const currentUserData = useSelector((state) => state.userData);
   const params = useParams();
+
+  console.log(currentUserData);
 
   useEffect(() => {
     const fetchSellerStories = async () => {
@@ -68,23 +73,43 @@ function SellerInfo({ seller, onEditHandler }) {
     return averageStars;
   }
 
+  // send message handler
   async function sendMessage() {
-    const roomId = `FROM:${userId}&TO:${params.id}`;
+    if (isOwner) {
+      toast("you cant message your self!");
+      return;
+    }
+
+    if (!currentUserId) {
+      toast("you should sign up first");
+    }
+
+    const roomId = `FROM:${currentUserId}&TO:${params.id}`;
     const dbRef = getDatabase();
     await set(ref(dbRef, `rooms/${roomId}`), {
       roomId,
       // customer data
-      [userId]: { ...personalInformation, ...businessInformation, userType },
+      [currentUserId]: {
+        ...currentUserData.personalInformation,
+        ...currentUserData?.businessInformation,
+        currentUserId,
+      },
       // seller data
       [params?.id]: {
-        ...sellerData.personalInformation,
-        ...sellerData.businessInformation,
-        userType: sellerData.userType,
+        ...userInfo.personalInformation,
+        ...userInfo.businessInformation,
+        userType: userInfo.userType,
       },
-      members: [userId, params.id],
+      members: [currentUserId, params.id],
     });
     navigate(`/EcoVibe/Messages/`);
   }
+
+  // open mail handler
+  const handleEmailClick = () => {
+    window.location.href =
+      "mailto:example@example.com?subject=Hello&body=This%20is%20a%20test%20email.";
+  };
 
   return (
     <div className="px-4 py-2">
@@ -101,7 +126,7 @@ function SellerInfo({ seller, onEditHandler }) {
             }}
             className={`${loading && "animate-pulse"} ${
               !loading && storiesList.length > 0 && "ring-4 ring-red-500"
-            } size-16 lg:size-24 bg-gray-100 rounded-full overflow-hidden select-none cursor-pointer`}
+            } size-20 lg:size-24 bg-gray-100 rounded-full overflow-hidden select-none cursor-pointer`}
           >
             <img src={personalInformation?.profilePic} alt="user-avatar" />
           </div>
@@ -146,14 +171,31 @@ function SellerInfo({ seller, onEditHandler }) {
       </div>
       {/* action btns */}
       <div className="flex items-center justify-around my-2 lg:w-fit lg:gap-x-4">
-        <button className="px-4 py-2 text-sm lg:text-base bg-gray-300 hover:bg-opacity-50 transition-all text-gray-950 rounded-lg">
-          Products
+        <button
+          onClick={() => (!isOwner ? sendMessage() : onEditHandler())}
+          className="px-4 py-2 text-sm lg:text-base bg-gray-300 hover:bg-opacity-50 transition-all text-gray-950 rounded-lg"
+        >
+          {isOwner ? "Edit" : "Message"}
         </button>
-        <button className="px-4 py-2 text-sm lg:text-base bg-gray-300 hover:bg-opacity-50 transition-all text-gray-950 rounded-lg">
-          Message
+        <button
+          onClick={() =>
+            navigate(
+              isOwner
+                ? `/EcoVibe/Dashboard/Products`
+                : `/EcoVibe/Explore-Products/seller=${params.id}`
+            )
+          }
+          className="px-4 py-2 text-sm lg:text-base bg-gray-300 hover:bg-opacity-50 transition-all text-gray-950 rounded-lg"
+        >
+          {isOwner ? "My Products" : "All Products"}
         </button>
-        <button className="px-4 py-2 text-sm lg:text-base bg-gray-300 hover:bg-opacity-50 transition-all text-gray-950 rounded-lg">
-          Email
+        <button
+          onClick={() =>
+            isOwner ? navigate(`/EcoVibe/Dashboard/`) : handleEmailClick()
+          }
+          className="px-4 py-2 text-sm lg:text-base bg-gray-300 hover:bg-opacity-50 transition-all text-gray-950 rounded-lg"
+        >
+          {isOwner ? "Dashboard" : "Email"}
         </button>
       </div>
     </div>

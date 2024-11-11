@@ -20,22 +20,22 @@ function Reviews() {
   return (
     <div className="flex flex-col gap-y-2 pb-2">
       {reviews.map((review, i) => (
-        <div key={i} className="flex items-start w-full px-2 py-1 relative">
+        <div
+          key={i}
+          className="flex items-start w-full px-2 py-1 relative border-b  hover:bg-gray-200  cursor-pointer transition-all last-of-type:border-none lg:py-2"
+        >
           {/* author profile pic */}
-          <div className="size-16 bg-gray-200 rounded-full overflow-hidden">
+          <div className="size-16 lg:size-20 bg-gray-200 rounded-full overflow-hidden">
             <img src={review.authorProfile} alt="author-profile" />
           </div>
           {/* header & main content also review data */}
           <div className="flex-1 px-2">
-            <h4 className="font-bold">{review.content.header}</h4>
-            <h6 className="text-sm font-medium line-clamp-1">
+            <h4 className="font-bold lg:text-lg">{review.content.header}</h4>
+            <h6 className="text-sm lg:text-base font-medium line-clamp-1">
               {review.content.first_name + " " + review.content.last_name}
             </h6>
-            <p className="line-clamp-2 text-xs">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus
-              debitis accusamus, at omnis nobis inventore, corporis tenetur
-              vitae dolorum rem earum blanditiis porro nulla necessitatibus
-              exercitationem explicabo consectetur reiciendis consequatur.
+            <p className="line-clamp-2 lg:line-clamp-4 break-words text-xs lg:text-base">
+              {review.content.review}
             </p>
             <p className="absolute top-2 right-2 text-sm text-gray-800">
               {timestampToDate(review.date)}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import ProductDetails from "./ProductDetails";
 import ProductsTabLoader from "UI/Loaders/ProductsTabLoader";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useDashboardData } from "../../DashboardContext";
 import { supportedCategories } from "constants";
 import { BiSearch } from "react-icons/bi";
@@ -29,6 +29,29 @@ function ProductTab() {
     searchQuery: "",
     selectedCategory: "",
   });
+  const params = useParams();
+
+  useEffect(() => {
+    if (
+      params?.modalKey &&
+      params?.modalKey !== "add-story" &&
+      params?.modalKey !== "add-product"
+    ) {
+      setDetail({
+        modalIsShow: true,
+        selectedItem: products.find(
+          (product) => product.id === params?.modalKey
+        ),
+      });
+    } else {
+      setDetail({
+        modalIsShow: false,
+        selectedItem: null,
+      });
+    }
+  }, [params, products]);
+
+  // console.log(modalIsShow, selectedItem);
 
   // set products list to filtered items , as initial state
   useEffect(() => {
@@ -51,12 +74,14 @@ function ProductTab() {
     setItems(filteredProducts);
   }
 
-  useEffect(() => {
-    setDetail({
-      modalIsShow: false,
-      selectedItem: null,
-    });
-  }, [products]);
+  // useEffect(() => {
+  //   if (!params?.modalKey) {
+  //     setDetail({
+  //       modalIsShow: false,
+  //       selectedItem: null,
+  //     });
+  //   }
+  // }, [products]);
 
   if (loading)
     // on loaidng case

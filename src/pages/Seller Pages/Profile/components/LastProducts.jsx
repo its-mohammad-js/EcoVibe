@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useProfileData } from "../SellerProfilePage";
 
 function LastProducts() {
@@ -5,6 +6,7 @@ function LastProducts() {
     isOwner,
     sellerData: { products },
   } = useProfileData();
+  const navigate = useNavigate();
 
   return (
     <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-0.5 pb-1">
@@ -24,7 +26,16 @@ function LastProducts() {
               eveniet voluptates quo, laboriosam sed obcaecati ullam.
             </p>
 
-            <button className="px-4 py-2 text-xs lg:text-base bg-gray-950 text-gray-50 rounded-xl w-fit hover:bg-gray-200 hover:text-gray-950 transition-all">
+            <button
+              onClick={() =>
+                navigate(
+                  isOwner
+                    ? `/EcoVibe/Dashboard/Products/${product.id}`
+                    : `/EcoVibe/Products/${product.id}`
+                )
+              }
+              className="px-4 py-2 text-xs lg:text-base bg-gray-950 text-gray-50 rounded-xl w-fit hover:bg-gray-200 hover:text-gray-950 transition-all"
+            >
               {isOwner ? "Show in dashborad" : "More info"}
             </button>
           </div>

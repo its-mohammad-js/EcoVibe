@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fakeArray, timestampToDate } from "../../../../common/utils/constants";
 import { useProfileData } from "../SellerProfilePage";
 
@@ -7,15 +7,21 @@ function LastOrders() {
     sellerData: { orders },
   } = useProfileData();
   const params = useParams();
-
-  console.log(orders[0].orders[params?.id].items);
+  const navigate = useNavigate();
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 gap-0.5 lg:-cols-3 w-full select-none cursor-pointer">
       {orders.map((order, i) => (
         <div
+          onClick={() =>
+            navigate(
+              `/EcoVibe/bag/orders/${order.orderId.replace("#", "")}/${
+                params.id
+              }`
+            )
+          }
           key={i}
-          className="h-36 lg:h-56 bg-gray-100 relative hover:opacity-80 transition-all"
+          className="h-36 lg:h-56 gradient-background relative hover:opacity-80 transition-all"
         >
           {/* order thumbnail */}
           <div className="grid grid-rows-2 grid-cols-2 h-full">

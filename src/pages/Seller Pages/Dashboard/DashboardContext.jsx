@@ -68,7 +68,7 @@ function DashboardContext({ children }) {
       );
       // fetch products
       const products = await getDocs(productsQuery).then(({ docs }) =>
-        docs.map((doc) => doc.data())
+        docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
       setProducts({ loading: false, products, error: null });
     } catch (error) {

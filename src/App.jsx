@@ -76,7 +76,7 @@ function App() {
           <Route path="Wish-list" element={<WishListPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
-          <Route path="orders/:orderId/:sellerId?" element={<OrdersPage />} />
+          <Route path="orders/:orderId?/:sellerId?" element={<OrdersPage />} />
         </Route>
         {/* customer personal pages */}
         <Route path="/EcoVibe/profile" element={<ProtectedRoute />}>

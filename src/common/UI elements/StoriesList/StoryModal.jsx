@@ -63,8 +63,6 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
     }, 500);
   }, [currentListIndex]);
 
-  console.log(currentListIndex);
-
   // hidden parent scroll-bar on mount
   useEffect(() => {
     if (isMobile) document.body.style.overflow = "hidden";
@@ -192,7 +190,7 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
         className="inline-flex items-center lg:gap-x-8 size-full lg:px-[500vw]"
       >
         {/* all lists */}
-        {storiesList.map((list, listIndex) => {
+        {paginatedLists().map((list, listIndex) => {
           if (list)
             return (
               <div
