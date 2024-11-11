@@ -1,9 +1,8 @@
 import { AiOutlineClose, AiOutlineRight } from "react-icons/ai";
-import { fakeArray } from "../../../../common/utils/constants";
+import { fakeArray } from "../../utils/constants";
 import { useEffect, useRef, useState } from "react";
 import toast, { LoaderIcon } from "react-hot-toast";
 import { useMediaQuery } from "react-responsive";
-import useDisableScroll from "../../../../common/hooks/UseDisableScroll";
 import { BiUser } from "react-icons/bi";
 
 function StoryModal({ currentListIndex, setList, storiesList }) {
@@ -49,7 +48,7 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
           }
         }
       },
-      { threshold: 0.09 }
+      { threshold: 0.05 }
     ); // Observe when the slide is 100% out of view
     if (currentSlide) {
       observer.observe(currentSlide);
@@ -64,6 +63,8 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
     }, 500);
   }, [currentListIndex]);
 
+  console.log(currentListIndex);
+
   // hidden parent scroll-bar on mount
   useEffect(() => {
     if (isMobile) document.body.style.overflow = "hidden";
@@ -76,6 +77,7 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
   // set timer to change current slide
   useEffect(() => {
     if (isChangingSlide) {
+      clearTimeout(timerRef.current);
       return;
     }
 
@@ -88,7 +90,7 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
     return () => {
       clearTimeout(timerRef.current);
     };
-  }, [currentListIndex, currentSlideIndex, timer]);
+  }, [currentListIndex, currentSlideIndex, isChangingSlide, timer]);
 
   // set timer duration on different slides
   useEffect(() => {
@@ -122,7 +124,7 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
       const scrollOffset = targetCenterX - containerCenterX;
       containerRef.current.scrollLeft += scrollOffset;
     }
-  }, [currentListIndex, isMobile]);
+  }, [currentListIndex, isMobile, isChangingSlide]);
 
   // on change story / story list
   function changeStoryHandler(payload) {
@@ -189,15 +191,8 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
         onTouchStart={(e) => onContainerTouchEvents(e, "start")}
         className="inline-flex items-center lg:gap-x-8 size-full lg:px-[500vw]"
       >
-        {/* <button
-          onClick={() => setList(null)}
-          className="absolute lg:hidden z-50 text-gray-50 top-6 right-4 text-3xl bg-gray-600 p-2 rounded-full"
-        >
-          <AiOutlineClose />
-        </button> */}
-
         {/* all lists */}
-        {paginatedLists().map((list, listIndex) => {
+        {storiesList.map((list, listIndex) => {
           if (list)
             return (
               <div
@@ -356,13 +351,13 @@ function StoryModal({ currentListIndex, setList, storiesList }) {
               </div>
             );
         })}
-
+        {/* scroll limiter on touch evenets */}
         <div
           className={`${
             isChangingSlide ? "opacity-100 visible" : "invisible opacity-0"
-          } fixed inset-0 bg-blue-300/50 z-50 transition-all`}
+          } fixed inset-0 z-50 transition-all`}
         ></div>
-
+        {/* modal bg */}
         <div
           onClick={() => setList(null)}
           className="fixed inset-0 bg-gray-950/80 hidden lg:block"

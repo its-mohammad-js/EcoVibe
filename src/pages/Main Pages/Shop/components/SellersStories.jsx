@@ -1,7 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { db } from "/src/config/firebase";
-import StoryModal from "./StoryModal";
+import StoryModal from "../../../../common/UI elements/StoriesList/StoryModal";
 
 function SellersStories() {
   const [{ error, loading, storiesList }, setStoreis] = useState({
