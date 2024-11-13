@@ -8,6 +8,7 @@ import { IoHome } from "react-icons/io5";
 import { RiFileAddFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import useOutSideClick from "hooks/UseOutsideClick";
+import { FaMessage } from "react-icons/fa6";
 
 function QuickAccessMenu({ onModalChange }) {
   const [openMenu, setMenu] = useState(false);
@@ -90,6 +91,17 @@ function QuickAccessMenu({ onModalChange }) {
             </p>
             <p className="text-xs opacity-0 group-hover:opacity-100 transition-all text-center w-full">
               Home
+            </p>
+          </button>
+          <button
+            onClick={() => navigate("/EcoVibe/")}
+            className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
+          >
+            <p className="p-2 text-2xl rounded-full border border-gray-50 group-hover:border-primary-500">
+              <FaMessage />
+            </p>
+            <p className="text-xs opacity-0 group-hover:opacity-100 transition-all text-center w-full">
+              Message
             </p>
           </button>
         </div>

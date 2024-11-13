@@ -57,7 +57,7 @@ function App() {
           path="/EcoVibe/Products/:productId?"
           element={<ProductDetailsPage />}
         />
-        <Route path="/EcoVibe/Messages/:roomId?" element={<ChatPage />} />
+        <Route path="/EcoVibe/Messages/" element={<ChatPage />} />
         {/* customer's sign-up */}
         <Route path="/EcoVibe/Customers/" element={<CustomerAuthPage />}>
           <Route path="sign-up" element={<SignUpCustomer />} />

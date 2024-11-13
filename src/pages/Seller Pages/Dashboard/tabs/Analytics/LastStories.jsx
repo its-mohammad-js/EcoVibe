@@ -104,6 +104,8 @@ function LastStories() {
       <>
         <div className="size-full overflow-hidden rounded-xl relative">
           <Slider
+            autoplay={true}
+            speed={1500}
             className="h-full"
             ref={sliderRef}
             onSwipe={() => {
@@ -116,11 +118,25 @@ function LastStories() {
           >
             {storyList.map((story, i) => (
               <div key={i} className="h-96">
-                <img
-                  src={story?.contentUrl}
-                  alt="story thumnail"
-                  className="size-full object-cover"
-                />
+                {story.type.includes("image") ? (
+                  <img
+                    src={story?.contentUrl}
+                    alt="story thumnail"
+                    className="size-full object-cover"
+                  />
+                ) : (
+                  <video
+                    width="400"
+                    controls={false}
+                    preload="metadata"
+                    className="object-contain size-full"
+                  >
+                    <source
+                      src={`${story?.contentUrl}#t=0.1`}
+                      type="video/mp4"
+                    ></source>
+                  </video>
+                )}
               </div>
             ))}
           </Slider>

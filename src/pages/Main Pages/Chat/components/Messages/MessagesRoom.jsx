@@ -8,6 +8,7 @@ import TextAlert from "../../../../../common/UI elements/Alerts/TextAlert";
 import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 
 function MessagesRoom({ deleteRoom }) {
   // search bar state

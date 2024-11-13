@@ -1,7 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { db } from "/src/config/firebase";
-import StoryModal from "../../../../common/UI elements/StoriesList/StoryModal";
+import StoryListModal from "/src/common/UI elements/StoriesList/StoryListModal";
 
 function SellersStories() {
   const [{ error, loading, storiesList }, setStoreis] = useState({
@@ -77,7 +77,7 @@ function SellersStories() {
 
         {/* selected story modal */}
         {currentListIndex !== null && (
-          <StoryModal {...{ currentListIndex, setList, storiesList }} />
+          <StoryListModal {...{ currentListIndex, setList, storiesList }} />
         )}
       </>
     );

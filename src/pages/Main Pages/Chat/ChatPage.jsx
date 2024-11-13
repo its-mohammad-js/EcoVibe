@@ -33,10 +33,11 @@ function ChatPage() {
       // update message list
       update(roomsRef, {
         members: roomClone.members.filter((id) => id !== userId),
-        messageList: roomClone.messageList.map((message) => ({
-          ...message,
-          visibleTo: message.visibleTo.filter((id) => id !== userId),
-        })),
+        messageList:
+          roomClone.messageList?.map((message) => ({
+            ...message,
+            visibleTo: message.visibleTo.filter((id) => id !== userId),
+          })) || [],
       });
       // dispatch seccess
       toast.success("Room Is Deleted Successfully");

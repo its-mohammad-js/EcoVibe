@@ -35,6 +35,8 @@ const DesktopNavbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  
+
   return (
     <div className="flex flex-col mx-auto 2xl:max-w-screen-2xl">
       {/* header links (only display on home page) */}

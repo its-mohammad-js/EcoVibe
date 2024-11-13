@@ -10,7 +10,7 @@ import {
 } from "firebase/database";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { find } from "lodash";
 import toast from "react-hot-toast";
 
@@ -40,6 +40,18 @@ function RoomsContext({ children }) {
   const navigate = useNavigate();
   // data base ref
   const db = getDatabase();
+  const location = useLocation();
+  const queryRoomId = location?.state?.roomId;
+
+  useEffect(() => {
+    if (queryRoomId) {
+      const findedRoom = rooms.find(
+        (chatRoom) => chatRoom.roomId === queryRoomId
+      );
+      console.log(findedRoom);
+      setSelectedRoom(findedRoom);
+    }
+  }, [queryRoomId, rooms]);
 
   // get chat rooms data
   function getRooms() {
@@ -123,26 +135,11 @@ function RoomsContext({ children }) {
 
   // reset selected message on close chat room
   useEffect(() => {
-    if (!selectedRoom) {
+    if (!selectedRoom && !location?.state?.roomId) {
       setSelectedMessage(null);
       setMode(null);
     }
   }, [selectedRoom]);
-
-  // set selected room from params
-  useEffect(() => {
-    if (params?.roomId && rooms.length) {
-      const findedRoom = rooms.find(({ roomId }) => roomId === params.roomId);
-
-      setSelectedRoom(findedRoom);
-    } else if (selectedRoom) {
-      const findedRoom = rooms.find(
-        ({ roomId }) => roomId === selectedRoom.roomId
-      );
-
-      setSelectedRoom(findedRoom);
-    }
-  }, [params, rooms]);
 
   // on create new chat room
   const createNewChatRoom = async (contact) => {

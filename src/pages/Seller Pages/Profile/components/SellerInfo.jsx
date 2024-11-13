@@ -1,61 +1,29 @@
-import { useEffect, useRef, useState } from "react";
-import { FaEdit } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { AiOutlineMail } from "react-icons/ai";
-import { getDatabase, ref, set } from "firebase/database";
+import { get, getDatabase, ref, set } from "firebase/database";
 import { useProfileData } from "../SellerProfilePage";
 import { uniq } from "lodash";
-import { calculateAverage } from "../../../../common/utils/constants";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "/src/config/firebase";
+import { calculateAverage } from "constants";
 import toast from "react-hot-toast";
-import StoryModal from "../../../../common/UI elements/StoriesList/StoryModal";
+import { useState } from "react";
+import StoryListModal from "/src/common/UI elements/StoriesList/StoryListModal";
 
-function SellerInfo({ seller, onEditHandler }) {
-  const [{ loading, storiesList, currentListIndex }, setList] = useState({
-    storiesList: [],
-    loading: false,
-    currentListIndex: null,
-  });
+function SellerInfo({ onEditHandler }) {
+  // seller stories modal state
   const [isStoriesShow, setStorieModal] = useState(null);
-  const navigate = useNavigate();
+  // seller profile data
   const {
     sellerData: { userInfo, orders, products, reviews },
+    sellerStories: { storiesList, loading },
     currentUserId,
     isOwner,
   } = useProfileData();
+  // current user data
   const { personalInformation, businessInformation } = userInfo || {};
   const currentUserData = useSelector((state) => state.userData);
+  // nevessary data & hooks
   const params = useParams();
-
-  console.log(currentUserData);
-
-  useEffect(() => {
-    const fetchSellerStories = async () => {
-      try {
-        setList((prev) => ({ ...prev, loading: true }));
-        const storiesQuery = query(
-          collection(db, "Stories"),
-          where("authorId", "==", params.id)
-        );
-        const storiesList = await getDocs(storiesQuery).then(({ docs }) =>
-          docs.map((doc) => doc.data())
-        );
-
-        setList({
-          loading: false,
-          storiesList: [storiesList],
-          currentListIndex: 0,
-        });
-      } catch (error) {
-        toast.error("there was an error on fetching proccess");
-        console.log(error);
-      }
-    };
-
-    fetchSellerStories();
-  }, []);
+  const navigate = useNavigate();
 
   // calculate cutomers count
   function calculateCustomers() {
@@ -86,29 +54,40 @@ function SellerInfo({ seller, onEditHandler }) {
 
     const roomId = `FROM:${currentUserId}&TO:${params.id}`;
     const dbRef = getDatabase();
-    await set(ref(dbRef, `rooms/${roomId}`), {
-      roomId,
-      // customer data
-      [currentUserId]: {
-        ...currentUserData.personalInformation,
-        ...currentUserData?.businessInformation,
-        currentUserId,
-      },
-      // seller data
-      [params?.id]: {
-        ...userInfo.personalInformation,
-        ...userInfo.businessInformation,
-        userType: userInfo.userType,
-      },
-      members: [currentUserId, params.id],
-    });
-    navigate(`/EcoVibe/Messages/`);
+
+    const room = await get(ref(dbRef, "rooms")).then((res) =>
+      Object.entries(res.val()).find(
+        ([k, v]) =>
+          v.members?.includes(currentUserId) &&
+          v.members?.includes("j3zLI30uZAhzpzJzbi9a5Ccr9fJ3")
+      )
+    );
+    if (!room) {
+      await set(ref(dbRef, `rooms/${roomId}`), {
+        roomId,
+        // customer data
+        [currentUserId]: {
+          ...currentUserData.personalInformation,
+          ...currentUserData?.businessInformation,
+          currentUserId,
+        },
+        // seller data
+        [params?.id]: {
+          ...userInfo.personalInformation,
+          ...userInfo.businessInformation,
+          userType: userInfo.userType,
+        },
+        members: [currentUserId, params.id],
+      });
+      navigate(`/EcoVibe/Messages/`, { state: { roomId: roomId } });
+    } else {
+      navigate(`/EcoVibe/Messages/`, { state: { roomId: room[1].roomId } });
+    }
   }
 
   // open mail handler
   const handleEmailClick = () => {
-    window.location.href =
-      "mailto:example@example.com?subject=Hello&body=This%20is%20a%20test%20email.";
+    window.location.href = `mailto:${personalInformation.email}?subject=Hi%20There!&body=Wrote%20Something%20a%20here!.`;
   };
 
   return (
@@ -121,6 +100,7 @@ function SellerInfo({ seller, onEditHandler }) {
           <div
             onClick={() => {
               if (!loading && storiesList.length > 0) {
+                // it sets to 0 becuase StoryModal component logic uses isStoriesShow (in SellerProfile component) as currentListIndex
                 setStorieModal(0);
               }
             }}
@@ -133,7 +113,7 @@ function SellerInfo({ seller, onEditHandler }) {
 
           {/* seller stories modal */}
           {isStoriesShow !== null && (
-            <StoryModal
+            <StoryListModal
               {...{
                 currentListIndex: isStoriesShow,
                 setList: setStorieModal,

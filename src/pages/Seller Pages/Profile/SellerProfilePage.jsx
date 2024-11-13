@@ -10,16 +10,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "src/config/firebase";
 import SellerInfo from "./components/SellerInfo";
-import LastProducts from "./components/LastProducts";
-import Testimonials from "mainPages/Home/components/Testimonials";
 import EditBusinessInfoForm from "./components/EditBusinessInfoForm";
 import SellerProfilePageLoader from "UI/Loaders/SellerProfilePageLoader";
 import { AiOutlineLeft } from "react-icons/ai";
-import { IoIosMore } from "react-icons/io";
-import { fakeArray } from "../../../common/utils/constants";
 import HighLights from "./components/HighLights";
 import SellerContents from "./components/SellerContents";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import StoryModal from "../../../common/UI elements/StoriesList/StoryListModal";
 
 const SellerProfileContext = createContext();
 
@@ -35,7 +33,9 @@ function SellerProfilePage() {
   });
   // params (seller id)
   const params = useParams();
+  // get current user id from local storage
   const currentUserId = JSON.parse(localStorage.getItem("userData"))?.userId;
+  // check user is owner of this profile
   const isOwner = params.id === currentUserId;
   // user data from global state (used only on isOwner true)
   const { personalInformation, businessInformation, loading, userType } =
@@ -45,7 +45,40 @@ function SellerProfilePage() {
   const [currentMode, setContentMode] = useState("products");
   // edit business information
   const [isEditShow, setEditModal] = useState(false);
+  // seller stories state
+  const [sellerStories, setList] = useState({
+    storiesList: [],
+    loading: false,
+  });
 
+  // fetch stories
+  useEffect(() => {
+    const fetchSellerStories = async () => {
+      try {
+        setList((prev) => ({ ...prev, loading: true }));
+        const storiesQuery = query(
+          collection(db, "Stories"),
+          where("authorId", "==", params.id)
+        );
+        const storiesList = await getDocs(storiesQuery).then(({ docs }) =>
+          docs.map((doc) => doc.data())
+        );
+
+        setList({
+          loading: false,
+          storiesList: [storiesList],
+          currentListIndex: 0,
+        });
+      } catch (error) {
+        toast.error("there was an error on fetching proccess");
+        console.log(error);
+      }
+    };
+
+    fetchSellerStories();
+  }, []);
+
+  // get user data
   async function getUserData() {
     if (loading) {
       return;
@@ -110,15 +143,14 @@ function SellerProfilePage() {
     }
   }
 
+  // fetch user data onmount
   useEffect(() => {
     if (!loading) getUserData();
   }, [loading]);
 
-  if (loading) return <div>loading current user data</div>;
+  if (loading || sellerData.loading) return <SellerProfilePageLoader />;
 
-  // if (sellerData.loading) return <div>loading seller data</div>;
-
-  if (!sellerData.loading)
+  if (!sellerData.loading || false)
     return (
       <SellerProfileContext.Provider
         value={{
@@ -127,21 +159,20 @@ function SellerProfilePage() {
           setContentMode,
           currentMode,
           currentUserId,
+          sellerStories,
+          setList,
         }}
       >
         <div className="mx-auto 2xl:max-w-screen-2xl flex flex-col justify-between">
           <div id="wrapper" className="size-full lg:w-8/12 lg:mx-auto">
             {/* header */}
-            <div className="flex items-center justify-between px-4 py-2">
+            <div className="flex items-center justify-between px-4 py-2 relative">
               <button className="text-2xl">
                 <AiOutlineLeft />
               </button>
-              <h6 className="font-bold">
+              <h6 className="font-bold flex-1 text-center">
                 {sellerData.userInfo.businessInformation?.business_name}
               </h6>
-              <button className="text-2xl">
-                <IoIosMore />
-              </button>
             </div>
             {/* seller info */}
             <SellerInfo onEditHandler={() => setEditModal(true)} />

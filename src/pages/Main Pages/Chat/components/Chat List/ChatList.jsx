@@ -1,7 +1,7 @@
 import { AiOutlineLeft, AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { useRoomsData } from "../RoomsContext";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ChatColumn from "./ChatColumn";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 
@@ -10,6 +10,7 @@ function ChatList({ openSideNav, deleteRoom }) {
   const navigate = useNavigate();
   const [searchQuery, setQuery] = useState("");
   useHorizontalTouchScroll(".contacts-container");
+
 
   // search messages
   function searchMessages(query) {
