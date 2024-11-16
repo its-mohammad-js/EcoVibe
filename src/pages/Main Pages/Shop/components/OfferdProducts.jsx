@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import ProductsContainer from "UI/ProductsContainer/ProductsContainer";
 import { motion } from "framer-motion";
 import { filterProducts } from "/src/common/utils/filterPorducts";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../../../../common/hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
 
 function OfferdProducts() {

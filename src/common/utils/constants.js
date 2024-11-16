@@ -395,3 +395,24 @@ export function scrollContainer(direction, container) {
   }
   container.classList.remove("scroll-smooth");
 }
+
+// validate location
+export async function validateLocation(lat, lng) {
+  try {
+    // get location information from api
+    const res = await fetch(
+      `https://api.opencagedata.com/geocode/v1/json?q=${lat}%2C${lng}&key=7824a4d19fa84afab5426170dc768cef`
+    ).then((res) => res.json());
+    // validate location
+    if (
+      res.results[0].distance_from_q.meters > 0 &&
+      res.results[0].components._type !== "body_of_water"
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

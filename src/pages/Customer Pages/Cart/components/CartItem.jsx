@@ -1,6 +1,6 @@
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../../../../common/hooks/useMediaQuery";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import { useEffect, useState } from "react";
 

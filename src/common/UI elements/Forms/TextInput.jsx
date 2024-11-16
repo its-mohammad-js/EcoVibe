@@ -11,6 +11,8 @@ const TextInput = (props) => {
     label,
   } = props;
 
+  console.log(style);
+
   return (
     <div className={`${style} w-full h-12`}>
       <label

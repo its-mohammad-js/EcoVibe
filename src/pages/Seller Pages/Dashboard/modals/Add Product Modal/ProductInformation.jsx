@@ -27,6 +27,10 @@ const inputsValidation = {
   Name: {
     required: "Please choose a name",
     minLength: { value: 3, message: "Min length is 3 characters" },
+    pattern: {
+      value: /^[a-zA-Z0-9 ]+$/,
+      message: "Name can only contain letters and numbers",
+    },
   },
   Category: {
     required: "Select Cateogry",

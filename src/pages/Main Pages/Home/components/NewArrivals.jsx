@@ -43,7 +43,7 @@ function NewArrivals() {
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8 flex flex-col gap-y-6 md:gap-y-8 px-4">
-      {/* best product types */}
+      {/* top product types */}
       <div
         id="slide"
         className="flex flex-col gap-y-6 lg:flex-row bg-primary-300/10 rounded-xl items-center justify-between px-4 py-2 lg:h-96"
@@ -148,20 +148,19 @@ const CustomizedProducts = () => {
       id="slide"
       className="flex flex-col md:flex-row items-center justify-between rounded-xl bg-primary-500/15 md:h-[500px]"
     >
-      <div className="md:w-1/2 h-full">
+      <div className="md:w-2/5 h-full">
         {/* title and description */}
         <div className="w-full h-full flex flex-col items-start justify-evenly px-6 py-3">
           <span className="text-accent-400 font-bold">TREND PRODUCT</span>
           <h2 className="text-5xl font-bold">
             Shopping The Way <br /> You Want
           </h2>
-          <p className="text-lg">
+          <p className="text-lg md:line-clamp-6 xl:line-clamp-none">
             Personalized Experiences Await! 🛍️💫 Customize Your Shopping Journey
             and Make it Yours! 🛒✨ Discover Tailored Options That Speak to Your
             Style! 💃🕺 Your Ideal Shopping Experience Awaits - Let's Get
             Started! 🎉🛍️ Shop with Freedom and Joy, Just the Way You
-            Envisioned! 🌟🛒 Embrace Shopping on Your Terms - Your Desires, Your
-            Choices! 💖🛍️
+            Envisioned! 🌟🛒
           </p>
 
           <button className="self-end px-6 py-3 bg-primary-700 hover:bg-primary-600 hover:-translate-y-2 shadow-2xl shadow-transparent hover:shadow-primary-500 transition-all mt-4 md:mt-0 md:mb-2 text-white rounded-xl">
@@ -169,7 +168,7 @@ const CustomizedProducts = () => {
           </button>
         </div>
       </div>
-      <div className="md:w-1/2 flex items-center h-full justify-center">
+      <div className="md:w-3/5 flex items-center h-full justify-center">
         {/* product card */}
         {!loading && filteredProducts.length && (
           <motion.div

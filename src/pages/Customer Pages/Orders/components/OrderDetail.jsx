@@ -1,7 +1,7 @@
 import { CgCheck, CgClose } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import { deliveryInfo, loadingIcon, timestampToDate } from "constants";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CiCalendar } from "react-icons/ci";
 import { BiArrowBack } from "react-icons/bi";
 import toast from "react-hot-toast";
@@ -28,7 +28,7 @@ function OrderDetail({ order, onModalClose, updateOrders }) {
   useDisableScroll();
 
   // change order delivery status
-  async function changeOrder() {
+  async function cancelOrder() {
     // alert warning on first try to cancel order
     if (!cancelAlert) {
       setAlert(true);
@@ -126,7 +126,7 @@ function OrderDetail({ order, onModalClose, updateOrders }) {
               {delivery_status === 100 && (
                 <div className="fixed bottom-0 px-4 py-2 bg-gray-50 w-full left-0 lg:static lg:w-fit lg:p-0">
                   <button
-                    onClick={changeOrder}
+                    onClick={cancelOrder}
                     className="px-4 py-2 border-2 font-medium border-primary-500 text-primary-500 rounded-md float-right"
                   >
                     Cancel Order
@@ -275,7 +275,7 @@ function OrderDetail({ order, onModalClose, updateOrders }) {
             <IconicWarningAlert
               title="Are Sure About To Cancel This Order ?"
               subTitle="Back To Orders"
-              callBack={changeOrder}
+              callBack={cancelOrder}
               onClose={() => setAlert(false)}
             />
           )}

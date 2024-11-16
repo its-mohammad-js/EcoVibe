@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import ReactStars from "react-stars";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import RatesChartLoader from "UI/Loaders/RatesChartLoader";
+import { useDashboardData } from "../../DashboardContext";
 
 const COLORS = ["#d0d6fb", "#7384f2", "#1632e9", "#09145d"];
 
@@ -17,15 +18,14 @@ const ranges = [
 function RatesChart() {
   const [chartData, setChartData] = useState([]);
   const [error, setError] = useState(null);
-  // read products data (rates)
-  const { data: productsList, loading } = useSelector(
-    (state) => state.products
-  );
+  const {
+    products: { products, loading },
+  } = useDashboardData();
 
   // get rates range on component mount
   useEffect(() => {
     // an array of all rate number
-    const allRates = productsList.flatMap((product) =>
+    const allRates = products.flatMap((product) =>
       product.Stars.map((num) => num)
     );
     if (!allRates.length) {
@@ -40,7 +40,7 @@ function RatesChart() {
       // set to chart data
       setChartData(counts);
     }
-  }, []);
+  }, [products]);
 
   if (loading) return <RatesChartLoader animate />;
 

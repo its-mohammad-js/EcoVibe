@@ -1,6 +1,5 @@
-import { AiOutlineRight } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import { BiUser } from "react-icons/bi";
 import StorySlide from "./StorySlide";
 
@@ -141,7 +140,7 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
       ref={containerRef}
       className={`${
         isChangingSlide ? "overflow-hidden" : "overflow-auto"
-      } fixed bg-gray-950/80 inset-0 z-50 lg:flex items-center justify-center snap-x snap-mandatory lg:snap-none`}
+      } fixed bg-gray-950/80 hidden-scroll-bar inset-0 z-50 lg:flex items-center justify-center snap-x snap-mandatory lg:snap-none`}
     >
       <div
         onTouchMove={(e) => onContainerTouchEvents(e, "move")}

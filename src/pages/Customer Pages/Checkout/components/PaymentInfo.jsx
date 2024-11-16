@@ -4,7 +4,7 @@ import { FaCheck } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../../../../common/hooks/useMediaQuery";
 import { generateId } from "constants";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "src/config/firebase";

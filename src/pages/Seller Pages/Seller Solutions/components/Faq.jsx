@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../../../../common/hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
 
 const faqInfo = [

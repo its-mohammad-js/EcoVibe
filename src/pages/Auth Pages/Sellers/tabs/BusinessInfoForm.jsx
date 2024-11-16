@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import TextInput from "UI/Forms/TextInput";
+import { validateLocation } from "../../../../common/utils/constants";
 
 const inputsInfo = [
   { name: "business_name", placeholder: "enter your business name" },
@@ -28,14 +29,21 @@ function BusinessInfoForm() {
   const { loading, userType } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
 
-  function submitBusinessInfo(formData) {
+  async function submitBusinessInfo(formData) {
+    // check validation of form & selected location
+    const locationIsValid = await validateLocation(location[0], location[1]);
+    if (!locationIsValid) {
+      toast.error("Please select a valid location");
+    }
     if (isValid && !location) {
       toast("Please Add Your Location");
     } else {
+      // add business information to seller data
       const sellerBusinessInfo = {
         ...formData,
         locations: [{ lat: location[0], lng: location[1] }],
       };
+      // update seller data with new data
       dispatch(
         updateUserData({
           userType:

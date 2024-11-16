@@ -61,7 +61,7 @@ function SellerAuthPage() {
   // main route steps
   else
     return (
-      <div className="mx-auto 2xl:max-w-screen-2xl min-h-screen">
+      <div className="mx-auto 2xl:max-w-screen-2xl">
         {/* step bread crumb's */}
         <div className="mx-auto w-fit flex items-center justify-evenly gap-x-5 my-6 relative">
           {/* step's' */}

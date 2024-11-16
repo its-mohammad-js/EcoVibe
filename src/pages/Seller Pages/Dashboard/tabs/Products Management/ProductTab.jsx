@@ -51,8 +51,6 @@ function ProductTab() {
     }
   }, [params, products]);
 
-  // console.log(modalIsShow, selectedItem);
-
   // set products list to filtered items , as initial state
   useEffect(() => {
     setItems(products);
@@ -73,15 +71,6 @@ function ProductTab() {
     // display filtered items
     setItems(filteredProducts);
   }
-
-  // useEffect(() => {
-  //   if (!params?.modalKey) {
-  //     setDetail({
-  //       modalIsShow: false,
-  //       selectedItem: null,
-  //     });
-  //   }
-  // }, [products]);
 
   if (loading)
     // on loaidng case

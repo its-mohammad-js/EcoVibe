@@ -1,5 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../../../../common/hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 

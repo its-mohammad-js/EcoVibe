@@ -1,6 +1,6 @@
 import ReactStars from "react-stars";
 import { fakeArray } from "constants";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 function ProductReviewLoader() {
   const isMobile = useMediaQuery({ maxWidth: 480 });
@@ -24,7 +24,7 @@ function ProductReviewLoader() {
             </div>
             {/* main content */}
             <div className="mt-1 flex flex-col gap-1 py-1">
-              <p className="text-sm text-gray-700 flex flex-col gap-y-4">
+              <p className="text-gray-700 flex flex-col gap-y-4">
                 <p className="w-full h-1 bg-gray-400"></p>
                 <p className="w-1/2 h-1 bg-gray-400"></p>
                 <p className="w-2/3 h-1 bg-gray-400"></p>

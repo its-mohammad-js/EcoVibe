@@ -9,6 +9,7 @@ import { BiUser } from "react-icons/bi";
 import { BsTrash3 } from "react-icons/bs";
 import { IoTrashBinOutline } from "react-icons/io5";
 import useOutSideClick from "../../hooks/UseOutsideClick";
+import { motion } from "framer-motion";
 
 function StorySlide(props) {
   const [initialTimer] = useState(5000); // Default duration for each slide
@@ -20,6 +21,7 @@ function StorySlide(props) {
   const [contextMenuShow, setContextMenu] = useState(false);
   useOutSideClick(contextMenuRef, () => setContextMenu(false));
   const videoRef = useRef();
+
   // destructure props
   const {
     changeStoryHandler,
@@ -32,45 +34,7 @@ function StorySlide(props) {
     isChangingSlide,
   } = props;
 
-  //   // set timer to change current slide
-  //   useEffect(() => {
-  //     if (isChangingSlide) {
-  //       clearTimeout(timerRef.current);
-  //       return;
-  //     }
-
-  //     const changeSlideTimeout = setTimeout(() => {
-  //       changeStoryHandler("next");
-  //     }, timer);
-
-  //     timerRef.current = changeSlideTimeout;
-
-  //     return () => {
-  //       clearTimeout(timerRef.current);
-  //     };
-  //   }, [currentListIndex, currentSlideIndex, isChangingSlide, timer]);
-
-  //   // set timer duration on different slides
-  //   useEffect(() => {
-  //     function handleUpdateTime(e) {
-  //       if (videoRef.current) {
-  //         const duration = e.target.duration.toFixed();
-
-  //         setTimer(duration <= 60 ? duration * 1000 : 60000);
-  //       }
-  //     }
-
-  //     videoRef.current?.addEventListener("timeupdate", handleUpdateTime);
-
-  //     return () => {
-  //       videoRef.current?.removeEventListener("timeupdate", handleUpdateTime);
-  //       setTimer(5000);
-  //     };
-  //   }, [currentSlideIndex, currentListIndex]);
-
   // Timer effect: updates when remainingTime or pause changes
-
-  //
   useEffect(() => {
     if (pause) {
       // Pause timer logic
@@ -86,23 +50,30 @@ function StorySlide(props) {
     return () => clearTimeout(timerRef.current);
   }, [remainingTime, pause]);
 
-  // Manage pause/resume when context menu is shown/hidden
+  // Manage pause/resume to update remining time
   useEffect(() => {
-    if (contextMenuShow) {
+    if (pause) {
       // Pause: calculate remaining time and stop the timer
       const elapsedTime = Date.now() - startTimeRef.current;
       setRemainingTime((prev) => prev - elapsedTime);
-      setPause(true);
-    } else {
-      // Resume: restart the timer with the remaining time
-      setPause(false);
     }
-  }, [contextMenuShow]);
+  }, [pause]);
 
   // Reset remainingTime when slide changes
   useEffect(() => {
     setRemainingTime(initialTimer);
   }, [currentSlideIndex]);
+
+  // Update video playback based on pause state
+  useEffect(() => {
+    if (videoRef.current) {
+      if (pause) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+    }
+  }, [pause]);
 
   return (
     <div className="size-full relative bg-gray-950 lg:rounded-xl flex items-center">
@@ -131,15 +102,22 @@ function StorySlide(props) {
               } w-full h-1 rounded-xl overflow-hidden`}
             >
               {i === currentSlideIndex && (
-                <div
-                  style={{
-                    animation: `increase-width ${initialTimer / 1000}s linear`,
-                    animationPlayState: contextMenuShow ? "paused" : "running",
-                    // animation: `increase-width ${timer / 1000}s linear`,
-                    // animationPlayState: contextMenuShow ? "paused" : "running",
-                  }}
+                <motion.div
                   className="bg-primary-300 h-1"
-                ></div>
+                  initial={{ width: "0%" }}
+                  animate={{
+                    width: pause
+                      ? `${
+                          ((initialTimer - remainingTime) / initialTimer) * 100
+                        }%`
+                      : "100%",
+                  }}
+                  transition={{
+                    duration: remainingTime / 1000,
+                    ease: "linear",
+                  }}
+                  key={remainingTime}
+                />
               )}
             </p>
           ))}
@@ -161,6 +139,13 @@ function StorySlide(props) {
             ref={contextMenuRef}
             className="flex items-center gap-x-2 relative"
           >
+            <button
+              onClick={() => setPause(!pause)}
+              className="text-xl text-gray-50"
+            >
+              {pause ? "play" : "pause"}
+            </button>
+
             <button
               onClick={() => setContextMenu(true)}
               className="text-3xl text-gray-50"
@@ -202,6 +187,16 @@ function StorySlide(props) {
             ) : (
               <video
                 ref={videoRef}
+                // update remaining time on video play
+                onPlaying={(e) => {
+                  const currentDuration = (
+                    e.target.duration - e.target.currentTime
+                  ).toFixed();
+
+                  setRemainingTime(
+                    currentDuration <= 60 ? currentDuration * 1000 : 60000
+                  );
+                }}
                 autoPlay={currentSlideIndex === slideindex}
                 className="size-full object-cover"
                 src={story.contentUrl}

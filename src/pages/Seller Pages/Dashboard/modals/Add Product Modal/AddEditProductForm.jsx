@@ -32,7 +32,7 @@ function AddEditProductForm({
     register,
     setValue,
     getValues,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
     watch,
   } = useForm();
@@ -100,6 +100,10 @@ function AddEditProductForm({
 
   // change tab handler
   function changeTab() {
+    // stay on current step if current form isn't valid
+    if (!isValid) {
+      return;
+    }
     // general informations
     const { Name, Type, Category, Price } = getValues();
     // // options data
@@ -111,7 +115,6 @@ function AddEditProductForm({
       uploadProduct();
       return;
     }
-
     // change tab
     if (
       currentStep === 1 &&
@@ -132,10 +135,7 @@ function AddEditProductForm({
     <>
       {/* main add/edit product form */}
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(() => changeTab());
-        }}
+        onSubmit={handleSubmit(() => changeTab())}
         className="px-4 bg-gray-50 relative py-2 lg:px-6 lg:py-4 flex flex-col lg:gap-4 w-[95vw] lg:w-[50vw] xl:w-[40vw] h-5/6 lg:h-auto mx-auto lg:border border-gray-200 lg:shadow hover:shadow-2xl transition-all duration-300 rounded-md"
       >
         {/* step counter */}
@@ -249,7 +249,6 @@ function AddEditProductForm({
           </button>
           <button
             type="submit"
-            onClick={changeTab}
             className="px-4 py-2 bg-primary-500 text-gray-50 rounded-md border-2 border-primary-500 hover:bg-gray-50 hover:text-primary-500 transition-all lg:w-1/5"
           >
             {currentStep !== 3 ? "Next" : "Submit"}

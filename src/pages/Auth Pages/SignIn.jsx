@@ -14,6 +14,7 @@ const inputsOptions = [
     name: "email",
     placeholder: "Please Enter Your Email",
     validation: {
+      required: "Enter you email",
       minLength: {
         value: 4,
         message: "Minimum Length Is 4 Characters",
@@ -104,7 +105,7 @@ function SignInPage() {
             className="mt-2 px-4 py-2"
           >
             {/* log in with email & password */}
-            <div className="flex flex-col items-center gap-y-4 md:gap-y-4">
+            <div className="flex flex-col items-center gap-y-2">
               {inputsOptions.map((input, index) => (
                 <TextInput
                   key={index}
@@ -112,6 +113,7 @@ function SignInPage() {
                   register={{ ...register(input.name, input.validation) }}
                   error={errors[input.name]?.message}
                   type={input?.type}
+                  style={"h-fit [&>input]:py-3.5"}
                 />
               ))}
               {/* action button */}

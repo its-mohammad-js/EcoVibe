@@ -113,7 +113,7 @@ function SignUpSeller() {
         <div className="flex flex-col gap-y-2">
           {inputsInfo.map((input, index) => (
             <div className="flex flex-col gap-y-1" key={index}>
-              <h6 className="first-letter:uppercase text-gray-600">
+              <h6 className="first-letter:uppercase font-bold lg:text-lg text-gray-600">
                 {input.name.replace("_", " ")}
               </h6>
               <TextInput
@@ -134,7 +134,7 @@ function SignUpSeller() {
                 }}
                 error={errors[input.name]?.message}
                 type={input?.type || "text"}
-                o
+                style={"h-fit [&>input]:py-4"}
               />
             </div>
           ))}
@@ -144,11 +144,7 @@ function SignUpSeller() {
           <button
             type="submit"
             disabled={loading}
-            className={`${
-              isValid
-                ? "bg-primary-600 text-gray-50"
-                : "bg-gray-400 text-gray-50"
-            } py-2 rounded-3xl text-lg transition-all disabled:animate-pulse`}
+            className="bg-primary-600 hover:bg-primary-800 text-gray-50 py-2 rounded-3xl text-lg transition-all disabled:animate-pulse"
           >
             Create New Account
           </button>
@@ -189,12 +185,10 @@ function SignUpSeller() {
               window.scrollTo(0, 0);
               navigate("/EcoVibe/sign-in");
             }}
-            className="flex items-center justify-between gap-x-2 px-4 py-1 border-2 text-lg border-gray-300 rounded-3xl disabled:animate-pulse"
+            className="flex items-center gap-2 px-4 py-1 text-lg"
           >
-            <p className="text-4xl">
-              <RiDoorLine />
-            </p>
-            <p>Sign In instead</p> &nbsp;
+            <p>Already have account?</p>
+            <p className="font-semibold underline">login instead</p>
           </button>
         </div>
       </form>

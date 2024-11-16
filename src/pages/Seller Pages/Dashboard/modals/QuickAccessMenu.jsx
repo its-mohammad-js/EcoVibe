@@ -17,7 +17,9 @@ function QuickAccessMenu({ onModalChange }) {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const { userId } = useSelector((state) => state.userData);
+  const { userId, loading, auth_status } = useSelector(
+    (state) => state.userData
+  );
   // ref to menu
   const menuRef = useRef();
   // close menu on outside click event
@@ -153,10 +155,11 @@ function QuickAccessMenu({ onModalChange }) {
         >
           {/* open menu button */}
           <button
+            disabled={loading || auth_status !== 200}
             onClick={() => setMenu((prev) => !prev)}
             className={`${
               openMenu ? "translate-x-[4.25rem]" : "translate-x-24"
-            } bg-primary-500 z-10 absolute top-2 transition-all duration-500 p-1 rounded-r-lg`}
+            } bg-primary-500 z-10 absolute top-2 transition-all duration-500 p-1 rounded-r-lg disabled:-translate-x-48`}
           >
             <p
               className={`${

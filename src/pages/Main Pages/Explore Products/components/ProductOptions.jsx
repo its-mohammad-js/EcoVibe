@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { db } from "src/config/firebase";
 import { FaInfoCircle } from "react-icons/fa";
 import FilterOptionRow from "./FilterOptionRow";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../../../../common/hooks/useMediaQuery";
 import { BiSort } from "react-icons/bi";
 import { getProductOption } from "constants";
 

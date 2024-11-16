@@ -7,7 +7,7 @@ import {
   FaSortAmountDown,
   FaTrash,
 } from "react-icons/fa";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../../../../common/hooks/useMediaQuery";
 import { MdClose } from "react-icons/md";
 import {
   supportedSortOptions,
