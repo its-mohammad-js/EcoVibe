@@ -44,6 +44,8 @@ function ChatPage() {
     }
   }
 
+  
+
   return (
     <RoomsContext>
       <div className="mx-auto 2xl:max-w-screen-2xl fixed inset-0 z-50">

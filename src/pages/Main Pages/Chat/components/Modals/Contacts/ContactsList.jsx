@@ -97,8 +97,8 @@ function ContactsList({ onCloseModal }) {
 
     filteredUsers = userList.filter((user) => {
       const { personalInformation, businessInformation } = user;
-      const { first_name, last_name } = personalInformation;
-      const { business_name } = businessInformation;
+      const { first_name, last_name } = personalInformation || {};
+      const { business_name } = businessInformation || {};
 
       if (
         first_name.toLowerCase().includes(query) ||

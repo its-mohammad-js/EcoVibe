@@ -29,7 +29,6 @@ function RoomsContext({ children }) {
   // selected message mode state (edit || reply)
   const [messageMode, setMode] = useState(null);
   // necessary data & hooks
-  const params = useParams();
   const {
     userId,
     personalInformation,
@@ -43,13 +42,26 @@ function RoomsContext({ children }) {
   const location = useLocation();
   const queryRoomId = location?.state?.roomId;
 
+  // reset query state
+  useEffect(() => {
+    if (selectedRoom) {
+      navigate(location.pathname, { roomId: null });
+    }
+  }, [selectedRoom]);
+
+  // update selected room
   useEffect(() => {
     if (queryRoomId) {
+      // find selected room from query state
       const findedRoom = rooms.find(
         (chatRoom) => chatRoom.roomId === queryRoomId
       );
-      console.log(findedRoom);
+      // set selected room
       setSelectedRoom(findedRoom);
+    } else if (selectedRoom) {
+      setSelectedRoom(
+        rooms.find((room) => room.roomId === selectedRoom.roomId)
+      );
     }
   }, [queryRoomId, rooms]);
 
@@ -96,16 +108,16 @@ function RoomsContext({ children }) {
   }
 
   // set last seen on disconnect
-  useEffect(() => {
-    if (selectedRoom && userId) {
-      onDisconnect(
-        ref(db, `rooms/${selectedRoom.roomId}/${userId}/last_seen`)
-      ).set({
-        status: "offline",
-        date: serverTimestamp(),
-      });
-    }
-  }, [selectedRoom, userId]);
+  // useEffect(() => {
+  //   if (selectedRoom && userId) {
+  //     onDisconnect(
+  //       ref(db, `rooms/${selectedRoom.roomId}/${userId}/last_seen`)
+  //     ).set({
+  //       status: "offline",
+  //       date: serverTimestamp(),
+  //     });
+  //   }
+  // }, [selectedRoom, userId]);
 
   // get all chat rooms on app mount
   useEffect(() => {
@@ -135,11 +147,11 @@ function RoomsContext({ children }) {
 
   // reset selected message on close chat room
   useEffect(() => {
-    if (!selectedRoom && !location?.state?.roomId) {
+    if (!selectedRoom && !queryRoomId) {
       setSelectedMessage(null);
       setMode(null);
     }
-  }, [selectedRoom]);
+  }, [queryRoomId, selectedRoom]);
 
   // on create new chat room
   const createNewChatRoom = async (contact) => {

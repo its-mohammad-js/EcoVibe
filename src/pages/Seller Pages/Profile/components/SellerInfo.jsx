@@ -56,7 +56,7 @@ function SellerInfo({ onEditHandler }) {
     const dbRef = getDatabase();
 
     const room = await get(ref(dbRef, "rooms")).then((res) =>
-      Object.entries(res.val()).find(
+      Object?.entries(res.val() || {}).find(
         ([k, v]) =>
           v.members?.includes(currentUserId) &&
           v.members?.includes("j3zLI30uZAhzpzJzbi9a5Ccr9fJ3")

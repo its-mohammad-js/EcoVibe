@@ -34,9 +34,11 @@ function BusinessInfoForm() {
     const locationIsValid = await validateLocation(location[0], location[1]);
     if (!locationIsValid) {
       toast.error("Please select a valid location");
+      return;
     }
     if (isValid && !location) {
       toast("Please Add Your Location");
+      return;
     } else {
       // add business information to seller data
       const sellerBusinessInfo = {

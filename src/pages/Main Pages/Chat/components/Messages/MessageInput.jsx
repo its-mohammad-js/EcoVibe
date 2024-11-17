@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineClose, AiOutlineMail, AiOutlineSend } from "react-icons/ai";
-import { getDatabase, ref, update, serverTimestamp } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  update,
+  serverTimestamp,
+  set,
+} from "firebase/database";
 import { useSelector } from "react-redux";
 import { findIndex } from "lodash";
 import { generateId } from "constants";
@@ -39,6 +45,8 @@ function MessageInput({ setFocus }) {
   //
   const messageBoxRef = useRef();
   useOutSideClick(messageBoxRef, () => setFocus(false));
+
+  // console.log(selectedRoom?.messageList);
 
   // useEffect(() => {
   //   // window.addEventListener("touchmove", (e) => {

@@ -51,6 +51,8 @@ function SellerProfilePage() {
     loading: false,
   });
 
+  console.log(sellerStories);
+
   // fetch stories
   useEffect(() => {
     const fetchSellerStories = async () => {
