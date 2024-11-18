@@ -98,7 +98,7 @@ function RoomsContext({ children }) {
             ),
             reciverId: Object.keys(room).find(
               (key) =>
-                key !== userId && key !== "roomId" && key !== "messageList"
+                ![userId, "roomId", "messageList", "members"].includes(key)
             ),
           },
         }));
