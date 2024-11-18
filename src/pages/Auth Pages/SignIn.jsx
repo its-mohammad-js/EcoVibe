@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { signInUser } from "../../reducers/auth/userDataSlice";
 import { loadingIcon } from "constants";
@@ -55,9 +55,14 @@ function SignInPage() {
 
   // redirect authenticated user to home page
   useEffect(() => {
+    const isNewUser = JSON?.parse(localStorage.getItem("isNewUser"));
+    // navigate to profile / personal info form after sign in
     if (auth_status === 200) {
       toast.success("You're Already a User");
-      navigate("/EcoVibe/");
+      navigate(
+        isNewUser ? "/EcoVibe/Customers/personal-details" : "/EcoVibe/profile"
+      );
+      localStorage.removeItem("isNewUser");
     }
   }, [auth_status]);
 
@@ -148,7 +153,7 @@ function SignInPage() {
                 <button
                   disabled={loading}
                   onClick={() => {
-                    dispatch(signInUser({ method: "github" }));
+                    dispatch(signInUser({ method: "gitHub" }));
                   }}
                   type="button"
                   className="px-2 py-2 border-2 border-gray-200 text-2xl md:text-3xl md:hover:-translate-y-2 transition-all hover:shadow-2xl rounded-xl shadow-md disabled:opacity-70 disabled:hover:translate-y-0 disabled:animate-pulse"

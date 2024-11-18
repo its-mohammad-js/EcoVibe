@@ -7,10 +7,10 @@ import TextInput from "UI/Forms/TextInput";
 function PersonalInformationForm() {
   const {
     register,
-    formState: { isValid },
+    formState: { isDirty },
     setValue,
     handleSubmit,
-  } = useForm({ mode: "all" });
+  } = useForm();
   // necessary data
   const { personalInformation, loading } = useSelector(
     (state) => state.userData
@@ -47,15 +47,12 @@ function PersonalInformationForm() {
       })}
       className="bg-white px-4 h-96 pt-4 border border-gray-400 rounded-md mt-2 flex flex-col gap-10 relative"
     >
-      <button
-        disabled={!isValid}
-        className="absolute right-3 -top-4 px-4 py-2 text-gray-50 rounded-md transition-all disabled:bg-gray-400 bg-primary-500"
-      >
+      <button className="absolute right-3 -top-4 px-4 py-2 text-gray-50 rounded-md transition-all bg-primary-500">
         Save Changes
       </button>
 
       {/* edit personal info inputs */}
-      {Object.entries({ first_name, birthday, last_name, address }).map(
+      {Object.entries({ first_name, last_name, birthday, address }).map(
         ([name], index) => (
           <TextInput
             label={name.replace("_", " ")}

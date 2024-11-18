@@ -160,10 +160,28 @@ function RoomsContext({ children }) {
       ({ members }) =>
         members.includes(userId) && members.includes(contact.userId)
     );
+
     // create new chat room
     if (!findedRoom) {
       try {
         const roomId = `FROM:${userId}&TO:${contact.userId}`;
+        console.log({
+          roomId,
+          // customer data
+          [userId]: {
+            ...personalInformation,
+            ...businessInformation,
+            userType,
+          },
+          // seller data
+          [contact.userId]: {
+            ...contact.personalInformation,
+            ...contact.businessInformation,
+            userType: contact.userType,
+          },
+          members: [userId, contact.userId],
+        });
+
         await set(ref(db, `rooms/${roomId}`), {
           roomId,
           // customer data
@@ -180,7 +198,6 @@ function RoomsContext({ children }) {
           },
           members: [userId, contact.userId],
         });
-        console.log(rooms);
 
         setSelectedRoom(rooms.find((room) => room.roomId === roomId));
       } catch (error) {

@@ -8,6 +8,7 @@ import { auth, db, gitHubProvider, googleProvider } from "src/config/firebase";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { avatarsUrl } from "/src/common/utils/constants";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 // default state
 const defaultUserData = {
@@ -138,6 +139,8 @@ export const signInUser = createAsyncThunk(
     try {
       // sign in with user selected method
       const user = await methodSwitcher(payload);
+      // console.log(user);
+
       // reference to user data on data base
       const userDataRef = doc(db, "users", user?.uid);
       // check user is existing or not (get user data from database)
@@ -153,9 +156,9 @@ export const signInUser = createAsyncThunk(
           wishlist: geustUserWishlist,
           cartData: [],
           personalInformation: {
-            email: user.email,
+            email: user?.email,
             profilePic: user.photoURL || avatarsUrl[2],
-            first_name: user?.name || "not set",
+            first_name: user?.name || user?.email || "not set",
           },
           orders: [],
           notifications: [],
@@ -166,15 +169,20 @@ export const signInUser = createAsyncThunk(
           auth_status: 200,
         };
         // create new cell on data base with gue
-        await createUserDataCell(user?.uid, {
-          wishlist: finalUserData?.wishlist,
-          personalInformation: finalUserData?.personalInformation,
-          currentStep: finalUserData?.currentStep,
-        });
+        await createUserDataCell(
+          user?.uid,
+          {
+            wishlist: finalUserData?.wishlist,
+            personalInformation: finalUserData?.personalInformation,
+            currentStep: finalUserData?.currentStep || "second-step",
+          },
+          finalUserData?.userType
+        );
         // store user data in local storage
         localStorage.setItem("userData", JSON.stringify({ userId: user?.uid }));
+        localStorage.setItem("isNewUser", JSON.stringify(true));
         // dispatch success
-        return fulfillWithValue(finalUserData);
+        return fulfillWithValue({ ...finalUserData, isNewUser: true });
       }
       // if user is already authenticated (existing users)
       else {
@@ -349,7 +357,9 @@ const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(signInUser.fulfilled, (state, { payload }) => {
-      toast.success("Welcome back");
+      toast.success(
+        payload?.isNewUser ? "Welcome to eco vibe family" : "Welcome back"
+      );
       // merge state with user data
       if (payload) {
         for (const key in payload) {

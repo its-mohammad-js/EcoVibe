@@ -27,6 +27,15 @@ function MessageLayout({
   const { userId } = useSelector((state) => state.userData);
   const isOwner = (senderId) => senderId === userId;
 
+  // hidden window scroll-bar on mount
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   useEffect(() => {
     if (message?.replyTo) {
       const repliedMessage = selectedRoom.messageList?.find(

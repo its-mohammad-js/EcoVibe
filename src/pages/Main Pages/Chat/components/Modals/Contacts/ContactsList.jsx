@@ -180,7 +180,7 @@ function ContactsList({ onCloseModal }) {
                 />
               ))
             ) : (
-              <h4 className="text-xl font-bold text-center">
+              <h4 className="text-xl font-bold text-center flex-1 flex items-center justify-center">
                 You have no &nbsp;
                 {userType === "customer" ? "order yet..." : "customer yet"}, you
                 can change filter to all sellers

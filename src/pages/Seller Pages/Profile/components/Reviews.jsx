@@ -18,7 +18,7 @@ function Reviews() {
   }
 
   return (
-    <div className="flex flex-col gap-y-2 pb-2">
+    <div className="flex flex-col gap-y-2 pb-2 w-full">
       {reviews.map((review, i) => (
         <div
           key={i}

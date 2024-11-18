@@ -8,6 +8,7 @@ import {
   AiOutlineUser,
   AiOutlineBarChart,
 } from "react-icons/ai";
+import { RiContactsBook2Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +19,7 @@ function SideNav({ onCloseNav, navIsShow, openContacts }) {
   const { personalInformation, userType, userId } = useSelector(
     (state) => state.userData
   );
+  const { auth_status } = useSelector((state) => state.userData);
   const navigate = useNavigate();
 
   return (
@@ -48,13 +50,15 @@ function SideNav({ onCloseNav, navIsShow, openContacts }) {
           </button>
           {/* search messages btn */}
           <button
+            disabled={auth_status !== 200}
             onClick={() => {
               onCloseNav();
               openContacts();
             }}
-            className="text-3xl group flex items-center relative hover:bg-gray-200 transition-all px-2 rounded-lg py-2"
+            className="text-3xl disabled:hidden group flex items-center relative hover:bg-gray-200 transition-all px-2 rounded-lg py-2"
           >
-            <AiOutlineSearch />
+            <RiContactsBook2Line />
+
             <p className="absolute z-50 left-12 shadow-2xl shadow-gray-400 text-base bg-gray-50 border border-gray-300 px-4 py-1 rounded-xl invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all translate-y-10 group-hover:translate-y-0 text-nowrap">
               Search Contacts
             </p>
