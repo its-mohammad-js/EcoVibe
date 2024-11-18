@@ -11,7 +11,7 @@ function LocationTypeMessage({ message }) {
       {/* main location */}
       <div
         className={`${
-          fullScreenMap && "fixed inset-0 h-auto z-40"
+          fullScreenMap && "fixed inset-0 !h-full z-40"
         } w-full h-80 lg:h-96 rounded-lg overflow-hidden`}
       >
         <div onClick={() => setFullScreen(true)} className="size-full">

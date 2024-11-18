@@ -70,6 +70,8 @@ function RoomsContext({ children }) {
     const roomsRef = ref(db, "rooms");
 
     onValue(roomsRef, (snapshot) => {
+      console.log(snapshot.val());
+
       if (!snapshot.exists()) {
         setRooms({
           rooms: [],
@@ -92,7 +94,7 @@ function RoomsContext({ children }) {
             ...find(
               room,
               (v, key) =>
-                key !== userId && key !== "roomId" && key !== "messageList"
+                ![userId, "roomId", "messageList", "members"].includes(key)
             ),
             reciverId: Object.keys(room).find(
               (key) =>
