@@ -53,7 +53,11 @@ function AddEditProductForm({
     const Images = !isEdit
       ? JSON.parse(getValues().Images)
       : getValues().Images;
+    // define product id
     const productId = !isEdit ? generateId(userId) : getValues().id;
+
+    console.log("ok");
+    console.log(getValues()?.Tags);
 
     if (Images.length > 0) {
       // add new product to data base
@@ -62,7 +66,7 @@ function AddEditProductForm({
         // add new product to data base
         await setDoc(doc(db, "Products", productId), {
           Category: getValues().Category,
-          Collection: getValues().Collection || "",
+          // Collection: getValues().Collection || "",
           Description: getValues().Description,
           Images,
           Name: getValues().Name,
@@ -71,7 +75,9 @@ function AddEditProductForm({
             : getValues()?.Options,
           Price: getValues().Price,
           Stars: [0],
-          Tags: getValues()?.Tags?.length ? JSON.parse(getValues()?.Tags) : [],
+          Tags: getValues()?.Tags?.length
+            ? JSON.parse(getValues()?.Tags) || getValues()?.Tags
+            : [],
           Thumbnail: Images[0] || "",
           Type: getValues().Type,
           SellerId: userId,

@@ -53,7 +53,7 @@ export function filterProducts(products, filters) {
     // Match if the product has the collection specified in the filters
     if (
       collections.length > 0 &&
-      !collections.includes(product.Collection.toLowerCase())
+      !collections.includes(product.Collection?.toLowerCase())
     ) {
       match = false;
     }
