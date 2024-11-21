@@ -160,7 +160,7 @@ const MobileNavbar = () => {
         <div
           className={`${
             sideMenuShow ? "translate-x-0" : "-translate-x-96"
-          } w-3/4 h-[93vh] bg-gray-50 z-10 transition-all duration-500 flex flex-col items-center`}
+          } w-3/5 h-screen bg-gray-50 z-10 transition-all duration-500 flex flex-col items-center`}
         >
           {/* user profile information */}
           <div className="w-full h-20 bg-gray-200 flex items-center justify-between px-4 py-2">
@@ -303,7 +303,7 @@ const MobileNavbar = () => {
         {/* menu background */}
         <div
           onClick={() => setSideMenu(false)}
-          className="w-full h-full bg-black bg-opacity-30 -z-10 absolute inset-0"
+          className="w-full h-full bg-black backdrop-blur-sm bg-opacity-30 -z-10 absolute inset-0"
         ></div>
       </div>
     </>
