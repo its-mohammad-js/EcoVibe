@@ -146,7 +146,7 @@ function LastStories() {
               created at: {timestampToDate(currentStory.createdAt)}
             </h4>
             <p className="font-semibold text-gray-300">
-              created by {first_name + " " + last_name}
+              created by {first_name + " " + (last_name ? last_name : "")}
             </p>
 
             <button

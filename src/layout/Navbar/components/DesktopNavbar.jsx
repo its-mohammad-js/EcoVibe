@@ -4,7 +4,7 @@ import { MdMenu } from "react-icons/md";
 import { BsShopWindow } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { routesInfo, supportedCategories } from "constants";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { BiCart, BiChevronDown, BiSearch } from "react-icons/bi";
 import { FaHeart, FaUser } from "react-icons/fa";
@@ -15,6 +15,8 @@ import SearchModal from "../modals/SearchModal";
 
 // search modal isn't render in this route
 const notAllowedSearchRoute = "/EcoVibe/Explore-Products/";
+// navbar change poition on this routes
+const stickyRoutes = ["/EcoVibe/sellers-solutions"];
 
 const DesktopNavbar = () => {
   // quick access menu state & hooks
@@ -27,18 +29,70 @@ const DesktopNavbar = () => {
   useOutSideClick(searchModalRef, () => setSearchModal(false));
   // sub menu content state
   const [subMenu, setSubMenu] = useState(0);
-  // necessary data & hooks
+  // current user info
   const { personalInformation, userId } = useSelector(
     (state) => state.userData
   );
-
+  // necessary data & hooks
   const navigate = useNavigate();
   const location = useLocation();
+  const navbarRef = useRef(); // ref to navbar
 
-  
+  // change navbar posiotion on window scroll
+  useEffect(() => {
+    // destructure navbar from ref
+    const navbarEl = navbarRef?.current;
+
+    // reset navbar style & remove handle scroll event in other routes
+    if (!stickyRoutes.includes(location.pathname)) {
+      navbarEl.style.opacity = 1;
+      navbarEl.style.transform = "none";
+      navbarEl.style.position = "relative";
+      window.removeEventListener("scroll", handleScroll);
+      return;
+    }
+
+    // change navbar position functionality
+    function handleScroll() {
+      // define window scroll
+      const scrollY = window.scrollY;
+      // hidden scroll bar
+      if (scrollY <= 100) {
+        navbarEl.style.position = "fixed";
+        navbarEl.style.opacity = 0;
+        navbarEl.style.transform = "translateY(-50%)";
+      }
+      // diplay on user scroll
+      else {
+        navbarEl.style.opacity = 1;
+        navbarEl.style.position = "fixed";
+        navbarEl.style.transform = "translateY(0)";
+      }
+      // hidden after hero section
+      if (scrollY >= 700) {
+        navbarEl.style.opacity = 0;
+      }
+    }
+
+    // set handle scroll to navbar (only in allowed routes)
+    window.addEventListener("scroll", handleScroll);
+    // call handle scroll to change navbar position on mount
+    handleScroll();
+
+    // reset events on um-mount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [location.pathname]);
 
   return (
-    <div className="flex flex-col mx-auto 2xl:max-w-screen-2xl">
+    <div
+      ref={navbarRef}
+      className={`${
+        stickyRoutes.includes(location.pathname) &&
+        "fixed opacity-0 z-50 bg-gray-50 [&>div]:border-b-0 w-full"
+      } flex flex-col transition-all mx-auto 2xl:max-w-screen-2xl`}
+    >
       {/* header links (only display on home page) */}
       <div
         className={`${
@@ -65,7 +119,7 @@ const DesktopNavbar = () => {
           onClick={() => {
             navigate("/EcoVibe/");
           }}
-          className="flex items-end justify-center gap-x-1.5 cursor-pointer"
+          className="flex items-end mb-1.5 justify-center gap-x-1.5 cursor-pointer"
         >
           <motion.p
             initial={{ y: 10 }}
@@ -90,32 +144,32 @@ const DesktopNavbar = () => {
         >
           <Link
             to="/EcoVibe/"
-            className="text-xl text-nowrap hover:text-primary-600 transition-all"
+            className="text-xl font-medium text-nowrap hover:text-primary-600 transition-all"
           >
             Home
           </Link>
           <Link
             to="/EcoVibe/Shop"
-            className="text-xl text-nowrap hover:text-primary-600 transition-all"
+            className="text-xl font-medium text-nowrap hover:text-primary-600 transition-all"
           >
             Shop
           </Link>
           <Link
             to="/EcoVibe/Explore-products/"
-            className="text-xl text-nowrap hover:text-primary-600 transition-all"
+            className="text-xl font-medium text-nowrap hover:text-primary-600 transition-all"
           >
             Explore
           </Link>
           <Link
             to="/EcoVibe/"
-            className="text-xl text-nowrap hover:text-primary-600 transition-all"
+            className="text-xl font-medium text-nowrap hover:text-primary-600 transition-all"
           >
             Contact
           </Link>
 
           <Link
             to="/EcoVibe/"
-            className="text-xl text-nowrap hover:text-primary-600 transition-all"
+            className="text-lg font-medium text-nowrap hover:text-primary-600 transition-all"
           >
             About Me
           </Link>

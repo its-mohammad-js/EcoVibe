@@ -69,8 +69,10 @@ function SellersStories() {
                 alt="author-profile"
                 className="size-20 rounded-full ring-2"
               />
-              <p className="font-semibold">{story[0].author.first_name}</p>
-              <p className="text-sm">{story[0].author.last_name}</p>
+              <p className="font-semibold w-20 text-center break-words line-clamp-1">
+                {story[0].author.first_name}
+              </p>
+              <p className="text-sm text-center">{story[0].author.last_name}</p>
             </div>
           ))}
         </div>

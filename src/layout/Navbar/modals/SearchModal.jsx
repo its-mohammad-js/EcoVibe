@@ -97,7 +97,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
           modalIsShow
             ? "visible opacity-100 translate-y-0"
             : "invisible opacity-0 translate-y-96"
-        } absolute top-0 w-full z-50 h-screen lg:h-[85vh] transition-all duration-300 lg:!translate-y-0`}
+        } absolute top-0 w-full z-50 lg:h-[95vh] transition-all duration-300 lg:!translate-y-0`}
       >
         {/* modal wrapper */}
         <div className="size-full bg-gray-50 rounded-md pt-2 px-2 lg:py-1 shadow-2xl z-50">
@@ -229,7 +229,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
           modalIsShow ? "opacity-100 visible" : "opacity-0 invisible"
         } ${
           location.pathname === "/EcoVibe/" ? "top-[7.5rem]" : "top-20"
-        } hidden lg:block transition-all duration-300 fixed inset-0 bg-gray-900/50 z-40`}
+        } hidden lg:block transition-all duration-300 fixed inset-0 bg-gray-900/80 z-40`}
       ></div>
     </>
   );

@@ -3,7 +3,7 @@ import { FaArrowRight, FaHeart, FaUser } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { supportedCategories, isInArray } from "constants";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   TbCards,
   TbCategory,
@@ -30,7 +30,7 @@ const MobileNavbar = () => {
   // detect pathname for mobile navbar
   const location = useLocation();
   // mobile menu state
-  const [SideMenuShow, setSideMenu] = useState(false);
+  const [sideMenuShow, setSideMenu] = useState(false);
   // search modal state
   const [searchShow, setSearchModal] = useState(false);
   // necessary hooks & data
@@ -42,20 +42,35 @@ const MobileNavbar = () => {
   const qickMenuRef = useRef();
   useOutSideClick(qickMenuRef, () => setAccessMenu(false));
 
+  useEffect(() => {
+    document.body.style.overflow = sideMenuShow ? "hidden" : "auto";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [sideMenuShow]);
+
   return (
-    <div className="">
+    <>
       {/* header navbar */}
       <div className="flex flex-col gap-y-3 w-full">
         {/* top buttons */}
-        <div className="flex items-center bg-white justify-between shadow-lg px-2 py-4">
+        <div className="flex items-center bg-gray-50 justify-between shadow-lg px-3 py-4">
           <h2
             onClick={() => setSideMenu(true)}
             className="flex items-center justify-center gap-x-1 cursor-pointer"
           >
             <span>
-              <BiMenu className="text-2xl" />
+              <BiMenu className="text-3xl" />
             </span>
-            <span className="text-xl font-bold">Home</span>
+            <span className="text-xl font-bold">
+              {
+                location.pathname
+                  .replace("/EcoVibe/", "")
+                  .replaceAll("/", " ")
+                  .split(" ")[0]
+              }
+            </span>
           </h2>
 
           <div
@@ -72,18 +87,10 @@ const MobileNavbar = () => {
             {/* quick access menu */}
             <QuickAccessMenu menuIsShow={qucickAccessMenuShow} />
             {/* wish list btn */}
-            <button
-              onClick={() => {
-                setAccessMenu(false);
-                navigate("/EcoVibe/bag/wish-list");
-              }}
-            >
-              <FaHeart className="text-2xl" />
-            </button>
           </div>
         </div>
         {/* search modal */}
-        <div className="">
+        <>
           {/* fake input */}
           <div
             onClick={() => setSearchModal(true)}
@@ -104,7 +111,7 @@ const MobileNavbar = () => {
             modalIsShow={searchShow}
             onCloseModal={() => setSearchModal(false)}
           />
-        </div>
+        </>
         {/* categories section */}
         <div className={`${location.pathname !== "/EcoVibe/" && "hidden"} `}>
           {/* title */}
@@ -142,17 +149,18 @@ const MobileNavbar = () => {
           </div>
         </div>
       </div>
+
       {/* side menu */}
       <div
         className={`${
-          SideMenuShow ? "opacity-100 visible" : "opacity-0 invisible"
-        } fixed inset-0 z-30 transition-all duration-500`}
+          sideMenuShow ? "opacity-100 visible" : "opacity-0 invisible"
+        } fixed h-screen w-full top-0 z-30 transition-all duration-500`}
       >
         {/* main menu */}
         <div
           className={`${
-            SideMenuShow ? "translate-x-0" : "-translate-x-96"
-          } w-3/4 h-full bg-gray-100 z-10 transition-all duration-500 flex flex-col items-center`}
+            sideMenuShow ? "translate-x-0" : "-translate-x-96"
+          } w-3/4 h-[93vh] bg-gray-50 z-10 transition-all duration-500 flex flex-col items-center`}
         >
           {/* user profile information */}
           <div className="w-full h-20 bg-gray-200 flex items-center justify-between px-4 py-2">
@@ -189,7 +197,7 @@ const MobileNavbar = () => {
             </div>
           </div>
           {/* menu options and links */}
-          <div className="max-h-full overflow-auto w-full gap-y-1 mt-1 flex flex-col items-start">
+          <div className="h-full overflow-auto w-full gap-y-1 mt-1 flex flex-col items-start">
             <div
               onClick={() => navigate("/EcoVibe/")}
               className="flex items-center justify-start gap-x-2 px-4 py-4 w-full"
@@ -298,7 +306,7 @@ const MobileNavbar = () => {
           className="w-full h-full bg-black bg-opacity-30 -z-10 absolute inset-0"
         ></div>
       </div>
-    </div>
+    </>
   );
 };
 

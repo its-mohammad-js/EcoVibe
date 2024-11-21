@@ -33,9 +33,9 @@ function QuickAccessMenu({ menuIsShow }) {
           menuIsShow
             ? "opacity-100 visible translate-y-0"
             : "opacity-0 invisible translate-y-10"
-        } absolute top-12 w-72 h-56 -left-[14.5rem] md:-left-14 xl:-left-8 md:top-[4.25rem] bg-gray-100 rounded-md shadow-2xl shadow-gray-800 transition-all flex flex-col items-center justify-evenly z-50 px-2 py-1`}
+        } absolute top-12 w-72 h-56 -left-64 md:-left-14 xl:-left-8 md:top-[4.25rem] bg-gray-100 rounded-md shadow-2xl shadow-gray-800 transition-all flex flex-col items-center justify-evenly z-50 px-2 py-1`}
       >
-        <div className="tooltip absolute -top-1 z-40 bg-gray-300 right-12"></div>
+        <div className="tooltip absolute -top-1 z-40 bg-gray-300 right-6 md:right-12"></div>
         <h6 className="font-bold text-center">
           Ops!, it seems we cant fetch your data, please refresh the page
         </h6>
@@ -50,7 +50,7 @@ function QuickAccessMenu({ menuIsShow }) {
           menuIsShow
             ? "opacity-100 visible translate-y-0"
             : "opacity-0 invisible translate-y-10"
-        } absolute top-12 w-72 -left-[14.5rem] md:-left-14 xl:-left-8 md:top-[4.25rem] bg-gray-100 rounded-md shadow-2xl shadow-gray-800 transition-all flex flex-col items-center justify-center z-50 px-2 py-1`}
+        } absolute top-12 w-72 -left-64 md:-left-14 xl:-left-8 md:top-[4.25rem] bg-gray-100 rounded-md shadow-2xl shadow-gray-800 transition-all flex flex-col items-center justify-center z-50 px-2 py-1`}
       >
         <MainMenuLoader />
       </div>
@@ -64,9 +64,9 @@ function QuickAccessMenu({ menuIsShow }) {
           menuIsShow
             ? "opacity-100 visible translate-y-0"
             : "opacity-0 invisible translate-y-10"
-        } absolute top-12 w-72 -left-[14.5rem] md:-left-14 xl:-left-8 md:top-[4.25rem] bg-gray-100 rounded-md shadow-2xl shadow-gray-800 transition-all flex flex-col items-center justify-center z-50 px-2 py-1`}
+        } absolute top-12 w-72 -left-64 md:-left-14 xl:-left-8 md:top-[4.25rem] bg-gray-100 rounded-md shadow-2xl shadow-gray-800 transition-all flex flex-col items-center justify-center z-50 px-2 py-1`}
       >
-        <div className="tooltip absolute -top-1 z-40 bg-gray-300 right-12"></div>
+        <div className="tooltip absolute -top-1 z-40 bg-gray-300 right-6 md:right-12"></div>
         {/* top action btn's */}
         <div className="flex justify-between w-full items-center py-1">
           <button
@@ -100,7 +100,7 @@ function QuickAccessMenu({ menuIsShow }) {
             : "opacity-0 invisible translate-y-10"
         } absolute top-12 w-72 h-56 -left-[14.5rem] md:-left-14 xl:-left-8 md:top-[4.25rem] bg-gray-100 rounded-md shadow-2xl shadow-gray-800 transition-all flex flex-col items-center justify-evenly z-50 px-2 py-1`}
       >
-        <div className="tooltip absolute -top-1 z-40 bg-gray-300 right-12"></div>
+        <div className="tooltip absolute -top-1 z-40 bg-gray-300 right-6 md:right-12"></div>
         <h6 className="font-bold text-center">
           You Need SignIn To Access This Section
         </h6>
@@ -282,7 +282,7 @@ const DashboradSummary = () => {
   // main components
   if (!loading && orders.length)
     return (
-      <>
+      <div className="relative">
         {/* simple bar chart */}
         <div className="h-52 px-4 py-2 w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -340,6 +340,6 @@ const DashboradSummary = () => {
             <FaArrowRight />
           </button>
         </div>
-      </>
+      </div>
     );
 };

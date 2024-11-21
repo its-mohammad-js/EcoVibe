@@ -6,13 +6,9 @@ function Navbar() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   return (
-    <>
-      <div className="relative">
-        {isMobile ? <MobileNavbar /> : <DesktopNavbar />}
-      </div>
-
-      <div className=""></div>
-    </>
+    <div className="relative">
+      {isMobile ? <MobileNavbar /> : <DesktopNavbar />}
+    </div>
   );
 }
 

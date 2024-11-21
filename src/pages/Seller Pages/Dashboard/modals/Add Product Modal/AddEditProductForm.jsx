@@ -56,9 +56,6 @@ function AddEditProductForm({
     // define product id
     const productId = !isEdit ? generateId(userId) : getValues().id;
 
-    console.log("ok");
-    console.log(getValues()?.Tags);
-
     if (Images.length > 0) {
       // add new product to data base
       try {
@@ -66,7 +63,7 @@ function AddEditProductForm({
         // add new product to data base
         await setDoc(doc(db, "Products", productId), {
           Category: getValues().Category,
-          // Collection: getValues().Collection || "",
+          Collection: getValues().Collection || "",
           Description: getValues().Description,
           Images,
           Name: getValues().Name,

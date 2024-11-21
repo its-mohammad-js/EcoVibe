@@ -33,7 +33,7 @@ const brandsInfo = [
 
 function TopBrands() {
   return (
-    <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:m-8">
+    <div className="mx-auto h-48 bg-red-100 2xl:max-w-screen-2xl mt-6 md:my-8">
       <div
         id="wrapper"
         className="flex flex-col md:flex-row gap-y-6 items-center justify-between px-2 py-2"

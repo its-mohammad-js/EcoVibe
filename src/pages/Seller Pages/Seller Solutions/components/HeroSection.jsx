@@ -5,7 +5,7 @@ function HeroSection() {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-screen max-h-[45rem] relative flex justify-center items-center">
+    <div className="w-full h-screen max-h-[50rem] relative flex justify-center items-center">
       <div className="absolute inset-0 bg-primary-950 -z-10"></div>
       <motion.div
         initial={{ rotate: 0 }}

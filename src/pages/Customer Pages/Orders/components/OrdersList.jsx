@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { deliveryInfo, paginateElements, timestampToDate } from "constants";
 import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 function OrdersList({ ordersData, onOrderDetail }) {
   const [{ paginetedItems, pageNum }, setItems] = useState({
     paginetedItems: [],
     pageNum: 0,
   });
-  const naivgate = useNavigate();
 
   // paginate items
   useEffect(() => {
@@ -33,7 +31,7 @@ function OrdersList({ ordersData, onOrderDetail }) {
     return (
       <div>
         {/* ordered items table */}
-        <div className="relative overflow-x-auto">
+        <div className=" overflow-x-auto">
           <table className="w-full text-sm xl:text-lg text-left text-gray-700">
             <thead className="text-gray-700 uppercase bg-gray-200">
               <tr>
@@ -145,7 +143,7 @@ function OrdersList({ ordersData, onOrderDetail }) {
               setItems((prev) => ({ ...prev, pageNum: pageNum - 1 }))
             }
             disabled={pageNum === 0}
-            className="p-3 bg-gray-200 border border-gray-400 disabled:bg-gray-200 disabled:opacity-50"
+            className="p-3 -z-10 bg-gray-200 border border-gray-400 disabled:bg-gray-200 disabled:opacity-50"
           >
             <FaChevronLeft />
           </button>
@@ -171,7 +169,7 @@ function OrdersList({ ordersData, onOrderDetail }) {
               setItems((prev) => ({ ...prev, pageNum: pageNum + 1 }))
             }
             disabled={pageNum === paginetedItems.length - 1}
-            className="p-3 bg-gray-200 border border-gray-400 disabled:bg-gray-200 disabled:opacity-50"
+            className="p-3 -z-10 bg-gray-200 border border-gray-400 disabled:bg-gray-200 disabled:opacity-50"
           >
             <FaChevronLeft className="rotate-180" />
           </button>
