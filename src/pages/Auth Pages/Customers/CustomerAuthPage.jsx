@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import toast from "react-hot-toast";
+import toast, { LoaderIcon } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
-import { loadingIcon } from "constants";
 
 const stepsInfo = [
   {
@@ -58,10 +57,12 @@ function CustomerAuthPage() {
   // loading screen (on check user auth status)
   if (loading && auth_status === 204)
     return (
-      <div className="h-screen flex items-center justify-center flex-col">
-        <img src={loadingIcon} alt="loading-icon" className="size-40" />
+      <div className="h-screen flex items-center justify-center flex-col gap-y-4">
+        <LoaderIcon className="size-24" />
         <h4 className="my-2 text-2xl font-bold">
-          Just a moment while we get things ready...
+          {auth_status === 204
+            ? "Just a moment while we get things ready..."
+            : "Update Your Infomation..."}
         </h4>
       </div>
     );

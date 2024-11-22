@@ -8,21 +8,31 @@ import SimpleBanner from "./SimpleBanner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
+import toast from "react-hot-toast";
+import { checkUserAuthentication } from "../../../../common/utils/constants";
 
 function CollectionsGallery({ products, isLoading }) {
   // get summer collectionfrom all products
   const summerCollection = filterProducts(products, {
     collections: ["summer"],
   });
-  const { wishlist, loading } = useSelector((state) => state.userData);
+  const { wishlist, loading, auth_status } = useSelector(
+    (state) => state.userData
+  );
   const dispatch = useDispatch();
 
   // add / remove product from wish list
   function toggleWishList(productId) {
-    // update wish list
-    const updatedWishList = toggleElementInArray(wishlist, productId);
-    // update wish list with new values
-    dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
+    try {
+      checkUserAuthentication(auth_status);
+      // update wish list
+      const updatedWishList = toggleElementInArray(wishlist, productId);
+      // update wish list with new values
+      dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
+    } catch (error) {
+      toast.remove();
+      toast.error(error?.message);
+    }
   }
 
   if (isLoading) return <CollectionGalleryLoader />;

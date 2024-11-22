@@ -37,12 +37,13 @@ function CommentsList({ commentsData, fetchComments }) {
             {comment.replies.map((reply, index) => {
               if (showReplies !== comment.commentId)
                 return (
-                  index === 1 && (
+                  index === 0 && (
                     <>
                       <CommentRow {...reply} key={index} />
                       <button
                         onClick={() => setShowReplies(comment.commentId)}
-                        className="relative flex items-center justify-center"
+                        className={`${comment?.replies?.length <= 1 && "hidden"}
+                           relative flex items-center justify-center`}
                       >
                         <p className="bg-white w-fit px-2 font-bold lg:text-lg">
                           Show All Replies
@@ -69,6 +70,7 @@ function CommentRow({
   setReplyTo,
   replyTo,
   commentId,
+  type,
 }) {
   return (
     <div className="">
@@ -99,7 +101,7 @@ function CommentRow({
         <p className="text-sm text-gray-700 leading-6">
           {content.review || content.reply}
         </p>
-        {content.header && (
+        {type === "comment" && (
           <button
             onClick={() => setReplyTo(replyTo === commentId ? "" : commentId)}
             className={`${

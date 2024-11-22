@@ -66,8 +66,6 @@ function ProductInfo() {
     }
   }
 
-  console.log(productData[0]);
-
   if (loading || auth_status === 204) return <ProductInfoLoader />;
 
   if (productData.length && !loading)
@@ -77,26 +75,22 @@ function ProductInfo() {
         <div className="flex items-center px-2 py-2 gap-2">
           <h4
             onClick={() => navigate("/EcoVibe/Explore-Products/")}
-            className="text-lg font-bold cursor-pointer"
+            className="cursor-pointer text-gray-600 hover:font-medium transition-all"
           >
             Products
           </h4>
-          <p>
-            <FaChevronRight />
-          </p>
+          <p>/</p>
           <p
             onClick={() =>
               navigate(
                 `/EcoVibe/Explore-Products/category=${Category.toLowerCase()}`
               )
             }
-            className="line-clamp-1 w-20 xl:w-auto text-gray-600 cursor-pointer"
+            className="line-clamp-1 w-20 xl:w-auto text-gray-600 hover:font-medium transition-all cursor-pointer"
           >
             {Category}
           </p>
-          <p>
-            <FaChevronRight />
-          </p>
+          <p>/</p>
           <p className="line-clamp-1 w-24 xl:w-auto text-gray-600">{Name}</p>
         </div>
         {/* product information & order box */}
@@ -110,7 +104,7 @@ function ProductInfo() {
                 {/* prev btn */}
                 <button
                   onClick={() => sliderRef.current.slickPrev()}
-                  className="absolute left-0 z-50 top-1/2 mx-2 p-1 rounded-full bg-gray-50 opacity-70 hover:opacity-100 transition-all text-2xl"
+                  className="absolute left-0 z-40 top-1/2 mx-2 p-1 rounded-full bg-gray-50 opacity-70 hover:opacity-100 transition-all text-2xl"
                 >
                   <BiChevronLeft />
                 </button>
@@ -136,12 +130,12 @@ function ProductInfo() {
                 {/* next btn */}
                 <button
                   onClick={() => sliderRef.current.slickNext()}
-                  className="absolute right-0 z-50 top-1/2 mx-2 p-1 rounded-full bg-gray-50 opacity-70 hover:opacity-100 transition-all text-2xl"
+                  className="absolute right-0 z-40 top-1/2 mx-2 p-1 rounded-full bg-gray-50 opacity-70 hover:opacity-100 transition-all text-2xl"
                 >
                   <BiChevronLeft className="rotate-180" />
                 </button>
                 {/* paginate dots */}
-                <div className="absolute w-full z-50 bottom-2.5 flex justify-center gap-1">
+                <div className="absolute w-full bottom-2.5 flex justify-center gap-1">
                   {Images.map((url, i) => (
                     <button
                       key={i}
@@ -256,12 +250,6 @@ function ProductInfo() {
                         <p className="text-gray-600">{SellerEmail}</p>
                       </div>
                     </div>
-                    <p className="mt-2">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Accusamus eum corrupti quos omnis quo, rerum minima
-                      perferendis id et deleniti mollitia ex vitae harum
-                      reiciendis possimus quisquam neque! Fuga, earum.
-                    </p>
                   </div>
                 )}
               </div>
@@ -284,10 +272,14 @@ function ProductInfo() {
               <tbody>
                 {Options.map(({ title, options }, index) => (
                   <tr key={index}>
-                    <td className="px-4 py-2 border lowercase">{title}</td>
+                    <td className="px-4 py-2 border lowercase font-medium">
+                      {title}
+                    </td>
                     <td className="px-4 py-2 border md:flex gap-2">
                       {options.map((opt, index) => (
-                        <p key={index}>{opt},</p>
+                        <p key={index} className="inline">
+                          {opt},
+                        </p>
                       ))}
                     </td>
                   </tr>

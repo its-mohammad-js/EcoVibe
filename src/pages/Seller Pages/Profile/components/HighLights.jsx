@@ -93,6 +93,7 @@ function HighLights() {
         if (updateCount === selectedSlides.length) {
           toast.success("highlight succesfully added");
           setModalShow(false);
+          window.location.reload();
         }
       } catch (error) {
         console.log("error on update slide");
@@ -191,7 +192,7 @@ function HighLights() {
                         ></source>
                       </video>
                     )}
-
+                    {/* screen select slide */}
                     <div
                       className={`${
                         isInArray(selectedSlides, story)
@@ -201,6 +202,7 @@ function HighLights() {
                     >
                       <FaCheck />
                     </div>
+                    {/* display prev highlight ref */}
                   </div>
                 ))
               ) : (
@@ -224,7 +226,10 @@ function HighLights() {
             className="px-4 py-2 bg-gray-200 outline-none border-2 border-gray-200 rounded-md"
           />
           <div className="flex items-center justify-end gap-x-4">
-            <button className="px-4 py-2 ring-2 ring-gray-950 text-gray-950 rounded-md">
+            <button
+              onClick={() => setModalShow(false)}
+              className="px-4 py-2 ring-2 ring-gray-950 text-gray-950 rounded-md"
+            >
               Cancel
             </button>
             <button

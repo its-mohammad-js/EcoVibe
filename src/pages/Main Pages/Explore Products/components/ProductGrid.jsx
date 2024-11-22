@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/reducers/products/productsSlice";
 import { errorIconUrl, paginateElements } from "constants";
 import PaginationButtons from "./PaginationButtons";
 import FilteredProductsLoader from "UI/Loaders/FilteredProductsLoader";
 import ProductCard from "./ProductCard";
+import { debounce } from "lodash";
 
 function ProductGrid() {
   // get selected filters
@@ -16,26 +17,30 @@ function ProductGrid() {
   // necessary hooks
   const dispatch = useDispatch();
 
-  function fetchProducts() {
-    dispatch(
-      getFilteredProducts({
-        category: filters.category[0],
-        tags: filters.tags,
-        searchQuery: filters.searchQuery,
-        collections: filters.collections,
-        productTypes: filters.productTypes,
-        priceRange: filters.priceRange,
-        seller: filters.seller,
-        selectedOptions: filters.selectedOptions,
-        sortBy: filters.sortBy,
-        relevant: filters.relevant,
-      })
-    );
-  }
+  const debouncedFetchProducts = useCallback(
+    debounce((filters) => {
+      dispatch(
+        getFilteredProducts({
+          category: filters.category[0],
+          tags: filters.tags,
+          searchQuery: filters.searchQuery,
+          collections: filters.collections,
+          productTypes: filters.productTypes,
+          priceRange: filters.priceRange,
+          seller: filters.seller,
+          selectedOptions: filters.selectedOptions,
+          sortBy: filters.sortBy,
+          relevant: filters.relevant,
+        })
+      );
+    }, 300),
+    [dispatch]
+  );
 
   // get filtered products on each filter change
   useEffect(() => {
-    fetchProducts();
+    debouncedFetchProducts(filters);
+    return () => debouncedFetchProducts.cancel();
   }, [filters]);
 
   if (loading) return <FilteredProductsLoader />;

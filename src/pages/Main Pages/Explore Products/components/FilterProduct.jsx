@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiDollar, BiSort } from "react-icons/bi";
 import {
   FaCheck,
@@ -42,6 +42,13 @@ function FilterProduct() {
     () => setMenuIsOpen((prev) => ({ ...prev, sort: false })),
     !menuIsOpen.sort
   );
+
+  useEffect(() => {
+    document.body.style.overflow =
+      menuIsOpen.filters && isMobile ? "hidden" : "auto";
+
+    return () => (document.body.style.overflow = "auto");
+  }, [menuIsOpen]);
 
   // change filters on each action
   const changeFilterHandler = (payload) => {
@@ -251,11 +258,8 @@ function FilterProduct() {
 
               <button
                 onClick={() => changeFilterHandler({ type: "clear" })}
-                className="text-2xl text-red-400 focus:animate-bounce flex items-center justify-center group"
+                className="text-2xl text-red-400 flex items-center justify-center group"
               >
-                <span className="translate-x-10 hidden md:inline text-xl group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all">
-                  Clear
-                </span>
                 <FaTrash />
               </button>
             </div>

@@ -47,6 +47,7 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
       // update wish list with new values
       dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
     } catch (error) {
+      toast.remove();
       toast.error(error?.message);
     }
   }

@@ -57,6 +57,7 @@ function AddCommentInputs({
       productId: params?.productId,
       authorProfile: profilePic,
       authorId: userId,
+      type: "comment",
       date: Date.now(),
       commentId: generateId(userId),
       content: formdata,
@@ -97,6 +98,7 @@ function AddCommentInputs({
         date: Date.now(),
         commentId: generateId(userId),
         content: formData,
+        type: "reply",
       };
 
       await setDoc(
@@ -121,7 +123,7 @@ function AddCommentInputs({
       onSubmit={handleSubmit((e) => {
         mode !== "reply" ? onSubmitReview(e) : onSubmitReply(e);
       })}
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-2 bg-white"
     >
       {/* star ranger */}
       {mode !== "reply" && (
@@ -160,7 +162,7 @@ function AddCommentInputs({
                 },
               }),
             }}
-            style={`[&>p]:text-sm h-fit [&>input]:py-3 ${
+            style={`[&>p]:text-sm h-fit [&>input]:py-3 [&>input:disabled]:bg-gray-100/70 ${
               input.name === "header" ? "col-span-4" : "col-span-2"
             }`}
             disabled={loading || submitLoading}
@@ -178,7 +180,7 @@ function AddCommentInputs({
           placeholder={`${mode !== "reply" ? "Review" : "Reply"} Text`}
           className={`${
             mode !== "reply" ? "h-52" : "h-24"
-          } px-4 py-2 outline-none border border-gray-300 hover:border-gray-400 transition-all rounded-md resize-none disabled:animate-pulse disabled:bg-gray-100`}
+          } px-4 py-2 outline-none border disabled:animate-pulse border-gray-300 hover:border-gray-400 transition-all rounded-md resize-none`}
         />
 
         <p className="mx-1 text-sm text-red-500 mt-1 font-semibold">

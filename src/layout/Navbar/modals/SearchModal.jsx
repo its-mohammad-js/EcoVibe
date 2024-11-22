@@ -97,7 +97,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
           modalIsShow
             ? "visible opacity-100 translate-y-0"
             : "invisible opacity-0 translate-y-96"
-        } absolute top-0 w-full z-50 lg:h-[95vh] transition-all duration-300 lg:!translate-y-0`}
+        } absolute top-0 w-full h-screen z-50 lg:h-[90vh] transition-all duration-300 lg:!translate-y-0`}
       >
         {/* modal wrapper */}
         <div className="size-full bg-gray-50 rounded-md pt-2 px-2 lg:py-1 shadow-2xl z-50">
@@ -139,7 +139,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
                     );
                   }}
                   key={index}
-                  className="flex gap-x-2 text-nowrap items-center px-2 py-1 border border-gray-500 rounded-2xl"
+                  className="flex gap-x-2 hover:bg-gray-950 select-none hover:border-gray-950 hover:text-gray-50 transition-all text-nowrap items-center px-2 py-1 border border-gray-500 rounded-2xl"
                 >
                   {title}
                   <FaChevronRight />
@@ -148,7 +148,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
             </div>
           </div>
           {/* search results */}
-          <div className="h-[68%]">
+          <div className="h-[65%] lg:h-[68%]">
             {/* seller account list */}
             <div
               className={`${
@@ -212,7 +212,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
                     );
                   }}
                   key={index}
-                  className="flex gap-x-2 text-nowrap items-center px-2 py-1 border border-gray-500 rounded-2xl"
+                  className="flex gap-x-2 text-nowrap hover:bg-gray-950 select-none hover:border-gray-950 hover:text-gray-50 transition-all items-center px-2 py-1 border border-gray-500 rounded-2xl"
                 >
                   {title}
                   <FaChevronRight />

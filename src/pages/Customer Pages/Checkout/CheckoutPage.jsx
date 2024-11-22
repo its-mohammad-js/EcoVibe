@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import OrderSummary from "customerPages/Checkout/components/OrderSummary";
 import PaymentInfo from "customerPages/Checkout/components/PaymentInfo";
 import ShipingDetails from "customerPages/Checkout/components/ShipingDetails";
-import { loadingIcon } from "constants";
+import { LoaderIcon } from "react-hot-toast";
 
 function CheckoutPage() {
   const { loading: authLoading, cartData } = useSelector(
@@ -24,12 +24,8 @@ function CheckoutPage() {
   // on add order loading screen
   if (orderLoading)
     return (
-      <div className="h-screen flex flex-col justify-center items-center">
-        <img
-          src={loadingIcon}
-          alt="loading-icon"
-          className="size-52 object-cover"
-        />
+      <div className="h-screen flex flex-col gap-y-5 justify-center items-center">
+        <LoaderIcon className="size-24" />
         <h4 className="text-3xl font-bold text-primary-900 animate-pulse">
           Sumbit Your Order...
         </h4>

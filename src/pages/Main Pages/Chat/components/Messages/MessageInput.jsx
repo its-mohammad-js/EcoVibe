@@ -46,31 +46,6 @@ function MessageInput({ setFocus }) {
   const messageBoxRef = useRef();
   useOutSideClick(messageBoxRef, () => setFocus(false));
 
-  // console.log(selectedRoom?.messageList);
-
-  // useEffect(() => {
-  //   // window.addEventListener("touchmove", (e) => {
-  //   //   console.log(e.changedTouches[0].clientY);
-  //   //   // toast(e.changedTouches[0].clientY);
-  //   //   if (e.changedTouches[0].clientY < 400) {
-  //   //     toast("ok");
-  //   //   }
-  //   // });
-  // }, []);
-
-  // useEffect(() => {
-  //   const handleScroll = (event) => {
-  //     toast(event.target.scrollTop);
-  //     setScrollPosition(window.scrollY);
-  //   };
-
-  //   window.addEventListener("touchmove", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("touchmove", handleScroll);
-  //   };
-  // }, []);
-
   // set message input rows
   useEffect(() => {
     const messageLength = message?.length;

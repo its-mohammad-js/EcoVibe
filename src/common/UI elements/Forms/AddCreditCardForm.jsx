@@ -5,13 +5,11 @@ import Select from "react-select";
 import { generateId } from "constants";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import TextInput from "UI/Forms/TextInput";
-import useDisableScroll from "hooks/UseDisableScroll";
+import toast from "react-hot-toast";
 
 // input conditions
 const inputOptions = [
   {
-    name: "card-code",
-    placeholder: "NNNN-NNNN-NNNN-NNNN",
     validation: {
       minLength: {
         value: 19,
@@ -33,7 +31,7 @@ const inputOptions = [
       },
     },
   },
-  { name: "ex-date", type: "date", cols: 2 },
+  { name: "ex_date", type: "date", cols: 2 },
   {
     name: "cvv",
     placeholder: "NN-NN",
@@ -131,21 +129,35 @@ function AddCreditCardForm({ onModalClose }) {
           className="flex flex-col justify-stretch w-full flex-1 relative"
         >
           <div className="grid grid-cols-4 grid-rows-4 gap-14 -mb-8 xl:-mb-12 [&>div>p]:text-sm">
-            {inputOptions.map((input, i) => (
-              <TextInput
-                label={input.name.replace("-", " ")}
-                key={i}
-                register={register(input.name, {
-                  ...input.validation,
-                  required: `${input.name.replace("-", " ")} Is Required`,
-                })}
-                placeholder={input.placeholder}
-                type={input.name === "ex-date" ? input.type : "text"}
-                style={`${input.cols === 2 ? "col-span-2" : "col-span-4"}`}
-                error={errors[input.name]?.message}
-                onChange={(e) => input.name === "card-code" && sliceCode(e)}
-              />
-            ))}
+            <TextInput
+              label="card code"
+              register={register("code_number", {
+                ...inputOptions[0].validation,
+                required: `code number Is Required`,
+              })}
+              placeholder={"NNNN-NNNN-NNNN-NNNN"}
+              style={`col-span-4`}
+              error={errors["code_number"]?.message}
+              onChange={(e) => sliceCode(e)}
+            />
+
+            {inputOptions.map(
+              (input, i) =>
+                i > 0 && (
+                  <TextInput
+                    label={input.name.replace("_", " ")}
+                    key={i}
+                    register={register(input.name, {
+                      ...input.validation,
+                      required: `${input.name.replace("_", " ")} Is Required`,
+                    })}
+                    placeholder={input.placeholder}
+                    type={input.name === "ex_date" ? input.type : "text"}
+                    style={`${input.cols === 2 ? "col-span-2" : "col-span-4"}`}
+                    error={errors[input.name]?.message}
+                  />
+                )
+            )}
           </div>
 
           {/* provider selector */}
@@ -180,7 +192,6 @@ export default AddCreditCardForm;
 // slice card code to XXXX-XXXX-XXXX format
 function sliceCode(e) {
   const value = e.target.value;
-
   const slicedCode = value
     .slice(0, 19) // Limit input length
     .replace(/([0-9]{4})([0-9]{4})([0-9]{4})()/, "$1-$2-$3-$4");

@@ -25,7 +25,6 @@ function OrdersPage() {
   });
   // necessary data & hooks
   const { userId } = useSelector((state) => state.userData);
-  const [searchquery, setQuery] = useState("");
   const navigate = useNavigate();
   const params = useParams();
 
@@ -138,15 +137,12 @@ function OrdersPage() {
         {/* search orders by product name  */}
         <div className="flex">
           <input
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => searchItems(e.target.value)}
             type="text"
             className="w-full outline-none border px-4 py-2 rounded-tl-md lg:py-3 focus:border-gray-500"
             placeholder="Search By Product Name"
           />
-          <button
-            onClick={() => searchItems(searchquery)}
-            className="px-4 py-2 bg-primary-500 text-gray-50 rounded-tr-md text-lg lg:text-3xl"
-          >
+          <button className="px-4 py-2 bg-primary-500 text-gray-50 rounded-tr-md text-lg lg:text-3xl">
             <BiSearch />
           </button>
         </div>

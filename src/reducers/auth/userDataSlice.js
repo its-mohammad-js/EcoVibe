@@ -8,7 +8,6 @@ import { auth, db, gitHubProvider, googleProvider } from "src/config/firebase";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { avatarsUrl } from "/src/common/utils/constants";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 // default state
 const defaultUserData = {

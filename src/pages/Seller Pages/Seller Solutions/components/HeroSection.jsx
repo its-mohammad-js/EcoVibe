@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { BsArrowDown } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 function HeroSection() {
@@ -31,26 +32,26 @@ function HeroSection() {
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 100 }}
           transition={{ duration: 1, ease: "linear" }}
-          className="lg:text-6xl text-gray-50 font-bold text-2xl"
+          className="lg:text-6xl text-gray-50 font-bold"
         >
-          Lorem ipsum dolor <br /> sit amet consectetur.
+          <h2>Join the Eco Vibe Community! 🌍✨</h2>
         </motion.div>
         <p className="text-sm lg:text-xl text-gray-200 lg:w-2/5">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-          Reprehenderit harum eveniet id, error neque tempora, perspiciatis
-          tenetur rerum dicta mollitia delectus sequi vero voluptatem!
+          Unlock Your Eco Business Potential! Join the Eco Vibe Marketplace and
+          thrive. Connect with eco-conscious shoppers, And share your
+          sustainable products with the world!
         </p>
 
         <div className="flex items-center justify-center gap-4">
           <button
             onClick={() => window.scrollTo(0, 1000)}
-            className="px-4 lg:px-6 py-2 lg:py-3 bg-gray-50 hover:bg-primary-950 hover:text-gray-50 transition-all rounded-2xl text-sm lg:text-base"
+            className="px-4 lg:px-6 py-2 lg:py-3 bg-gray-50 hover:bg-primary-950 hover:text-gray-50 transition-all rounded-md text-sm lg:text-base"
           >
             Learn more
           </button>
           <button
             onClick={() => navigate("/EcoVibe/sellers/")}
-            className="px-4 lg:px-6 py-2 lg:py-3 bg-primary-500 text-gray-50 hover:bg-gray-50 hover:text-gray-950 transition-all rounded-2xl text-sm lg:text-base "
+            className="px-4 lg:px-6 py-2 lg:py-3 bg-primary-500 text-gray-50 hover:bg-gray-50 hover:text-gray-950 transition-all rounded-md text-sm lg:text-base "
           >
             start now
           </button>

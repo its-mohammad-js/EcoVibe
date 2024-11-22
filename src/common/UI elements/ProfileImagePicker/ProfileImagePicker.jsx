@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../config/firebase";
+import { LoaderIcon } from "react-hot-toast";
 
 function ProfileImagePicker({ onPicChange, onModalClose }) {
   // upload picture state
@@ -47,14 +48,10 @@ function ProfileImagePicker({ onPicChange, onModalClose }) {
 
   if (loading)
     return (
-      <div className="fixed inset-0 flex flex-col items-center justify-center z-50 bg-gray-50">
-        <img
-          src={loadingIcon}
-          alt="loading icon pic"
-          className="size-20 md:size-24"
-        />
-        <h6 className="text-xl md:text-2xl font-bold text-center animate-pulse">
-          Upload Your Photo...
+      <div className="fixed inset-0 flex flex-col items-center justify-center z-50 bg-gray-950/50 backdrop-blur-lg">
+        <LoaderIcon className="size-24 my-4" />
+        <h6 className="text-xl md:text-2xl text-gray-300 font-bold text-center animate-pulse">
+          Uplaoding your profile pic, please dont re-fresh page
         </h6>
       </div>
     );

@@ -18,13 +18,18 @@ import {
   MainMenuLoader,
 } from "UI/Loaders/NavbarMenuLoader";
 
-function QuickAccessMenu({ menuIsShow }) {
+function QuickAccessMenu({ menuIsShow, onCloseMenu }) {
   // summary (main content of modal) state, cart || dashboard
   const [summaryShow, setSummary] = useState("cart");
   const { loading, auth_status, error } = useSelector(
     (state) => state.userData
   );
   const navigate = useNavigate();
+
+  function onMenuNavigation(path) {
+    navigate(path);
+    onCloseMenu();
+  }
 
   if (error)
     return (
@@ -87,7 +92,11 @@ function QuickAccessMenu({ menuIsShow }) {
           </button>
         </div>
         {/* main content */}
-        {summaryShow === "cart" ? <CartSummary /> : <DashboradSummary />}
+        {summaryShow === "cart" ? (
+          <CartSummary {...{ onMenuNavigation }} />
+        ) : (
+          <DashboradSummary {...{ onMenuNavigation }} />
+        )}
       </div>
     );
   // on unauthorized user case
@@ -98,7 +107,7 @@ function QuickAccessMenu({ menuIsShow }) {
           menuIsShow
             ? "opacity-100 visible translate-y-0"
             : "opacity-0 invisible translate-y-10"
-        } absolute top-12 w-72 h-56 -left-[14.5rem] md:-left-14 xl:-left-8 md:top-[4.25rem] bg-gray-100 rounded-md shadow-2xl shadow-gray-800 transition-all flex flex-col items-center justify-evenly z-50 px-2 py-1`}
+        } absolute top-12 w-72 h-56 -left-64 md:-left-14 xl:-left-8 md:top-[4.25rem] bg-gray-100 rounded-md shadow-2xl shadow-gray-800 transition-all flex flex-col items-center justify-evenly z-50 px-2 py-1`}
       >
         <div className="tooltip absolute -top-1 z-40 bg-gray-300 right-6 md:right-12"></div>
         <h6 className="font-bold text-center">
@@ -125,7 +134,7 @@ function QuickAccessMenu({ menuIsShow }) {
 
 export default QuickAccessMenu;
 
-const CartSummary = () => {
+const CartSummary = ({ onMenuNavigation }) => {
   const { cartData } = useSelector((state) => state.userData);
   const navigate = useNavigate();
 
@@ -136,7 +145,7 @@ const CartSummary = () => {
           Cart Is Empty 🛒
         </h6>
         <button
-          onClick={() => navigate("/EcoVibe/Explore-Products/")}
+          onClick={() => onMenuNavigation("/EcoVibe/Explore-Products/")}
           className="px-4 py-2 bg-primary-500 text-gray-50 rounded-md text-sm border border-primary-500 hover:bg-gray-50 hover:text-primary-500 transition-all"
         >
           Explore Products
@@ -144,7 +153,7 @@ const CartSummary = () => {
 
         <button
           onClick={() => {
-            navigate("/EcoVibe/bag/orders");
+            onMenuNavigation("/EcoVibe/bag/orders");
           }}
           className="flex items-center absolute bottom-2 left-2 gap-x-2 text-sm font-semibold text-gray-950 hover:text-gray-800 transition-all"
         >
@@ -172,7 +181,7 @@ const CartSummary = () => {
               <div className="w-3/5 h-full flex flex-col justify-evenly px-2">
                 <h6
                   onClick={() =>
-                    navigate(`/EcoVibe/Products/${item.productId}`)
+                    onMenuNavigation(`/EcoVibe/Products/${item.productId}`)
                   }
                   className="line-clamp-1 font-bold text-gray-900 hover:text-primary-500 transition-all cursor-pointer"
                 >
@@ -191,7 +200,7 @@ const CartSummary = () => {
       <div className="w-full flex flex-col items-start gap-y-1 py-1">
         <button
           onClick={() => {
-            navigate("/EcoVibe/bag/cart");
+            onMenuNavigation("/EcoVibe/bag/cart");
           }}
           className="flex items-center gap-x-2 font-semibold text-gray-950 hover:text-gray-800 transition-all"
         >
@@ -200,7 +209,7 @@ const CartSummary = () => {
         </button>
         <button
           onClick={() => {
-            navigate("/EcoVibe/bag/orders");
+            onMenuNavigation("/EcoVibe/bag/orders");
           }}
           className="flex items-center gap-x-2 font-semibold text-gray-950 hover:text-gray-800 transition-all"
         >
@@ -212,7 +221,7 @@ const CartSummary = () => {
   );
 };
 
-const DashboradSummary = () => {
+const DashboradSummary = ({ onMenuNavigation }) => {
   const [{ error, loading, orders }, setOrders] = useState({
     orders: [],
     loading: false,
@@ -282,7 +291,7 @@ const DashboradSummary = () => {
   // main components
   if (!loading && orders.length)
     return (
-      <div className="relative">
+      <div className="w-full relative">
         {/* simple bar chart */}
         <div className="h-52 px-4 py-2 w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -306,7 +315,7 @@ const DashboradSummary = () => {
         <div className="w-full flex flex-col items-start gap-y-1 py-1 px-0.5">
           <button
             onClick={() => {
-              navigate("/EcoVibe/dashboard");
+              onMenuNavigation("/EcoVibe/dashboard");
             }}
             className="flex items-center gap-x-2 font-semibold text-gray-950 hover:text-gray-800 transition-all"
           >
@@ -315,7 +324,7 @@ const DashboradSummary = () => {
           </button>
           <button
             onClick={() => {
-              navigate("/EcoVibe/dashboard/Analytics/add-product");
+              onMenuNavigation("/EcoVibe/dashboard/Analytics/add-product");
             }}
             className="flex items-center gap-x-2 font-semibold text-gray-950 hover:text-gray-800 transition-all"
           >
@@ -324,7 +333,7 @@ const DashboradSummary = () => {
           </button>
           <button
             onClick={() => {
-              navigate(
+              onMenuNavigation(
                 seller_step === "third-step"
                   ? `/EcoVibe/seller/${userId}`
                   : "/EcoVibe/sellers/sign-up"

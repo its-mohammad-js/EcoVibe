@@ -7,7 +7,7 @@ import {
   where,
 } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { db } from "src/config/firebase";
 import SellerInfo from "./components/SellerInfo";
 import EditBusinessInfoForm from "./components/EditBusinessInfoForm";
@@ -17,7 +17,6 @@ import HighLights from "./components/HighLights";
 import SellerContents from "./components/SellerContents";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import StoryModal from "../../../common/UI elements/StoriesList/StoryListModal";
 
 const SellerProfileContext = createContext();
 
@@ -50,8 +49,7 @@ function SellerProfilePage() {
     storiesList: [],
     loading: false,
   });
-
-  console.log(sellerStories);
+  const navigate = useNavigate();
 
   // fetch stories
   useEffect(() => {
@@ -85,7 +83,6 @@ function SellerProfilePage() {
     if (loading) {
       return;
     }
-
     try {
       // dispatch loading
       setUserData((prev) => ({ ...prev, loading: true }));
@@ -147,12 +144,16 @@ function SellerProfilePage() {
 
   // fetch user data onmount
   useEffect(() => {
-    if (!loading) getUserData();
+    getUserData();
   }, [loading]);
 
-  if (loading || sellerData.loading) return <SellerProfilePageLoader />;
+  if (
+    (loading && sellerData.loading) ||
+    !sellerData.userInfo?.personalInformation?.first_name
+  )
+    return <SellerProfilePageLoader />;
 
-  if (!sellerData.loading || false)
+  if (!loading && !sellerData.loading)
     return (
       <SellerProfileContext.Provider
         value={{
@@ -169,7 +170,7 @@ function SellerProfilePage() {
           <div id="wrapper" className="size-full lg:w-8/12 lg:mx-auto">
             {/* header */}
             <div className="flex items-center justify-between px-4 py-2 relative">
-              <button className="text-2xl">
+              <button onClick={() => navigate(-1)} className="text-2xl">
                 <AiOutlineLeft />
               </button>
               <h6 className="font-bold flex-1 text-center">

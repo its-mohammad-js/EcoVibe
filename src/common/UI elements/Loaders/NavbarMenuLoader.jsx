@@ -60,6 +60,7 @@ export const DashboradSummaryLoader = () => {
       <div className="w-full flex flex-col items-start gap-y-2 py-1 px-0.5">
         <p className="w-28 h-2 bg-gray-400 rounded-md"></p>
         <p className="w-24 h-2 bg-gray-400 rounded-md"></p>
+        <p className="w-20 h-2 bg-gray-400 rounded-md"></p>
       </div>
     </div>
   );

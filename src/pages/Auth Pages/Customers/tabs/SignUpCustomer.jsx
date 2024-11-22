@@ -66,15 +66,11 @@ function SignUpCustomer() {
       <div className="md:w-1/2">
         {/* title */}
         <div className="text-center flex flex-col gap-y-2 md:gap-y-6 md:mb-6 md:w-4/5 px-2">
-          <h4 className="text-2xl font-medium md:text-start md:text-5xl">
+          <h4 className="text-3xl font-medium md:text-start md:text-5xl">
             Welcome To <span className="text-primary-500">Eco Vibe</span>
           </h4>
           <p className="md:text-start">
-            Sign In to continue
-            <span>
-              &nbsp; Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Natus, nisi.
-            </span>
+            Join the Eco Vibe Community: Shop Sustainably, Live Mindfully! 🌍
           </p>
         </div>
         {/* user information input's */}

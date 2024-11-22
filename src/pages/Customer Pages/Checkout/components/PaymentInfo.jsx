@@ -186,7 +186,7 @@ function PaymentInfo({ shippingMethod, totalPrice, setLoading }) {
       paymentInfo: formData,
       shippingMethod: { title: shippingMethod?.title },
       orders,
-      totalPrice: totalPrice,
+      totalPrice: (Number(shippingMethod.cost) + Number(totalPrice)).toFixed(2),
       sellers,
       customerId: userId,
     };
@@ -256,7 +256,7 @@ function PaymentInfo({ shippingMethod, totalPrice, setLoading }) {
               className="lg:w-[50rem] lg:mx-auto"
             >
               {creditCards.map(
-                ({ provider, cardCode, name, cvv, cardId }, index) => (
+                ({ provider, code_number, name, cvv, cardId }, index) => (
                   <div onClick={() => setCard(cardId)} key={index}>
                     <div
                       className={`${
@@ -281,7 +281,9 @@ function PaymentInfo({ shippingMethod, totalPrice, setLoading }) {
                       </div>
 
                       <div className="w-full h-full flex flex-col items-center justify-end text-gray-200">
-                        <p className="text-xl lg:text-2xl mb-2">{cardCode}</p>
+                        <p className="text-xl lg:text-2xl font-semibold mb-2">
+                          {code_number}
+                        </p>
 
                         <div className="flex items-center justify-between w-full">
                           <p className="font-medium">{name}</p>

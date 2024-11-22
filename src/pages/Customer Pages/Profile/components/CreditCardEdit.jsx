@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { BiTrash } from "react-icons/bi";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
+import AddCreditCardForm from "../../../../common/UI elements/Forms/AddCreditCardForm";
 
 function CreditCardEdit() {
   const [modalIsShow, setModal] = useState(false);
@@ -55,6 +56,8 @@ function CreditCardEdit() {
     );
   }
 
+  console.log(creditCards);
+
   return (
     <div
       className={`${
@@ -74,7 +77,7 @@ function CreditCardEdit() {
       <div className="relative">
         <Slider ref={sliderRef} {...settings} className="w-full mt-2 relative">
           {creditCards?.map(
-            ({ provider, name, cardCode, cvv, cardId }, index) => (
+            ({ provider, name, code_number, cvv, cardId }, index) => (
               <div key={index} className="w-full h-48 relative z-10 p-3.5 ">
                 <button
                   onClick={() => removeCardHandler(cardId, name)}
@@ -91,7 +94,9 @@ function CreditCardEdit() {
                 </div>
 
                 <div className="w-full h-full flex flex-col items-center justify-end text-gray-200">
-                  <p className="text-xl lg:text-2xl mb-2">{cardCode}</p>
+                  <p className="text-xl font-medium lg:text-2xl mb-2">
+                    {code_number}
+                  </p>
 
                   <div className="flex items-center justify-between w-full">
                     <p className="font-medium">{name}</p>
@@ -109,7 +114,7 @@ function CreditCardEdit() {
           modalIsShow ? "visible opacity-100" : "invisible opacity-0"
         } transition-all duration-200`}
       >
-        {/* <AddCreditCardForm onModalClose={() => setModal(false)} /> */}
+        <AddCreditCardForm onModalClose={() => setModal(false)} />
       </div>
     </div>
   );

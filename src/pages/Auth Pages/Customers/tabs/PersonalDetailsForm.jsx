@@ -75,17 +75,17 @@ function PersonalDetailsForm() {
     <div className="flex flex-col items-center">
       {/* title */}
       <div className="my-2 px-4 py-2 text-center">
-        <h4 className="text-2xl  font-bold mb-2 md:mb-4 md:text-5xl">
+        <h4 className="text-3xl  font-bold mb-2 md:mb-4 md:text-5xl">
           Set Up Your <span className="text-primary-500">Information</span>
         </h4>
-        <span className="text-primary-500 text-sm md:text-base font-medium">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero, saepe.
+        <span className="text-primary-800 text-sm md:text-base font-medium">
+          Fill out your personal information to create an eco-friendly account
+          and start your sustainable shopping journey! 🌍✨
         </span>
       </div>
       {/* personal information input's */}
       <form
         onSubmit={handleSubmit((data) => {
-          console.log(data);
           // merge personal info with form data
           const personalInfo = {
             ...personalInformation,

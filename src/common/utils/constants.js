@@ -377,9 +377,9 @@ export function checkUserAuthentication(auth_status) {
     case 200:
       break;
     case 204:
-      throw Error("Please try again a few moment later or refresh page");
+      throw Error("Please try again a few seconds later or refresh page");
     case 401:
-      throw Error("you are not a user please sign in first");
+      throw Error("You Have To Sign-up First...");
   }
 }
 

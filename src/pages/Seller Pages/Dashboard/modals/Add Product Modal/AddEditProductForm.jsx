@@ -24,7 +24,7 @@ function AddEditProductForm({
   getProducts,
 }) {
   const [currentStep, setStep] = useState(1);
-  const { userId, businessInformation } = useSelector(
+  const { userId, businessInformation, personalInformation } = useSelector(
     (state) => state.userData
   );
   const [loading, setLoading] = useState(false);
@@ -78,9 +78,12 @@ function AddEditProductForm({
           Thumbnail: Images[0] || "",
           Type: getValues().Type,
           SellerId: userId,
-          SellerName: businessInformation?.first_name || "",
+          SellerName:
+            businessInformation?.business_name ||
+            personalInformation?.fisrt_name ||
+            "",
           SellerEmail: "test mail",
-          SellerProfile: businessInformation?.profilePic || "",
+          SellerProfile: personalInformation?.profilePic || "",
         });
         // dispatch success on each modes (edit || add)
         if (isEdit) {

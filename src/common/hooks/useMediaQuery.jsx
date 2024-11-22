@@ -15,9 +15,9 @@ const useMediaQuery = ({ maxWidth }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [maxWidth]);
+  }, [maxWidth, window.innerWidth, window.innerHeight]);
 
-  return widthCheck;
+  return widthCheck || window.innerWidth <= maxWidth;
 };
 
 export default useMediaQuery;

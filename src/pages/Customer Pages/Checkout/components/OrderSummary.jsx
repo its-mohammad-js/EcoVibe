@@ -6,6 +6,7 @@ function OrderSummary({ shippingCost, totalPrice }) {
   // necessary data & hooks
   const { cartData } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
+  const totalAmount = Number(totalPrice) + Number(shippingCost);
 
   function removeOrder(orderId) {
     const updatedCartData = cartData.filter(
@@ -70,7 +71,7 @@ function OrderSummary({ shippingCost, totalPrice }) {
         <hr className="my-1" />
         <p className="w-full flex items-center justify-between">
           <span>Total Amount: </span>
-          <span>{totalPrice + Number(shippingCost)}</span>
+          <span>{Number(totalAmount).toFixed(2)}</span>
         </p>
       </div>
     </div>

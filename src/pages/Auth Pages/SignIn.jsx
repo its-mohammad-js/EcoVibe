@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { signInUser } from "../../reducers/auth/userDataSlice";
 import { loadingIcon } from "constants";
@@ -94,8 +94,8 @@ function SignInPage() {
         {/* main form */}
         <div className="bg-gray-50 shadow-xl rounded-md h-full md:w-1/2 py-2">
           {/* title */}
-          <div className="px-4 py-8 flex flex-col gap-y-3">
-            <h4 className="text-2xl md:text-3xl">Wecome Back :)</h4>
+          <div className="px-4 py-4 lg:py-8 flex flex-col gap-y-3">
+            <h4 className="text-3xl font-medium md:text-3xl">Wecome Back :)</h4>
 
             <p className="text-sm md:text-base">
               Become part of the Eco Vibe community! Sign in to your account to
@@ -133,8 +133,8 @@ function SignInPage() {
             {/* log in with quick action's */}
             <div className="mt-6">
               <div className="flex items-center justify-center">
-                <span className="absolute bg-gray-50 text-gray-700">
-                  Sign In with Social Account
+                <span className="absolute bg-gray-50 text-gray-700 px-2 font-medium">
+                  Sign-in with your social accounts
                 </span>
                 <span className="w-full h-0.5 bg-gray-200"></span>
               </div>
@@ -162,16 +162,17 @@ function SignInPage() {
                 </button>
               </div>
               <div className="flex items-center justify-center mt-6 mb-2">
-                <span className="absolute bg-gray-50 text-gray-700">Or</span>
+                <span className="absolute bg-gray-50 px-2 text-gray-700">
+                  Or, &nbsp;
+                  <button
+                    onClick={() => navigate("/EcoVibe/Customers/sign-up")}
+                    className="font-bold"
+                  >
+                    Create New Account
+                  </button>
+                </span>
                 <span className="w-full h-0.5 bg-gray-200"></span>
               </div>
-              <button
-                type="button"
-                onClick={() => navigate("/EcoVibe/Customers/sign-up")}
-                className="px-4 py-2 bg-gray-50 w-full border-2 hover:bg-primary-500 hover:text-gray-50 transition-all border-primary-500 rounded-md text-primary-500 my-2 text-lg"
-              >
-                Create New Account
-              </button>
             </div>
           </form>
         </div>

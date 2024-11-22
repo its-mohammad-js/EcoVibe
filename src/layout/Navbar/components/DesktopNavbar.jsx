@@ -13,8 +13,6 @@ import QuickAccessMenu from "../modals/QuickAccessMenu";
 import { FaMessage } from "react-icons/fa6";
 import SearchModal from "../modals/SearchModal";
 
-// search modal isn't render in this route
-const notAllowedSearchRoute = "/EcoVibe/Explore-Products/";
 // navbar change poition on this routes
 const stickyRoutes = ["/EcoVibe/sellers-solutions"];
 
@@ -30,7 +28,7 @@ const DesktopNavbar = () => {
   // sub menu content state
   const [subMenu, setSubMenu] = useState(0);
   // current user info
-  const { personalInformation, userId } = useSelector(
+  const { personalInformation, userId, cartData } = useSelector(
     (state) => state.userData
   );
   // necessary data & hooks
@@ -178,7 +176,7 @@ const DesktopNavbar = () => {
         <div
           ref={searchModalRef}
           className={`${
-            location.pathname === notAllowedSearchRoute && "hidden"
+            location.pathname.includes("Explore-Products") && "hidden"
           } h-12 w-7/12 relative`}
         >
           {/* fake input (just opens search modal) */}
@@ -240,12 +238,24 @@ const DesktopNavbar = () => {
           <div ref={quickMenuRef}>
             <button
               onClick={() => setAccessMenu((prev) => !prev)}
-              className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
+              className="p-3 relative hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
             >
               <BiCart />
+
+              {/* cart items count */}
+              <p
+                className={`${
+                  cartData?.length <= 0 && "hidden"
+                } absolute text-sm bg-primary-500 rounded-full text-gray-50 size-6 flex items-center justify-center left-0 -bottom-2 font-medium`}
+              >
+                {cartData?.length}
+              </p>
             </button>
 
-            <QuickAccessMenu menuIsShow={qucickAccessMenuShow} />
+            <QuickAccessMenu
+              menuIsShow={qucickAccessMenuShow}
+              onCloseMenu={() => setAccessMenu(false)}
+            />
           </div>
         </div>
       </div>

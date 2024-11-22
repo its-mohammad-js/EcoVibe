@@ -22,8 +22,8 @@ function OrdersList({ ordersData, onOrderDetail }) {
 
   if (!ordersData?.length)
     return (
-      <div className="h-screen flex items-center justify-center text-3xl text-primary-400">
-        <h6>There is No Ordered item With This Name</h6>
+      <div className="h-screen flex items-center justify-center text-3xl text-primary-950 font-bold text-center">
+        <h6>There is No Ordered item With This Name...</h6>
       </div>
     );
 
