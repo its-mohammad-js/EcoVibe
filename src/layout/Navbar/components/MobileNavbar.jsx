@@ -152,7 +152,7 @@ const MobileNavbar = () => {
       <div
         className={`${
           sideMenuShow ? "opacity-100 visible" : "opacity-0 invisible"
-        } fixed inset-0 z-50 transition-all duration-500`}
+        } fixed inset-0 z-[60] transition-all duration-500`}
       >
         {/* main menu */}
         <div

@@ -1,4 +1,3 @@
-import { FaUser } from "react-icons/fa";
 import { fakeArray } from "/src/common/utils/constants";
 
 function SellerProfilePageLoader() {
@@ -13,16 +12,16 @@ function SellerProfilePageLoader() {
           {/* header */}
           <div className="flex items-center justify-evenly gap-x-4 lg:gap-x-8 lg:w-fit">
             {/* profile pic */}
-            <div className="size-20 lg:size-24 bg-gray-100 rounded-full overflow-hidden select-none cursor-pointer"></div>
+            <div className="size-20 lg:size-24 bg-gray-300 rounded-full overflow-hidden select-none cursor-pointer"></div>
             {/* stars, products, customers count */}
-            <div className="flex items-center justify-evenly gap-x-4">
+            <div className="flex w-2/3 items-center justify-evenly gap-x-4">
               {fakeArray(3).map((n) => (
                 <div
                   key={n}
                   className="flex items-center justify-center flex-col font-medium gap-y-2"
                 >
-                  <h6 className="w-12 h-2 bg-gray-300 rounded-md"></h6>
-                  <p className="text-center w-20 h-2 bg-gray-200 rounded-md"></p>
+                  <h6 className="w-10 h-2 bg-gray-300 rounded-md"></h6>
+                  <p className="text-center w-16 h-2 bg-gray-200 rounded-md"></p>
                 </div>
               ))}
             </div>

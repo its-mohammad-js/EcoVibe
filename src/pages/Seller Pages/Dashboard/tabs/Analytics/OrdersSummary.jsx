@@ -7,12 +7,14 @@ import OrdersSummaryLoader from "UI/Loaders/OrdersSummaryLoader";
 import { useNavigate } from "react-router-dom";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { scrollContainer } from "src/common/utils/constants";
+import { useSelector } from "react-redux";
 
 function OrdersSummary() {
   // order's data
   const {
     orderList: { orders, loading },
   } = useDashboardData();
+  const { userId } = useSelector((state) => state.userData);
   const containerRef = useRef();
   useHorizontalTouchScroll(".orders-wrapper", loading);
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ function OrdersSummary() {
   // display loading screen
   if (loading) return <OrdersSummaryLoader animate />;
 
-  if (!loading)
+  if (!loading && orders?.length > 0)
     return (
       <>
         <h4 className="text-xl font-bold">Order's Summary</h4>
@@ -40,37 +42,31 @@ function OrdersSummary() {
               orders.length < 2 ? "px-2" : "px-8"
             } inline-flex relative items-center gap-x-8 py-1 lg:py-2`}
           >
-            {orders.length > 0 ? (
-              orders.map((order, index) => (
-                <div
-                  key={index}
-                  className="w-44 lg:w-52 h-28 relative bg-primary-100 px-3 py-1.5 rounded-md flex flex-col justify-evenly"
+            {orders?.map((order, index) => (
+              <div
+                key={index}
+                className="w-44 lg:w-52 h-28 relative bg-primary-100 px-3 py-1.5 rounded-md flex flex-col justify-evenly"
+              >
+                <button
+                  onClick={() =>
+                    navigate(
+                      `/EcoVibe/dashboard/Orders/${order.orderId.replace(
+                        "#",
+                        ""
+                      )}`
+                    )
+                  }
+                  className="absolute top-2.5 right-2 text-lg lg:text-xl text-primary-700"
                 >
-                  <button
-                    onClick={() =>
-                      navigate(
-                        `/EcoVibe/dashboard/Orders/${order.orderId.replace(
-                          "#",
-                          ""
-                        )}`
-                      )
-                    }
-                    className="absolute top-2.5 right-2 text-lg lg:text-xl text-primary-700"
-                  >
-                    <IoOpenOutline />
-                  </button>
-                  <p className="select-none text-lg font-bold">Order Id:</p>
-                  <p className="select-none line-clamp-1">{order.orderId}</p>
-                  <p className="select-none text-sm text-gray-950/60">
-                    {timestampToDate(order.createdAt)}
-                  </p>
-                </div>
-              ))
-            ) : (
-              <div className="w-full bg-red-300 h-28 text-center flex items-center absolute">
-                asadad
+                  <IoOpenOutline />
+                </button>
+                <p className="select-none text-lg font-bold">Order Id:</p>
+                <p className="select-none line-clamp-1">{order.orderId}</p>
+                <p className="select-none text-sm text-gray-950/60">
+                  {timestampToDate(order.createdAt)}
+                </p>
               </div>
-            )}
+            ))}
           </div>
         </div>
         <button
@@ -82,6 +78,28 @@ function OrdersSummary() {
         </button>
       </>
     );
+
+  if (!loading && orders?.length <= 0) {
+    return (
+      <div className="size-full flex flex-col">
+        <h4 className="text-xl font-bold">Order's Summary</h4>
+
+        <div className="flex-1 flex items-center justify-center text-xl font-medium text-gray-900">
+          <p>
+            Unfortunately, no orders have been placed for your products yet,
+          </p>
+          <span
+            onClick={() =>
+              navigate(`/EcoVibe/Explore-Products/seller=${userId}`)
+            }
+            className="text-base text-primary-900 hover:text-primary-800 transition-all mt-1 ml-1 underline cursor-pointer"
+          >
+            Show me My products on the Explore page...
+          </span>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default OrdersSummary;

@@ -10,7 +10,7 @@ function ProductCard({ productData, onProductLike, isLiked }) {
   const { Thumbnail, Name, Price, Stars, id } = productData;
   // get loading state
   const { loading } = useSelector((state) => state.userData);
-
+  
   const navigate = useNavigate();
 
   return (
@@ -53,7 +53,7 @@ function ProductCard({ productData, onProductLike, isLiked }) {
           <div className="">
             <ReactStars
               count={5}
-              value={Stars ? calculateAverage(Stars) : 0}
+              value={calculateAverage(Stars || [0])}
               size={18}
               color2={"#ffd700"}
               edit={false}

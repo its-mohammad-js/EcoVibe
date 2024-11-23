@@ -47,7 +47,7 @@ function QuickAccessMenu({ onModalChange }) {
         ref={menuRef}
         className={`${
           openMenu ? "translate-x-0" : "-translate-x-24"
-        } fixed shadow-xl shadow-gray-800 top-10 lg:top-20 h-[35rem] px-2 py-2 border-y-4 border-primary-500 rounded-r-lg bg-gray-50 z-50 transition-all duration-500 flex flex-col justify-between`}
+        } fixed shadow-xl shadow-gray-800 top-14 lg:top-20 h-[35rem] px-2 py-2 border-y-4 border-primary-500 rounded-r-lg bg-gray-50 z-50 transition-all duration-500 flex flex-col justify-between`}
       >
         {/* quick access to dashboard tabs */}
         <div className="flex flex-col transition-all">
@@ -149,7 +149,7 @@ function QuickAccessMenu({ onModalChange }) {
           drag={!openMenu && "y"}
           dragConstraints={{
             top: -113,
-            bottom: screenDimensions.height - 320, // Adjust elementHeight as needed
+            bottom: screenDimensions.height - 380, // Adjust elementHeight as needed
           }}
           className="fixed z-50 left-0 top-1/4"
         >

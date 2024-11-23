@@ -8,14 +8,12 @@ import {
 } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { db, storage } from "../../../../../config/firebase";
-import { fakeArray } from "constants";
+import { db, storage } from "src/config/firebase";
 import Slider from "react-slick";
 import { BsTrash } from "react-icons/bs";
 import toast, { LoaderIcon } from "react-hot-toast";
-import { timestampToDate } from "../../../../../common/utils/constants";
-import IconicWarningAlert from "../../../../../common/UI elements/Alerts/IconicAlert";
-import { refFromURL } from "firebase/database";
+import { timestampToDate } from "constants";
+import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import { deleteObject, ref } from "firebase/storage";
 
 function LastStories() {

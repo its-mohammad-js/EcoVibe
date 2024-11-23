@@ -32,15 +32,16 @@ function TotalSellsChart() {
   useEffect(() => {
     if (chartType === 1) {
       // calculate all profit base on date
-      setChartdata(() =>
-        orders.map((order) => ({
+      setChartdata(() => [
+        ...orders.map((order) => ({
           price: order.totalPrice,
           date: timestampToDate(order.createdAt, {
             year: "2-digit",
             month: "2-digit",
           }),
-        }))
-      );
+        })),
+        { price: 0 },
+      ]);
     } else {
       // read all ordered products
       const allOrderedItems = orders.flatMap((item) =>
@@ -61,7 +62,7 @@ function TotalSellsChart() {
   // dispaly loading screen
   if (loading) return <TotalSellChartLoader animate />;
 
-  if (orders.length && !loading)
+  if (!loading)
     return (
       <>
         <div className="absolute top-2.5 right-3 w-42">
@@ -80,23 +81,13 @@ function TotalSellsChart() {
         )}
       </>
     );
-
-  if (!loading && !orders?.length)
-    return (
-      <>
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-gradient-to-tr from-gray-50/10 via-gray-800/20 rounded-md to-gray-50/10 backdrop-blur-sm">
-          <h4 className="text-4xl font-bold text-primary-800">
-            You Haven't Any Sell's Yet
-          </h4>
-        </div>
-        <TotalSellChartLoader />
-      </>
-    );
 }
 
 export default TotalSellsChart;
 
 const ProfitByDate = ({ chartData }) => {
+  console.log(chartData.length);
+
   return (
     <ResponsiveContainer width="100%" height="85%">
       <AreaChart
@@ -115,6 +106,7 @@ const ProfitByDate = ({ chartData }) => {
           fillOpacity={1}
           fill="url(#colorUv)"
         />
+        <CartesianGrid strokeDasharray="3 3" />
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#7384f2" stopOpacity={0.8} />
@@ -123,7 +115,14 @@ const ProfitByDate = ({ chartData }) => {
         </defs>
         <YAxis />
         <XAxis dataKey="date" />
-        <Tooltip />
+        <Tooltip
+          formatter={(title) =>
+            chartData.length >= 1
+              ? ["No orders have been placed for your products yet..."]
+              : title
+          }
+          wrapperClassName="[&>p]:hidden"
+        />
       </AreaChart>
     </ResponsiveContainer>
   );

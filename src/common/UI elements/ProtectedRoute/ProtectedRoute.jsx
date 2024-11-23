@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import toast, { LoaderIcon } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { errorIconUrl, loadingIcon } from "constants";
@@ -65,14 +65,10 @@ function ProtectedRoute() {
   // loading user data case
   if (!userId && loading)
     return (
-      <div className="h-screen flex flex-col items-center justify-center">
-        <img
-          src={loadingIcon}
-          alt="laoding-icon"
-          className="size-40 object-cover"
-        />
+      <div className="h-screen flex flex-col gap-y-8 items-center justify-center">
+        <LoaderIcon className="size-24" />
         <h4 className="text-2xl xl:text-4xl font-bold text-center animate-pulse">
-          Getting ready to show you your info...
+          Getting ready to display your info...
         </h4>
       </div>
     );

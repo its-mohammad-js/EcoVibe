@@ -86,7 +86,7 @@ function LastComments() {
     return (
       <>
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-gradient-to-tr from-gray-50/10 via-gray-800/20 rounded-md to-gray-50/10 backdrop-blur-sm">
-          <h4 className="text-3xl font-bold text-primary-800">
+          <h4 className="text-3xl font-bold text-primary-900">
             No Comment's yet...
           </h4>
         </div>
