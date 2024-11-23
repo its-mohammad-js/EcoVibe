@@ -146,7 +146,7 @@ const MobileNavbar = () => {
           </div>
         </div>
       </div>
-      {/* <div className="fixed inset-0 bg-red-100 z-50"></div> */}
+
       {/* side menu */}
       <div
         className={`${
@@ -258,6 +258,7 @@ const MobileNavbar = () => {
                 <h3 className="text-base">Wish List</h3>
               </div>
               <div
+                onClick={() => sideMenuNavigate("/EcoVibe/dashboard")}
                 className={`${
                   (auth_status !== 200 || userType === "customer") && "!hidden"
                 } flex items-center justify-start gap-x-2 px-4 py-4 w-full flex-none`}

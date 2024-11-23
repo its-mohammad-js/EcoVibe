@@ -20,7 +20,7 @@ function OrdersSummary() {
   // display loading screen
   if (loading) return <OrdersSummaryLoader animate />;
 
-  if (!loading && orders?.length)
+  if (!loading)
     return (
       <>
         <h4 className="text-xl font-bold">Order's Summary</h4>
@@ -38,33 +38,39 @@ function OrdersSummary() {
           <div
             className={`${
               orders.length < 2 ? "px-2" : "px-8"
-            } inline-flex items-center gap-x-8 py-1 lg:py-2`}
+            } inline-flex relative items-center gap-x-8 py-1 lg:py-2`}
           >
-            {orders.map((order, index) => (
-              <div
-                key={index}
-                className="w-44 lg:w-52 h-28 relative bg-primary-100 px-3 py-1.5 rounded-md flex flex-col justify-evenly"
-              >
-                <button
-                  onClick={() =>
-                    navigate(
-                      `/EcoVibe/dashboard/Orders/${order.orderId.replace(
-                        "#",
-                        ""
-                      )}`
-                    )
-                  }
-                  className="absolute top-2.5 right-2 text-lg lg:text-xl text-primary-700"
+            {orders.length > 0 ? (
+              orders.map((order, index) => (
+                <div
+                  key={index}
+                  className="w-44 lg:w-52 h-28 relative bg-primary-100 px-3 py-1.5 rounded-md flex flex-col justify-evenly"
                 >
-                  <IoOpenOutline />
-                </button>
-                <p className="select-none text-lg font-bold">Order Id:</p>
-                <p className="select-none line-clamp-1">{order.orderId}</p>
-                <p className="select-none text-sm text-gray-950/60">
-                  {timestampToDate(order.createdAt)}
-                </p>
+                  <button
+                    onClick={() =>
+                      navigate(
+                        `/EcoVibe/dashboard/Orders/${order.orderId.replace(
+                          "#",
+                          ""
+                        )}`
+                      )
+                    }
+                    className="absolute top-2.5 right-2 text-lg lg:text-xl text-primary-700"
+                  >
+                    <IoOpenOutline />
+                  </button>
+                  <p className="select-none text-lg font-bold">Order Id:</p>
+                  <p className="select-none line-clamp-1">{order.orderId}</p>
+                  <p className="select-none text-sm text-gray-950/60">
+                    {timestampToDate(order.createdAt)}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <div className="w-full bg-red-300 h-28 text-center flex items-center absolute">
+                asadad
               </div>
-            ))}
+            )}
           </div>
         </div>
         <button
@@ -74,18 +80,6 @@ function OrdersSummary() {
         >
           <BiChevronLeft className="rotate-180" />
         </button>
-      </>
-    );
-
-  if (!loading && !orders?.length)
-    return (
-      <>
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-gradient-to-tr from-gray-50/10 via-gray-800/20 rounded-md to-gray-50/10 backdrop-blur-sm">
-          <h4 className="text-4xl font-bold text-primary-800">
-            You Haven't Any Order Yet :(
-          </h4>
-        </div>
-        <OrdersSummaryLoader />
       </>
     );
 }

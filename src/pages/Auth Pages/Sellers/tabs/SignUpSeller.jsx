@@ -101,11 +101,11 @@ function SignUpSeller() {
             })
           );
         })}
-        className="px-3 py-1.5 flex flex-col gap-y-2 lg:basis-1/3 lg:bg-gray-100 lg:px-6 lg:py-4 lg:rounded-xl lg:border"
+        className="px-3 py-1.5 flex flex-col gap-y-2 lg:basis-1/3 lg:bg-gray-50 lg:px-6 lg:py-4 lg:rounded-xl lg:border"
       >
         {/* header */}
         <div className="flex items-center justify-between">
-          <h4 className="text-2xl lg:text-3xl font-bold text-black/80">
+          <h4 className="text-4xl text-center w-full lg:text-start font-bold text-black/80">
             Become a seller !
           </h4>
         </div>
@@ -148,9 +148,11 @@ function SignUpSeller() {
           >
             Create New Account
           </button>
-          <p className="text-center text-xl relative flex items-center justify-center">
+          <p className="text-center my-1 text-xl relative flex items-center justify-center">
             <p className="w-full h-0.5 bg-gray-300 absolute"></p>
-            <p className="relative bg-gray-100 px-3 text-gray-500">OR</p>
+            <p className="relative text-base bg-white lg:bg-gray-100 px-3 text-gray-700">
+              Or, use your social media accounts
+            </p>
           </p>
           <button
             type="button"

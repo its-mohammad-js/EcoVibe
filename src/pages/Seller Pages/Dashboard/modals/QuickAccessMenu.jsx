@@ -96,7 +96,7 @@ function QuickAccessMenu({ onModalChange }) {
             </p>
           </button>
           <button
-            onClick={() => navigate("/EcoVibe/")}
+            onClick={() => navigate("/EcoVibe/messages")}
             className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
           >
             <p className="p-2 text-2xl rounded-full border border-gray-50 group-hover:border-primary-500">
