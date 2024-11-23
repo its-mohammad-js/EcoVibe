@@ -52,8 +52,8 @@ const inputsValidation = {
       message: "Max price is $1",
     },
     pattern: {
-      value: /^[1-9]\d*$/,
-      message: "Invalid number, please enter price in X.XX format",
+      value: /^(?!0\d)(\d+(\.\d{1,2})?)$/,
+      message: "Invalid number, please enter price in N.NN format",
     },
   },
 };
@@ -80,6 +80,7 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
         <div className="flex flex-col gap-y-2">
           <h6 className="font-semibold lg:text-lg">Product Name :</h6>
           <input
+            autoFocus={isEdit}
             type="text"
             {...register("Name", { ...inputsValidation.Name })}
             className="px-3 py-2 border border-gray-300 rounded-md w-full outline-none focus:border-primary-400/50 transition-all"
@@ -91,6 +92,7 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
         <div className="flex flex-col gap-y-2">
           <h6 className="font-semibold lg:text-lg">Category :</h6>
           <Select
+            menuShouldScrollIntoView={false}
             options={categoryOptions}
             {...register("Category", { ...inputsValidation.Category })}
             onChange={({ value }) => setValue("Category", value)}
@@ -103,6 +105,7 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
         <div className="flex flex-col gap-y-2">
           <h6 className="font-semibold lg:text-lg">Product Type :</h6>
           <Select
+            menuShouldScrollIntoView={false}
             {...register("Type", { ...inputsValidation.Type })}
             onChange={({ value }) => setValue("Type", value)}
             options={getCategoryOptions(getValues()?.Category, "productTypes")}
@@ -115,6 +118,7 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
         <div className="flex flex-col gap-y-2">
           <h6 className="font-semibold lg:text-lg">Collection :</h6>
           <Select
+            menuShouldScrollIntoView={false}
             {...register("Collection")}
             onChange={({ value }) => setValue("Collection", value)}
             options={getCategoryOptions(getValues()?.Category, "collections")}
@@ -162,6 +166,7 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
         <h6 className="font-semibold lg:text-lg">Price :</h6>
         <input
           type="number"
+          step="0.01"
           rows={8}
           {...register("Price", { ...inputsValidation.Price })}
           className="px-3 py-2 border border-gray-300 rounded-md w-full outline-none focus:border-primary-400/50 transition-all resize-none"

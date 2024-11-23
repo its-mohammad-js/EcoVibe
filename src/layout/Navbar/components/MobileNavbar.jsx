@@ -18,6 +18,7 @@ import {
 import { IoHomeOutline } from "react-icons/io5";
 import { FiShoppingCart } from "react-icons/fi";
 import {
+  AiOutlineBarChart,
   AiOutlineDashboard,
   AiOutlineShopping,
   AiOutlineUser,
@@ -264,7 +265,7 @@ const MobileNavbar = () => {
                 } flex items-center justify-start gap-x-2 px-4 py-4 w-full flex-none`}
               >
                 <span className="text-3xl">
-                  <MdOutlineSpaceDashboard />
+                  <AiOutlineBarChart />
                 </span>
                 <h3 className="text-base">Dashboard</h3>
               </div>

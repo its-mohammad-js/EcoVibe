@@ -26,7 +26,7 @@ function RatesChart() {
   useEffect(() => {
     // an array of all rate number
     const allRates = products.flatMap((product) =>
-      product.Stars.map((num) => num)
+      product?.Stars?.map((num) => num)
     );
     if (!allRates.length) {
       setError(404);
@@ -41,6 +41,8 @@ function RatesChart() {
       setChartData(counts);
     }
   }, [products]);
+
+  console.log();
 
   if (loading) return <RatesChartLoader animate />;
 

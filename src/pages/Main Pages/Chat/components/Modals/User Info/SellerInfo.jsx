@@ -37,15 +37,19 @@ const SellerInfo = () => {
         {/* seller business informations */}
         <div className="flex items-center justify-center gap-x-3">
           <p className="text-lg font-semibold w-3/5">Shop Name</p>
-          <p className="w-2/5 line-clamp-1">{seller?.business_name}</p>
+          <p className="w-2/5 line-clamp-1 break-words">
+            {seller?.business_name}
+          </p>
         </div>
         <div className="flex items-center justify-center gap-x-3">
           <p className="text-lg font-semibold w-3/5">Career Title</p>
-          <p className="w-2/5 line-clamp-1">{seller?.career_title}</p>
+          <p className="w-2/5 line-clamp-1 break-words">
+            {seller?.career_title}
+          </p>
         </div>
         <div className="flex items-center justify-center gap-x-3">
           <p className="text-lg font-semibold w-3/5">Email</p>
-          <p className="w-2/5 line-clamp-1">{seller?.email}</p>
+          <p className="w-2/5 line-clamp-1 break-words">{seller?.email}</p>
         </div>
         <div>
           {/* seller biography */}

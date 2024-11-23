@@ -14,9 +14,8 @@ function OrdersTable({ filteredOrders, onOrderDetail, onStatusChange }) {
   // on no order fined case
   if (!filteredOrders.length)
     return (
-      <div className="h-screen flex items-center flex-col gap-4 justify-center text-4xl">
+      <div className="h-screen flex items-center flex-col text-primary-900 font-medium gap-4 justify-center text-4xl">
         <h4>There is no order with these details :)</h4>
-        <p>this is the test case</p>
       </div>
     );
 

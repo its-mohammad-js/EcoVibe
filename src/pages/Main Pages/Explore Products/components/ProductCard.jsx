@@ -148,7 +148,9 @@ function ProductCard({ productData }) {
             <p className="font-medium md:text-lg">${productData.Price}</p>
             <p className="flex items-center justify-center gap-x-0.5 md:gap-y-1">
               <span className="text-base">
-                {calculateAverage(productData.Stars)}
+                {calculateAverage(
+                  productData?.Stars ? productData?.Stars : [0]
+                )}
               </span>
               <span className="mb-0.5 text-amber-300">
                 <FaStar />

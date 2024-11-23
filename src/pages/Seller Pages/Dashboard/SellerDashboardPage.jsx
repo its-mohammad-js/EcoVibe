@@ -63,7 +63,7 @@ function SellerDashboardPage() {
 
         <div
           onClick={() => setModal(null)}
-          className="absolute inset-0 bg-gray-950/70 backdrop-blur cursor-pointer -z-10"
+          className="absolute inset-0 bg-gray-950/70 backdrop-blur cursor-pointer -z-20"
         ></div>
       </div>
     </div>

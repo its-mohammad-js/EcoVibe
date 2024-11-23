@@ -37,7 +37,7 @@ function ProductDetails({ selectedItem, onModalClose, getProducts }) {
         await deleteDoc(docRef);
         // dispatch success & update products list data
         toast("Product successfully deleted");
-        dispatch(getFilteredProducts({ seller: [userId] }));
+        window.location.reload();
       } catch (error) {
         // dispatch failures
         toast.error("There was an error deleting the product");

@@ -45,7 +45,7 @@ function ContactsList({ onCloseModal }) {
           : // get purchases of current user
             where("customerId", "==", userId)
       );
-      // get array of related orders to current user
+      // get array of related orders of current user
       const allowedOrders = await getDocs(ordersQuery).then(({ docs }) =>
         docs.map((doc) => doc.data())
       );
@@ -78,7 +78,7 @@ function ContactsList({ onCloseModal }) {
         );
         // get contacts data
         const users = await getDocs(refQuery).then(({ docs }) =>
-          docs.map((doc) => doc.data())
+          docs.map((doc) => doc.data()).filter((user) => user.userId !== userId)
         );
         // dispatch success
         setUserList({ userList: users, loading: false, error: null });

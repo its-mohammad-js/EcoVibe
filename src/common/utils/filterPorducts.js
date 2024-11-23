@@ -113,9 +113,13 @@ export function filterProducts(products, filters) {
     filteredProducts = filteredProducts.sort((productA, productB) => {
       switch (sortBy) {
         case "Popular":
-          return (
-            calculateAverage(productB.Stars) - calculateAverage(productA.Stars)
-          );
+          if (productA?.Stars && productB?.Stars) {
+            return (
+              calculateAverage(productB?.Stars) -
+              calculateAverage(productA?.Stars)
+            );
+          }
+          break;
         case "High To Low":
           return Number(productB.Price) - Number(productA.Price);
         case "Low To High":

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import { db } from "../../../../../config/firebase";
 import toast from "react-hot-toast";
-import { fakeArray, isInArray } from "constants";
+import { fakeArray } from "constants";
 
 function ProductOptions({ getValues, setValue, isEdit }) {
   // selected options data
@@ -132,6 +132,7 @@ function ProductOptions({ getValues, setValue, isEdit }) {
         </div>
       </div>
     );
+  // console.log(selectedOptions);
 
   // main form
   if (!loading && optionsList?.length)
@@ -141,13 +142,16 @@ function ProductOptions({ getValues, setValue, isEdit }) {
         <div className="text-center my-2">
           <h4 className="text-3xl font-bold">Select Options</h4>
           <p className="leading-6 text-sm">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat,
-            voluptas illo voluptatum rem corrupti pariatur omnis, quidem tempora
-            tempore quis quisquam!
+            This user-friendly interface allows admins to quickly add new
+            products or update existing ones with ease ✏️. Key fields like
+            product name, price, description, and category are neatly organized
+            🛍️.
             <span className="hidden lg:inline">
-              &nbsp; Repellendus inventore quod quas repudiandae aliquam
-              voluptate quae unde, vero nostrum fugiat earum laborum nobis
-              obcaecati nesciunt vitae molestias.
+              &nbsp; Admins can upload product images 📸 and set stock
+              availability directly from the modal. Validation ensures correct
+              data entry ✅, while real-time previews offer clarity 👀. Whether
+              launching a new item or tweaking details, the modal streamlines
+              operations for a smooth e-commerce experience 💼.
             </span>
           </p>
         </div>
@@ -156,15 +160,15 @@ function ProductOptions({ getValues, setValue, isEdit }) {
           <h6 className="text-xl font-bold">Options List :</h6>
 
           <div ref={optionMenuRef} className="flex flex-col gap-y-4 my-2">
-            {optionsList.map(({ title, options }, index) => {
+            {optionsList.map(({ title, options, once }, index) => {
               return (
                 <div key={index} className="option">
                   <Select
-                    onChange={(e) => onSelectOptions(title, e)}
+                    onChange={(e) => onSelectOptions(title, once ? [e] : e)}
                     value={selectedOptions
                       .filter(({ title: label }) => label === title)[0]
                       ?.options?.map((opt) => ({ label: opt, value: opt }))}
-                    isMulti={true}
+                    isMulti={!once}
                     options={options.map((opt) => ({ label: opt, value: opt }))}
                     placeholder={`Choose ${title}`}
                   />

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RoomsContext from "./components/RoomsContext";
 import ChatList from "./components/Chat List/ChatList";
 import SideNav from "./components/SideNav";
 import MessagesRoom from "./components/Messages/MessagesRoom";
-import { getDatabase, ref, update, remove, goOffline } from "firebase/database";
+import { getDatabase, ref, update, remove } from "firebase/database";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import ContactsList from "./components/Modals/Contacts/ContactsList";
@@ -43,8 +43,6 @@ function ChatPage() {
       toast.success("Room Is Deleted Successfully");
     }
   }
-
-  
 
   return (
     <RoomsContext>

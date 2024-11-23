@@ -4,11 +4,7 @@ import { useRoomsData } from "../RoomsContext";
 import { useEffect, useRef, useState } from "react";
 import MessageList from "./MessageList";
 import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
-import TextAlert from "../../../../../common/UI elements/Alerts/TextAlert";
-import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
-import { useSelector } from "react-redux";
-import toast from "react-hot-toast";
-import { useLocation } from "react-router-dom";
+import TextAlert from "UI/Alerts/TextAlert";
 
 function MessagesRoom({ deleteRoom }) {
   // search bar state
@@ -39,7 +35,11 @@ function MessagesRoom({ deleteRoom }) {
   const navRef = useRef();
   // warning alert state
   const [showAlert, setShowAlert] = useState(false);
-  const { userId } = useSelector((state) => state.userData);
+
+  // close search bar on change room
+  useEffect(() => {
+    setSearchBar({ searchQuery: "", barIsShow: false });
+  }, [selectedRoom]);
 
   // set room height on resizes
   // note: This effect is used because of the unexpected screen resize behavior, particularly when focusing on the message input and the keyboard is displayed on Android devices.
@@ -192,7 +192,11 @@ function MessagesRoom({ deleteRoom }) {
                 ? selectedIndex
                   ? `${selectedIndex + 1} of ${results?.length}`
                   : `${results?.length} Messages Find`
-                : `Search Between ${selectedRoom.messageList?.length} Messages`}
+                : `Search Between ${
+                    selectedRoom.messageList?.length
+                      ? selectedRoom.messageList?.length
+                      : 0
+                  } Messages`}
             </h4>
 
             <div

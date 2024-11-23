@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { AiOutlineClose, AiOutlineMail, AiOutlineSend } from "react-icons/ai";
-import {
-  getDatabase,
-  ref,
-  update,
-  serverTimestamp,
-  set,
-} from "firebase/database";
+import { AiOutlineClose, AiOutlineSend } from "react-icons/ai";
+import { getDatabase, ref, update, serverTimestamp } from "firebase/database";
 import { useSelector } from "react-redux";
 import { findIndex } from "lodash";
 import { generateId } from "constants";
@@ -17,8 +11,6 @@ import { FiPaperclip } from "react-icons/fi";
 import { GoPin } from "react-icons/go";
 import { BsBox } from "react-icons/bs";
 import ShareContentModal from "../Modals/Share Content/ShareContentModal";
-import toast from "react-hot-toast";
-import { motion, useInView, useScroll } from "framer-motion";
 import useOutSideClick from "../../../../../common/hooks/UseOutsideClick";
 
 function MessageInput({ setFocus }) {
@@ -163,11 +155,14 @@ function MessageInput({ setFocus }) {
         {/* share content menu */}
         <>
           {/* share content btn */}
-          <button className="text-3xl text-gray-900 py-2 rounded-md peer">
+          <button
+            disabled={messageMode === "edit"}
+            className="text-3xl disabled:opacity-50 text-gray-900 py-2 rounded-md peer"
+          >
             <FiPaperclip />
           </button>
           {/* share content menu */}
-          <div className="w-72 z-50 flex flex-col absolute bg-gray-100 -top-44 left-2 rounded-md opacity-0 invisible peer-hover:visible peer-hover:opacity-100 hover:visible hover:opacity-100 transition-all">
+          <div className="w-72 z-50 flex flex-col absolute bg-gray-100 -top-44 left-2 rounded-md opacity-0 invisible peer-disabled:hidden peer-hover:visible peer-hover:opacity-100 hover:visible hover:opacity-100 transition-all">
             <button
               onClick={() =>
                 setContentModal({ modalIsShow: true, type: "order" })

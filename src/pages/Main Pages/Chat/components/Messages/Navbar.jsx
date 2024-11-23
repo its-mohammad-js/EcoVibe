@@ -12,7 +12,7 @@ import { useRoomsData } from "../RoomsContext";
 import { HiDotsVertical } from "react-icons/hi";
 import useOutSideClick from "hooks/UseOutsideClick";
 
-function Navbar({ searchBar, setSearchBar, deleteRoom, setShowAlert }) {
+function Navbar({ searchBar, setSearchBar, setShowAlert }) {
   // user info modal state
   const [userDetails, setUserDetails] = useState(null);
   // context menu state
@@ -88,7 +88,7 @@ function Navbar({ searchBar, setSearchBar, deleteRoom, setShowAlert }) {
             <p className="text-lg font-bold">
               {userType === "customer" ? first_name : business_name}
             </p>
-            <p className="-mt-1">
+            <p className="-mt-1 text-sm line-clamp-1 break-words lg:text-base">
               {last_seen?.date
                 ? last_seen?.status === "offline"
                   ? `last seen at ${calculateLastSeenDate(last_seen.date)}`

@@ -89,12 +89,12 @@ function ProductTab() {
                 className="outline-none px-2 w-[50%] lg:w-full bg-transparent lg:text-lg "
                 placeholder="search"
                 value={searchQuery}
-                onChange={(e) =>
+                onChange={(e) => {
                   setFilters((prev) => ({
                     ...prev,
                     searchQuery: e.target.value,
-                  }))
-                }
+                  }));
+                }}
               />
               <Select
                 placeholder="Sort By"
@@ -157,8 +157,8 @@ function ProductTab() {
           className={`${
             modalIsShow
               ? "fixed inset-0 bg-white opacity-100 visible lg:relative lg:w-4/12"
-              : "opacity-0 invisible size-0 -translate-x-96"
-          } transition-all duration-300 lg:mx-2 z-50`}
+              : "opacity-0 invisible absolute right-0 -translate-x-96"
+          } transition-all duration-500 lg:mx-2 z-50`}
         >
           <ProductDetails
             selectedItem={selectedItem}

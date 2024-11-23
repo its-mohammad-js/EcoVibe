@@ -3,7 +3,7 @@ import ProductImages from "./ProductImages";
 import ProductInformation from "./ProductInformation";
 import ProductOptions from "./ProductOptions";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import toast, { LoaderIcon } from "react-hot-toast";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "src/config/firebase";
 import { useSelector } from "react-redux";
@@ -71,9 +71,10 @@ function AddEditProductForm({
             ? JSON.parse(getValues()?.Options)
             : getValues()?.Options,
           Price: getValues().Price,
-          Stars: [0],
           Tags: getValues()?.Tags?.length
-            ? JSON.parse(getValues()?.Tags) || getValues()?.Tags
+            ? !isEdit
+              ? JSON.parse(getValues()?.Tags)
+              : getValues()?.Tags
             : [],
           Thumbnail: Images[0] || "",
           Type: getValues().Type,
@@ -181,14 +182,13 @@ function AddEditProductForm({
         </div>
         {/* loading screen */}
         {loading && (
-          <div className="absolute inset-0 bg-gray-50 z-50 flex items-center justify-center flex-col">
-            <img
-              src={loadingIcon}
-              alt="loading-icon"
-              className="size-24 object-cover animate-pulse"
-            />
-            <h4 className="text-3xl font-bold">
-              {isEdit ? "Update product info" : "Add new product"}...
+          <div className="absolute inset-0 bg-gray-50 z-50 flex items-center gap-4 justify-center flex-col">
+            <LoaderIcon className="size-24" />
+            <h4 className="text-2xl font-bold text-center">
+              {isEdit
+                ? "Update product info, please dont refresh page"
+                : "Add new product, please dont refresh page"}
+              ...
             </h4>
           </div>
         )}
@@ -243,7 +243,10 @@ function AddEditProductForm({
         <div className="flex items-center justify-end my-2 gap-x-2">
           <button
             type="button"
-            disabled={isEdit && currentStep === 3}
+            disabled={
+              (isEdit && currentStep === 3) ||
+              (currentStep === 3 && getValues().Images !== "[]")
+            }
             onClick={() => {
               currentStep === 1
                 ? onModalChange(null)
@@ -269,9 +272,17 @@ function AddEditProductForm({
               onModalChange();
             } else {
               toast.remove();
-              toast.error("Plase Submit Your Changes...");
+              toast.error("Plase submit your changes...");
+              return;
             }
+          } else if (getValues().Images !== "[]") {
+            toast.remove();
+            toast.error(
+              "Plase submit your product, you can remove it later..."
+            );
+            return;
           }
+          onModalChange();
         }}
         className="absolute inset-0 bg-gray-950/70 backdrop-blur cursor-pointer -z-10"
       ></div>

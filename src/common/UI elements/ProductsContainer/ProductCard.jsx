@@ -4,7 +4,6 @@ import ReactStars from "react-stars";
 import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect, useRef } from "react";
 
 function ProductCard({ productData, onProductLike, isLiked }) {
   // destructur product data from props
@@ -54,7 +53,7 @@ function ProductCard({ productData, onProductLike, isLiked }) {
           <div className="">
             <ReactStars
               count={5}
-              value={calculateAverage(Stars)}
+              value={Stars ? calculateAverage(Stars) : 0}
               size={18}
               color2={"#ffd700"}
               edit={false}

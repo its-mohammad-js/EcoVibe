@@ -56,6 +56,11 @@ function FilterOrders({ allOrders, onFilterChange }) {
 
   // change filters date
   function changeDateFilter(e, action) {
+    if (!e.target.value) {
+      setFilters((prev) => ({ ...prev, [action]: null }));
+      return;
+    }
+
     const selectedDate = new Date(e.target.value);
 
     const tranformedDate = {
@@ -121,7 +126,9 @@ function FilterOrders({ allOrders, onFilterChange }) {
             From:
           </label>
           <input
-            onChange={(e) => changeDateFilter(e, "from")}
+            onChange={(e) => {
+              changeDateFilter(e, "from");
+            }}
             type="month"
             id="FromDate"
             className="outline-none border border-gray-300 px-2 rounded-md py-2"

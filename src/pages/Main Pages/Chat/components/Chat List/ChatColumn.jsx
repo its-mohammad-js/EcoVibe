@@ -141,6 +141,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
               ({ roomId }) => roomId === room.roomId
             );
             setSelectedRoom(findedRoom);
+            setContextMenu(false);
           }}
           className="p-4 bg-gray-100 hover:bg-gray-200 transition-all flex items-center gap-x-2"
         >
@@ -148,7 +149,10 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
           open Chat
         </button>
         <button
-          onClick={() => setShowAlert(true)}
+          onClick={() => {
+            setShowAlert(true);
+            setContextMenu(false);
+          }}
           className="p-4 bg-gray-100 hover:bg-gray-200 transition-all flex items-center gap-x-2 text-red-500"
         >
           <AiOutlineDelete className="text-2xl" />

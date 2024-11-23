@@ -71,7 +71,7 @@ function AddCommentInputs({
       // submit rate product
       await setDoc(doc(db, "Products", productData[0]?.id), {
         ...productData[0],
-        Stars: [...productData[0]?.Stars, getValues().stars],
+        Stars: [...(productData[0]?.Stars || []), getValues().stars],
       });
       // submit comment
       await setDoc(doc(db, "comments", commentData.commentId), commentData);

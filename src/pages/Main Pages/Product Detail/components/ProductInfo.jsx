@@ -173,17 +173,20 @@ function ProductInfo() {
                     <p className="text-gray-600">Category:</p>
                     <p className="font-semibold">{Category}</p>
                   </div>
-                  <div className="flex gap-1">
-                    <p className="text-amber-300 text-xl">
-                      <FaStar />
-                    </p>
-                    <p className="text-gray-600">
-                      {calculateAverage(Stars)} ({Stars?.length} rates)
-                    </p>
-                  </div>
+                  {Stars && (
+                    <div className="flex gap-1">
+                      <p className="text-amber-300 text-xl">
+                        <FaStar />
+                      </p>
+
+                      <p className="text-gray-600">
+                        {calculateAverage(Stars)} ({Stars?.length} rates)
+                      </p>
+                    </div>
+                  )}
                   <button
                     onClick={() => toggleWishList()}
-                    className="flex items-center gap-1 mb-1 font-bold group"
+                    className="flex items-start gap-1 font-bold group"
                   >
                     <FaHeart className="text-red-500 hidden text-lg group-hover:inline" />
                     <BiHeart className="text-red-500 text-xl group-hover:hidden" />

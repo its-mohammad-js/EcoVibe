@@ -104,6 +104,8 @@ function ProductImages({ getValues, setValue, isEdit }) {
   }, [uploadedImages]);
 
   async function removeImage(url, id, isPrev) {
+    console.log("ok");
+
     // Identify deleted product images from storage to update product database.
     let deletedPic = null;
     // check image is uploaded
@@ -187,6 +189,7 @@ function ProductImages({ getValues, setValue, isEdit }) {
               >
                 {/* delete image action btn */}
                 <button
+                  type="button"
                   onClick={() => removeImage(url, "", true)}
                   className="absolute p-1 z-10 -top-2 -right-2 bg-gray-50 text-2xl text-red-500 rounded-full"
                 >
@@ -259,17 +262,8 @@ function ProductImages({ getValues, setValue, isEdit }) {
             ))}
         </div>
       </div>
-
       {/* action buttons */}
       <div className="flex justify-end gap-x-2">
-        {/* <button
-          disabled={!imageFiles.length}
-          type="button"
-          onClick={() => setFiles([])}
-          className="px-4 py-2 bg-gray-50 text-primary-500 border-2 border-primary-400 rounded-md disabled:opacity-0 disabled:invisible opacity-100 visible transition-all"
-        >
-          Clear
-        </button> */}
         <button
           disabled={!imageFiles.length}
           type="button"
