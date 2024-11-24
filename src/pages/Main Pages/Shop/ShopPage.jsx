@@ -10,16 +10,19 @@ import TopCompanies from "mainPages/Shop/components/TopCompanies";
 import SellersSection from "mainPages/Shop/components/SellersSection";
 import { BiLogoGmail } from "react-icons/bi";
 import {
+  FaArrowRight,
   FaInstagram,
   FaLinkedin,
   FaPhone,
   FaTelegram,
   FaWhatsapp,
 } from "react-icons/fa";
-import SellersStories from "./components/SellersStories";
+import { Link, useNavigate } from "react-router-dom";
+import { supportedCategories } from "constants";
 
 function ShopPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // get products data from data base
   useEffect(() => {
@@ -28,7 +31,42 @@ function ShopPage() {
 
   return (
     <>
-      <SellersStories />
+      {/* categories section (only on mobile) */}
+      <div className="lg:hidden">
+        {/* title */}
+        <div className="flex items-center justify-between px-3 py-1">
+          <h2 className="font-bold">Categories</h2>
+          <Link to="/EcoVibe/Explore-Products">
+            <span className="text-sm flex text-gray-700 items-center justify-center gap-x-1">
+              Show More <FaArrowRight className="text-xs font-thin" />
+            </span>
+          </Link>
+        </div>
+        {/* category icons */}
+        <div className="flex items-center sm:justify-center gap-x-4 overflow-auto px-6 py-2">
+          {supportedCategories.map((cat, index) => (
+            <button
+              onClick={() => {
+                navigate(
+                  `/EcoVibe/Explore-Products/category=${cat.title.toLocaleLowerCase()}`
+                );
+              }}
+              key={index}
+              className="flex flex-col items-center justify-between gap-y-2"
+            >
+              <span className="bg-primary-100 p-3 rounded-full w-16 h-16">
+                <img
+                  src={cat.iconURl}
+                  alt={cat.title}
+                  className="w-full h-full"
+                />
+              </span>
+
+              <p className="text-sm line-clamp-1">{cat.title}</p>
+            </button>
+          ))}
+        </div>
+      </div>
       {/* Hero Section */}
       <ShopHeroSection />
       {/* Header Sections With Orders */}

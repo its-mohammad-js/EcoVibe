@@ -1,8 +1,6 @@
 import { BiCart, BiMenu, BiSearch } from "react-icons/bi";
-import { FaArrowRight, FaHeart, FaUser } from "react-icons/fa";
-import { MdClose, MdOutlineSpaceDashboard } from "react-icons/md";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { supportedCategories, isInArray } from "constants";
+import { useLocation, useNavigate } from "react-router-dom";
+import { isInArray } from "constants";
 import { useEffect, useRef, useState } from "react";
 import {
   TbCards,
@@ -11,15 +9,12 @@ import {
   TbCreditCard,
   TbEyeQuestion,
   TbHeart,
-  TbLocation,
-  TbLockBolt,
   TbLogin,
 } from "react-icons/tb";
 import { IoHomeOutline } from "react-icons/io5";
 import { FiShoppingCart } from "react-icons/fi";
 import {
   AiOutlineBarChart,
-  AiOutlineDashboard,
   AiOutlineShopping,
   AiOutlineUser,
 } from "react-icons/ai";
@@ -27,9 +22,7 @@ import { useSelector } from "react-redux";
 import QuickAccessMenu from "../modals/QuickAccessMenu";
 import useOutSideClick from "src/common/hooks/UseOutsideClick";
 import SearchModal from "../modals/SearchModal";
-import SideMenuProfileLoader from "../../../common/UI elements/Loaders/SideMenuProfileLoader";
-import { fakeArray } from "../../../common/utils/constants";
-import { RiDashboardLine } from "react-icons/ri";
+import SideMenuProfileLoader from "UI/Loaders/SideMenuProfileLoader";
 
 // search modal rendered only on this routes
 const allowedSearchRoutes = ["/EcoVibe/", "/EcoVibe/Shop"];
@@ -42,8 +35,9 @@ const MobileNavbar = () => {
   // search modal state
   const [searchShow, setSearchModal] = useState(false);
   // necessary hooks & data
-  const { personalInformation, userId, loading, auth_status, userType } =
-    useSelector((state) => state.userData);
+  const { personalInformation, loading, auth_status, userType } = useSelector(
+    (state) => state.userData
+  );
   const navigate = useNavigate();
   const [qucickAccessMenuShow, setAccessMenu] = useState(false);
   const qickMenuRef = useRef();
@@ -110,42 +104,6 @@ const MobileNavbar = () => {
             onCloseModal={() => setSearchModal(false)}
           />
         </>
-        {/* categories section */}
-        <div className={`${location.pathname !== "/EcoVibe/" && "hidden"}`}>
-          {/* title */}
-          <div className="flex items-center justify-between px-3 py-1">
-            <h2 className="font-bold">Categories</h2>
-            <Link to="/EcoVibe/Explore-Products">
-              <span className="text-sm flex text-gray-700 items-center justify-center gap-x-1">
-                Show More <FaArrowRight className="text-xs font-thin" />
-              </span>
-            </Link>
-          </div>
-          {/* category icons */}
-          <div className="flex items-center sm:justify-center gap-x-4 overflow-auto px-6 py-2">
-            {supportedCategories.map((cat, index) => (
-              <button
-                onClick={() => {
-                  navigate(
-                    `/EcoVibe/Explore-Products/category=${cat.title.toLocaleLowerCase()}`
-                  );
-                }}
-                key={index}
-                className="flex flex-col items-center justify-between gap-y-2"
-              >
-                <span className="bg-primary-100 p-3 rounded-full w-16 h-16">
-                  <img
-                    src={cat.iconURl}
-                    alt={cat.title}
-                    className="w-full h-full"
-                  />
-                </span>
-
-                <p className="text-sm line-clamp-1">{cat.title}</p>
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* side menu */}

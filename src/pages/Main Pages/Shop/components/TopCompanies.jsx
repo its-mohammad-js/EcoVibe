@@ -41,7 +41,7 @@ function TopCompanies() {
           </span>
         </div>
         {/* company logo's */}
-        <div className="flex flex-col md:flex-row md:justify-evenly items-center gap-y-10 w-full">
+        <div className="grid grid-cols-3 gap-y-10 w-full">
           {logoData.map(({ url }, index) => (
             <img
               key={index}

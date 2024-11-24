@@ -86,6 +86,11 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
   function changeStoryHandler(payload) {
     const selectedList = storiesList[currentListIndex];
 
+    if (payload === "close") {
+      setList(null);
+      setSlide(0);
+    }
+
     if (payload === "next" && currentSlideIndex !== selectedList.length - 1) {
       setSlide((prev) => prev + 1);
     } else if (payload === "next") {

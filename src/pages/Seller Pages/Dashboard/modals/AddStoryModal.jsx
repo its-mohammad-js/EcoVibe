@@ -7,7 +7,15 @@ import { useSelector } from "react-redux";
 import { storage } from "src/config/firebase";
 import { AiOutlineCheck } from "react-icons/ai";
 import { db } from "/src/config/firebase";
-import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  serverTimestamp,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import toast, { LoaderIcon } from "react-hot-toast";
 
 function AddStoryModal({ onModalChange }) {
@@ -29,6 +37,22 @@ function AddStoryModal({ onModalChange }) {
         isUploaded: false,
         error: null,
       });
+      // check current user stories count
+      const storiesRef = query(
+        collection(db, "Stories"),
+        where("authorId", "==", userId)
+      );
+      const storiesListCount = await getDocs(storiesRef).then(
+        ({ docs }) => docs.length
+      );
+      // return if user uploaded 10 slides already
+      if (storiesListCount >= 10) {
+        toast.error(
+          "You can upload a maximum of 10 slides every 10 hours. 📊⏳"
+        );
+        onModalChange(null);
+        return;
+      }
       // ref to storage
       const productPicRef = ref(storage, `Story Images/${generateId()}`);
       // upload image to storage

@@ -67,6 +67,7 @@ function TotalSellsChart() {
       <>
         <div className="absolute top-2.5 right-3 w-42">
           <Select
+            isSearchable={false}
             options={chartOptions}
             placeholder="Total Sell By"
             onChange={({ value }) => setType(value)}
@@ -86,8 +87,6 @@ function TotalSellsChart() {
 export default TotalSellsChart;
 
 const ProfitByDate = ({ chartData }) => {
-  console.log(chartData.length);
-
   return (
     <ResponsiveContainer width="100%" height="85%">
       <AreaChart
@@ -117,11 +116,8 @@ const ProfitByDate = ({ chartData }) => {
         <XAxis dataKey="date" />
         <Tooltip
           formatter={(title) =>
-            chartData.length >= 1
-              ? ["No orders have been placed for your products yet..."]
-              : title
+            chartData.length >= 1 ? ["No orders yet..."] : title
           }
-          wrapperClassName="[&>p]:hidden"
         />
       </AreaChart>
     </ResponsiveContainer>

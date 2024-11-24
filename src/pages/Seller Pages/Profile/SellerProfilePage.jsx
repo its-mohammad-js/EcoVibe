@@ -61,7 +61,7 @@ function SellerProfilePage() {
           where("authorId", "==", params.id)
         );
         const storiesList = await getDocs(storiesQuery).then(({ docs }) =>
-          docs.map((doc) => doc.data())
+          docs.map((doc) => doc.data()).sort((a) => (!a.highlightRef ? -1 : 1))
         );
 
         setList({

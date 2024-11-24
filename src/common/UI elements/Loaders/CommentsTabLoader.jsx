@@ -6,7 +6,7 @@ function CommentsTabLoader({ animate }) {
       <h4 className="text-xl font-bold">Last Comments</h4>
       <div className="overflow-auto h-[90%] styled-scroll-bar px-1">
         <div className="flex flex-col gap-y-4">
-          {fakeArray(8).map((comment, index) => (
+          {fakeArray(4).map((comment, index) => (
             <div
               key={index}
               className={`${

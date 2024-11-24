@@ -46,13 +46,13 @@ function SellerProfilePageLoader() {
           </div>
           {/* action btns */}
           <div className="flex items-center justify-around my-3 lg:w-fit lg:gap-x-4">
-            <button className="px-4 py-1 w-24 text-sm lg:text-base bg-gray-300 hover:bg-opacity-50 transition-all text-gray-950 rounded-lg">
+            <button className="px-4 py-1 w-24 text-sm lg:text-base bg-gray-300 cursor-auto transition-all text-gray-950 rounded-lg">
               &nbsp;
             </button>
-            <button className="px-4 py-1 w-24 text-sm lg:text-base bg-gray-300 hover:bg-opacity-50 transition-all text-gray-950 rounded-lg">
+            <button className="px-4 py-1 w-24 text-sm lg:text-base bg-gray-300 cursor-auto transition-all text-gray-950 rounded-lg">
               &nbsp;
             </button>
-            <button className="px-4 py-1 w-24 text-sm lg:text-base bg-gray-300 hover:bg-opacity-50 transition-all text-gray-950 rounded-lg">
+            <button className="px-4 py-1 w-24 text-sm lg:text-base bg-gray-300 cursor-auto transition-all text-gray-950 rounded-lg">
               &nbsp;
             </button>
           </div>

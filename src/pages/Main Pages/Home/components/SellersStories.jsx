@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "/src/config/firebase";
 import StoryListModal from "/src/common/UI elements/StoriesList/StoryListModal";
 
@@ -62,17 +62,19 @@ function SellersStories() {
             <div
               key={listIndex}
               onClick={() => setList(listIndex)}
-              className="flex flex-col justify-center items-center cursor-pointer"
+              className="flex flex-col justify-center items-start cursor-pointer"
             >
               <img
                 src={story[0].authorProfilePic}
                 alt="author-profile"
                 className="size-20 rounded-full ring-2"
               />
-              <p className="font-semibold w-20 text-center break-words line-clamp-1">
+              <p className="font-semibold w-24 text-start break-words line-clamp-1">
                 {story[0].author.first_name}
               </p>
-              <p className="text-sm text-center">{story[0].author.last_name}</p>
+              <p className="text-sm text-center w-20 line-clamp-1">
+                {story[0].author.last_name}
+              </p>
             </div>
           ))}
         </div>

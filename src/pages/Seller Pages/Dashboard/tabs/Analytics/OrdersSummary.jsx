@@ -81,21 +81,21 @@ function OrdersSummary() {
 
   if (!loading && orders?.length <= 0) {
     return (
-      <div className="size-full flex flex-col">
+      <div className="size-full flex flex-col items-start">
         <h4 className="text-xl font-bold">Order's Summary</h4>
 
-        <div className="flex-1 flex items-center justify-center text-xl font-medium text-gray-900">
-          <p>
+        <div className="font-medium text-gray-900 mt-10 text-center w-full">
+          <p className="text-sm lg:text-xl">
             Unfortunately, no orders have been placed for your products yet,
+            <span
+              onClick={() =>
+                navigate(`/EcoVibe/Explore-Products/seller=${userId}`)
+              }
+              className="lg:text-base text-sm text-primary-900 hover:text-primary-800 transition-all mt-1 ml-1 underline cursor-pointer"
+            >
+              Show me My products on the Explore page...
+            </span>
           </p>
-          <span
-            onClick={() =>
-              navigate(`/EcoVibe/Explore-Products/seller=${userId}`)
-            }
-            className="text-base text-primary-900 hover:text-primary-800 transition-all mt-1 ml-1 underline cursor-pointer"
-          >
-            Show me My products on the Explore page...
-          </span>
         </div>
       </div>
     );
