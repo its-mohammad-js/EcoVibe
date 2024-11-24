@@ -1,15 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  AiOutlineMore,
-  AiOutlinePause,
-  AiOutlinePlus,
-  AiOutlineRight,
-} from "react-icons/ai";
+import { AiOutlineMore, AiOutlinePlus, AiOutlineRight } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
 import { BsTrash3 } from "react-icons/bs";
-import { IoTrashBinOutline } from "react-icons/io5";
 import useOutSideClick from "../../hooks/UseOutsideClick";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 function StorySlide(props) {
   const [initialTimer] = useState(5000); // Default duration for each slide
@@ -21,6 +15,18 @@ function StorySlide(props) {
   const [contextMenuShow, setContextMenu] = useState(false);
   useOutSideClick(contextMenuRef, () => setContextMenu(false));
   const videoRef = useRef();
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (pause) {
+      controls.stop(); // Pause animation
+    } else {
+      controls.start({
+        translateX: "0%", // Continue the animation
+        transition: { duration: remainingTime / 1000, ease: "linear" }, // Update duration dynamically
+      });
+    }
+  }, [pause, remainingTime]);
 
   // destructure props
   const {
@@ -99,24 +105,17 @@ function StorySlide(props) {
               key={i}
               className={`${
                 i === currentSlideIndex ? "bg-gray-50" : "bg-gray-400"
-              } w-full h-1 rounded-xl overflow-hidden`}
+              } w-full h-1 rounded-xl overflow-hidden relative`}
             >
               {i === currentSlideIndex && (
                 <motion.div
-                  className="bg-primary-300 h-1"
-                  initial={{ width: "0%" }}
-                  animate={{
-                    width: pause
-                      ? `${
-                          ((initialTimer - remainingTime) / initialTimer) * 100
-                        }%`
-                      : "100%",
-                  }}
+                  className="bg-primary-300 h-1 absolute left-0 top-0 w-full"
+                  initial={{ translateX: "-100%" }}
+                  animate={controls} // Attach animation controls
                   transition={{
                     duration: remainingTime / 1000,
                     ease: "linear",
                   }}
-                  key={remainingTime}
                 />
               )}
             </p>
@@ -187,16 +186,15 @@ function StorySlide(props) {
             ) : (
               <video
                 ref={videoRef}
-                // update remaining time on video play
                 onPlaying={(e) => {
-                  const currentDuration = (
-                    e.target.duration - e.target.currentTime
-                  ).toFixed();
-
-                  setRemainingTime(
-                    currentDuration <= 60 ? currentDuration * 1000 : 60000
+                  const currentDuration = Math.max(
+                    0,
+                    (e.target.duration - e.target.currentTime) * 1000
                   );
+
+                  setRemainingTime(currentDuration);
                 }}
+                onPlay={() => setPause(false)}
                 autoPlay={currentSlideIndex === slideindex}
                 className="size-full object-cover"
                 src={story.contentUrl}

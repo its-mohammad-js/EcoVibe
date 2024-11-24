@@ -178,7 +178,7 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
                       />
                     )
                   ) : (
-                    // next || prev slide
+                    // next || prev slides
                     <div
                       key={slideindex}
                       className="size-full first-of-type:flex hidden relative bg-gray-950 lg:rounded-xl items-center"

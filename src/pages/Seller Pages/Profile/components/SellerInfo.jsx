@@ -35,10 +35,10 @@ function SellerInfo({ onEditHandler }) {
   // calculate stars
   function calculateStars() {
     const averageStars = calculateAverage(
-      reviews.map(({ content }) => content.stars)
+      reviews.map(({ content }) => content?.stars)
     );
 
-    return averageStars;
+    return isNaN(averageStars) ? 0 : averageStars;
   }
 
   // send message handler

@@ -143,7 +143,6 @@ function QuickAccessMenu({ onModalChange }) {
             </p>
           </button>
         </div>
-
         {/* dragable btn (open close menu) */}
         <motion.div
           drag={!openMenu && "y"}

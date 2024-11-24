@@ -215,3 +215,16 @@ body::-webkit-scrollbar-thumb {
     width: 100%;
   }
 }
+
+.progress-bar {
+  animation: progress linear forwards;
+}
+
+@keyframes progress {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
