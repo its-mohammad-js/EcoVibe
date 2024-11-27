@@ -3,14 +3,12 @@ import {
   onValue,
   ref,
   set,
-  onDisconnect,
   goOffline,
   goOnline,
-  serverTimestamp,
 } from "firebase/database";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { find } from "lodash";
 import toast from "react-hot-toast";
 
@@ -70,8 +68,6 @@ function RoomsContext({ children }) {
     const roomsRef = ref(db, "rooms");
 
     onValue(roomsRef, (snapshot) => {
-      console.log(snapshot.val());
-
       if (!snapshot.exists()) {
         setRooms({
           rooms: [],

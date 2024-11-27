@@ -32,9 +32,9 @@ function ChatList({ openSideNav, deleteRoom }) {
   function searchContacts(query) {
     const filteredRooms = rooms.filter(
       ({ reciver }) =>
-        reciver.business_name.toLowerCase().includes(query) ||
-        reciver.first_name.toLowerCase().includes(query) ||
-        reciver.last_name.toLowerCase().includes(query)
+        reciver?.business_name?.toLowerCase().includes(query) ||
+        reciver?.first_name?.toLowerCase().includes(query) ||
+        reciver?.last_name?.toLowerCase().includes(query)
     );
 
     return filteredRooms;
@@ -63,9 +63,9 @@ function ChatList({ openSideNav, deleteRoom }) {
         {/* search input */}
         <div className="w-full px-4 pb-2 pt-3">
           <input
-            onChange={({ target }) =>
-              setQuery(target.value.toLocaleLowerCase())
-            }
+            onChange={({ target }) => {
+              setQuery(target.value?.toLowerCase());
+            }}
             type="text"
             value={searchQuery}
             placeholder="Search Messages & Contacts"
@@ -78,7 +78,7 @@ function ChatList({ openSideNav, deleteRoom }) {
         className={`overflow-x-auto overflow-y-hidden mx-auto pr-4 py-1 hidden-scroll-bar w-[20.5rem] contacts-container`}
       >
         {searchQuery && (
-          <div className="flex items-center gap-x-4 select-none mb-8">
+          <div className="flex items-center gap-x-4 select-none">
             {searchContacts(searchQuery).map((room, index) => (
               <div
                 key={index}

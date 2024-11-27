@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import BestSellProductTypes from "mainPages/Product Detail/components/BestSellProductTypes";
 import CategoriesBanner from "mainPages/Product Detail/components/CategoriesBanner";
 import ProductReviews from "mainPages/Product Detail/components/ProductReviews";
-import ProductInfo from "mainPages/Product Detail/components/ProductInfo";
+import ProductInfo from "mainPages/Product Detail/components/ProductInfo/ProductInfo";
 import { getFilteredProducts } from "src/reducers/products/productsSlice";
 
 function ProductDetailsPage() {

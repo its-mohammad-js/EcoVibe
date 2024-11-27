@@ -1,5 +1,5 @@
-import { useState } from "react";
-import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   AiOutlineHome,
   AiOutlineLeft,
@@ -8,21 +8,18 @@ import {
   AiOutlineBarChart,
 } from "react-icons/ai";
 import { RiContactsBook2Line } from "react-icons/ri";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 function SideNav({ onCloseNav, navIsShow, openContacts }) {
-  // search contacts modal
-  const [searchModalShow, setSearchModal] = useState(false);
   // necessary data & hooks
   const { personalInformation, userType, userId } = useSelector(
     (state) => state.userData
   );
-  const { auth_status } = useSelector((state) => state.userData);
-  const navigate = useNavigate();
+  const { auth_status } = useSelector((state) => state.userData); // current user data
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <>
+      {/* main menu */}
       <div
         className={`${
           navIsShow
@@ -119,7 +116,7 @@ function SideNav({ onCloseNav, navIsShow, openContacts }) {
           </div>
         </div>
       </div>
-
+      {/* modal bg */}
       <div
         onClick={() => onCloseNav()}
         className={`${

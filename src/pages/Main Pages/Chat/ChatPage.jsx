@@ -9,12 +9,9 @@ import toast from "react-hot-toast";
 import ContactsList from "./components/Modals/Contacts/ContactsList";
 
 function ChatPage() {
-  // side nav state
-  const [sideNavShow, setSideNav] = useState(false);
-  // contacts modal state
-  const [contactsShow, setContactsShow] = useState(false);
-  // necessary data
-  const { userId } = useSelector((state) => state.userData);
+  const [sideNavShow, setSideNav] = useState(false); // side nav state
+  const [contactsShow, setContactsShow] = useState(false); // contacts modal state
+  const { userId } = useSelector((state) => state.userData); // necessary data
 
   // delete chat room handler
   function deleteRoom(roomId, rooms) {

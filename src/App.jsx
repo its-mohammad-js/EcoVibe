@@ -57,6 +57,7 @@ function App() {
           path="/EcoVibe/Products/:productId?"
           element={<ProductDetailsPage />}
         />
+        {/* chat room page */}
         <Route path="/EcoVibe/Messages/" element={<ChatPage />} />
         {/* customer's sign-up */}
         <Route path="/EcoVibe/Customers/" element={<CustomerAuthPage />}>
