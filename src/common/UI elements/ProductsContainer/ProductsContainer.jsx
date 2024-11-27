@@ -16,13 +16,12 @@ import toast from "react-hot-toast";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 
 function ProductsContainer({ isLoading, products, filterObject, title }) {
-  // filter products data by trend tag
-  const filteredPrdocts = filterProducts(products, filterObject);
+  const filteredPrdocts = filterProducts(products, filterObject); // filter products data by trend tag
   // products container ref & states
   const containerRef = useRef();
   useHorizontalTouchScroll(".products-wrapper", isLoading);
+  const { wishlist, auth_status } = useSelector((state) => state.userData); // current user data
   // necessary hooks & data
-  const { wishlist, auth_status } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -52,10 +51,12 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
     }
   }
 
+  // on loading screen
   if (isLoading) {
     return <ProductsContainerLoader title={title} />;
   }
 
+  // main components
   if (!isLoading && products.length)
     return (
       <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8 relative bg-inherit">
@@ -65,7 +66,7 @@ function ProductsContainer({ isLoading, products, filterObject, title }) {
 
           <button
             onClick={navigateToExplore}
-            className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer"
+            className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-primary-300 transition-all cursor-pointer"
           >
             View All <FaArrowRight className="text-xs md:text-base" />
           </button>

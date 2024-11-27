@@ -109,6 +109,7 @@ function StorySlide(props) {
       window.location.reload();
     } catch (error) {
       // dispatch error
+      toast.remove();
       toast.error("There was an error on delete story, please try again later");
       setLoading(false);
       setPause(false);

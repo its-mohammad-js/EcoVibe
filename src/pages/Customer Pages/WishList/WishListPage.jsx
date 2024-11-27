@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/reducers/products/productsSlice";
 import { filterProducts } from "/src/common/utils/filterPorducts";
@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 function WishListPage() {
   // user data
-  const { wishlist, personalInformation, uid, cartData } = useSelector(
+  const { wishlist, personalInformation, auth_status, cartData } = useSelector(
     (state) => state.userData
   );
   // product list data
@@ -77,13 +77,13 @@ function WishListPage() {
     <div className="mx-auto 2xl:max-w-screen-2xl">
       <div id="wrapper" className="px-2 py-2 md:px-4 flex flex-col gap-y-4">
         {/* header (user profile) */}
-        <div className="h-32 relative">
+        <div className="relative">
           {/* gradient bg */}
           <div className="absolute inset-0 gradient-background rounded-md -z-10"></div>
           {/* user info */}
-          <div className="w-full h-full bg-primary-50/50 backdrop-blur-sm rounded-md flex items-center justify-between gap-x-2">
+          <div className="w-full h-full py-2 bg-primary-50/50 backdrop-blur-sm rounded-md flex items-center justify-between gap-x-2">
             {/* profile pic */}
-            <div className="h-full w-1/4 md:size-28 flex items-center justify-center px-2">
+            <div className="size-24 md:size-28 flex items-center justify-center px-2">
               {personalInformation.profilePic ? (
                 <img
                   src={personalInformation.profilePic}
@@ -95,10 +95,10 @@ function WishListPage() {
               )}
             </div>
             {/* personal information */}
-            <div className="h-full flex-1 flex flex-col items-start justify-center gap-y-1">
+            <div className="h-full basis-3/4 flex flex-col items-start justify-start gap-y-1">
               <h4 className="text-2xl md:text-3xl font-medium">
-                {uid
-                  ? personalInformation.first_name || "Not set!"
+                {auth_status === 200
+                  ? personalInformation.first_name || "first name not set!..."
                   : "Guest User"}
               </h4>
               <p className="text-primary-800">
@@ -176,7 +176,7 @@ function WishListPage() {
             )}
           </div>
         ) : (
-          <WishListLoader length={wishlist?.length} />
+          <WishListLoader />
         )}
       </div>
     </div>

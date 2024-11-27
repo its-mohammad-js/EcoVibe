@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import { BsArrowDown } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 function HeroSection() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="w-full h-screen max-h-[50rem] relative flex justify-center items-center">

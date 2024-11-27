@@ -5,19 +5,23 @@ import { updateUserData } from "src/reducers/auth/userDataSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { isEqual } from "lodash";
+import { TbMinus, TbPlus, TbTrash } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { checkUserAuthentication } from "../../../../common/utils/constants";
 
 function OrderBox({ Options, productData }) {
-  // order details
-  const [selectedOptions, setOptions] = useState([]);
+  const [selectedOptions, setOptions] = useState([]); // selecyed options
   // order details
   const [{ orderId, isOrdered, orderQuantity }, setOrder] = useState({
     orderId: "",
     isOrdered: false,
     orderQuantity: 1,
   });
-  // necessary data & hooks
-  const dispatch = useDispatch();
-  const { cartData, loading } = useSelector((state) => state.userData);
+
+  const { cartData, loading, auth_status } = useSelector(
+    (state) => state.userData
+  );
   // get selected color
   const selectedColor = selectedOptions.find(
     (opt) => opt.title.toLowerCase() === "color"
@@ -26,7 +30,10 @@ function OrderBox({ Options, productData }) {
   const productColors = Options.find(
     (opt) => opt.title.toLowerCase() === "color"
   );
+  // necessary data & hooks
+  const dispatch = useDispatch();
   const [actionRef, setActionRef] = useState("");
+  const navigate = useNavigate();
 
   // set order info to default options
   useEffect(() => {
@@ -87,28 +94,36 @@ function OrderBox({ Options, productData }) {
   }
   // add order to cart
   function addOrderToCart() {
-    // set action ref
-    setActionRef("orderProduct");
-    //  create new order of product
-    const order = {
-      orderId: generateId(productData.id),
-      orderData: Date.now(),
-      productId: productData.id,
-      Category: productData.Category,
-      Name: productData.Name,
-      Thumbnail: productData.Thumbnail,
-      Seller: productData.SellerId,
-      Price: productData.Price * orderQuantity,
-      quantity: orderQuantity,
-      selectedOption: selectedOptions,
-      SellerId: productData.SellerId,
-      SellerName: productData.SellerName,
-      SellerProfile: productData.SellerProfile,
-      SellerEmail: productData.SellerEmail,
-    };
+    try {
+      checkUserAuthentication(auth_status);
+      // set action ref
+      setActionRef("orderProduct");
+      //  create new order of product
+      const order = {
+        orderId: generateId(productData.id),
+        orderData: Date.now(),
+        productId: productData.id,
+        Category: productData.Category,
+        Name: productData.Name,
+        Thumbnail: productData.Thumbnail,
+        Seller: productData.SellerId,
+        Price: productData.Price * orderQuantity,
+        quantity: orderQuantity,
+        selectedOption: selectedOptions,
+        SellerId: productData.SellerId,
+        SellerName: productData.SellerName,
+        SellerProfile: productData.SellerProfile,
+        SellerEmail: productData.SellerEmail,
+      };
 
-    // add product with default order to cart
-    dispatch(updateUserData({ data: [...cartData, order], field: "cartData" }));
+      // add product with default order to cart
+      dispatch(
+        updateUserData({ data: [...cartData, order], field: "cartData" })
+      );
+    } catch (error) {
+      toast.remove();
+      toast.error(error?.message);
+    }
   }
   // change order quantity
   function onQuantityChange(type) {
@@ -192,66 +207,73 @@ function OrderBox({ Options, productData }) {
           )}
         </div>
         {/* product colors */}
-        <div className="flex gap-4">
-          {productColors?.options.map((opt, index) => (
-            <button
-              key={index}
-              onClick={() => onOrderChange({ title: "color", value: opt })}
-              style={{ backgroundColor: opt }}
-              className={`${
-                selectedColor === opt && "border-4 !border-gray-400"
-              } size-10 rounded-full border-4 transition-all`}
-            ></button>
-          ))}
+        <div className="flex w-full items-center gap-4">
+          <h4 className="text-xl font-medium">Colors:</h4>
+          <div className="flex flex-wrap gap-2">
+            {productColors?.options.map((opt, index) => (
+              <button
+                key={index}
+                onClick={() => onOrderChange({ title: "color", value: opt })}
+                style={{ backgroundColor: opt }}
+                className={`${
+                  selectedColor === opt && "border-4 !border-gray-400"
+                } size-10 rounded-full border-4 transition-all`}
+              ></button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* order actions */}
+      {/* order action buttons */}
       <div className="fixed lg:static z-40 bottom-0 right-0 lg:mt-2 bg-gray-100 lg:bg-opacity-0 w-full rounded-t-xl px-4 lg:px-0 py-4 lg:py-2 flex items-center justify-between">
         {/* order product button */}
         <button
-          disabled={isOrdered}
-          onClick={addOrderToCart}
+          onClick={() =>
+            isOrdered ? navigate("/EcoVibe/bag/cart") : addOrderToCart()
+          }
           className={`${
             loading &&
             actionRef === "orderProduct" &&
             "animate-pulse !bg-gray-400"
-          } px-4 py-2.5 bg-primary-400 text-white text-sm lg:text-lg rounded-md disabled:bg-gray-500 transition-all size-fit`}
+          } px-4 py-2.5 bg-primary-400 text-white lg:text-lg rounded-md disabled:bg-gray-500 transition-all size-fit`}
         >
-          {isOrdered ? "Already Ordered" : "Add New Order"}
+          {isOrdered ? "Show In Cart" : "Add To Cart"}
         </button>
         {/* change quantity buttons */}
         <div
           className={`${
             loading && actionRef === "quantityChange" && "animate-pulse"
-          } flex items-center gap-x-4`}
+          } ${
+            isOrdered
+              ? "visible opacity-100 translate-y-0"
+              : "opacity-0 invisible -translate-y-10"
+          } flex transition-all items-center gap-x-4`}
         >
-          <div className="flex gap-x-2">
+          <div className="flex gap-x-3">
             <button
               disabled={loading}
-              onClick={() => {
-                // decrease order quantity
-                if (orderQuantity > 1 && !isOrdered)
-                  onQuantityChange("decrease");
-                // remove order if qunatity is equal to 1
-                else if (isOrdered && orderQuantity >= 1) {
-                  console.log("ok");
-                  removeProductFromCart();
-                }
-              }}
-              className="border border-black text-sm lg:text-base rounded-full p-2.5"
+              onClick={() =>
+                orderQuantity > 1
+                  ? onQuantityChange("decrease")
+                  : removeProductFromCart()
+              }
+              className="hover:bg-gray-950 px-2.5 hover:text-gray-50 rounded-md"
             >
-              {orderQuantity === 1 && isOrdered ? <FaTrash /> : <FaMinus />}
+              {orderQuantity === 1 && isOrdered ? (
+                <TbTrash className="text-2xl" />
+              ) : (
+                <TbMinus className="text-xl" />
+              )}
             </button>
-            <span className="px-6 py-1 border border-black lg:text-lg rounded-full">
+            <span className="px-2 lg:px-4 py-1 border-b-2 border-gray-950 lg:text-lg">
               {orderQuantity}
             </span>
             <button
               disabled={loading}
               onClick={() => onQuantityChange("increase")}
-              className="bg-black text-sm lg:text-base text-gray-50 p-2.5 rounded-full"
+              className="bg-gray-950 text-gray-50 p-2.5 rounded-md"
             >
-              <FaPlus />
+              <TbPlus className="text-lg" />
             </button>
           </div>
         </div>

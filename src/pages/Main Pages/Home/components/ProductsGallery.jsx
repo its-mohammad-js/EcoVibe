@@ -1,6 +1,7 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
+// product types list
 const galleryData = {
   menTshirts: {
     imgUrl:
@@ -40,14 +41,13 @@ const galleryData = {
 };
 
 function ProductsGallery() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-4 md:mt-10">
       {/* title */}
       <div className="w-full px-2 my-1 md:my-4 md:px-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold md:text-3xl">Top Products</h2>
-
         <button
           onClick={() => navigate("/EcoVibe/Explore-Products/tags=best sell")}
           className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer"
@@ -120,7 +120,6 @@ function ProductsGallery() {
             </p>
           </div>
         </div>
-
         {/* womens sweaters */}
         <div className="w-full h-72 md:h-full group">
           <div className="h-3/4 md:h-5/6 relative">

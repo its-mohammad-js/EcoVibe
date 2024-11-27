@@ -1,5 +1,5 @@
-import { BiSearch } from "react-icons/bi";
 import { fakeArray } from "constants";
+import { TbSearch } from "react-icons/tb";
 
 function OrdersPageLoader() {
   return (
@@ -16,7 +16,7 @@ function OrdersPageLoader() {
           disabled={true}
           className="px-4 py-2 bg-gray-500 text-gray-50 rounded-tr-md text-lg lg:text-3xl"
         >
-          <BiSearch />
+          <TbSearch />
         </button>
       </div>
       {/* ordered items list */}

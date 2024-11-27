@@ -1,11 +1,10 @@
 import { useForm } from "react-hook-form";
-import { CgClose } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { generateId } from "constants";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import TextInput from "UI/Forms/TextInput";
-import toast from "react-hot-toast";
+import { TbX } from "react-icons/tb";
 
 // input conditions
 const inputOptions = [
@@ -35,12 +34,6 @@ const inputOptions = [
   {
     name: "cvv",
     placeholder: "NN-NN",
-    validation: {
-      maxLength: {
-        value: 4,
-        message: "max length is 4 character",
-      },
-    },
     cols: 2,
   },
 ];
@@ -78,22 +71,25 @@ function AddCreditCardForm({ onModalClose }) {
   const dispatch = useDispatch();
   const { creditCards } = personalInformation;
 
+  // add credit card to user info
   function AddCreditCard(formData) {
+    // generate id for card
     const cardData = {
       ...formData,
       cardId: generateId(),
     };
+    // merge it to user data
     const updatedUserData = {
       ...personalInformation,
       creditCards: creditCards?.length
         ? [...creditCards, cardData]
         : [cardData],
     };
-
+    // update user information with new credit card
     dispatch(
       updateUserData({ data: updatedUserData, field: "personalInformation" })
     );
-
+    // close modal
     onModalClose();
   }
 
@@ -120,7 +116,7 @@ function AddCreditCardForm({ onModalClose }) {
             onClick={onModalClose}
             className="p-2.5 bg-gray-300 rounded-full text-xl hover:bg-gray-800 hover:text-gray-50 transition-all"
           >
-            <CgClose />
+            <TbX />
           </button>
         </div>
         {/* main form */}
@@ -129,6 +125,7 @@ function AddCreditCardForm({ onModalClose }) {
           className="flex flex-col justify-stretch w-full flex-1 relative"
         >
           <div className="grid grid-cols-4 grid-rows-4 gap-14 -mb-8 xl:-mb-12 [&>div>p]:text-sm">
+            {/* code number */}
             <TextInput
               label="card code"
               register={register("code_number", {
@@ -138,7 +135,7 @@ function AddCreditCardForm({ onModalClose }) {
               placeholder={"NNNN-NNNN-NNNN-NNNN"}
               style={`col-span-4`}
               error={errors["code_number"]?.message}
-              onChange={(e) => sliceCode(e)}
+              onChange={(e) => sliceCode(e, 4, "-", 20)}
             />
 
             {inputOptions.map(
@@ -151,6 +148,9 @@ function AddCreditCardForm({ onModalClose }) {
                       ...input.validation,
                       required: `${input.name.replace("_", " ")} Is Required`,
                     })}
+                    onChange={(e) =>
+                      input?.name === "cvv" && sliceCode(e, 2, "/", 4)
+                    }
                     placeholder={input.placeholder}
                     type={input.name === "ex_date" ? input.type : "text"}
                     style={`${input.cols === 2 ? "col-span-2" : "col-span-4"}`}
@@ -167,6 +167,7 @@ function AddCreditCardForm({ onModalClose }) {
               {...register("provider", {
                 required: "please select a provider",
               })}
+              className="[&>div]:bg-transparent"
               options={providers}
               isSearchable={false}
               placeholder="Select a Provider"
@@ -190,11 +191,13 @@ function AddCreditCardForm({ onModalClose }) {
 export default AddCreditCardForm;
 
 // slice card code to XXXX-XXXX-XXXX format
-function sliceCode(e) {
-  const value = e.target.value;
-  const slicedCode = value
-    .slice(0, 19) // Limit input length
-    .replace(/([0-9]{4})([0-9]{4})([0-9]{4})()/, "$1-$2-$3-$4");
+function sliceCode(e, groupSize = 4, separator = "-", maxLength = 19) {
+  // Remove existing separators and limit input length
+  const value = e.target.value
+    .replace(new RegExp(`\\${separator}`, "g"), "")
+    .slice(0, maxLength);
+  const regex = new RegExp(`.{1,${groupSize}}`, "g"); // Match groups of specified size
+  const slicedCode = value.match(regex)?.join(separator) || ""; // Split into groups and join with separator
 
   e.target.value = slicedCode;
 }

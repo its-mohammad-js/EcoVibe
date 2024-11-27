@@ -12,10 +12,11 @@ import toast from "react-hot-toast";
 import { checkUserAuthentication } from "../../../../common/utils/constants";
 
 function CollectionsGallery({ products, isLoading }) {
-  // get summer collectionfrom all products
+  // get summer collection products
   const summerCollection = filterProducts(products, {
     collections: ["summer"],
   });
+  // current user data
   const { wishlist, loading, auth_status } = useSelector(
     (state) => state.userData
   );
@@ -35,6 +36,7 @@ function CollectionsGallery({ products, isLoading }) {
     }
   }
 
+  // loading screen
   if (isLoading) return <CollectionGalleryLoader />;
 
   // return when all selected products are fetched
@@ -51,7 +53,7 @@ function CollectionsGallery({ products, isLoading }) {
             id="wrapper"
             className="flex flex-col gap-y-3 lg:flex-row lg:gap-x-3 items-center px-2 py-1 lg:px-4 lg:py-2 lg:h-[450px]"
           >
-            <CustomeProductCard
+            <CustomProductCard
               isLoading={loading}
               onProductLike={toggleWishList}
               isLiked={isInArray(wishlist, summerCollection[0].id)}
@@ -60,7 +62,7 @@ function CollectionsGallery({ products, isLoading }) {
             />
 
             <div className="flex items-center gap-x-3 w-full">
-              <CustomeProductCard
+              <CustomProductCard
                 isLoading={loading}
                 onProductLike={toggleWishList}
                 isLiked={isInArray(wishlist, summerCollection[1].id)}
@@ -68,7 +70,7 @@ function CollectionsGallery({ products, isLoading }) {
                 key={summerCollection[1].id}
                 minimal={true}
               />
-              <CustomeProductCard
+              <CustomProductCard
                 isLoading={loading}
                 onProductLike={toggleWishList}
                 isLiked={isInArray(wishlist, summerCollection[2].id)}
@@ -78,7 +80,7 @@ function CollectionsGallery({ products, isLoading }) {
               />
             </div>
 
-            <CustomeProductCard
+            <CustomProductCard
               isLoading={loading}
               onProductLike={toggleWishList}
               isLiked={isInArray(wishlist, summerCollection[3].id)}
@@ -88,14 +90,17 @@ function CollectionsGallery({ products, isLoading }) {
           </div>
         </div>
         {/* offer banner (only visible on moblie) */}
-        <SimpleBanner title={"Trending Products"} />
+        <SimpleBanner
+          title={"Trending Products"}
+          path="/EcoVibe/Explore-products/tags=trend"
+        />
       </>
     );
 }
 
 export default CollectionsGallery;
 
-const CustomeProductCard = ({
+const CustomProductCard = ({
   product,
   minimal,
   onProductLike,
@@ -106,11 +111,12 @@ const CustomeProductCard = ({
   const productColors = product?.Options?.filter(
     (opt) => opt.title.toLowerCase() === "color"
   );
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="w-full h-80 lg:h-96 bg-gray-300/35 rounded-xl">
       <div className="w-full h-3/5 relative">
+        {/* product thumbnail */}
         <img
           onClick={() => {
             window.scrollTo(0, 0);
@@ -121,7 +127,7 @@ const CustomeProductCard = ({
           alt={product.Name}
           className="w-full h-full rounded-t-md object-cover cursor-pointer"
         />
-
+        {/* wish list btn */}
         <button
           disabled={isLoading}
           onClick={() => {
@@ -137,8 +143,9 @@ const CustomeProductCard = ({
           />
         </button>
       </div>
-
+      {/* product details */}
       <div className="flex flex-col items-start h-2/5 justify-between px-4 py-2">
+        {/* summary info */}
         <div>
           <span className="text-xs my-0.5">{product.Tags[0]}</span>
           <h2
@@ -150,7 +157,7 @@ const CustomeProductCard = ({
           >
             {product.Name}
           </h2>
-
+          {/* product options */}
           <div
             className={`${
               minimal && "hidden"
@@ -168,7 +175,7 @@ const CustomeProductCard = ({
             <span className="text-sm ml-0.5">+5 more ...</span>
           </div>
         </div>
-
+        {/* price & rates */}
         <p className="mt-1 font-bold flex items-center w-full justify-between">
           <span>${product.Price}</span>
           <div>

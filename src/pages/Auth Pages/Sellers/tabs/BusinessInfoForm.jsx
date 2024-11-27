@@ -33,6 +33,7 @@ function BusinessInfoForm() {
     // check validation of form & selected location
     const locationIsValid = await validateLocation(location[0], location[1]);
     if (!locationIsValid) {
+      toast.remove();
       toast.error("Please select a valid location");
       return;
     }

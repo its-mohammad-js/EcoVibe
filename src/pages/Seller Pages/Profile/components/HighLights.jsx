@@ -1,14 +1,7 @@
-import { FaCheck, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import useHorizontalTouchScroll from "../../../../common/hooks/useTouchScroll";
-import {
-  fakeArray,
-  generateId,
-  isInArray,
-} from "../../../../common/utils/constants";
-import { AiOutlineClose } from "react-icons/ai";
 import { useProfileData } from "../SellerProfilePage";
 import { useEffect, useState } from "react";
-
 import StoryListModal from "/src/common/UI elements/StoriesList/StoryListModal";
 import AddHighlightModal from "./AddHighlightModal";
 

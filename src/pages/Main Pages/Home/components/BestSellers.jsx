@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 
+// fake sellers info
 const sellers = [
   {
     sellerName: "John",

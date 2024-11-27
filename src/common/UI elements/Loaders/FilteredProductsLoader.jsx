@@ -1,6 +1,6 @@
-import { FaEye, FaHeart, FaStar } from "react-icons/fa";
 import { fakeArray } from "constants";
 import { BiCart } from "react-icons/bi";
+import { TbEye, TbHeart, TbStar } from "react-icons/tb";
 
 function FilteredProductsLoader() {
   return (
@@ -20,11 +20,11 @@ function FilteredProductsLoader() {
               <div className="w-full h-1/2 md:h-2/3 relative bg-gradient-to-br from-gray-200 via-gray-200 to-gray-600/75 rounded-t-md md:rounded-none">
                 {/* img container */}
                 <div className="absolute inset-0 rounded-t-md md:rounded-none flex flex-col gap-y-2 px-2 py-1 md:px-3 md:py-1.5 items-end">
-                  <button className="p-1.5 md:p-2 rounded-full bg-gray-50 text-gray-300 hover:text-red-500 transition-all">
-                    <FaHeart className="md:text-xl" />
+                  <button className="p-1.5 md:p-2 rounded-full bg-gray-50 text-gray-300 transition-all">
+                    <TbHeart className="md:text-xl" />
                   </button>
-                  <button className="p-1.5 peer md:p-2 rounded-full bg-gray-50 text-gray-300 hover:text-gray-950 focus:text-gray-950 transition-all hidden md:block">
-                    <FaEye className="md:text-xl" />
+                  <button className="p-1.5 peer md:p-2 rounded-full bg-gray-50 text-gray-300 transition-all hidden md:block">
+                    <TbEye className="md:text-xl" />
                   </button>
                 </div>
               </div>
@@ -41,7 +41,7 @@ function FilteredProductsLoader() {
                         {/* {calculateAverage(item.Stars)} */}
                       </span>
                       <span className="mb-0.5 text-gray-300">
-                        <FaStar />
+                        <TbStar />
                       </span>
                     </p>
                   </div>

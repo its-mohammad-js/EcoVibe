@@ -1,6 +1,5 @@
 import { FaArrowLeft } from "react-icons/fa";
 import { heroSectionsInfo } from "constants";
-
 import SimpleBanner from "./SimpleBanner";
 import { Link } from "react-router-dom";
 
@@ -30,11 +29,12 @@ const HeroSection = () => {
                   30% OFF
                 </span>
               </p>
-              <span className="text-primary-800 text-sm md:text-xl bg-white bg-opacity-10 cursor-pointer">
+              <span className="text-gray-200 text-sm md:text-xl bg-white bg-opacity-10 cursor-pointer">
                 Free shipping on all your order.
               </span>
             </div>
             <Link
+              onClick={() => window.scroll(0, 0)}
               to="Explore-Products/productTypes=smart phones"
               className="md:px-10 px-4 font-semibold hover:bg-primary-700 hover:text-white transition-all duration-500 py-2 bg-white text-primary-600 ml-2 mt-4 rounded-lg text-sm md:text-lg"
             >
@@ -63,6 +63,7 @@ const HeroSection = () => {
                 Only Fashion & clothes
               </span>
               <Link
+                onClick={() => window.scroll(0, 0)}
                 to="Explore-Products/tags=best sell"
                 className="md:px-3 md:py-1.5 text-xs px-2 py-1 md:text-base bg-primary-400 rounded-lg text-white flex items-center justify-center gap-x-2 hover:scale-110 transition-all duration-300"
               >
@@ -88,6 +89,7 @@ const HeroSection = () => {
                 Special Products <br /> Deal of the Month
               </p>
               <Link
+                onClick={() => window.scroll(0, 0)}
                 to="Explore-Products/category=fashion"
                 className="md:px-3 md:py-1.5 px-2 py-1 text-xs md:text-lg rounded-lg text-white flex items-center justify-center gap-x-2 hover:scale-110 transition-all duration-300"
               >
@@ -99,9 +101,9 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* hero footer */}
+      {/* hero footer (features banner && offer banner) */}
       <div className="">
-        {/* featues section (only visible on desktop) */}
+        {/* simple banner (only visible on desktop) */}
         <div className="hidden md:flex items-center mx-auto w-[99%] px-2 py-1 my-4 rounded-lg bg-gray-50 shadow-xl xl:justify-around justify-between">
           <div className="flex items-center gap-x-3 lg:gap-x-4 justify-center h-20 px-2 py-1 group">
             <span className="group-hover:scale-125 transition-all duration-500">
@@ -222,7 +224,10 @@ const HeroSection = () => {
         </div>
 
         {/* offer banner (only visible on mobile) */}
-        <SimpleBanner title={"Deal Of The Day"} />
+        <SimpleBanner
+          title={"Deal Of The Day"}
+          path="/EcoVibe/Explore-products"
+        />
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import {
   AiOutlineHome,
   AiOutlineLeft,
   AiOutlineOrderedList,
-  AiOutlineSearch,
   AiOutlineUser,
   AiOutlineBarChart,
 } from "react-icons/ai";

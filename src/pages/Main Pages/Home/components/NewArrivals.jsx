@@ -7,6 +7,7 @@ import ReactStars from "react-stars";
 import { Tilt } from "@jdion/tilt-react";
 import { useNavigate } from "react-router-dom";
 
+// product type cards data
 const productypes = [
   {
     title: "Air Jordan",
@@ -39,7 +40,7 @@ const productypes = [
 ];
 
 function NewArrivals() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8 flex flex-col gap-y-6 md:gap-y-8 px-4">
@@ -152,8 +153,8 @@ const CustomizedProducts = () => {
         {/* title and description */}
         <div className="w-full h-full flex flex-col items-start justify-evenly px-6 py-3">
           <span className="text-accent-400 font-bold">TREND PRODUCT</span>
-          <h2 className="text-5xl font-bold">
-            Shopping The Way <br /> You Want
+          <h2 className="text-4xl font-bold">
+            Shopping The Way You Want
           </h2>
           <p className="text-lg md:line-clamp-6 xl:line-clamp-none">
             Personalized Experiences Await! 🛍️💫 Customize Your Shopping Journey

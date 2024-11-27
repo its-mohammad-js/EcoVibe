@@ -1,6 +1,7 @@
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
+// slides data
 const slidesData = [
   {
     title: "November Outfits",
@@ -29,7 +30,7 @@ const slidesData = [
 ];
 
 function BestSellingItems() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8">

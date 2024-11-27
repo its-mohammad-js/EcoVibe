@@ -3,6 +3,7 @@ import {
   isInArray,
   supportedCategories,
   toggleElementInArray,
+  supportedTags,
 } from "constants";
 import Select from "react-select";
 import { useEffect, useState } from "react";
@@ -11,17 +12,6 @@ const categoryOptions = supportedCategories.map(({ title }) => ({
   label: title,
   value: title,
 }));
-
-const supportedTags = [
-  "Popular",
-  "Special",
-  "Trend",
-  "2024",
-  "New Release",
-  "Best Sell",
-  "Coming Soon",
-  "Featured",
-];
 
 const inputsValidation = {
   Name: {
@@ -130,18 +120,18 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
       <div className="flex flex-col gap-y-2">
         <h6 className="font-semibold lg:text-lg">Tags :</h6>
         <div className="flex flex-wrap gap-2">
-          {supportedTags.map((tag, index) => (
+          {supportedTags.map(({ title }, index) => (
             <button
               type="button"
-              onClick={() => setTags(toggleElementInArray(tags, tag))}
+              onClick={() => setTags(toggleElementInArray(tags, title))}
               key={index}
               className={`${
-                isInArray(tags, tag)
+                isInArray(tags, title)
                   ? "bg-primary-500 text-gray-50 border-gray-50 [&>span]:inline"
                   : "border-primary-300 bg-gray-50 text-primary-500 [&>span]:hidden"
               } flex items-center gap-1 px-2 py-1 rounded-md border transition-all`}
             >
-              <p>{tag}</p>
+              <p>{title}</p>
               <span>
                 <CgClose />
               </span>

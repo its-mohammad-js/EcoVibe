@@ -88,6 +88,7 @@ function MessageLayout({
       document.execCommand("copy");
       toast.success("copied to clipboard");
     } catch (err) {
+      toast.remove();
       toast.error("Failed to copy message");
     }
   };

@@ -78,6 +78,7 @@ function AddCommentInputs({
       fetchComments();
       reset();
     } catch (error) {
+      toast.remove();
       toast.error(
         error?.message ||
           "Oops!, There was an error submitting your comment. Please try again later."
@@ -108,6 +109,7 @@ function AddCommentInputs({
       );
       fetchComments();
     } catch (error) {
+      toast.remove();
       toast.error(
         error ||
           "Oops!, There was an error submitting your comment. Please try again later."

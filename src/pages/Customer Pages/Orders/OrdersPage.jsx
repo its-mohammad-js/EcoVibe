@@ -175,12 +175,12 @@ function OrdersPage() {
           alt="error-icon"
           className="size-80 object-cover"
         />
-        <h4 className="text-2xl lg:text-3xl text-center font-bold text-primary-900">
+        <h4 className="text-xl lg:text-3xl text-center font-bold text-primary-900">
           {error?.message}
         </h4>
         <button
           onClick={() => navigate("/EcoVibe/Explore-products/")}
-          className="px-4 py-2 bg-primary-500 text-lg rounded-md text-gray-50 border-2 border-primary-500 hover:bg-gray-50 hover:text-primary-500 transition-all"
+          className="px-4 py-2 bg-primary-500 lg:text-lg rounded-md text-gray-50 border-2 border-primary-500 hover:bg-gray-50 hover:text-primary-500 transition-all"
         >
           Explore Products
         </button>

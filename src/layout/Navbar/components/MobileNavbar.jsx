@@ -5,19 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import {
   TbCards,
   TbCategory,
+  TbChartHistogram,
   TbClock,
   TbCreditCard,
   TbEyeQuestion,
   TbHeart,
+  TbHome,
   TbLogin,
+  TbShoppingBag,
+  TbShoppingCart,
+  TbUser,
 } from "react-icons/tb";
-import { IoHomeOutline } from "react-icons/io5";
-import { FiShoppingCart } from "react-icons/fi";
-import {
-  AiOutlineBarChart,
-  AiOutlineShopping,
-  AiOutlineUser,
-} from "react-icons/ai";
 import { useSelector } from "react-redux";
 import QuickAccessMenu from "../modals/QuickAccessMenu";
 import useOutSideClick from "src/common/hooks/UseOutsideClick";
@@ -35,9 +33,8 @@ const MobileNavbar = () => {
   // search modal state
   const [searchShow, setSearchModal] = useState(false);
   // necessary hooks & data
-  const { personalInformation, loading, auth_status, userType } = useSelector(
-    (state) => state.userData
-  );
+  const { personalInformation, loading, auth_status, userType, cartData } =
+    useSelector((state) => state.userData);
   const navigate = useNavigate();
   const [qucickAccessMenuShow, setAccessMenu] = useState(false);
   const qickMenuRef = useRef();
@@ -73,9 +70,13 @@ const MobileNavbar = () => {
             {/* toggle menu */}
             <button
               onClick={() => setAccessMenu((prev) => !prev)}
-              className="open-menu"
+              className="open-menu relative"
             >
               <BiCart className="text-3xl" />
+
+              <p className="absolute text-sm size-5 -bottom-3 bg-primary-500 text-gray-50 rounded-full flex items-center justify-center">
+                {cartData?.length}
+              </p>
             </button>
             {/* quick access menu */}
             <QuickAccessMenu menuIsShow={qucickAccessMenuShow} />
@@ -141,14 +142,14 @@ const MobileNavbar = () => {
                       className="size-full object-cover"
                     />
                   ) : (
-                    <AiOutlineUser className="size-full text-gray-600 mt-2" />
+                    <TbUser className="size-full text-gray-600 mt-2" />
                   )}
                 </div>
                 <div className="max-w-[70%] flex flex-col justify-between items-start">
-                  <h2 className="text-lg font-medium line-clamp-1">
+                  <h2 className="text-lg font-medium line-clamp-1 w-full break-words">
                     {auth_status === 200
                       ? personalInformation?.first_name || ""
-                      : "Guest user"}
+                      : "Guest user"}{" "}
                   </h2>
                   <p className="text-sm">
                     {auth_status === 200
@@ -160,14 +161,14 @@ const MobileNavbar = () => {
             </div>
           )}
           {/* menu options and links */}
-          <div className="overflow-auto w-full h-[82%]">
+          <div className="overflow-auto w-full h-[90%]">
             <div className="flex flex-col gap-y-2">
               <div
                 onClick={() => sideMenuNavigate("/EcoVibe/")}
                 className="flex items-center justify-start gap-x-2 px-4 py-4 w-full flex-none"
               >
                 <span className="text-3xl">
-                  <IoHomeOutline />
+                  <TbHome />
                 </span>
                 <h3 className="text-base">Home</h3>
               </div>
@@ -176,7 +177,7 @@ const MobileNavbar = () => {
                 className="flex items-center justify-start gap-x-2 px-4 py-4 w-full flex-none"
               >
                 <span className="text-3xl">
-                  <FiShoppingCart />
+                  <TbShoppingCart />
                 </span>
                 <h3 className="text-base">Shop</h3>
               </div>
@@ -203,7 +204,7 @@ const MobileNavbar = () => {
                 className="flex items-center justify-start gap-x-2 px-4 py-4 w-full flex-none"
               >
                 <span className="text-3xl">
-                  <AiOutlineShopping />
+                  <TbShoppingBag />
                 </span>
                 <h3 className="text-base">Cart</h3>
               </div>
@@ -223,7 +224,7 @@ const MobileNavbar = () => {
                 } flex items-center justify-start gap-x-2 px-4 py-4 w-full flex-none`}
               >
                 <span className="text-3xl">
-                  <AiOutlineBarChart />
+                  <TbChartHistogram />
                 </span>
                 <h3 className="text-base">Dashboard</h3>
               </div>

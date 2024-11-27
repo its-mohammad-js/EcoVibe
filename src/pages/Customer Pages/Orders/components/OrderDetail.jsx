@@ -62,6 +62,7 @@ function OrderDetail({ order, onModalClose, updateOrders }) {
         setCanceling(false);
         onModalClose("close");
       } catch (error) {
+        
         toast.error("Faild To Cancel Order Plase Try Again");
         setCanceling(false);
         console.log(error);

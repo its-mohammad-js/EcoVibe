@@ -1,8 +1,9 @@
 import { FaArrowRight } from "react-icons/fa";
-import useMediaQuery from "../../../../common/hooks/useMediaQuery";
+import useMediaQuery from "hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 
+// slides data
 const slidesInfo = [
   {
     title: "Tech Savvy Side ! ",
@@ -31,8 +32,9 @@ const slidesInfo = [
 ];
 
 function TopCards() {
+  // check window width
   const isMobile = useMediaQuery({ maxWidth: 480 });
-
+  // slider settings
   const settings = {
     dots: true,
     infinite: true,
@@ -86,12 +88,12 @@ function TopCards() {
 export default TopCards;
 
 const Card = ({ bgUrl, title, subTitle, offer, query }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="w-full md:w-1/3 h-[500px] md:h-[550px] relative md:hover:-translate-y-6 transition-all duration-500 md:group-hover:scale-95 md:hover:!scale-105">
       {/* background image */}
-      <div className="absolute w-full top-0 h-full -z-10">
+      <div className="absolute inset-0 top-0 -z-10">
         <img
           src={bgUrl}
           alt="slide pic"

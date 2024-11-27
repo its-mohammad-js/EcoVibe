@@ -6,12 +6,11 @@ import useMediaQuery from "../../../../common/hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
 
 function OfferdProducts() {
-  const { loading, data } = useSelector((state) => state.products);
-  // filter prdoucts (only return bakground less pics)
-  const offeredProducts = filterProducts(data, { tags: ["background"] });
+  const { loading, data } = useSelector((state) => state.products); // products data
+  const offeredProducts = filterProducts(data, { tags: ["background"] }); // filter prdoucts (only return bakground less pics)
   // detect screen size
   const isMobile = useMediaQuery({ maxWidth: 480 });
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl flex flex-col gap-y-6">

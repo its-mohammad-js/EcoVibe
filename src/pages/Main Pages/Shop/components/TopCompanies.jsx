@@ -1,3 +1,4 @@
+// partners logo imgs
 const logoData = [
   {
     url: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fcompany-banner%20(3).webp?alt=media&token=41d209c1-e5f3-490b-9451-83fa71260601",
@@ -24,7 +25,7 @@ function TopCompanies() {
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8">
       <div
         id="wrapper"
-        className="bg-gray-100 flex flex-col items-center gap-y-10 md:h-96 md:justify-evenly px-4 py-8"
+        className="bg-gray-100 flex flex-col items-center gap-y-10 md:justify-evenly px-4 py-8"
       >
         {/* title */}
         <div className="text-center flex flex-col gap-y-1.5 md:gap-y-2">
@@ -32,7 +33,6 @@ function TopCompanies() {
             Work With Us!
           </p>
           <h4 className="text-3xl md:text-5xl font-bold">
-            {" "}
             Big Companies Are Here
           </h4>
           <span className="text-sm text-gray-600 md:text-lg">
@@ -41,7 +41,7 @@ function TopCompanies() {
           </span>
         </div>
         {/* company logo's */}
-        <div className="grid grid-cols-3 gap-y-10 w-full">
+        <div className="grid grid-cols-3 gap-y-10 w-full lg:w-2/5">
           {logoData.map(({ url }, index) => (
             <img
               key={index}

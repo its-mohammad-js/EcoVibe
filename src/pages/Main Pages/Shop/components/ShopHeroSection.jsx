@@ -4,16 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { heroSectionsInfo } from "constants";
 
 function ShopHeroSection() {
+  // slider settings
   const settings = {
     arrows: false,
-    speed: 1200,
+    speed: 2500,
     dots: true,
     appendDots: appendDotsFunc,
     autoplay: true,
-    autoplaySpeed: 1800,
+    autoplaySpeed: 2000,
   };
-  const sliderRef = useRef(null);
-  const navigate = useNavigate();
+  const sliderRef = useRef(null); // ref to slider
+  const navigate = useNavigate(); // navigate hook
 
   // customize pagination controll (dots) (jsx)
   function appendDotsFunc(e) {
@@ -56,8 +57,9 @@ function ShopHeroSection() {
                   className="w-full h-full object-cover rounded-md"
                 />
               </div>
-
+              {/* slide info */}
               <div className="h-full w-full md:w-2/4 flex flex-col justify-evenly md:justify-center gap-y-4 md:gap-y-8 px-4 py-2">
+                {/* title and subtitle */}
                 <div className="flex flex-col gap-y-2">
                   <h2 className="text-2xl md:text-5xl font-bold">
                     {banner.title}
@@ -66,6 +68,7 @@ function ShopHeroSection() {
                     {banner.subTitle}
                   </p>
                 </div>
+                {/* action button */}
                 <button
                   onClick={() => {
                     window.scrollTo(0, 0);

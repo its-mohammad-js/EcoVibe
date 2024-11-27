@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
+// tag cards list
 const cardsData = [
   {
     title: "2024",
@@ -41,7 +42,7 @@ const cardsData = [
 ];
 
 function TrendTags() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8">
@@ -49,6 +50,7 @@ function TrendTags() {
         id="wrapper"
         className="flex flex-wrap md:flex-nowrap items-center justify-evenly gap-y-8 gap-x-2 lg:gap-x-6 px-2"
       >
+        {/* tag cards */}
         {cardsData.map((card, index) => (
           <motion.div
             initial="hidden"
@@ -69,7 +71,7 @@ function TrendTags() {
                 className="w-full h-full object-cover rounded-md"
               />
             </div>
-
+            {/* card title & button */}
             <div className="w-full h-full rounded-md flex bg-primary-500/45 flex-col items-center justify-evenly px-4 py-2 gap-2">
               <h4 className="text-3xl md:text-2xl text-white font-bold">
                 {card.title}

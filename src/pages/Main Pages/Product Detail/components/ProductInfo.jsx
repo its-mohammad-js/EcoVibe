@@ -13,27 +13,26 @@ import {
 import OrderBox from "./OrderBox";
 import ProductInfoLoader from "UI/Loaders/ProductInfoLoader";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
-import { FaArrowLeft, FaChevronRight, FaHeart, FaStar } from "react-icons/fa";
+import { FaArrowLeft, FaHeart, FaStar } from "react-icons/fa";
 import { BiChevronLeft, BiHeart } from "react-icons/bi";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
+import { TbHeart, TbHeartFilled } from "react-icons/tb";
 
 function ProductInfo() {
-  // product data
   const {
     data: productData,
     loading,
     error,
-  } = useSelector((state) => state.products);
-  const sliderRef = useRef();
-  // slider options
+  } = useSelector((state) => state.products); // product data
+  const sliderRef = useRef(); // ref to slider
   const settings = {
     dots: true,
     infinite: true,
     arrows: false,
-    speed: 1500,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-  };
+  }; // slider options
   const navigate = useNavigate();
   const {
     Images,
@@ -47,10 +46,13 @@ function ProductInfo() {
     SellerProfile,
     SellerId,
     id: productId,
-  } = productData[0] || {};
+  } = productData[0] || {}; // destrcture product data
   const [content, setContent] = useState("description");
   const { wishlist, auth_status } = useSelector((state) => state.userData);
-  useHorizontalTouchScroll(".images-wrapper", loading);
+  useHorizontalTouchScroll(
+    ".images-wrapper",
+    (loading && Images) || auth_status === 204
+  );
   const dispatch = useDispatch();
 
   // add / remove product from wish list
@@ -62,6 +64,7 @@ function ProductInfo() {
       // update wish list with new values
       dispatch(updateUserData({ data: updatedWishList, field: "wishlist" }));
     } catch (error) {
+      toast.remove();
       toast.error(error?.message);
     }
   }
@@ -185,11 +188,17 @@ function ProductInfo() {
                     </div>
                   )}
                   <button
+                    disabled={loading}
                     onClick={() => toggleWishList()}
-                    className="flex items-start gap-1 font-bold group"
+                    className="flex items-start gap-1 font-bold group disabled:animate-pulse"
                   >
-                    <FaHeart className="text-red-500 hidden text-lg group-hover:inline" />
-                    <BiHeart className="text-red-500 text-xl group-hover:hidden" />
+                    <p className="text-xl text-red-500">
+                      {!isInArray(wishlist, productId) ? (
+                        <TbHeart />
+                      ) : (
+                        <TbHeartFilled />
+                      )}
+                    </p>
                     <p>
                       {!isInArray(wishlist, productId)
                         ? "Add To Wishlist"

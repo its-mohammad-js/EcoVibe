@@ -4,6 +4,7 @@ import ProfileImagePicker from "UI/ProfileImagePicker/ProfileImagePicker";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import { FaPencil } from "react-icons/fa6";
 import { loadingIcon } from "constants";
+import { LoaderIcon } from "react-hot-toast";
 
 function ProfilePicEdit() {
   // profile picker modal is Show
@@ -32,15 +33,21 @@ function ProfilePicEdit() {
     );
   }
 
+  if (loading)
+    return (
+      <div className="fixed inset-0 backdrop-blur bg-gray-950/70 gap-y-4 flex flex-col items-center justify-center z-50">
+        <LoaderIcon className="size-24" />
+        <h4 className="text-2xl text-gray-50 font-bold animate-pulse">
+          Update you info, please don't refresh page...
+        </h4>
+      </div>
+    );
+
   return (
     <div className="flex items-center justify-between mb-4 relative">
-      <div className="size-20 md:size-24 rounded-full bg-gray-300 relative">
+      <div className="size-20 flex items-center justify-center md:size-24 rounded-full bg-gray-100 relative">
         {loading ? (
-          <img
-            src={loadingIcon}
-            className="size-full rounded-full"
-            alt="loading icon"
-          />
+          <LoaderIcon className="size-12" />
         ) : (
           <img
             src={personalInformation.profilePic}

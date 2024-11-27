@@ -6,8 +6,6 @@ import { loadingIcon } from "constants";
 import toast from "react-hot-toast";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "src/config/firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { getFilteredProducts } from "src/reducers/products/productsSlice";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
 
 function ProductDetails({ selectedItem, onModalClose, getProducts }) {
@@ -21,8 +19,6 @@ function ProductDetails({ selectedItem, onModalClose, getProducts }) {
   });
   // necessary data & hooks
   const imageGalleryRef = useRef();
-  const { userId } = useSelector((state) => state.userData);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function deleteProduct() {

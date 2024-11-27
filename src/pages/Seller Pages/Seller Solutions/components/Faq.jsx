@@ -3,6 +3,7 @@ import { FaChevronDown } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
+// faq info
 const faqInfo = [
   {
     title: "How can I become a seller on Eco Vibe?",
@@ -31,6 +32,7 @@ const faqInfo = [
   },
 ];
 
+// bubble imgs
 const bubbleImgs = [
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ffake-user%20%20(8).webp?alt=media&token=a2c8d571-0cd4-4845-a158-640a1ade1b03",
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ffake-user%20%20(12).webp?alt=media&token=12167bda-c9ea-497c-8450-4eadd1956426",
@@ -57,14 +59,14 @@ function Faq() {
       <div className="mt-4 lg:mt-6 px-2 py-4 lg:pt-8 bg-gray-200">
         <div className="text-center">
           <h4 className="text-2xl lg:text-5xl font-extrabold text-primary-700 mb-2 lg:mb-4">
-            Your favourite tools
+            Your Questions Answered! 🌍
           </h4>
           <p>
             In risus nec molestie at in pulvinar tellus. At integer id
             condimentum gravida nisi nisl. Sem vitae porttitor arcu congue sem
             erat et sit faucibus. Sollicitudin elit gravida tellus mattis
             porttitor. &nbsp;
-            <span>
+            <span className="hidden lg:inline">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil
               eveniet quos quaerat consequatur quo quis ullam voluptas fugit?
               Quas harum illum accusamus facere nobis, reiciendis perferendis
@@ -95,11 +97,11 @@ function Faq() {
               <div
                 className={`${
                   faqShow === index
-                    ? "opacity-100 visible h-24 px-2 py-1"
-                    : "opacity-0 h-0 invisible"
-                }  leading-7 transition-all duration-500`}
+                    ? "opacity-100 visible h-32"
+                    : "opacity-0 h-0 invisible [&>p]:opacity-35"
+                } leading-7 transition-all duration-300`}
               >
-                <p>{subTitle}</p>
+                <p className="line-clamp-4 px-2 py-1">{subTitle}</p>
               </div>
             </div>
           ))}

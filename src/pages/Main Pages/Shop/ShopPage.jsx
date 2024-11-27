@@ -21,10 +21,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { supportedCategories } from "constants";
 
 function ShopPage() {
+  // necessary hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // get products data from data base
+  // get products data from data base (just once for all components)
   useEffect(() => {
     dispatch(getFilteredProducts());
   }, []);
@@ -91,7 +92,7 @@ function ShopPage() {
       {/* simple banner */}
       <div
         style={{
-          backgroundImage: `url(${"https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fshop%20page%20banner.webp?alt=media&token=2086af8a-5344-4201-9a50-1d9bc4dc8871"})`,
+          backgroundImage: `url(https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fshop%20page%20banner.webp?alt=media&token=2086af8a-5344-4201-9a50-1d9bc4dc8871)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

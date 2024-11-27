@@ -1,6 +1,5 @@
-import { BiChevronLeft } from "react-icons/bi";
 import { fakeArray } from "constants";
-import { IoOpenOutline } from "react-icons/io5";
+import { TbEye } from "react-icons/tb";
 
 function OrdersSummaryLoader({ animate }) {
   return (
@@ -17,7 +16,7 @@ function OrdersSummaryLoader({ animate }) {
               } w-44 lg:w-52 h-28 relative bg-gray-300 px-3 py-1.5 rounded-md flex flex-col justify-evenly`}
             >
               <button className="absolute top-2.5 right-2 text-lg lg:text-xl text-gray-700">
-                <IoOpenOutline />
+                <TbEye />
               </button>
               <p className="w-10 h-2 bg-gray-400 rounded-md"></p>
               <p className="line-clamp-1 w-full h-2 bg-gray-500 rounded-md"></p>

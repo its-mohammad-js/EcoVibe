@@ -87,7 +87,7 @@ function SignUpCustomer() {
           })}
           className="mt-4 flex flex-col items-center md:items-stretch gap-y-4 px-2"
         >
-          <div className="grid lg:grid-rows-2 lg:grid-cols-2 gap-2 w-full">
+          <div className="grid lg:grid-rows-2 lg:grid-cols-2 w-full">
             {Object.entries(inputOptions).map(
               ([name, { placeholder, validation, type }], index) => (
                 <TextInput
@@ -104,7 +104,9 @@ function SignUpCustomer() {
                     },
                   })}
                   error={errors[name]?.message}
-                  style={index === 0 && "lg:col-span-2"}
+                  style={`${
+                    index === 0 && "lg:col-span-2"
+                  } [&>input]:py-3 h-fit`}
                 />
               )
             )}

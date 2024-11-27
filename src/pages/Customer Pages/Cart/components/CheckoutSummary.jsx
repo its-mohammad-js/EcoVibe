@@ -23,7 +23,10 @@ function CheckoutSummary() {
         Shipping,taxes & discounts calcuted
       </p>
       <button
-        onClick={() => navigate("/EcoVibe/bag/checkout")}
+        onClick={() => {
+          window.scroll(0, 0);
+          navigate("/EcoVibe/bag/checkout");
+        }}
         className="py-2 text-lg bg-primary-500 w-full text-gray-50 rounded"
       >
         Checkout

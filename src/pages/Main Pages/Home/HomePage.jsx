@@ -22,11 +22,14 @@ export const bannerIcon =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ficon%20svg.webp?alt=media&token=a96944c7-1885-44a9-8ecb-d43e92358f57";
 
 function HomePage() {
+  // products data
   const { loading, data } = useSelector((state) => state.products);
+  // necessary hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // get all products data from data base
+  // note: in home page we send get request for product just once
   useEffect(() => {
     // fetch products on mount
     dispatch(getFilteredProducts({ sortBy: "" }));
@@ -55,7 +58,7 @@ function HomePage() {
 
         <div className="">
           <p className="text-base font-bold">
-            Special Offers{" "}
+            Special Offers
             <span className="p-1 mx-2 border border-gray-300 rounded-full">
               😱
             </span>

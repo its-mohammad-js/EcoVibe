@@ -2,6 +2,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "/src/config/firebase";
 import StoryListModal from "/src/common/UI elements/StoriesList/StoryListModal";
+import SellerStoriesListLoader from "../../../../common/UI elements/Loaders/SellerStoriesListLoader";
 
 function SellersStories() {
   const [{ error, loading, storiesList }, setStoreis] = useState({
@@ -46,16 +47,12 @@ function SellersStories() {
     getStories();
   }, []);
 
-  if (loading)
-    return (
-      <div className="mx-auto 2xl:max-w-screen-2xl flex items-center justify-center my-4">
-        <h4 className="text-4xl font-bold">Loading...</h4>
-      </div>
-    );
+  if (loading) return <SellerStoriesListLoader />;
 
   if (!loading && storiesList)
     return (
       <>
+        {/* stories list */}
         <div className="mx-auto 2xl:max-w-screen-2xl px-4 py-2 flex gap-x-2.5 items-center justify-start">
           {/* story lists */}
           {storiesList.map((story, listIndex) => (

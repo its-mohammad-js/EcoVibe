@@ -2,16 +2,6 @@ import { FaHeart, FaStar } from "react-icons/fa";
 import { fakeArray } from "constants";
 
 function ProductInfoLoader() {
-  // slider options
-  const settings = {
-    dots: false,
-    infinite: true,
-    arrows: false,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
-
   return (
     <div id="wrapper">
       <div className="md:flex xl:h-[40rem] animate-pulse">

@@ -2,10 +2,10 @@ import { SlClose } from "react-icons/sl";
 import { fakeArray } from "constants";
 import { BiCartAlt } from "react-icons/bi";
 
-function WishListLoader({ length }) {
+function WishListLoader() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:px-2 md:max-h-[30rem] overflow-auto styled-scroll-bar">
-      {fakeArray(length || 12).map((index) => (
+      {fakeArray(12).map((index) => (
         <div
           className="flex flex-col items-center h-44 lg:h-56 xl:h-72 bg-gray-100 shadow-md rounded-md relative animate-pulse"
           key={index}

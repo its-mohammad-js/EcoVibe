@@ -1,6 +1,7 @@
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
+// categoreis list
 const categoriesInfo = [
   {
     title: "Living Room",
@@ -20,7 +21,7 @@ const categoriesInfo = [
 ];
 
 function TopCategories() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8">
@@ -34,7 +35,7 @@ function TopCategories() {
           <div className="w-full h-full absolute -z-10">
             <img
               src={categoriesInfo[0].img}
-              alt=""
+              alt="category-thumbnail"
               className="h-full w-full object-cover"
             />
           </div>
@@ -57,7 +58,6 @@ function TopCategories() {
             </button>
           </div>
         </div>
-
         {/* secondary slides */}
         <div className="md:w-1/2 w-full h-full flex flex-col gap-y-4 md:gap-y-5">
           <div className="w-full h-1/2 relative">
@@ -96,7 +96,7 @@ function TopCategories() {
             <div className="w-full h-full absolute -z-10">
               <img
                 src={categoriesInfo[2].img}
-                alt=""
+                alt="category-thumbnail"
                 className="h-full w-full object-cover"
               />
             </div>

@@ -266,7 +266,7 @@ const DesktopNavbar = () => {
         } items-center justify-between px-8 py-4 relative`}
       >
         {/* mega menu button */}
-        <button className="px-4 py-3 bg-secondary-500 text-white hover:bg-primary-700 transition-all rounded-md cursor-pointer flex items-center gap-x-2 group peer">
+        <button className="px-4 py-3 bg-primary-500 text-white hover:bg-primary-700 transition-all rounded-md cursor-pointer flex items-center gap-x-2 group peer">
           {/* menu button */}
           <span className="text-2xl">
             <MdMenu />

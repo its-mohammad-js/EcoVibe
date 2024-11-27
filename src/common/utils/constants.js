@@ -372,6 +372,17 @@ export const deliveryInfo = {
   },
 };
 
+export const supportedTags = [
+  { title: "Popular" },
+  { title: "Special" },
+  { title: "Trend" },
+  { title: "2024" },
+  { title: "New Release" },
+  { title: "Best Sell" },
+  { title: "Coming Soon" },
+  { title: "Featured" },
+];
+
 export function checkUserAuthentication(auth_status) {
   switch (auth_status) {
     case 200:

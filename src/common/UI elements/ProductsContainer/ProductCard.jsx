@@ -6,18 +6,19 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function ProductCard({ productData, onProductLike, isLiked }) {
-  // destructur product data from props
-  const { Thumbnail, Name, Price, Stars, id } = productData;
-  // get loading state
-  const { loading } = useSelector((state) => state.userData);
-  
-  const navigate = useNavigate();
+  const { Thumbnail, Name, Price, Stars, id } = productData; // destructur product data from props
+  const { loading } = useSelector((state) => state.userData); // get loading state
+  const navigate = useNavigate(); // navigate hooks
 
   return (
     <div className="flex select-none flex-col items-center justify-between hover:-translate-y-0.5 duration-500 h-72 md:h-80 md:w-56 w-44 bg-gray-50 rounded-lg hover:shadow-md transition-all cursor-pointer">
       {/* product cover */}
       <div className="w-full h-3/5 relative">
         <img
+          onClick={() => {
+            window.scrollTo(0, 0);
+            navigate(`/EcoVibe/Products/${id}`);
+          }}
           draggable={false}
           src={Thumbnail}
           alt={Name}
