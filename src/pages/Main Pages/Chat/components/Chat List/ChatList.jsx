@@ -44,10 +44,10 @@ function ChatList({ openSideNav, deleteRoom }) {
     <div
       className={`${
         selectedRoom && "hidden"
-      } lg:!block lg:w-1/4 w-full bg-gray-50 flex flex-col`}
+      } lg:!block lg:w-1/4 w-full bg-red-100 flex flex-col`}
     >
       {/* header  */}
-      <div className="lg:h-1/6 pt-1.5">
+      <div className="pt-1.5">
         <div className="bg-gray-50 p-4 border-b border-gray-200">
           <div className="flex items-center justify-end gap-x-1.5 cursor-pointer relative">
             <h2 className="text-xl font-bold">Messages</h2>
@@ -113,7 +113,7 @@ function ChatList({ openSideNav, deleteRoom }) {
         )}
       </div>
       {/* messages / rooms list */}
-      <div className="overflow-auto w-full h-5/6 styled-scroll-bar scroll-smooth relative">
+      <div className="overflow-auto w-full styled-scroll-bar scroll-smooth relative">
         <div className="flex flex-col lg:gap-y-4">
           <h2
             className={`${
