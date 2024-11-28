@@ -3,6 +3,7 @@ import { useRoomsData } from "../RoomsContext";
 import { useState } from "react";
 import ChatColumn from "./ChatColumn";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
+import { fakeArray } from "../../../../../common/utils/constants";
 
 function ChatList({ openSideNav, deleteRoom }) {
   const { rooms, setSelectedRoom, selectedRoom, status } = useRoomsData();
@@ -44,7 +45,7 @@ function ChatList({ openSideNav, deleteRoom }) {
     <div
       className={`${
         selectedRoom && "hidden"
-      } lg:!block lg:w-1/4 w-full bg-red-100 flex flex-col`}
+      } lg:!block lg:w-1/4 w-full h-screen bg-red-100`}
     >
       {/* header  */}
       <div className="pt-1.5">
@@ -113,8 +114,8 @@ function ChatList({ openSideNav, deleteRoom }) {
         )}
       </div>
       {/* messages / rooms list */}
-      <div className="overflow-auto w-full styled-scroll-bar scroll-smooth relative">
-        <div className="flex flex-col lg:gap-y-4">
+      <div className="flex-1 h-[81%] overflow-auto">
+        <div className="flex flex-col">
           <h2
             className={`${
               !searchQuery?.length && "hidden"
