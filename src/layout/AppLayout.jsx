@@ -8,10 +8,9 @@ function AppLayout({ children }) {
   const location = useLocation();
 
   useEffect(() => {
-    setAllowed(
-      !location.pathname.split("/").includes("seller") &&
-        !location.pathname.split("/").includes("messages")
-    );
+    const pathName = location.pathname.split("/");
+
+    setAllowed(!pathName.includes("seller") && !pathName.includes("Messages"));
   }, [location]);
 
   return (

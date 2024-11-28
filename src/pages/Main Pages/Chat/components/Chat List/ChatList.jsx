@@ -3,7 +3,6 @@ import { useRoomsData } from "../RoomsContext";
 import { useState } from "react";
 import ChatColumn from "./ChatColumn";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
-import { fakeArray } from "../../../../../common/utils/constants";
 
 function ChatList({ openSideNav, deleteRoom }) {
   const [searchQuery, setQuery] = useState(""); // search query state
@@ -26,24 +25,25 @@ function ChatList({ openSideNav, deleteRoom }) {
 
   // search contacts
   function searchContacts(query) {
-    const filteredRooms = rooms.filter(
-      ({ reciver }) =>
-        reciver?.business_name?.toLowerCase().includes(query) ||
-        reciver?.first_name?.toLowerCase().includes(query) ||
-        reciver?.last_name?.toLowerCase().includes(query)
-    );
+    // Convert the query to lowercase
+    const queryLower = query.toLowerCase();
 
-    return filteredRooms;
+    // Check if any of the receiver's names match the query
+    return rooms.filter(({ reciver }) =>
+      [reciver?.business_name, reciver?.first_name, reciver?.last_name].some(
+        (name) => name?.toLowerCase().includes(queryLower)
+      )
+    );
   }
 
   return (
     <div
       className={`${
         selectedRoom && "hidden"
-      } lg:!block lg:w-1/4 w-full bg-blue-100 grid grid-rows-10`}
+      } lg:!block lg:w-1/4 w-full bg-yellow-100 grid grid-rows-10`}
     >
       {/* header  */}
-      <div className="pt-1.5 row-span-2">
+      <div className="row-span-2">
         <div className="bg-gray-50 p-4 border-b border-gray-200">
           <div className="flex items-center justify-end gap-x-1.5 cursor-pointer relative">
             <h2 className="text-xl font-bold">Messages</h2>

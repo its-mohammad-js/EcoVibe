@@ -3,7 +3,7 @@ import { AiOutlineDelete, AiOutlineUser } from "react-icons/ai";
 import { useRoomsData } from "../RoomsContext";
 import { CiChat1 } from "react-icons/ci";
 import useOutSideClick from "hooks/UseOutsideClick";
-import TextAlert from "../../../../../common/UI elements/Alerts/TextAlert";
+import TextAlert from "UI/Alerts/TextAlert";
 
 const ChatColumn = ({ room, mode, deleteRoom }) => {
   // reciver data
@@ -18,7 +18,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
   // context menu state
   const [contextMenu, setContextMenu] = useState(false);
   const contextMenuRef = useRef();
-  useOutSideClick(contextMenuRef, () => setContextMenu(false));
+  useOutSideClick(contextMenuRef, () => setContextMenu(false)); // close context menu on outside click
   const [position, setPosition] = useState({ x: 0, y: 0 });
   // warning alert state
   const [showAlert, setShowAlert] = useState(false);
