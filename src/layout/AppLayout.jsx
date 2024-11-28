@@ -6,9 +6,12 @@ import { useLocation } from "react-router-dom";
 function AppLayout({ children }) {
   const [allowed, setAllowed] = useState(true);
   const location = useLocation();
+  console.log(location?.pathname);
 
   useEffect(() => {
-    const pathName = location.pathname.split("/");
+    const pathName = location.pathname
+      .split("/")
+      .map((name) => name.toLocaleLowerCase());
 
     setAllowed(!pathName.includes("seller") && !pathName.includes("Messages"));
   }, [location]);
