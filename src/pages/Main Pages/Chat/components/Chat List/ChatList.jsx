@@ -6,27 +6,22 @@ import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { fakeArray } from "../../../../../common/utils/constants";
 
 function ChatList({ openSideNav, deleteRoom }) {
-  const { rooms, setSelectedRoom, selectedRoom, status } = useRoomsData();
-  const [searchQuery, setQuery] = useState("");
-  useHorizontalTouchScroll(".contacts-container");
+  const [searchQuery, setQuery] = useState(""); // search query state
+  const { rooms, setSelectedRoom, selectedRoom, status } = useRoomsData(); // chat room data
+  useHorizontalTouchScroll(".contacts-container"); // horizontal touch for contacts list
 
   // search messages
   function searchMessages(query) {
-    const allMessages = rooms
-      .flatMap((room) => room.messageList)
-      .map((message) => ({
-        messageList: [message],
-        reciver: rooms.find(({ roomId }) => roomId.includes(message?.senderId))
-          ?.reciver,
-        roomId: rooms.find(({ roomId }) => roomId.includes(message?.senderId))
-          ?.roomId,
-      }));
-
-    const filteredMessages = allMessages.filter(({ messageList }) =>
-      messageList[0]?.content?.toLowerCase()?.includes(query)
+    // lower case search query
+    const queryLower = query.toLowerCase();
+    // return messages match with search query
+    return rooms.flatMap(({ messageList, roomId, reciver }) =>
+      messageList
+        .filter((message) =>
+          message?.content?.toLowerCase().includes(queryLower)
+        )
+        .map((message) => ({ messageList: [message], roomId, reciver }))
     );
-
-    return filteredMessages;
   }
 
   // search contacts
@@ -45,10 +40,10 @@ function ChatList({ openSideNav, deleteRoom }) {
     <div
       className={`${
         selectedRoom && "hidden"
-      } lg:!block lg:w-1/4 w-full h-screen bg-gray-50`}
+      } lg:!block lg:w-1/4 w-full bg-blue-100 grid grid-rows-10`}
     >
       {/* header  */}
-      <div className="pt-1.5">
+      <div className="pt-1.5 row-span-2">
         <div className="bg-gray-50 p-4 border-b border-gray-200">
           <div className="flex items-center justify-end gap-x-1.5 cursor-pointer relative">
             <h2 className="text-xl font-bold">Messages</h2>
@@ -76,7 +71,11 @@ function ChatList({ openSideNav, deleteRoom }) {
       </div>
       {/* contact list */}
       <div
-        className={`overflow-x-auto overflow-y-hidden mx-auto pr-4 py-1 hidden-scroll-bar w-[20.5rem] contacts-container`}
+        className={`${
+          !searchContacts(searchQuery).length || !searchQuery?.length
+            ? "hidden"
+            : "row-span-2"
+        } overflow-x-auto overflow-y-hidden mx-auto pr-4 py-1 hidden-scroll-bar w-[20.5rem] contacts-container`}
       >
         {searchQuery && (
           <div className="flex items-center gap-x-4 select-none">
@@ -116,13 +115,13 @@ function ChatList({ openSideNav, deleteRoom }) {
       {/* messages / rooms list */}
       <div
         className={`${
-          searchQuery.length ? " h-[58%]" : "h-[80%]"
-        } flex flex-col overflow-auto relative`}
+          searchQuery?.length ? "row-span-7" : "row-span-10"
+        } flex flex-col overflow-auto relative styled-scroll-bar`}
       >
         <h2
           className={`${
             !searchQuery?.length && "hidden"
-          } block px-4  py-1 w-full bg-gray-200 sticky top-0 z-10`}
+          } block px-4 sticky top-0 z-10 py-1 w-full bg-gray-200`}
         >
           Found {searchMessages(searchQuery).length} Messages
         </h2>
