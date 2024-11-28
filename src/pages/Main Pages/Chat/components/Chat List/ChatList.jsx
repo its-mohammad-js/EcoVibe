@@ -45,7 +45,7 @@ function ChatList({ openSideNav, deleteRoom }) {
     <div
       className={`${
         selectedRoom && "hidden"
-      } lg:!block lg:w-1/4 w-full h-screen bg-red-100`}
+      } lg:!block lg:w-1/4 w-full h-screen bg-gray-50`}
     >
       {/* header  */}
       <div className="pt-1.5">
@@ -114,37 +114,39 @@ function ChatList({ openSideNav, deleteRoom }) {
         )}
       </div>
       {/* messages / rooms list */}
-      <div className="flex-1 h-[81%] overflow-auto">
-        <div className="flex flex-col">
-          <h2
-            className={`${
-              !searchQuery?.length && "hidden"
-            } block px-4  py-1 w-full bg-gray-200 sticky top0 z-10 my-2`}
-          >
-            Found {searchMessages(searchQuery).length} Messages
-          </h2>
-          {/* list of rooms and messages */}
-          {status ? (
-            <h4 className="px-2 py-1 absolute bottom-1/2 w-full flex justify-center">
-              <p className="px-4 py-1 text-lg font-bold bg-gray-200/80 rounded-xl">
-                {status}
-              </p>
-            </h4>
-          ) : searchQuery ? (
-            searchMessages(searchQuery).map((room, index) => (
-              <ChatColumn key={index} room={room} mode="message" />
-            ))
-          ) : (
-            rooms.map((room, index) => (
-              <ChatColumn
-                key={index}
-                room={room}
-                mode="user"
-                deleteRoom={deleteRoom}
-              />
-            ))
-          )}
-        </div>
+      <div
+        className={`${
+          searchQuery.length ? " h-[58%]" : "h-[80%]"
+        } flex flex-col overflow-auto relative`}
+      >
+        <h2
+          className={`${
+            !searchQuery?.length && "hidden"
+          } block px-4  py-1 w-full bg-gray-200 sticky top-0 z-10`}
+        >
+          Found {searchMessages(searchQuery).length} Messages
+        </h2>
+        {/* list of rooms and messages */}
+        {status ? (
+          <h4 className="px-2 py-1 absolute bottom-1/2 w-full flex justify-center">
+            <p className="px-4 py-1 text-lg font-bold bg-gray-200/80 rounded-xl">
+              {status}
+            </p>
+          </h4>
+        ) : searchQuery ? (
+          searchMessages(searchQuery).map((room, index) => (
+            <ChatColumn key={index} room={room} mode="message" />
+          ))
+        ) : (
+          rooms.map((room, index) => (
+            <ChatColumn
+              key={index}
+              room={room}
+              mode="user"
+              deleteRoom={deleteRoom}
+            />
+          ))
+        )}
       </div>
     </div>
   );
