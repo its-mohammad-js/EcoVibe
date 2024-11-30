@@ -3,12 +3,9 @@ import CartItem from "./CartItem";
 import { useEffect, useState } from "react";
 
 function ItemsGrid({ cartData, filters }) {
-  // filtered order data
-  const [filteredOrders, setFilteredOrders] = useState([]);
-  // filters data
-  const { searchQuery, sortValue } = filters;
-  // necessary hooks
-  const navigate = useNavigate();
+  const [filteredOrders, setFilteredOrders] = useState([]); // filtered order data
+  const { searchQuery, sortValue } = filters; // filters data
+  const navigate = useNavigate(); // navigate hook
 
   // filter & sort orders
   useEffect(() => {
@@ -37,8 +34,7 @@ function ItemsGrid({ cartData, filters }) {
     setFilteredOrders(sortedOrders);
   }, [cartData, filters]);
 
-  console.log(filters.searchQuery);
-
+  // on empty cart screen
   if (!cartData.length)
     return (
       <div className="h-screen flex flex-col items-center justify-center gap-4 lg:gap-6">
@@ -55,6 +51,7 @@ function ItemsGrid({ cartData, filters }) {
       </div>
     );
 
+  // on no product find screen
   if (!filteredOrders.length)
     return (
       <div className="w-full bg-white absolute right-0 h-[40rem] flex justify-center items-center">
@@ -68,6 +65,7 @@ function ItemsGrid({ cartData, filters }) {
       </div>
     );
 
+  // main ordered items
   return (
     <div className="mt-4 md:mt-6 grid gap-4 max-h-[30rem] overflow-y-auto styled-scroll-bar">
       {filteredOrders.map((order, index) => (

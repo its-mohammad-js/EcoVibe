@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
-import MessageLayout from "./MessageRow/MessageLayout";
-import { useRoomsData } from "../RoomsContext";
+import MessageLayout from "../MessageRowTypes/MessageLayout";
 import { useSelector } from "react-redux";
-import TextAlert from "../../../../../common/UI elements/Alerts/TextAlert";
-import toast from "react-hot-toast";
+import TextAlert from "UI/Alerts/TextAlert";
+import { useRoomsData } from "../../RoomsContext";
 
 const MessageList = () => {
   const [lastRoom, setLastRoom] = useState(null);
@@ -17,7 +16,7 @@ const MessageList = () => {
   });
   // message wrapper ref
   const messagesWrapperRef = useRef();
-  const { selectedRoom, messageMode } = useRoomsData();
+  const { selectedRoom } = useRoomsData();
   const { userId } = useSelector((state) => state.userData);
 
   // disable scroll on display context menu

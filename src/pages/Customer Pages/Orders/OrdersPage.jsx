@@ -1,64 +1,30 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "src/config/firebase";
 import { errorIconUrl } from "constants";
 import OrdersList from "customerPages/Orders/components/OrdersList";
 import OrderDetail from "customerPages/Orders/components/OrderDetail";
 import OrdersPageLoader from "UI/Loaders/OrdersPageLoader";
 import { BiSearch } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router-dom";
+import { useOrders, useOrderSearch } from "./OrdersPage.Hooks";
 
 function OrdersPage() {
-  // all orders data
-  const [{ error, loading, orders }, setOrders] = useState({
-    orders: [],
-    error: null,
-    loading: false,
-  });
-  // ordered products data
-  const [items, setItems] = useState([]);
+  // orders functionality & data
+  const { error, items, loading, orders, fetchOrders, getOrderedItems } =
+    useOrders();
+  // search orders functionality
+  const { filteredItems, searchQuery, setSearchQuery } = useOrderSearch(items);
   // order detail modal data
   const [{ modalIsShow, order }, setDetail] = useState({
     modalIsShow: false,
     order: null,
   });
+  const { userId } = useSelector((state) => state.userData); // current user id
   // necessary data & hooks
-  const { userId } = useSelector((state) => state.userData);
   const navigate = useNavigate();
   const params = useParams();
 
-  // get all related orders to this customer from database
-  async function getOrders() {
-    try {
-      setOrders((prev) => ({ ...prev, loading: true }));
-      // ref to orders collection on data base
-      const refQuery = query(
-        collection(db, "Orders"),
-        where("customerId", "==", userId)
-      );
-      // get all user orders
-      const res = await getDocs(refQuery);
-      const orders = res.docs.map((doc) => doc.data());
-      // dispatch error on empty case
-      if (res.empty) {
-        throw Error(
-          "You haven't placed an order yet. Start shopping now to find what you need."
-        );
-      }
-      // set all ordered products
-      setOrders((prev) => ({
-        ...prev,
-        orders: orders,
-        loading: false,
-      }));
-      // store all ordered items from all orders
-      setItems(getOrderedItems(orders));
-    } catch (error) {
-      setOrders({ orders: [], loading: false, error });
-    }
-  }
-
+  // display order on query navigates
   useEffect(() => {
     if (!loading && params?.orderId && orders?.length) {
       onOrderDetail("open", `#${params.orderId}`, params.sellerId);
@@ -67,45 +33,8 @@ function OrdersPage() {
 
   // read orders on app mount
   useEffect(() => {
-    getOrders();
+    fetchOrders(userId);
   }, []);
-
-  // get all ordered products
-  function getOrderedItems(orders) {
-    const orderedProducts = [];
-    orders.forEach((order) => {
-      // Iterate over the "orders" array property
-      for (const [key, { delivery_status, items }] of Object.entries(
-        order.orders
-      )) {
-        items.forEach((item) => {
-          orderedProducts.push({
-            ...item,
-            delivery_status,
-            orderId: order.orderId,
-            date: order.createdAt,
-            paymentInfo: order.paymentInfo,
-          });
-        });
-      }
-    });
-
-    return orderedProducts;
-  }
-
-  // search ordered items by name
-  function searchItems(query) {
-    // display all orders on empty case
-    if (query === "") {
-      setItems(getOrderedItems(orders));
-    } else {
-      // search on all orders data
-      const filteredItems = getOrderedItems(orders).filter((item) =>
-        item.Name.toLowerCase().includes(query)
-      );
-      setItems(filteredItems);
-    }
-  }
 
   // order detail modal actions
   function onOrderDetail(action, orderId, sellerId) {
@@ -129,15 +58,18 @@ function OrdersPage() {
     }
   }
 
+  // loading screen
   if (loading) return <OrdersPageLoader />;
 
+  // main components
   if (!loading && orders.length)
     return (
       <div className="mx-auto 2xl:max-w-screen-2xl -mb-6 lg:-mb-8 px-2 py-1 lg:px-4 lg:py-2">
         {/* search orders by product name  */}
         <div className="flex">
           <input
-            onChange={(e) => searchItems(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
             type="text"
             className="w-full outline-none border px-4 py-2 rounded-tl-md lg:py-3 focus:border-gray-500"
             placeholder="Search By Product Name"
@@ -147,7 +79,7 @@ function OrdersPage() {
           </button>
         </div>
         {/* ordered items list */}
-        <OrdersList ordersData={items} onOrderDetail={onOrderDetail} />
+        <OrdersList ordersData={filteredItems} onOrderDetail={onOrderDetail} />
         {/* ordered item detail */}
         <div
           className={`${
@@ -160,13 +92,14 @@ function OrdersPage() {
             <OrderDetail
               order={order}
               onModalClose={onOrderDetail}
-              updateOrders={getOrders}
+              updateOrders={() => fetchOrders(userId)}
             />
           )}
         </div>
       </div>
     );
 
+  // error screen
   if (!loading && error)
     return (
       <div className="mx-auto 2xl:max-w-screen-2xl h-screen flex flex-col items-center justify-center gap-y-4">

@@ -7,8 +7,9 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import TextInput from "UI/Forms/TextInput";
-import { validateLocation } from "../../../../common/utils/constants";
+import { validateLocation } from "constants";
 
+// inputs information
 const inputsInfo = [
   { name: "business_name", placeholder: "enter your business name" },
   { name: "career_title", placeholder: "what is your services ?" },
@@ -16,12 +17,11 @@ const inputsInfo = [
 ];
 
 function BusinessInfoForm() {
-  // form hook
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm();
+  } = useForm(); // form data
   // map & location data
   const [location, setLocation] = useState(null);
   const [mapFullScreen, setMapFull] = useState(false);
@@ -29,6 +29,7 @@ function BusinessInfoForm() {
   const { loading, userType } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
 
+  // handle submit business form
   async function submitBusinessInfo(formData) {
     // check validation of form & selected location
     const locationIsValid = await validateLocation(location[0], location[1]);

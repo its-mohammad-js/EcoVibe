@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { loadingIcon } from "constants";
 
+// seller authetication steps
 const stepsInfo = [
   {
     step: "first-step",
@@ -23,13 +24,13 @@ const stepsInfo = [
 ];
 
 function SellerAuthPage() {
-  // necessary data & hooks
+  // current user data
   const { seller_step, loading, auth_status } = useSelector(
     (state) => state.userData
   );
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
-  // naviagte to current step or home page if steps are completed
+  // naviagte to current step page or home page if steps are completed
   useEffect(() => {
     switch (seller_step) {
       case "first-step":

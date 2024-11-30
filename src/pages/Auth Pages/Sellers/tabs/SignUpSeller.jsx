@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "src/reducers/auth/userDataSlice";
 import { avatarsUrl } from "constants";
 import { GrGithub } from "react-icons/gr";
-import { RiDoorLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import TextInput from "../../../../common/UI elements/Forms/TextInput";
+import TextInput from "UI/Forms/TextInput";
 
+// sign up inputs data
 const inputsInfo = [
   {
     name: "first_name",
@@ -71,36 +71,39 @@ const inputsInfo = [
 ];
 
 function SignUpSeller() {
-  const { loading } = useSelector((state) => state.userData);
+  const { loading } = useSelector((state) => state.userData); // current user data
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     watch,
-  } = useForm();
+  } = useForm(); // form data
+  // necessary hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  function signupHandler(formData) {
+    dispatch(
+      signUpUser({
+        method: "signUpEmail",
+        email: formData.email,
+        password: formData.password,
+        userType: "seller",
+        personalInformation: {
+          email: formData.email,
+          profilePic: avatarsUrl[0],
+          first_name: formData.first_name,
+          last_name: formData.last_name,
+        },
+      })
+    );
+  }
 
   return (
     <div className="lg:flex py-4 justify-evenly items-center">
       {/* sign up form */}
       <form
-        onSubmit={handleSubmit((formData) => {
-          dispatch(
-            signUpUser({
-              method: "signUpEmail",
-              email: formData.email,
-              password: formData.password,
-              userType: "seller",
-              personalInformation: {
-                email: formData.email,
-                profilePic: avatarsUrl[0],
-                first_name: formData.first_name,
-                last_name: formData.last_name,
-              },
-            })
-          );
-        })}
+        onSubmit={handleSubmit((formData) => signupHandler(formData))}
         className="px-3 py-1.5 flex flex-col gap-y-2 lg:basis-1/3 lg:bg-gray-50 lg:px-6 lg:py-4 lg:rounded-xl lg:border"
       >
         {/* header */}
@@ -124,12 +127,10 @@ function SignUpSeller() {
                     // all inputs validation
                     ...input.validation,
                     // only for (password_repeat) input
-                    validate: (value) => {
-                      if (input.name === "password_repeat")
-                        return (
-                          value === watch().password || "Passwords do not match"
-                        );
-                    },
+                    validate: (value) =>
+                      input.name === "password_repeat"
+                        ? value === watch().password || "Passwords do not match"
+                        : true,
                   }),
                 }}
                 error={errors[input.name]?.message}

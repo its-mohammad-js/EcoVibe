@@ -6,16 +6,31 @@ import { updateUserData } from "src/reducers/auth/userDataSlice";
 import { useNavigate } from "react-router-dom";
 
 function UserInterestsForm() {
-  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedTypes, setSelectedTypes] = useState([]); // selected product types state
+  const { userType } = useSelector((state) => state.userData); // current user data
+  // necessary hooks
   const dispatch = useDispatch();
-  const { userType } = useSelector((state) => state.userData);
   const navigate = useNavigate();
 
+  // select type hanlder
   function changeTypesHandler(type) {
     let isSelcted = selectedTypes.find((t) => t === type);
 
     setSelectedTypes((prev) =>
       isSelcted ? prev.filter((t) => t !== type) : [...prev, type]
+    );
+  }
+
+  // submit user interests
+  function submitInterests() {
+    dispatch(
+      updateUserData({
+        data: selectedTypes,
+        field: "interests",
+        customer_step: "completed",
+        userType:
+          userType === "seller" || userType === "both" ? "both" : "customer",
+      })
     );
   }
 
@@ -34,6 +49,7 @@ function UserInterestsForm() {
       {/* product type picker */}
       <div className="w-full md:w-2/3 md:mx-auto mt-4 md:mt-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 px-2 justify-items-center">
+          {/* type buttons */}
           {supportedCategories.map(({ productTypes }) =>
             productTypes.map(({ title }, index) => (
               <button
@@ -54,23 +70,11 @@ function UserInterestsForm() {
             ))
           )}
         </div>
-
+        {/* action buttons */}
         <div className="mt-4 w-full flex items-center justify-end gap-x-4 px-4">
           <button
             disabled={!selectedTypes.length}
-            onClick={() => {
-              dispatch(
-                updateUserData({
-                  data: selectedTypes,
-                  field: "interests",
-                  customer_step: "completed",
-                  userType:
-                    userType === "seller" || userType === "both"
-                      ? "both"
-                      : "customer",
-                })
-              );
-            }}
+            onClick={() => submitInterests()}
             className="px-4 py-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all bg-primary-500 rounded-md text-white md:text-lg"
           >
             Done

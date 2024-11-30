@@ -3,6 +3,7 @@ import toast, { LoaderIcon } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
+// customer authetication steps
 const stepsInfo = [
   {
     step: "first-step",
@@ -27,10 +28,10 @@ const stepsInfo = [
 function CustomerAuthPage() {
   const { customer_step, auth_status, loading } = useSelector(
     (state) => state.userData
-  );
-  const navigate = useNavigate();
+  ); // current user data
+  const navigate = useNavigate(); // navigate hook
 
-  // naviagte to current step
+  // naviagte to current step page
   useEffect(() => {
     switch (customer_step) {
       case "first-step":

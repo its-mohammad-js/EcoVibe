@@ -40,10 +40,10 @@ function ChatList({ openSideNav, deleteRoom }) {
     <div
       className={`${
         selectedRoom && "hidden"
-      } lg:!block lg:w-1/4 w-full bg-gray-50 grid grid-rows-10`}
+      } lg:!block lg:w-1/4 w-full h-screen bg-gray-50 flex flex-col`}
     >
       {/* header  */}
-      <div className="row-span-2">
+      <div className="">
         <div className="bg-gray-50 p-4 border-b border-gray-200">
           <div className="flex items-center justify-end gap-x-1.5 cursor-pointer relative">
             <h2 className="text-xl font-bold">Messages</h2>
@@ -74,8 +74,8 @@ function ChatList({ openSideNav, deleteRoom }) {
         className={`${
           !searchContacts(searchQuery).length || !searchQuery?.length
             ? "hidden"
-            : "row-span-2"
-        } overflow-x-auto overflow-y-hidden mx-auto pr-4 py-1 hidden-scroll-bar w-[20.5rem] contacts-container`}
+            : "basis-[19%] min-h-32"
+        } overflow-x-auto overflow-y-hidden mx-auto flex px-4 gap-3 py-1 hidden-scroll-bar w-full contacts-container`}
       >
         {searchQuery && (
           <div className="flex items-center gap-x-4 select-none">
@@ -115,7 +115,7 @@ function ChatList({ openSideNav, deleteRoom }) {
       {/* messages / rooms list */}
       <div
         className={`${
-          searchQuery?.length ? "row-span-7" : "row-span-10"
+          searchQuery?.length ? "basis-[55%]" : ""
         } flex flex-col overflow-auto relative styled-scroll-bar`}
       >
         <h2

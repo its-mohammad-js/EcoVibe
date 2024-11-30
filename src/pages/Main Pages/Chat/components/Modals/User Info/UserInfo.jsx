@@ -3,7 +3,6 @@ import CustomerInfo from "./CustomerInfo";
 import { useEffect, useState } from "react";
 import { useRoomsData } from "../../RoomsContext";
 import { AiOutlineLeft } from "react-icons/ai";
-import toast from "react-hot-toast";
 
 function UserInfo({ modalShow, onCloseModal }) {
   const [infoTab, setInfo] = useState(null);

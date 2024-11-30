@@ -8,7 +8,7 @@ import { loadingIcon } from "constants";
 import toast from "react-hot-toast";
 import TextInput from "UI/Forms/TextInput";
 
-// input validation condition's
+// inputs validation & condition's
 const inputsOptions = [
   {
     name: "email",
@@ -38,22 +38,23 @@ const inputsOptions = [
     },
   },
 ];
-
+// bg url
 const bannerUrl =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Flogin-form-banner-66386d0ae74ba.webp?alt=media&token=a11080f5-ffd1-4e5f-b412-2735684bb9a1";
 
 function SignInPage() {
-  const { loading, auth_status } = useSelector((state) => state.userData);
-  // form state
+  const { loading, auth_status } = useSelector((state) => state.userData); // current user data
+  // form data
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+  // necessary data & hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // redirect authenticated user to home page
+  // redirect authenticated users to home page
   useEffect(() => {
     const isNewUser = JSON?.parse(localStorage.getItem("isNewUser"));
     // navigate to profile / personal info form after sign in
@@ -96,7 +97,6 @@ function SignInPage() {
           {/* title */}
           <div className="px-4 py-4 lg:py-8 flex flex-col gap-y-3">
             <h4 className="text-3xl font-medium md:text-3xl">Wecome Back :)</h4>
-
             <p className="text-sm md:text-base">
               Become part of the Eco Vibe community! Sign in to your account to
               explore sustainable fashion.

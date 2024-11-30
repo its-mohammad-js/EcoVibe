@@ -158,7 +158,7 @@ function ProductCard({ productData }) {
         <div className="flex flex-col gap-y-2 md:flex-row md:items-center md:justify-between">
           {/* price & stars */}
           <div className="flex md:flex-col md:items-start justify-between">
-            <p className="font-medium md:text-lg">${productData.Price}</p>
+            {/* <p className="font-medium md:text-lg">${productData.Price}</p> */}
             <p className="flex items-center justify-center gap-x-0.5 md:gap-y-1">
               <span className="text-base">
                 {calculateAverage(
@@ -170,13 +170,14 @@ function ProductCard({ productData }) {
               </span>
             </p>
           </div>
-          {/* add to cart btn */}
+          {/* add to cart || navigate to cart btn */}
           <button
-            onClick={() =>
+            onClick={() => {
+              window.scroll(0, 0);
               isInCart
                 ? navigate("/EcoVibe/bag/cart")
-                : addProductToCart(productData)
-            }
+                : addProductToCart(productData);
+            }}
             className={`${
               loading &&
               orderRef === productData.id &&

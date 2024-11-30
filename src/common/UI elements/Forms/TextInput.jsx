@@ -30,9 +30,11 @@ const TextInput = (props) => {
         className={`placeholder:first-letter:uppercase size-full outline-none mt-1 px-4 py-2 order-2 disabled:animate-pulse bg-transparent border border-gray-300 hover:border-gray-400 transition-all group focus:!border-gray-500 rounded-lg`}
       />
 
-      <p className="text-sm md:text-base mt-1 px-1 text-red-500 font-medium">
-        {error}
-      </p>
+      {error && (
+        <p className="text-sm md:text-base mt-1 px-1 text-red-500 font-medium">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

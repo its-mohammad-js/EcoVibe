@@ -7,6 +7,7 @@ import { signUpUser } from "src/reducers/auth/userDataSlice";
 import { useNavigate } from "react-router-dom";
 import TextInput from "src/common/UI elements/Forms/TextInput";
 
+// sign-up form inputs
 const inputOptions = {
   email: {
     placeholder: "Ex@email.com",
@@ -44,21 +45,35 @@ const inputOptions = {
     type: "password",
   },
 };
-
+// backgrond url
 const figureIcon =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ffisrt-step-figure-removebg-preview-6630e8a5af594.webp?alt=media&token=8e2e91b9-95a1-4416-866a-1bfe555ce0c9";
 
 function SignUpCustomer() {
-  const { loading } = useSelector((state) => state.userData);
+  const { loading } = useSelector((state) => state.userData); // current user data
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm();
-
+  } = useForm(); // form data
+  // necessary hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // dispatch sign up action
+  function signupHanlder(formData) {
+    {
+      dispatch(
+        signUpUser({
+          method: "signUpEmail",
+          userType: "customer",
+          email: formData.email,
+          password: formData.password,
+        })
+      );
+    }
+  }
 
   return (
     <div className="flex items-center justify-center gap-x-4 md:gap-x-6 lg:gap-x-14">
@@ -73,35 +88,28 @@ function SignUpCustomer() {
             Join the Eco Vibe Community: Shop Sustainably, Live Mindfully! 🌍
           </p>
         </div>
-        {/* user information input's */}
+        {/* sign up form */}
         <form
-          onSubmit={handleSubmit((data) => {
-            dispatch(
-              signUpUser({
-                method: "signUpEmail",
-                userType: "customer",
-                email: data.email,
-                password: data.password,
-              })
-            );
-          })}
+          onSubmit={handleSubmit((data) => signupHanlder(data))}
           className="mt-4 flex flex-col items-center md:items-stretch gap-y-4 px-2"
         >
-          <div className="grid lg:grid-rows-2 lg:grid-cols-2 w-full">
+          {/* all inputs  */}
+          <div className="grid lg:grid-rows-2 gap-x-4 lg:grid-cols-2 w-full">
             {Object.entries(inputOptions).map(
               ([name, { placeholder, validation, type }], index) => (
                 <TextInput
                   key={index}
                   type={type}
                   placeholder={placeholder}
+                  // register input with name and validation
                   register={register(name, {
+                    // all inputs validation
                     ...validation,
-                    validate: (value) => {
-                      if (name === "password_repeat")
-                        return (
-                          value === watch().password || "Passwords do not match"
-                        );
-                    },
+                    // only for (password_repeat) input
+                    validate: (value) =>
+                      name === "password_repeat"
+                        ? value === watch().password || "Passwords do not match"
+                        : true,
                   })}
                   error={errors[name]?.message}
                   style={`${

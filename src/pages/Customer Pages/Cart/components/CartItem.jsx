@@ -1,15 +1,14 @@
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import useMediaQuery from "../../../../common/hooks/useMediaQuery";
+import useMediaQuery from "hooks/useMediaQuery";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import { useEffect, useState } from "react";
 
 function CartItem({ orderDetails }) {
-  const [actionRef, setActionRef] = useState("");
-  // necessary data & hooks
-  const { cartData, loading } = useSelector((state) => state.userData);
-  const isMobile = useMediaQuery({ maxWidth: 480 });
-  const dispatch = useDispatch();
+  const [actionRef, setActionRef] = useState(""); // last action ref
+  const { cartData, loading } = useSelector((state) => state.userData); // current user data
+  const isMobile = useMediaQuery({ maxWidth: 480 }); // detect screen size
+  const dispatch = useDispatch(); // dispatch hook
 
   // remove product order from cart
   function removeProduct() {

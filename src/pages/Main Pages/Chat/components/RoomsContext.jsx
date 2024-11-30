@@ -5,12 +5,14 @@ import {
   set,
   goOffline,
   goOnline,
+  onDisconnect,
 } from "firebase/database";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { find } from "lodash";
 import toast from "react-hot-toast";
+import { serverTimestamp } from "firebase/firestore";
 
 const RoomsProvider = createContext();
 
@@ -40,7 +42,7 @@ function RoomsContext({ children }) {
   const location = useLocation();
   const queryRoomId = location?.state?.roomId;
 
-  // reset query state
+  // reset query state on change selected room
   useEffect(() => {
     if (selectedRoom) {
       navigate(location.pathname, { roomId: null });
@@ -106,16 +108,16 @@ function RoomsContext({ children }) {
   }
 
   // set last seen on disconnect
-  // useEffect(() => {
-  //   if (selectedRoom && userId) {
-  //     onDisconnect(
-  //       ref(db, `rooms/${selectedRoom.roomId}/${userId}/last_seen`)
-  //     ).set({
-  //       status: "offline",
-  //       date: serverTimestamp(),
-  //     });
-  //   }
-  // }, [selectedRoom, userId]);
+  useEffect(() => {
+    if (selectedRoom && userId) {
+      onDisconnect(
+        ref(db, `rooms/${selectedRoom.roomId}/${userId}/last_seen`)
+      ).set({
+        status: "offline",
+        date: serverTimestamp(),
+      });
+    }
+  }, [selectedRoom, userId]);
 
   // get all chat rooms on app mount
   useEffect(() => {
@@ -151,7 +153,7 @@ function RoomsContext({ children }) {
     }
   }, [queryRoomId, selectedRoom]);
 
-  // on create new chat room
+  // create new chat room handler
   const createNewChatRoom = async (contact) => {
     // check there is any room between these users before or not
     const findedRoom = rooms.find(

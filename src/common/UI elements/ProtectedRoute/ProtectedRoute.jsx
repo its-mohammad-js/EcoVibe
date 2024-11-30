@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import toast, { LoaderIcon } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
-import { errorIconUrl, loadingIcon } from "constants";
+import { errorIconUrl } from "constants";
 import { getUserData } from "src/reducers/auth/userDataSlice";
 
 function ProtectedRoute() {
@@ -72,7 +72,7 @@ function ProtectedRoute() {
         </h4>
       </div>
     );
-  // render child component on 200 state
+  // render child component after loading
   else if ((!loading && userId) || auth_status === 200) return <Outlet />;
 }
 

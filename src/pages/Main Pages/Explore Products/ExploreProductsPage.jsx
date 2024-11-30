@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { changeFilterReducer as setFilter } from "src/reducers/filters/filterSlice";
 import { queryToFilterObject } from "constants";
-import ProductGrid from "./components/ProductGrid";
 import { FaFilter, FaSearch, FaSortAmountDown } from "react-icons/fa";
 import SortMenu from "./components/Filters/SortMenu";
-import useDisableScroll from "../../../common/hooks/UseDisableScroll";
+import useDisableScroll from "hooks/UseDisableScroll";
 import FiltersMenu from "./components/Filters/FiltersMenu";
+import ProductGrid from "./components/Products/ProductGrid";
 
 function ExploreProducts() {
   const [menuIsOpen, setMenuIsOpen] = useState(false); // filters menu state (open close functionality on mobile)

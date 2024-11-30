@@ -3,11 +3,11 @@ import ReactStars from "react-stars";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import RatesChartLoader from "UI/Loaders/RatesChartLoader";
 import { useDashboardData } from "../../DashboardContext";
-import { TfiFaceSad } from "react-icons/tfi";
 import { PiSmileySad } from "react-icons/pi";
 
+// range chart colors
 const COLORS = ["#d0d6fb", "#7384f2", "#1632e9", "#09145d"];
-
+// rates range (used for rates chart)
 const ranges = [
   { min: 0, max: 1, label: "0-1" },
   { min: 1, max: 2, label: "1-2" },
@@ -17,11 +17,11 @@ const ranges = [
 ];
 
 function RatesChart() {
-  const [chartData, setChartData] = useState([]);
-  const [error, setError] = useState(null);
+  const [chartData, setChartData] = useState([]); // chart data
+  const [error, setError] = useState(null); // error state
   const {
     products: { products, loading },
-  } = useDashboardData();
+  } = useDashboardData(); // dashboard data
 
   // get rates range on component mount
   useEffect(() => {
@@ -51,15 +51,18 @@ function RatesChart() {
     }
   }, [products]);
 
+  // loading screen
   if (loading) return <RatesChartLoader animate />;
 
+  // main components
   if (!loading)
     return (
       <div className="h-full flex flex-col items-center relative pb-1">
+        {/* title */}
         <h4 className="text-xl font-bold my-2 absolute -top-2 left-0 z-10">
           Rates Chart
         </h4>
-
+        {/* main charts */}
         {error !== 404 ? (
           <ResponsiveContainer width="100%" height="70%">
             <PieChart>
@@ -89,7 +92,7 @@ function RatesChart() {
             </p>
           </div>
         )}
-
+        {/* rates information */}
         <div className="flex flex-wrap justify-evenly gap-1 lg:gap-2 w-full h-1/3">
           {chartData.map(({ name, value }, index) => (
             <div key={index} className="flex items-center gap-x-2">
@@ -108,18 +111,6 @@ function RatesChart() {
         </div>
       </div>
     );
-
-  // if (!loading && error === 404)
-  //   return (
-  //     <>
-  //       <div className="absolute inset-0 z-10 flex items-center justify-center bg-gray-200/50 rounded-md to-gray-50/100 backdrop-blur-sm">
-  //         <h4 className="text-3xl text-center font-bold text-primary-800">
-  //           There Isn't Any Rate Under Your Products Yet...
-  //         </h4>
-  //       </div>
-  //       <RatesChartLoader />
-  //     </>
-  //   );
 }
 
 export default RatesChart;

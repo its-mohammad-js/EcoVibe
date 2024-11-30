@@ -23,7 +23,7 @@ import OrdersPage from "customerPages/Orders/OrdersPage";
 import CustomerProfilePage from "customerPages/Profile/CustomerProfilePage";
 import SellerSolutionsPage from "sellerPages/Seller Solutions/sellerSolutionsPage";
 import SellerDashboardPage from "sellerPages/Dashboard/SellerDashboardPage";
-import AnalyticsTab from "sellerPages/Dashboard/tabs/Analytics/AnalyticsTab";
+import AnalyticsTab from "sellerPages/Dashboard/tabs/Analytics/MainTab";
 import ProductTab from "sellerPages/Dashboard/tabs/Products Management/ProductTab";
 import OrdersTab from "sellerPages/Dashboard/tabs/Orders Management/OrdersTab";
 import SellerProfilePage from "sellerPages/Profile/SellerProfilePage";

@@ -91,6 +91,7 @@ function OrdersList({ onCloseModal }) {
       orderId.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
+
   // share orders to the room
   function shareOrder(id) {
     // find selected order
@@ -98,7 +99,7 @@ function OrdersList({ onCloseModal }) {
     // ref to selected room
     const db = getDatabase();
     const roomsRef = ref(db, `rooms/${selectedRoom.roomId}`);
-    // update message list
+    // update message list with new order type message
     update(roomsRef, {
       members: [userId, selectedRoom.reciver.reciverId],
       messageList: [
@@ -220,7 +221,7 @@ function OrdersList({ onCloseModal }) {
               )
             )
           ) : (
-            <h4 className="m-auto my-20 text-lg font-semibold line-clamp-2">
+            <h4 className="m-auto text-center my-20 text-lg font-semibold line-clamp-2">
               {ordersType === "sells"
                 ? "you have no orders from this customer"
                 : "you have no purchase this seller"}

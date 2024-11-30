@@ -2,7 +2,7 @@ import { useState } from "react";
 import RoomsContext from "./components/RoomsContext";
 import ChatList from "./components/Chat List/ChatList";
 import SideNav from "./components/SideNav";
-import MessagesRoom from "./components/Messages/MessagesRoom";
+import RoomLayout from "./components/Messages/RoomLayout/RoomLayout";
 import { getDatabase, ref, update, remove } from "firebase/database";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
@@ -59,8 +59,8 @@ function ChatPage() {
               openSideNav={() => setSideNav(true)}
               deleteRoom={deleteRoom}
             />
-            {/* messages */}
-            <MessagesRoom deleteRoom={deleteRoom} />
+            {/* selected message room */}
+            <RoomLayout deleteRoom={deleteRoom} />
             {/* search contacts modal */}
             <div
               className={`${

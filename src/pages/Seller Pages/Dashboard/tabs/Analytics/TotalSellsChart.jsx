@@ -26,7 +26,7 @@ function TotalSellsChart() {
   const [chartType, setType] = useState(1);
   // order's data
   const {
-    orderList: { orders, loading, error },
+    orderList: { orders, loading },
   } = useDashboardData();
 
   useEffect(() => {
@@ -62,6 +62,7 @@ function TotalSellsChart() {
   // dispaly loading screen
   if (loading) return <TotalSellChartLoader animate />;
 
+  // main components
   if (!loading)
     return (
       <>
@@ -86,6 +87,7 @@ function TotalSellsChart() {
 
 export default TotalSellsChart;
 
+// profit by date chart
 const ProfitByDate = ({ chartData }) => {
   return (
     <ResponsiveContainer width="100%" height="85%">
@@ -124,6 +126,7 @@ const ProfitByDate = ({ chartData }) => {
   );
 };
 
+// profit by category chart
 const ProfitByCategory = ({ chartData }) => {
   return (
     <ResponsiveContainer width="100%" height="85%">

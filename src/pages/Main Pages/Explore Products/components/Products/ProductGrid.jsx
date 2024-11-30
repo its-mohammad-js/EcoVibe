@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/reducers/products/productsSlice";
 import { errorIconUrl, paginateElements } from "constants";
 import FilteredProductsLoader from "UI/Loaders/FilteredProductsLoader";
-import ProductCard from "./ProductCard";
 import { debounce } from "lodash";
-import PaginationButtons from "./PaginationButtons";
+import PaginationButtons from "../PaginationButtons";
+import ProductCard from "./ProductCard";
 
 function ProductGrid() {
   // get selected filters
@@ -45,10 +45,10 @@ function ProductGrid() {
     return () => debouncedFetchProducts.cancel();
   }, [filters]);
 
+  // loading screen
   if (loading) return <FilteredProductsLoader />;
 
   if (error.length && !loading) {
-    // diplay loading proccess
     return (
       <>
         <div className="ml-auto min-h-screen w-full md:w-[78%] relative flex flex-col items-center justify-center">

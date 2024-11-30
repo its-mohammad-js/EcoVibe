@@ -7,16 +7,20 @@ import { generateId } from "constants";
 import { useRoomsData } from "../../RoomsContext";
 
 function SendLocation({ onCloseModal }) {
-  // location state
-  const [location, setLocation] = useState(null);
-  // necessary data & hooks
-  const { messageMode, selectedMessage, setSelectedMessage, setMode } =
-    useRoomsData();
-  const { userId } = useSelector((state) => state.userData);
-  const { selectedRoom } = useRoomsData();
+  const [location, setLocation] = useState(null); // location state
+  const { userId } = useSelector((state) => state.userData); // current user id
+  // chat room data
+  const {
+    messageMode,
+    selectedMessage,
+    setSelectedMessage,
+    setMode,
+    selectedRoom,
+  } = useRoomsData();
 
+  // send location as a message
   function shareLocation() {
-    // // message data
+    // message data
     const messageData = {
       location,
       senderId: userId,
@@ -42,6 +46,7 @@ function SendLocation({ onCloseModal }) {
 
   return (
     <div className="size-full bg-gray-50 rounded-md relative">
+      {/* map component */}
       <div className="w-full h-full rounded-t-md overflow-hidden">
         <Map
           onClick={(e) => setLocation(e.latLng)}

@@ -3,12 +3,11 @@ import Select from "react-select";
 import { generateId } from "constants";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { isEqual } from "lodash";
 import { TbMinus, TbPlus, TbTrash } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { checkUserAuthentication } from "../../../../common/utils/constants";
+import { checkUserAuthentication } from "constants";
 
 function OrderBox({ Options, productData }) {
   const [selectedOptions, setOptions] = useState([]); // selecyed options
@@ -182,7 +181,7 @@ function OrderBox({ Options, productData }) {
           Price: ${Number(productData.Price * orderQuantity).toFixed(2)}
         </h6>
       </div>
-      {/* porduct orders */}
+      {/* porduct options */}
       <div
         className={`${
           selectedOptions.length > 1 ? "justify-between gap-4" : "justify-start"
@@ -207,21 +206,23 @@ function OrderBox({ Options, productData }) {
           )}
         </div>
         {/* product colors */}
-        <div className="flex w-full items-center gap-4">
-          <h4 className="text-xl font-medium">Colors:</h4>
-          <div className="flex flex-wrap gap-2">
-            {productColors?.options.map((opt, index) => (
-              <button
-                key={index}
-                onClick={() => onOrderChange({ title: "color", value: opt })}
-                style={{ backgroundColor: opt }}
-                className={`${
-                  selectedColor === opt && "border-4 !border-gray-400"
-                } size-10 rounded-full border-4 transition-all`}
-              ></button>
-            ))}
+        {productColors && (
+          <div className="flex w-full items-center gap-4">
+            <h4 className="text-xl font-medium">Colors:</h4>
+            <div className="flex flex-wrap gap-2">
+              {productColors?.options.map((opt, index) => (
+                <button
+                  key={index}
+                  onClick={() => onOrderChange({ title: "color", value: opt })}
+                  style={{ backgroundColor: opt }}
+                  className={`${
+                    selectedColor === opt && "border-4 !border-gray-400"
+                  } size-10 rounded-full border-4 transition-all`}
+                ></button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* order action buttons */}

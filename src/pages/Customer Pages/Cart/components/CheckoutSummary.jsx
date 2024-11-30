@@ -3,15 +3,13 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function CheckoutSummary() {
-  // necessary data
-  const { cartData } = useSelector((state) => state.userData);
+  const { cartData } = useSelector((state) => state.userData); // current user cart data
   // calculate total price
   const totalPrice = cartData.reduce(
     (acc, order) => acc + Number(order.Price),
     0
   );
-  // necessary hooks
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate hook
 
   return (
     <div className="mt-4 flex flex-col items-center gap-y-3 px-4 py-3 bg-slate-100 rounded-md md:w-80 md:ml-auto">

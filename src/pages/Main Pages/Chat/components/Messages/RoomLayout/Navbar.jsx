@@ -7,10 +7,10 @@ import {
   AiOutlineSearch,
   AiOutlineUser,
 } from "react-icons/ai";
-import UserInfo from "../Modals/User Info/UserInfo";
-import { useRoomsData } from "../RoomsContext";
+import UserInfo from "../../Modals/User Info/UserInfo";
 import { HiDotsVertical } from "react-icons/hi";
 import useOutSideClick from "hooks/UseOutsideClick";
+import { useRoomsData } from "../../RoomsContext";
 
 function Navbar({ searchBar, setSearchBar, setShowAlert }) {
   // user info modal state

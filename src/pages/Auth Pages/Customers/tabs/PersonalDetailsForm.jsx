@@ -7,6 +7,7 @@ import { updateUserData } from "src/reducers/auth/userDataSlice";
 import ProfileImagePicker from "UI/ProfileImagePicker/ProfileImagePicker";
 import TextInput from "UI/Forms/TextInput";
 
+// personal information for inputs data
 const inputOptions = [
   {
     name: "first_name",
@@ -44,11 +45,9 @@ const inputOptions = [
 function PersonalDetailsForm() {
   const { loading, personalInformation, userType } = useSelector(
     (state) => state.userData
-  );
-  // profile picture state
-  const [profilePicUrl, setProfile] = useState("");
-  // avatar picker modal state
-  const [modalShow, setModalShow] = useState(false);
+  ); // current user data
+  const [profilePicUrl, setProfile] = useState(""); // profile picture state
+  const [modalShow, setModalShow] = useState(false); // avatar picker modal state
   // form state
   const {
     register,
@@ -56,7 +55,7 @@ function PersonalDetailsForm() {
     formState: { errors },
     setValue,
   } = useForm();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // dispatch hook
 
   // change profile state if profile already set
   useEffect(() => {
@@ -69,6 +68,25 @@ function PersonalDetailsForm() {
   // change profile pic handler
   function changeProfilePic(picUrl) {
     setProfile(picUrl);
+  }
+
+  // submit personal info on user profile
+  function submitPersonalDetails(formData) {
+    // merge personal info with form data
+    const personalInfo = {
+      ...personalInformation,
+      ...formData,
+      profilePic: profilePicUrl || avatarsUrl[0],
+    };
+    // update it on database
+    dispatch(
+      updateUserData({
+        userType: userType === "seller" ? "both" : "customer",
+        data: personalInfo,
+        field: "personalInformation",
+        customer_step: "third-step",
+      })
+    );
   }
 
   return (
@@ -85,23 +103,7 @@ function PersonalDetailsForm() {
       </div>
       {/* personal information input's */}
       <form
-        onSubmit={handleSubmit((data) => {
-          // merge personal info with form data
-          const personalInfo = {
-            ...personalInformation,
-            ...data,
-            profilePic: profilePicUrl || avatarsUrl[0],
-          };
-          // update it on database
-          dispatch(
-            updateUserData({
-              userType: userType === "seller" ? "both" : "customer",
-              data: personalInfo,
-              field: "personalInformation",
-              customer_step: "third-step",
-            })
-          );
-        })}
+        onSubmit={handleSubmit((data) => submitPersonalDetails(data))}
         className="flex flex-col w-11/12 md:gap-y-2 lg:w-[34rem]"
       >
         {/* profile picker */}
@@ -199,7 +201,6 @@ function PersonalDetailsForm() {
         <div className="w-full mt-2 flex items-center justify-end gap-x-2">
           {/* submit button */}
           <button
-            // disabled={profilePic.isLoading || !isValid}
             type="submit"
             className="px-4 disabled:bg-gray-300 py-2 md:text-lg hover:bg-primary-800 bg-primary-500 transition-all text-white rounded-md w-fit"
           >

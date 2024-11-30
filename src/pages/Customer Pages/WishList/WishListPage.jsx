@@ -12,10 +12,9 @@ import { BsCartCheck } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 function WishListPage() {
-  // user data
   const { wishlist, personalInformation, auth_status, cartData } = useSelector(
     (state) => state.userData
-  );
+  ); // current user data
   // product list data
   const { data, loading } = useSelector((state) => state.products);
   // necessary data & hooks

@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 
 function OrderSummary({ shippingCost, totalPrice }) {
+  const { cartData } = useSelector((state) => state.userData); // current user cart data
   // necessary data & hooks
-  const { cartData } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const totalAmount = Number(totalPrice) + Number(shippingCost);
 
+  // remove order product from cart
   function removeOrder(orderId) {
     const updatedCartData = cartData.filter(
       (order) => order.orderId !== orderId
@@ -22,7 +23,7 @@ function OrderSummary({ shippingCost, totalPrice }) {
       className="bg-white w-full lg:px-4 pb-4 lg:border rounded-md"
     >
       <h4 className="text-xl lg:text-2xl font-medium my-2">Order Summary</h4>
-      {/* orders */}
+      {/* orders list */}
       <div className="flex flex-col gap-4 h-96 overflow-auto px-1 py-0.5 styled-scroll-bar">
         {cartData.map(
           ({ Name, Price, quantity, Thumbnail, orderId }, index) => (
@@ -57,7 +58,7 @@ function OrderSummary({ shippingCost, totalPrice }) {
         )}
       </div>
       <hr className="my-4" />
-      {/* total price */}
+      {/* checkout information */}
       <div className="flex flex-col gap-y-4 px-4 font-semibold text-gray-700">
         <p className="w-full flex items-center justify-between">
           <span>Subtotal:</span> <span>{totalPrice?.toFixed(2)}</span>

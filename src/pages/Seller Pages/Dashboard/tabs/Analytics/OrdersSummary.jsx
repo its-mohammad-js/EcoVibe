@@ -14,14 +14,15 @@ function OrdersSummary() {
   const {
     orderList: { orders, loading },
   } = useDashboardData();
-  const { userId } = useSelector((state) => state.userData);
-  const containerRef = useRef();
-  useHorizontalTouchScroll(".orders-wrapper", loading);
-  const navigate = useNavigate();
+  const { userId } = useSelector((state) => state.userData); // current user id
+  const containerRef = useRef(); // ref to orders container
+  useHorizontalTouchScroll(".orders-wrapper", loading); // horizontal scroll for orders list
+  const navigate = useNavigate(); // navigate hook
 
   // display loading screen
   if (loading) return <OrdersSummaryLoader animate />;
 
+  // main components
   if (!loading && orders?.length > 0)
     return (
       <>
@@ -79,6 +80,7 @@ function OrdersSummary() {
       </>
     );
 
+  // no orders screen
   if (!loading && orders?.length <= 0) {
     return (
       <div className="size-full flex flex-col items-start">

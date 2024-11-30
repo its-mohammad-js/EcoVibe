@@ -6,15 +6,15 @@ import CommentsTabLoader from "UI/Loaders/CommentsTabLoader";
 import { useNavigate } from "react-router-dom";
 
 function LastComments() {
-  const [{ commentsList, error, loading }, setComments] = useState({
+  const [{ commentsList, loading }, setComments] = useState({
     commentsList: [],
     loading: false,
-    error: null,
-  });
+  }); // reviews data
   // necessary data & hooks
   const { userId } = useSelector((state) => state.userData);
   const navigate = useNavigate();
 
+  // get reviews from firestore
   async function fetchComments() {
     try {
       // set loading true
@@ -36,16 +36,21 @@ function LastComments() {
     }
   }
 
+  // get comments on comp render
   useEffect(() => {
     fetchComments();
   }, []);
 
+  // loading screen
   if (loading) return <CommentsTabLoader animate />;
 
+  // main components
   if (commentsList.length && !loading)
     return (
       <>
+        {/* review title */}
         <h4 className="text-xl font-bold">Last Comments</h4>
+        {/* comments list */}
         <div className="overflow-auto h-[90%] styled-scroll-bar px-1">
           <div className="flex flex-col gap-y-4">
             {commentsList.map((comment, index) => (
@@ -82,6 +87,7 @@ function LastComments() {
       </>
     );
 
+  // no comments screen
   if (!loading && !commentsList.length)
     return (
       <>

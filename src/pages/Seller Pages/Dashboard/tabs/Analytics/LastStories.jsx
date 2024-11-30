@@ -15,24 +15,27 @@ import toast, { LoaderIcon } from "react-hot-toast";
 import { timestampToDate } from "constants";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import { deleteObject, ref } from "firebase/storage";
+import LastStoriesLoader from "../../../../../common/UI elements/Loaders/LastStoriesLoader";
 
 function LastStories() {
-  const [{ error, loading, storyList }, setLastStories] = useState({
+  // stories data
+  const [{ loading, storyList }, setLastStories] = useState({
     storyList: [],
     loading: false,
-    error: null,
   });
+  // current user data
   const {
     userId,
     personalInformation: { first_name, last_name },
   } = useSelector((state) => state.userData);
-  const sliderRef = useRef();
+  const sliderRef = useRef(); // ref to stories slider
   const [{ currentStory, deleting }, setCurrentStory] = useState({
     currentStory: {},
     deleting: false,
-  });
-  const [alertIsShow, setAlert] = useState(false);
+  }); // current story slide state
+  const [alertIsShow, setAlert] = useState(false); // delete story alert state
 
+  // get stories from firestore
   async function getLastStories() {
     try {
       // dispatch loading
@@ -56,10 +59,12 @@ function LastStories() {
     }
   }
 
+  // read user stories on mount
   useEffect(() => {
     getLastStories();
   }, []);
 
+  // delete story functionality
   async function deleteStory() {
     try {
       // dispatch loading
@@ -85,27 +90,21 @@ function LastStories() {
     }
   }
 
-  if (loading)
-    return (
-      <div className="size-full overflow-hidden rounded-xl relative animate-pulse">
-        <div className="h-96 w-full bg-gradient-to-br from-gray-300 to-gray-700"></div>
+  // loading screen
+  if (loading) return <LastStoriesLoader />;
 
-        <div className="absolute bottom-0 w-full h-20 bg-gray-900/80 backdrop-blur px-4 py-2 flex flex-col justify-evenly">
-          <p className="w-48 rounded-md h-2 bg-gray-400"></p>
-          <p className="w-24 rounded-md h-2 bg-gray-400"></p>
-        </div>
-      </div>
-    );
-
+  // main component
   if (!loading && storyList.length)
     return (
       <>
         <div className="size-full overflow-hidden rounded-xl relative">
+          {/* main slider */}
           <Slider
             autoplay={true}
             speed={1500}
             className="h-full"
             ref={sliderRef}
+            // set current story with current slide
             onSwipe={() => {
               setCurrentStory((prev) => ({
                 ...prev,
@@ -138,7 +137,7 @@ function LastStories() {
               </div>
             ))}
           </Slider>
-
+          {/* story info */}
           <div className="absolute bottom-0 w-full h-20 bg-gray-900/80 backdrop-blur px-4 py-2 flex flex-col justify-evenly">
             <h4 className="text-lg lg:text-xl font-bold text-gray-200">
               created at: {timestampToDate(currentStory.createdAt)}
@@ -179,7 +178,7 @@ function LastStories() {
               onClose={() => setAlert(false)}
             />
           )}
-
+          {/* delete action button */}
           <div
             onClick={() => setAlert(false)}
             className="absolute inset-0 bg-gray-950/80 backdrop-blur -z-10"
@@ -188,6 +187,7 @@ function LastStories() {
       </>
     );
 
+  // 404 error screen
   if (!loading && !storyList.length)
     return (
       <div className="size-full overflow-hidden rounded-xl relative">

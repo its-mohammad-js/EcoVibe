@@ -8,10 +8,10 @@ function CartPage() {
   const [filters, setFilters] = useState({
     searchQuery: "",
     sortValue: "",
-  });
-  // necessary data & hooks
-  const { cartData, loading } = useSelector((state) => state.userData);
+  }); // filters state
+  const { cartData, loading } = useSelector((state) => state.userData); // current user data
 
+  // change filter handler
   function onFiltersChange(type, value) {
     setFilters((prev) => ({ ...prev, [type]: value }));
   }

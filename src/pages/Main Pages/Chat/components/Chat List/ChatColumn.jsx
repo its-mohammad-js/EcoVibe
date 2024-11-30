@@ -55,6 +55,18 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
     }
   }, [createdAt]);
 
+  function openChateMessageHandler() {
+    setSelectedMessage(mode === "message" ? room.messageList?.at(-1) : null);
+    if (mode === "message") {
+      // reset selected message
+      setTimeout(() => {
+        setSelectedMessage(null);
+      }, 2000);
+    }
+    const findedRoom = rooms.find(({ roomId }) => roomId === room.roomId);
+    setSelectedRoom(findedRoom);
+  }
+
   return (
     <>
       {/* chat column */}
@@ -64,19 +76,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
           setPosition({ x: e.clientX, y: e.clientY });
           setContextMenu(!contextMenu);
         }}
-        onClick={() => {
-          setSelectedMessage(
-            mode === "message" ? room.messageList?.at(-1) : null
-          );
-          if (mode === "message") {
-            // reset selected message
-            setTimeout(() => {
-              setSelectedMessage(null);
-            }, 2000);
-          }
-          const findedRoom = rooms.find(({ roomId }) => roomId === room.roomId);
-          setSelectedRoom(findedRoom);
-        }}
+        onClick={() => openChateMessageHandler()}
         className="w-full h-24 relative select-none rounded-md flex items-center hover:bg-gray-300/30 transition-all cursor-pointer gap-x-2 px-4 py-2"
       >
         {/* user profile */}

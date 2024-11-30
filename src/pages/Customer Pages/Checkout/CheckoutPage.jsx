@@ -2,24 +2,22 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OrderSummary from "customerPages/Checkout/components/OrderSummary";
-import PaymentInfo from "customerPages/Checkout/components/PaymentInfo";
-import ShipingDetails from "customerPages/Checkout/components/ShipingDetails";
+import PaymentInfo from "./components/PaymentInfo/PaymentInfo";
 import { LoaderIcon } from "react-hot-toast";
+import { methodsInfo } from "constants";
 
 function CheckoutPage() {
   const { loading: authLoading, cartData } = useSelector(
     (state) => state.userData
-  );
-  // shipping details
-  const [shippMethod, setShippMethod] = useState(null);
-  // necessary data & hooks
-  const navigate = useNavigate();
+  ); // current user data
+  const [shippMethod, setShippMethod] = useState(methodsInfo[0]); // shipping details
+  const navigate = useNavigate(); // navigate hook
   // calculate total price
   const totalPrice = cartData.reduce(
     (acc, order) => acc + Number(order.Price),
     0
   );
-  const [orderLoading, setLoading] = useState(false);
+  const [orderLoading, setLoading] = useState(null); // loading state
 
   // on add order loading screen
   if (orderLoading)
@@ -54,13 +52,14 @@ function CheckoutPage() {
       } mx-auto 2xl:max-w-screen-2xl px-2 py-1 lg:px-6 lg:py-4`}
     >
       <div className="lg:flex items-start justify-center lg:gap-x-20">
+        {/* ordered items summary */}
         <div className="lg:order-2 mb-4 lg:basis-1/3">
           <OrderSummary
             shippingCost={shippMethod?.cost}
             totalPrice={totalPrice}
           />
         </div>
-
+        {/* payment info */}
         <div className="lg:basis-2/3">
           <PaymentInfo
             shippingMethod={shippMethod}
@@ -69,12 +68,44 @@ function CheckoutPage() {
           />
         </div>
       </div>
-
+      {/* shipping details */}
       <div className="w-full order-3">
-        <ShipingDetails
-          onChangeMethod={setShippMethod}
-          currentMehod={shippMethod}
-        />
+        <div className="flex flex-col px-4 py-2">
+          <h4 className="text-xl lg:text-2xl font-medium my-2">
+            Shipping Address
+          </h4>
+
+          <div className="flex flex-col lg:flex-row w-full items-center gap-4">
+            {methodsInfo.map(({ logoUrl, cost, subTitle, title }, index) => (
+              <div
+                onClick={() =>
+                  setShippMethod({ logoUrl, cost, subTitle, title })
+                }
+                key={index}
+                className={`${
+                  shippMethod?.title === title
+                    ? "bg-primary-50 border-primary-500"
+                    : "bg-gray-50"
+                } flex items-center gap-x-4 w-full h-28 rounded-md px-4 py-2 lg:basis-3/12 border-2 transition-all`}
+              >
+                <div className="basis-2/5 border-r h-full">
+                  {/* logo */}
+                  <img
+                    src={logoUrl}
+                    alt="shipping-logo"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* shipping info */}
+                <div className="h-full flex flex-col justify-center text-sm text-gray-700 gap-1">
+                  <h6 className="text-lg line-clamp-1 font-bold">{title}</h6>
+                  <p>{subTitle}</p>
+                  <p>${cost}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

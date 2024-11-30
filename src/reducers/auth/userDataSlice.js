@@ -20,7 +20,7 @@ const defaultUserData = {
   // seller data
   businessInformation: {},
   stories: [],
-  seller_step: "second-step",
+  seller_step: "first-step",
   // others
   userType: "",
   userId: null,
