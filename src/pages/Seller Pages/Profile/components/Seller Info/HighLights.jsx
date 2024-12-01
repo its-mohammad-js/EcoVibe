@@ -1,9 +1,10 @@
 import { FaPlus } from "react-icons/fa";
-import useHorizontalTouchScroll from "../../../../common/hooks/useTouchScroll";
-import { useProfileData } from "../SellerProfilePage";
+import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { useEffect, useState } from "react";
-import StoryListModal from "/src/common/UI elements/StoriesList/StoryListModal";
-import AddHighlightModal from "./AddHighlightModal";
+
+import AddHighlightModal from "../Modals/AddHighlightModal";
+import { useProfileData } from "../../SellerProfilePage";
+import StoryListModal from "../../../../../common/UI elements/StoriesList/List/StoryListModal";
 
 function HighLights() {
   // seller stories modal state

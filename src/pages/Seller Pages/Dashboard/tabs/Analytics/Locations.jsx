@@ -5,7 +5,7 @@ import { BiPlus } from "react-icons/bi";
 import { MdOutlineFullscreen } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
-import { validateLocation } from "../../../../../common/utils/constants";
+import { validateLocation } from "constants";
 
 function Locations() {
   // map full screen mode state

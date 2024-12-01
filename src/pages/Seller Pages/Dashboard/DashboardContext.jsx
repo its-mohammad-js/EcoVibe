@@ -42,7 +42,7 @@ function DashboardContext({ children }) {
         .filter((order) => order);
       // store orders or dispatch error (no orders find)
       if (!sellerOrders.length) {
-        throw new Error("Failed to fetch orders");
+        throw new Error("Failed to fetch orders or there is no order");
       } else {
         setOrders({
           loading: false,

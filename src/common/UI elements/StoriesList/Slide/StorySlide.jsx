@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { AiOutlineMore, AiOutlinePlus, AiOutlineRight } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
 import { BsTrash3 } from "react-icons/bs";
-import useOutSideClick from "../../hooks/UseOutsideClick";
+import useOutSideClick from "../../../hooks/UseOutsideClick";
 import { motion, useAnimation } from "framer-motion";
 import { IoPauseOutline } from "react-icons/io5";
 import { FaPlay } from "react-icons/fa";

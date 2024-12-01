@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import OrdersSummary from "./OrdersSummary";
-import TotalSellsChart from "./TotalSellsChart";
+import TotalSellsChart from "./Total sells charts/TotalSellsChart";
 import RatesChart from "./RatesChart";
 import Locations from "./Locations";
-import LastStories from "./LastStories";
+import LastStories from "./Last Stories/LastStories";
 import LastComments from "./LastComments";
 import { useDashboardData } from "../../DashboardContext";
 

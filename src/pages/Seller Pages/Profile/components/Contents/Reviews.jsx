@@ -1,4 +1,4 @@
-import { useProfileData } from "../SellerProfilePage";
+import { useProfileData } from "../../SellerProfilePage";
 
 function Reviews() {
   const {

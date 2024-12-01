@@ -1,93 +1,37 @@
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { db, storage } from "src/config/firebase";
 import Slider from "react-slick";
 import { BsTrash } from "react-icons/bs";
-import toast, { LoaderIcon } from "react-hot-toast";
 import { timestampToDate } from "constants";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
-import { deleteObject, ref } from "firebase/storage";
-import LastStoriesLoader from "../../../../../common/UI elements/Loaders/LastStoriesLoader";
+import LastStoriesLoader from "UI/Loaders/LastStoriesLoader";
+import { useStories } from "./LastStories.hooks";
+import { LoaderIcon } from "react-hot-toast";
 
 function LastStories() {
-  // stories data
-  const [{ loading, storyList }, setLastStories] = useState({
-    storyList: [],
-    loading: false,
-  });
+  const [alertIsShow, setAlert] = useState(false); // delete story alert state
   // current user data
   const {
     userId,
     personalInformation: { first_name, last_name },
   } = useSelector((state) => state.userData);
-  const sliderRef = useRef(); // ref to stories slider
+  // current story slide state
   const [{ currentStory, deleting }, setCurrentStory] = useState({
     currentStory: {},
     deleting: false,
-  }); // current story slide state
-  const [alertIsShow, setAlert] = useState(false); // delete story alert state
+  });
+  const { loading, storyList, deleteStory } = useStories(
+    userId,
+    setCurrentStory,
+    setAlert
+  ); // stories data
 
-  // get stories from firestore
-  async function getLastStories() {
-    try {
-      // dispatch loading
-      setLastStories((prev) => ({ ...prev, loading: true }));
-      // ref to current seller stories in firestore
-      const storyRef = query(
-        collection(db, "Stories"),
-        where("authorId", "==", userId)
-      );
-      // get last story
-      const lastStories = await getDocs(storyRef).then(({ docs }) =>
-        docs.map((doc) => doc.data()).sort((a, b) => a.createdAt > b.createdAt)
-      );
-      // dispatch success
-      setLastStories({ error: null, loading: false, storyList: lastStories });
-      setCurrentStory((prev) => ({ ...prev, currentStory: lastStories[0] }));
-    } catch (error) {
-      // dispatch failure
-      setLastStories({ error, loading: false, storyList: null });
-      console.log(error);
-    }
-  }
-
-  // read user stories on mount
-  useEffect(() => {
-    getLastStories();
-  }, []);
-
-  // delete story functionality
-  async function deleteStory() {
-    try {
-      // dispatch loading
-      setCurrentStory((prev) => ({ ...prev, deleting: true }));
-      // ref to story content on storage
-      const contentRef = ref(storage, currentStory.contentUrl);
-      // delete story content from storage
-      await deleteObject(contentRef);
-      // ref to story on firestore
-      const docRef = doc(collection(db, "Stories"), currentStory.id);
-      // delete story from firestore
-      await deleteDoc(docRef);
-      // dispatch success
-      setCurrentStory((prev) => ({ ...prev, deleting: false }));
-      setAlert(false);
-      getLastStories();
-    } catch (error) {
-      // dispatch error
-      toast.error("There was an error on delete story, please try again later");
-      setCurrentStory((prev) => ({ ...prev, deleting: false }));
-      setAlert(false);
-      console.log(error);
-    }
+  // handle slide stories change
+  function onChangeSlide(slideIndex) {
+    setCurrentStory((prev) => ({
+      ...prev,
+      currentStory: storyList[slideIndex],
+    }));
   }
 
   // loading screen
@@ -103,15 +47,7 @@ function LastStories() {
             autoplay={true}
             speed={1500}
             className="h-full"
-            ref={sliderRef}
-            // set current story with current slide
-            onSwipe={() => {
-              setCurrentStory((prev) => ({
-                ...prev,
-                currentStory:
-                  storyList[sliderRef.current.innerSlider.state.currentSlide],
-              }));
-            }}
+            afterChange={(e) => onChangeSlide(e)}
           >
             {storyList.map((story, i) => (
               <div key={i} className="h-96">
@@ -156,7 +92,6 @@ function LastStories() {
             </button>
           </div>
         </div>
-
         {/* warning alert on delete story */}
         <div
           className={`${
@@ -174,7 +109,7 @@ function LastStories() {
             <IconicWarningAlert
               title="Are you sure you want to delete this story?"
               subTitle="Cancel"
-              callBack={() => deleteStory()}
+              callBack={() => deleteStory(currentStory)}
               onClose={() => setAlert(false)}
             />
           )}

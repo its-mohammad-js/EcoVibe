@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { fakeArray, timestampToDate } from "../../../../common/utils/constants";
-import { useProfileData } from "../SellerProfilePage";
+import { timestampToDate } from "constants";
+import { useProfileData } from "../../SellerProfilePage";
 
 function LastOrders() {
   const {

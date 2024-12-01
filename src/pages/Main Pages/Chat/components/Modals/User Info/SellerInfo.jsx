@@ -108,7 +108,7 @@ const LastReviews = ({ seller }) => {
 
   if (loading) return <UserInfoSellerReviewsLoader />;
 
-  if (!loading && reviews.length)
+  if (!loading && reviews?.length)
     return (
       <div className="flex flex-col h-full">
         <h4 className="text-lg font-bold z-10 bg-gray- 100">

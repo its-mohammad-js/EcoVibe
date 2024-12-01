@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useProfileData } from "../SellerProfilePage";
+import { useProfileData } from "../../SellerProfilePage";
 
 function LastProducts() {
   const {

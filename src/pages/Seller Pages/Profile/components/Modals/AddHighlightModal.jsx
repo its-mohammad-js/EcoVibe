@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { useProfileData } from "../SellerProfilePage";
+import { useProfileData } from "../../SellerProfilePage";
 import { FaCheck } from "react-icons/fa";
 import { fakeArray, generateId, isInArray } from "constants";
 import toast from "react-hot-toast";
@@ -79,7 +79,7 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
       <div className="w-full flex-1 overflow-auto styled-scroll-bar p-2.5">
         <div className="w-full grid grid-cols-2 gap-4">
           {!loading ? (
-            storiesList[0].map((story, i) => (
+            storiesList[0]?.map((story, i) => (
               <div
                 key={i}
                 onClick={() => {
