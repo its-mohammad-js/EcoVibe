@@ -42,7 +42,7 @@ export const ProfitByDate = ({ chartData }) => {
         <XAxis dataKey="date" />
         <Tooltip
           formatter={(title) =>
-            chartData.length >= 1 ? ["No orders yet..."] : title
+            chartData.length <= 1 ? ["No orders yet..."] : title
           }
         />
       </AreaChart>

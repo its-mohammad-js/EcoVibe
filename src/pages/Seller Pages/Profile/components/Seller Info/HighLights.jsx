@@ -1,7 +1,6 @@
 import { FaPlus } from "react-icons/fa";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { useEffect, useState } from "react";
-
 import AddHighlightModal from "../Modals/AddHighlightModal";
 import { useProfileData } from "../../SellerProfilePage";
 import StoryListModal from "../../../../../common/UI elements/StoriesList/List/StoryListModal";
@@ -22,10 +21,11 @@ function HighLights() {
 
   // update highlight list
   useEffect(() => {
+    if (!storiesList.length) return;
     // store highlight as object
     let highlights = {};
     // seperate highlights base on highlightRef into properties
-    storiesList[0]?.forEach((slide) => {
+    storiesList.forEach((slide) => {
       // check slides highlightRef
       if (slide.highlightRef) {
         // set highlightRef as property & add all slides related to this ref into property

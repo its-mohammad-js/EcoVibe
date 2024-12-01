@@ -7,7 +7,7 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
     containerRef,
     isChangingSlide,
     changeStory,
-    onTouchEvents,
+    handleTouch,
     getPaginatedLists,
     currentSlideIndex,
   } = useStoryListModal(currentListIndex, setList, storiesList);
@@ -20,8 +20,8 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
       } fixed bg-gray-950/80 hidden-scroll-bar inset-0 z-50 lg:flex items-center justify-center snap-x snap-mandatory lg:snap-none`}
     >
       <div
-        onTouchMove={(e) => onTouchEvents(e, "move")}
-        onTouchStart={(e) => onTouchEvents(e, "start")}
+        onTouchMove={(e) => handleTouch(e, "move")}
+        onTouchStart={(e) => handleTouch(e, "start")}
         className="inline-flex items-center lg:gap-x-8 size-full lg:px-[500vw]"
       >
         {/* all lists */}

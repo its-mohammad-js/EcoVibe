@@ -79,7 +79,7 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
       <div className="w-full flex-1 overflow-auto styled-scroll-bar p-2.5">
         <div className="w-full grid grid-cols-2 gap-4">
           {!loading ? (
-            storiesList[0]?.map((story, i) => (
+            storiesList?.map((story, i) => (
               <div
                 key={i}
                 onClick={() => {

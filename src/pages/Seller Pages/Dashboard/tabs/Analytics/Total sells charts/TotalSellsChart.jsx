@@ -23,14 +23,14 @@ function TotalSellsChart() {
     if (chartType === 1) {
       // calculate all profit base on date
       setChartdata(() => [
-        ...orders.map((order) => ({
-          price: order.totalPrice,
-          date: timestampToDate(order.createdAt, {
+        { price: 0 },
+        ...orders.map(({ orders, createdAt }) => ({
+          price: orders.items.reduce((acc, c) => acc + Number(c.Price), 0),
+          date: timestampToDate(createdAt, {
             year: "2-digit",
             month: "2-digit",
           }),
         })),
-        { price: 0 },
       ]);
     } else {
       // read all ordered products

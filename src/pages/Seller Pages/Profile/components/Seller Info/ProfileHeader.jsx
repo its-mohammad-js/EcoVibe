@@ -37,13 +37,13 @@ function ProfileHeader() {
           {/* profile pic */}
           <div
             onClick={() => {
-              if (!loading && storiesList[0].length > 0) {
+              if (!loading && storiesList?.length > 0) {
                 // it sets to 0 becuase StoryModal component logic uses isStoriesShow (in SellerProfile component) as currentListIndex
                 setStorieModal(0);
               }
             }}
             className={`${loading && "animate-pulse"} ${
-              !loading && storiesList[0]?.length > 0 && "ring-4 ring-red-500"
+              !loading && storiesList?.length > 0 && "ring-4 ring-red-500"
             } size-20 lg:size-24 bg-gray-100 rounded-full overflow-hidden select-none cursor-pointer`}
           >
             <img src={personalInformation?.profilePic} alt="user-avatar" />
@@ -55,7 +55,7 @@ function ProfileHeader() {
               {...{
                 currentListIndex: isStoriesShow,
                 setList: setStorieModal,
-                storiesList,
+                storiesList: [storiesList],
               }}
             />
           )}

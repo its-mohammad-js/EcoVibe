@@ -5,6 +5,7 @@ import useMediaQuery from "hooks/useMediaQuery";
 import { FaCheck } from "react-icons/fa";
 
 function CartsSlider({ selectedCard, setCardModal, setCard }) {
+  const isMobile = useMediaQuery({ maxWidth: 480 }); // detect screen size
   const {
     personalInformation: { creditCards },
   } = useSelector((state) => state.userData); // current user data
@@ -19,7 +20,6 @@ function CartsSlider({ selectedCard, setCardModal, setCard }) {
     slidesToShow: !isMobile && creditCards?.length > 1 ? 2 : 1,
     slidesToScroll: !isMobile && creditCards?.length > 1 ? 2 : 1,
   };
-  const isMobile = useMediaQuery({ maxWidth: 480 }); // detect screen size
 
   // slider (credit cards) pagination dots
   function appendDotsFunc(e, sliderRef) {

@@ -12,19 +12,9 @@ import { deleteObject, ref } from "firebase/storage";
 import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import toast, { LoaderIcon } from "react-hot-toast";
 import { CiFileOn } from "react-icons/ci";
+import { useTimer } from "./useTimer";
 
 function StorySlide(props) {
-  const [initialTimer] = useState(5000); // Default duration for each slide
-  const [remainingTime, setRemainingTime] = useState(5000); // Time left to complete current slide
-  const [pause, setPause] = useState(false); // Tracks if timer is paused
-  const timerRef = useRef(); // ref to timer
-  const startTimeRef = useRef(); // Used to calculate elapsed time accurately
-  const contextMenuRef = useRef(); // ref to context menu
-  const [contextMenuShow, setContextMenu] = useState(false); //context menu state
-  useOutSideClick(contextMenuRef, () => setContextMenu(false)); // handle outside click event on context menu open
-  const videoRef = useRef(); // ref to video content
-  const controls = useAnimation(); // control progress bar animation
-  const { userId } = useSelector((state) => state.userData); // current user id
   // destructure props
   const {
     changeStoryHandler,
@@ -36,6 +26,17 @@ function StorySlide(props) {
     story,
   } = props;
   const [loading, setLoading] = useState(false);
+  const { remainingTime, pause, handlePause, setRemainingTime } = useTimer(
+    5000,
+    () => changeStoryHandler("next")
+  );
+
+  const contextMenuRef = useRef(); // ref to context menu
+  const [contextMenuShow, setContextMenu] = useState(false); //context menu state
+  useOutSideClick(contextMenuRef, () => setContextMenu(false)); // handle outside click event on context menu open
+  const videoRef = useRef(); // ref to video content
+  const controls = useAnimation(); // control progress bar animation
+  const { userId } = useSelector((state) => state.userData); // current user id
 
   // control progress base animation states (puase & play) , (update remaining time)
   useEffect(() => {
@@ -48,36 +49,6 @@ function StorySlide(props) {
       });
     }
   }, [pause, remainingTime]);
-
-  // Timer effect: updates when remainingTime or pause changes
-  useEffect(() => {
-    if (pause) {
-      // Pause timer logic
-      clearTimeout(timerRef.current);
-      return;
-    }
-
-    startTimeRef.current = Date.now();
-    timerRef.current = setTimeout(() => {
-      changeStoryHandler("next");
-    }, remainingTime);
-
-    return () => clearTimeout(timerRef.current);
-  }, [remainingTime, pause]);
-
-  // Manage pause/resume to update remining time
-  useEffect(() => {
-    if (pause) {
-      // Pause: calculate remaining time and stop the timer
-      const elapsedTime = Date.now() - startTimeRef.current;
-      setRemainingTime((prev) => prev - elapsedTime);
-    }
-  }, [pause]);
-
-  // Reset remainingTime when slide changes
-  useEffect(() => {
-    setRemainingTime(initialTimer);
-  }, [currentSlideIndex]);
 
   // Update video playback based on pause state
   useEffect(() => {
@@ -95,7 +66,7 @@ function StorySlide(props) {
     try {
       // dispatch loading
       setLoading(true);
-      setPause(true);
+      handlePause(false);
       // ref to story content on storage
       const contentRef = ref(storage, story.contentUrl);
       // delete story content from storage
@@ -112,7 +83,7 @@ function StorySlide(props) {
       toast.remove();
       toast.error("There was an error on delete story, please try again later");
       setLoading(false);
-      setPause(false);
+      handlePause(false);
       console.log(error);
     }
   }
@@ -122,7 +93,7 @@ function StorySlide(props) {
     try {
       // dispatch loading
       setLoading(true);
-      setPause(true);
+      handlePause(false);
       // ref to story on firestore
       const docRef = doc(collection(db, "Stories"), story.id);
       // delete story from firestore
@@ -136,7 +107,7 @@ function StorySlide(props) {
         "There was an error on remove highlight, please try again later"
       );
       setLoading(false);
-      setPause(false);
+      handlePause(false);
       console.log(error);
     }
   }
@@ -203,7 +174,7 @@ function StorySlide(props) {
               ref={contextMenuRef}
               className="flex items-center gap-x-2 relative"
             >
-              <button onClick={() => setPause(!pause)} className="text-gray-50">
+              <button onClick={() => handlePause()} className="text-gray-50">
                 {pause ? (
                   <FaPlay className="text-xl" />
                 ) : (
@@ -287,7 +258,6 @@ function StorySlide(props) {
 
                     setRemainingTime(currentDuration);
                   }}
-                  onPlay={() => setPause(false)}
                   autoPlay={currentSlideIndex === slideindex}
                   className="size-full object-cover"
                   src={story.contentUrl}
@@ -300,8 +270,8 @@ function StorySlide(props) {
                 </div>
               )}
               <div
-                onTouchStart={() => setPause(true)}
-                onTouchEnd={() => setPause(false)}
+                onTouchStart={() => handlePause(true)}
+                onTouchEnd={() => handlePause(false)}
                 className="absolute z-50 inset-0 flex"
               >
                 <div
