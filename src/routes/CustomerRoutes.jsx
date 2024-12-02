@@ -53,9 +53,20 @@ const CustomerRoutes = [
         </Suspense>
       }
     />
-    <Route path="/EcoVibe/profile" element={<ProtectedRoute />}>
-      <Route index element={<CustomerProfilePage />} />
-    </Route>
+  </Route>,
+  <Route
+    key="customer-profile"
+    path="/EcoVibe/profile"
+    element={<ProtectedRoute />}
+  >
+    <Route
+      index
+      element={
+        <Suspense fallback={<FallBackLoader />}>
+          <CustomerProfilePage />
+        </Suspense>
+      }
+    />
   </Route>,
 ];
 
