@@ -1,7 +1,6 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { Route } from "react-router-dom";
 import ProtectedRoute from "../common/UI elements/ProtectedRoute/ProtectedRoute";
-import FallBackLoader from "../common/UI elements/Loaders/FallBackLoader";
 
 // Lazy load components
 const WishListPage = lazy(() =>
@@ -20,53 +19,20 @@ const CustomerProfilePage = lazy(() =>
 );
 
 const CustomerRoutes = [
+  // customer bag
   <Route key="bag" path="/EcoVibe/bag" element={<ProtectedRoute />}>
-    <Route
-      path="Wish-list"
-      element={
-        <Suspense fallback={<FallBackLoader />}>
-          <WishListPage />
-        </Suspense>
-      }
-    />
-    <Route
-      path="cart"
-      element={
-        <Suspense fallback={<FallBackLoader />}>
-          <CartPage />
-        </Suspense>
-      }
-    />
-    <Route
-      path="checkout"
-      element={
-        <Suspense fallback={<FallBackLoader />}>
-          <CheckoutPage />
-        </Suspense>
-      }
-    />
-    <Route
-      path="orders/:orderId?/:sellerId?"
-      element={
-        <Suspense fallback={<FallBackLoader />}>
-          <OrdersPage />
-        </Suspense>
-      }
-    />
+    <Route path="Wish-list" element={<WishListPage />} />
+    <Route path="cart" element={<CartPage />} />
+    <Route path="checkout" element={<CheckoutPage />} />
+    <Route path="orders/:orderId?/:sellerId?" element={<OrdersPage />} />
   </Route>,
+  // customer profile
   <Route
     key="customer-profile"
     path="/EcoVibe/profile"
     element={<ProtectedRoute />}
   >
-    <Route
-      index
-      element={
-        <Suspense fallback={<FallBackLoader />}>
-          <CustomerProfilePage />
-        </Suspense>
-      }
-    />
+    <Route index element={<CustomerProfilePage />} />
   </Route>,
 ];
 

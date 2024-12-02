@@ -165,6 +165,7 @@ function SignInPage() {
                 <span className="absolute bg-gray-50 px-2 text-gray-700">
                   Or, &nbsp;
                   <button
+                    type="button"
                     onClick={() => navigate("/EcoVibe/Customers/sign-up")}
                     className="font-bold"
                   >

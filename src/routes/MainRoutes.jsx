@@ -6,6 +6,7 @@ import ProductDetailsPage from "../pages/Main Pages/Product Detail/ProductDetail
 import ChatPage from "../pages/Main Pages/Chat/ChatPage";
 
 const MainRoutes = [
+  // main pages
   <Route key="home" path="/EcoVibe/" element={<HomePage />} />,
   <Route key="shop" path="/EcoVibe/Shop" element={<ShopPage />} />,
   <Route
