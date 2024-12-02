@@ -1,9 +1,12 @@
-import Navbar from "./Navbar/Navbar";
-import Footer from "./Footer";
+import Footer from "./Navbar/components/Footer";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import useMediaQuery from "../common/hooks/useMediaQuery";
+import MobileNavbar from "./Navbar/components/Mobile Navbar/MobileNavbar";
+import DesktopNavbar from "./Navbar/components/Desktop Navbar/NavbarFrame";
 
 function AppLayout({ children }) {
+  const isMobile = useMediaQuery({ maxWidth: 768 });
   const [allowed, setAllowed] = useState(true); // allow display navbar & footer state
   const location = useLocation(); // location hook
 
@@ -18,7 +21,11 @@ function AppLayout({ children }) {
 
   return (
     <>
-      {allowed && <Navbar />}
+      {allowed && (
+        <div className="relative">
+          {isMobile ? <MobileNavbar /> : <DesktopNavbar />}
+        </div>
+      )}
       {children}
       {allowed && <Footer />}
     </>
