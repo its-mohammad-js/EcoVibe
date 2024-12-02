@@ -34,7 +34,7 @@ function SlideContent({
   return (
     <div className="size-full relative z-40 overflow-hidden flex items-center justify-center p-6">
       {/* content loading icon */}
-      {!isLoaded && <LoaderIcon className="size-20 absolute" />}
+      {!isLoaded && <LoaderIcon className="size-20 lg:size-36 absolute" />}
       {/* slide content */}
       {story.type?.startsWith("image/") ? (
         <img
