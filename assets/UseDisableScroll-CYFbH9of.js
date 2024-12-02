@@ -1,1 +1,0 @@
-import{l as r,r as s}from"./index-KofMtEW3.js";const a=(t=480,e)=>{const o=r({maxWidth:t});s.useEffect(()=>(document.body.style.overflow=!o||e?"auto":"hidden",()=>{document.body.style.overflow="auto"}),[e,o])};export{a as u};
