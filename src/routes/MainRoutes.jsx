@@ -1,25 +1,31 @@
 import { Route } from "react-router-dom";
-import HomePage from "../pages/Main Pages/Home/HomePage";
-import ShopPage from "../pages/Main Pages/Shop/ShopPage";
-import ExploreProducts from "../pages/Main Pages/Explore Products/ExploreProductsPage";
-import ProductDetailsPage from "../pages/Main Pages/Product Detail/ProductDetailsPage";
-import ChatPage from "../pages/Main Pages/Chat/ChatPage";
+import { lazy } from "react";
+
+const HomePage = lazy(() => import("../pages/Main Pages/Home/HomePage"));
+const ShopPage = lazy(() => import("../pages/Main Pages/Shop/ShopPage"));
+const ExploreProducts = lazy(() =>
+  import("../pages/Main Pages/Explore Products/ExploreProductsPage")
+);
+const ProductDetailsPage = lazy(() =>
+  import("../pages/Main Pages/Home/HomePage")
+);
+const ChatPage = lazy(() => import("../pages/Main Pages/Chat/ChatPage"));
 
 const MainRoutes = [
   // main pages
-  <Route key="home" path="/EcoVibe/" element={<HomePage />} />,
-  <Route key="shop" path="/EcoVibe/Shop" element={<ShopPage />} />,
+  <Route key="home" path="/EcoVibe/" element={<HomePage />} />, // home page
+  <Route key="shop" path="/EcoVibe/Shop" element={<ShopPage />} />, // shop page
   <Route
     key="explore-products"
     path="/EcoVibe/Explore-Products/:filters?"
     element={<ExploreProducts />}
-  />,
+  />, // explore products page
   <Route
     key="product-detail"
     path="/EcoVibe/Products/:productId?"
     element={<ProductDetailsPage />}
-  />,
-  <Route key="chat-room" path="/EcoVibe/Messages/" element={<ChatPage />} />,
+  />, // product details page
+  <Route key="chat-room" path="/EcoVibe/Messages/" element={<ChatPage />} />, // chat room page
 ];
 
 export default MainRoutes;

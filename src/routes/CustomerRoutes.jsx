@@ -6,6 +6,7 @@ import ProtectedRoute from "../common/UI elements/ProtectedRoute/ProtectedRoute"
 const WishListPage = lazy(() =>
   import("../pages/Customer Pages/WishList/WishListPage")
 );
+
 const CartPage = lazy(() => import("../pages/Customer Pages/Cart/CartPage"));
 
 const CheckoutPage = lazy(() =>

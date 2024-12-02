@@ -80,7 +80,7 @@ function WishListPage() {
           {/* gradient bg */}
           <div className="absolute inset-0 gradient-background rounded-md -z-10"></div>
           {/* user info */}
-          <div className="w-full h-full py-2 bg-primary-50/50 backdrop-blur-sm rounded-md flex items-center justify-between gap-x-2">
+          <div className="w-full h-full py-2 bg-primary-50/50 backdrop-blur-sm rounded-md flex items-center justify-start gap-x-2">
             {/* profile pic */}
             <div className="size-24 md:size-28 flex items-center justify-center px-2">
               {personalInformation.profilePic ? (
@@ -94,7 +94,7 @@ function WishListPage() {
               )}
             </div>
             {/* personal information */}
-            <div className="h-full basis-3/4 flex flex-col items-start justify-start gap-y-1">
+            <div className="h-full w-fit flex flex-col items-start justify-start gap-y-1">
               <h4 className="text-2xl md:text-3xl font-medium">
                 {auth_status === 200
                   ? personalInformation.first_name || "first name not set!..."
