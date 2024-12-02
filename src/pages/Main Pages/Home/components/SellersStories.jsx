@@ -1,9 +1,8 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "/src/config/firebase";
-
 import SellerStoriesListLoader from "../../../../common/UI elements/Loaders/SellerStoriesListLoader";
-import StoryListModal from "../../../../common/UI elements/StoriesList/List/StoryListModal";
+import StoryListModal from "../../../../common/UI elements/StoriesList/StoryListModal";
 
 function SellersStories() {
   const [{ error, loading, storiesList }, setStoreis] = useState({

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 // Custom hook for managing timer and pause functionality
 export function useTimer(initialTime, onTimeout) {
   const [remainingTime, setRemainingTime] = useState(initialTime); // Time left on the timer
-  const [pause, setPause] = useState(false); // Pause state to control whether the timer is paused
+  const [pause, setPause] = useState(true); // Pause state to control whether the timer is paused
   const timerRef = useRef(); // Reference to hold the timer ID
   const startTimeRef = useRef(); // Reference to track when the timer was started for pause calculations
 
@@ -21,20 +21,12 @@ export function useTimer(initialTime, onTimeout) {
     return () => clearTimeout(timerRef.current);
   }, [remainingTime, pause, onTimeout]);
 
-  // Effect to update the remaining time when the pause state changes
-  useEffect(() => {
-    if (!pause) return;
-
-    // When paused, calculate the time remaining
-    const elapsedTime = Date.now() - startTimeRef.current;
-    setRemainingTime((prevTime) => prevTime - elapsedTime);
-  }, [pause]);
-
   // Function to toggle the pause state
   const handlePause = (value) => {
     setPause((prevPause) => (value ? value : !prevPause));
   };
 
+  // return data & functions
   return {
     remainingTime,
     pause,

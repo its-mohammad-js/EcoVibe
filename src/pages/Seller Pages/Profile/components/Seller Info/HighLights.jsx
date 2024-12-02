@@ -3,7 +3,7 @@ import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { useEffect, useState } from "react";
 import AddHighlightModal from "../Modals/AddHighlightModal";
 import { useProfileData } from "../../SellerProfilePage";
-import StoryListModal from "../../../../../common/UI elements/StoriesList/List/StoryListModal";
+import StoryListModal from "../../../../../common/UI elements/StoriesList/StoryListModal";
 
 function HighLights() {
   // seller stories modal state

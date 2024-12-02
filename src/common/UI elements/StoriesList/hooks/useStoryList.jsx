@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import useMediaQuery from "hooks/useMediaQuery";
 import useDisableScroll from "hooks/UseDisableScroll";
 
-const useStoryListModal = (currentListIndex, setList, storiesList) => {
+const useStoryList = (currentListIndex, setList, storiesList) => {
   const [currentSlideIndex, setSlide] = useState(0);
   const containerRef = useRef();
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -135,4 +135,4 @@ const useStoryListModal = (currentListIndex, setList, storiesList) => {
   };
 };
 
-export default useStoryListModal;
+export default useStoryList;

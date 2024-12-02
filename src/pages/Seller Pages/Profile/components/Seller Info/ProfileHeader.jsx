@@ -1,5 +1,5 @@
 import { useState } from "react";
-import StoryListModal from "../../../../../common/UI elements/StoriesList/List/StoryListModal";
+import StoryListModal from "../../../../../common/UI elements/StoriesList/StoryListModal";
 import { calculateAverage } from "../../../../../common/utils/constants";
 import { useProfileData } from "../../SellerProfilePage";
 import { uniq } from "lodash";

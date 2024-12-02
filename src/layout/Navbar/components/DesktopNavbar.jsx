@@ -280,7 +280,7 @@ const DesktopNavbar = () => {
         </button>
         {/* mega menu (categories & product types) */}
         <div
-          className={`invisible opacity-0 peer-hover:visible peer-hover:opacity-100 hover:visible hover:opacity-100 duration-[600ms] absolute top-[5.2rem] z-20`}
+          className={`invisible opacity-0 peer-hover:visible peer-hover:opacity-100 hover:visible hover:opacity-100 transition-all absolute top-[5.2rem] z-20`}
         >
           <div className="flex flex-col gap-y-2 px-4 py-2 w-72 rounded-md bg-slate-100 tooltip relative">
             {/* categories */}
