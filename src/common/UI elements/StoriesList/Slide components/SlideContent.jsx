@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { LoaderIcon } from "react-hot-toast";
 import { useSlide } from "../StoryListModal";
+import { getDatabase, ref, update } from "firebase/database";
+import { useSelector } from "react-redux";
+import { getGuestUserId } from "../../../utils/constants";
 
 function SlideContent({
   setRemainingTime, // set remian time befor change slide
@@ -13,11 +16,21 @@ function SlideContent({
   const { story, slideindex, currentSlideIndex } = useSlide(); // slide data
   const videoRef = useRef(); // ref to video content
   const [isLoaded, setLoaded] = useState(false); // load content state
+  const { auth_status, userId } = useSelector((state) => state.userData);
+  // const [isSeen, setSeen] = useState(false);
 
   // on loading content handler
   function handleLoadContent() {
     setLoaded(true);
     handlePause();
+    const database = getDatabase();
+    const slideRef = ref(database, `stories/${story.id}`); // ref to slide
+    // get user id based on auth status
+    const userSeenId = auth_status === 401 ? getGuestUserId() : userId;
+    // filters seen by, to avoid duplicating id
+    const seenBy = story?.seenBy?.filter((id) => id !== userSeenId);
+    //
+    update(slideRef, { seenBy: [...(seenBy || []), userSeenId] });
   }
 
   // Update video playback based on pause state

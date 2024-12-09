@@ -4,8 +4,7 @@ import { useProfileData } from "../../SellerProfilePage";
 import { FaCheck } from "react-icons/fa";
 import { fakeArray, generateId, isInArray } from "constants";
 import toast from "react-hot-toast";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "/src/config/firebase";
+import { getDatabase, ref, update } from "firebase/database";
 
 function AddHighlightModal({ onCloseModal, highlightsList }) {
   // selected slides for new highlight
@@ -48,10 +47,13 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
     // add new highlight (add highlightId to slide object as highlightRef property)
     selectedSlides.forEach(async (slide) => {
       try {
-        // ref to story slide on database
-        const slideRef = doc(db, "Stories", slide.id);
-        // update slide with new highlight id
-        await updateDoc(slideRef, { highlightRef: highlightId, title });
+        const db = getDatabase();
+        const slideRef = ref(db, `stories/${slide.id}`);
+        update(slideRef, {
+          highlightRef: highlightId,
+          title,
+        });
+
         // increase update count
         updateCount = updateCount + 1;
         // dispatch success on end process

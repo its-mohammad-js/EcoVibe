@@ -1,47 +1,13 @@
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { db, storage } from "src/config/firebase";
+import { storage } from "src/config/firebase";
 import { deleteObject, ref } from "firebase/storage";
 import toast from "react-hot-toast";
+import { getDatabase, ref as databaseRef, remove } from "firebase/database";
+import useGetStories from "../../../../../../common/hooks/useGetStories";
 
 // manage story list request
 export function useStories(userId, setCurrentStory, setAlert) {
-  // stories data
-  const [{ loading, storyList }, setLastStories] = useState({
-    storyList: [],
-    loading: false,
-  });
-
-  // get stories from firestore
-  async function getLastStories() {
-    try {
-      // dispatch loading
-      setLastStories((prev) => ({ ...prev, loading: true }));
-      // ref to current seller stories in firestore
-      const storyRef = query(
-        collection(db, "Stories"),
-        where("authorId", "==", userId)
-      );
-      // get last story
-      const lastStories = await getDocs(storyRef).then(({ docs }) =>
-        docs.map((doc) => doc.data()).sort((a, b) => a.createdAt > b.createdAt)
-      );
-      // dispatch success
-      setLastStories({ error: null, loading: false, storyList: lastStories });
-      setCurrentStory((prev) => ({ ...prev, currentStory: lastStories[0] }));
-    } catch (error) {
-      // dispatch failure
-      setLastStories({ error, loading: false, storyList: null });
-      console.log(error);
-    }
-  }
+  const { loading, groupedStories: storiesList } = useGetStories(userId);
+  const database = getDatabase();
 
   // delete story functionality
   async function deleteStory(currentStory) {
@@ -52,14 +18,13 @@ export function useStories(userId, setCurrentStory, setAlert) {
       const contentRef = ref(storage, currentStory.contentUrl);
       // delete story content from storage
       await deleteObject(contentRef);
-      // ref to story on firestore
-      const docRef = doc(collection(db, "Stories"), currentStory.id);
-      // delete story from firestore
-      await deleteDoc(docRef);
+      // ref to current story slide
+      const slideRef = databaseRef(database, `stories/${currentStory.id}`);
+      // remove story slide
+      remove(slideRef);
       // dispatch success
       setCurrentStory((prev) => ({ ...prev, deleting: false }));
       setAlert(false);
-      getLastStories();
     } catch (error) {
       // dispatch error
       toast.error("There was an error on delete story, please try again later");
@@ -69,14 +34,9 @@ export function useStories(userId, setCurrentStory, setAlert) {
     }
   }
 
-  // read user stories on mount
-  useEffect(() => {
-    getLastStories();
-  }, []);
-
   return {
     loading,
-    storyList,
+    storyList: storiesList[0]?.slides,
     deleteStory,
   };
 }

@@ -1,7 +1,10 @@
 import { BiUser } from "react-icons/bi";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import SlideFrame from "./Slide components/SlideFrame";
 import useStoryList from "./hooks/useStoryList";
+import { getGuestUserId } from "../../utils/constants";
+import { useSelector } from "react-redux";
+import { getDatabase, ref, update } from "firebase/database";
 
 // create slide data context provider
 const SlideContext = createContext();
@@ -15,6 +18,10 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
     getPaginatedLists, // pagination list functionality
     currentSlideIndex, // current list index
   } = useStoryList(currentListIndex, setList, storiesList); // stories list data & list functionality
+  // const [seenList, setSeenList] = useState([]);
+  const { auth_status, userId } = useSelector((state) => state.userData);
+
+  console.log(getPaginatedLists());
 
   return (
     <div
@@ -31,7 +38,7 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
         className="inline-flex items-center lg:gap-x-8 size-full lg:px-[500vw]"
       >
         {/* all lists */}
-        {getPaginatedLists().map((list, listIndex) => {
+        {getPaginatedLists().map(({ slides: list }, listIndex) => {
           if (list)
             return (
               <div

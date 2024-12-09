@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StoryListModal from "../../../../../common/UI elements/StoriesList/StoryListModal";
 import { calculateAverage } from "../../../../../common/utils/constants";
 import { useProfileData } from "../../SellerProfilePage";
 import { uniq } from "lodash";
+import useGetStories from "../../../../../common/hooks/useGetStories";
+import { useParams } from "react-router-dom";
 
 function ProfileHeader() {
   // seller stories modal state
   const [isStoriesShow, setStorieModal] = useState(null);
   const {
     sellerData: { userInfo, orders, products, reviews },
-    sellerStories: { storiesList, loading },
   } = useProfileData();
   const { personalInformation, businessInformation } = userInfo || {};
+  const params = useParams();
+  const { loading, groupedStories: storiesList } = useGetStories(
+    params.id,
+    isStoriesShow !== null
+  );
 
   // calculate cutomers count
   function calculateCustomers() {
@@ -55,13 +61,13 @@ function ProfileHeader() {
               {...{
                 currentListIndex: isStoriesShow,
                 setList: setStorieModal,
-                storiesList: [storiesList],
+                storiesList: storiesList[0]?.slides,
               }}
             />
           )}
         </>
         {/* stars, products, customers count */}
-        <div className="flex items-center justify-evenly gap-x-4">
+        {/* <div className="flex items-center justify-evenly gap-x-4">
           <div className="flex items-center justify-center flex-col font-medium">
             <h6 className="text-center">{calculateStars()}</h6>
             <p className="text-center ">stars</p>
@@ -74,10 +80,10 @@ function ProfileHeader() {
             <h6 className="text-center">{calculateCustomers()}</h6>
             <p className="text-center ">customers</p>
           </div>
-        </div>
+        </div> */}
       </div>
       {/* biography */}
-      <div className="my-2">
+      {/* <div className="my-2">
         <h4 className="text-lg font-bold">
           {personalInformation?.first_name +
             " " +
@@ -86,7 +92,7 @@ function ProfileHeader() {
         <p className="">{businessInformation?.business_name}</p>
         <p className="">{businessInformation?.career_title}</p>
         <p className="line-clamp-2">{businessInformation?.biography}</p>
-      </div>
+      </div> */}
     </>
   );
 }

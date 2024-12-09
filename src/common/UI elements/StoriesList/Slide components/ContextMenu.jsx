@@ -6,11 +6,12 @@ import { IoPauseOutline } from "react-icons/io5";
 import useOutSideClick from "hooks/UseOutsideClick";
 import { CiFileOn } from "react-icons/ci";
 import { useSlide } from "../StoryListModal";
-import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
-import { db, storage } from "/src/config/firebase";
 import { deleteObject, ref } from "firebase/storage";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { getDatabase } from "firebase/database";
+import { ref as databaseRef, remove, update } from "firebase/database";
+import { storage } from "/src/config/firebase";
 
 function ContextMenu({
   pause, // pause state
@@ -42,13 +43,13 @@ function ContextMenu({
       const contentRef = ref(storage, story.contentUrl);
       // delete story content from storage
       await deleteObject(contentRef);
-      // ref to story on firestore
-      const docRef = doc(collection(db, "Stories"), story.id);
-      // delete story from firestore
-      await deleteDoc(docRef);
+      // ref to story slide
+      const db = getDatabase();
+      const storyRef = databaseRef(db, `stories/${story.id}`);
+      // remove slide from data base
+      await remove(storyRef);
       // dispatch success
       toast.success("story removed successfully");
-      window.location.reload();
     } catch (error) {
       // dispatch error
       toast.remove();
@@ -65,13 +66,14 @@ function ContextMenu({
       // dispatch loading
       setLoading(true);
       handlePause(false);
-      // ref to story on firestore
-      const docRef = doc(collection(db, "Stories"), story.id);
-      // delete story from firestore
-      await setDoc(docRef, { ...story, highlightRef: null });
+      // ref to story slide
+      const db = getDatabase();
+      const storyRef = databaseRef(db, `stories/${story.id}`);
+      update(storyRef, { highlightRef: null, title: null });
       // dispatch success
       toast.success("highlight removed successfully");
-      window.location.reload();
+      setLoading(false);
+      handlePause(true);
     } catch (error) {
       // dispatch error
       toast.error(

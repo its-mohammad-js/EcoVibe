@@ -34,11 +34,12 @@ function LastStories() {
     }));
   }
 
-  // loading screen
-  if (loading) return <LastStoriesLoader />;
+  if (loading)
+    // loading screen
+    return <LastStoriesLoader />;
 
-  // main component
-  if (!loading && storyList.length)
+  if (!loading && storyList?.length)
+    // main component
     return (
       <>
         <div className="size-full overflow-hidden rounded-xl relative">
@@ -76,10 +77,11 @@ function LastStories() {
           {/* story info */}
           <div className="absolute bottom-0 w-full h-20 bg-gray-900/80 backdrop-blur px-4 py-2 flex flex-col justify-evenly">
             <h4 className="text-lg lg:text-xl font-bold text-gray-200">
-              created at: {timestampToDate(currentStory.createdAt)}
+              created at: &nbsp;
+              {timestampToDate(currentStory?.createdAt, null, "database")}
             </h4>
             <p className="font-semibold text-gray-300">
-              created by {first_name + " " + (last_name ? last_name : "")}
+              seen count : {currentStory?.seenBy?.length}
             </p>
 
             <button
@@ -122,8 +124,8 @@ function LastStories() {
       </>
     );
 
-  // 404 error screen
-  if (!loading && !storyList.length)
+  if (!loading && !storyList?.length)
+    // 404 error screen
     return (
       <div className="size-full overflow-hidden rounded-xl relative">
         <div className="h-96 w-full px-4 bg-gray-200 flex items-center justify-center">

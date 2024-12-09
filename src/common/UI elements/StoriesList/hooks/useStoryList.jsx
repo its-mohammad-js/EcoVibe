@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import useMediaQuery from "hooks/useMediaQuery";
 import useDisableScroll from "hooks/UseDisableScroll";
+import { useParams } from "react-router-dom";
 
 const useStoryList = (currentListIndex, setList, storiesList) => {
   const [currentSlideIndex, setSlide] = useState(0);
@@ -9,6 +10,14 @@ const useStoryList = (currentListIndex, setList, storiesList) => {
   const [lastMove, setLastMove] = useState(null);
   const [isChangingSlide, setChangingSlide] = useState(false);
   useDisableScroll(780, false); // Lock/unlock body scroll on mobile
+  const params = useParams();
+
+  useEffect(() => {
+    // const lastSeenSlide = storiesList[currentListIndex]?.slides?.findIndex(
+    //   ({ isSeen }) => !isSeen
+    // );
+    // setSlide(lastSeenSlide >= 0 ? lastSeenSlide : 0);
+  }, [currentListIndex]);
 
   // Update current slide index and list index based on the swipe gesture
   useEffect(() => {
@@ -118,12 +127,14 @@ const useStoryList = (currentListIndex, setList, storiesList) => {
 
   // Get relevant lists for rendering
   const getPaginatedLists = () =>
-    storiesList.filter(
-      (_, index) =>
-        index === currentListIndex - 1 ||
-        index === currentListIndex ||
-        index === currentListIndex + 1
-    );
+    params?.id
+      ? storiesList
+      : storiesList.filter(
+          (_, index) =>
+            index === currentListIndex - 1 ||
+            index === currentListIndex ||
+            index === currentListIndex + 1
+        );
 
   return {
     containerRef,

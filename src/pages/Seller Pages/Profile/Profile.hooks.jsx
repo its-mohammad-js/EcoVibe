@@ -8,7 +8,6 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "src/config/firebase";
-import toast from "react-hot-toast";
 
 const useSellerProfile = (sellerId, currentUserId, isOwner, ownerData) => {
   // seller main information state
@@ -20,38 +19,6 @@ const useSellerProfile = (sellerId, currentUserId, isOwner, ownerData) => {
     error: null,
     products: [],
   });
-  // seller stories list state
-  const [sellerStories, setSellerStories] = useState({
-    storiesList: [],
-    loading: false,
-  });
-
-  // get seller stories list form firestore
-  const fetchSellerStories = useCallback(async () => {
-    try {
-      // dispatch loading
-      setSellerStories((prev) => ({ ...prev, loading: true }));
-      // ref to stories related to this user
-      const storiesQuery = query(
-        collection(db, "Stories"),
-        where("authorId", "==", sellerId)
-      );
-      // sort story list data by highlights
-      const storiesList = await getDocs(storiesQuery).then(({ docs }) =>
-        docs.map((doc) => doc.data()).sort((a) => (!a.highlightRef ? -1 : 1))
-      );
-      // dispatch success
-      setSellerStories({
-        loading: false,
-        storiesList: storiesList,
-        currentListIndex: 0,
-      });
-    } catch (error) {
-      // dispatch error
-      toast.error("There was an error fetching stories.");
-      console.error(error);
-    }
-  }, [sellerId]);
 
   // get user informations from firestore
   const fetchSellerData = useCallback(async () => {
@@ -113,12 +80,13 @@ const useSellerProfile = (sellerId, currentUserId, isOwner, ownerData) => {
 
   // get all seller data on comp mount
   useEffect(() => {
-    fetchSellerStories();
-    fetchSellerData();
-  }, [fetchSellerStories, fetchSellerData]);
+    // fetchSellerData();
+  }, [fetchSellerData]);
 
   // return data & functionalities
-  return { sellerData, sellerStories, setSellerStories };
+  return {
+    sellerData,
+  };
 };
 
 export default useSellerProfile;

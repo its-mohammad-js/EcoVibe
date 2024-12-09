@@ -21,7 +21,7 @@ function MainNavbar() {
   const quickMenuRef = useRef();
   useOutSideClick(quickMenuRef, () => setAccessMenu(false));
   // current user info
-  const { personalInformation, userId, cartData } = useSelector(
+  const { personalInformation, userId, cartData, auth_status } = useSelector(
     (state) => state.userData
   );
 
@@ -119,7 +119,9 @@ function MainNavbar() {
         {/* customer profile / sign-in btn */}
         <button
           onClick={() =>
-            navigate(userId ? "/EcoVibe/profile" : "/EcoVibe/Sign-in/")
+            navigate(
+              auth_status === 200 ? "/EcoVibe/profile" : "/EcoVibe/Sign-in/"
+            )
           }
           className="w-12 h-12 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
         >

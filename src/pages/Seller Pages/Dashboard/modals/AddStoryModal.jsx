@@ -7,16 +7,14 @@ import { useSelector } from "react-redux";
 import { storage } from "src/config/firebase";
 import { AiOutlineCheck } from "react-icons/ai";
 import { db } from "/src/config/firebase";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  serverTimestamp,
-  setDoc,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import toast, { LoaderIcon } from "react-hot-toast";
+import {
+  getDatabase,
+  set,
+  ref as databaseRef,
+  serverTimestamp,
+} from "firebase/database";
 
 function AddStoryModal({ onModalChange }) {
   const [file, setFile] = useState(null);
@@ -83,11 +81,10 @@ function AddStoryModal({ onModalChange }) {
 
   async function createNewStory(contentUrl) {
     try {
-      let storyId = generateId(userId);
-      // ref to firestore
-      const storyRef = doc(collection(db, "Stories"), storyId);
-      // set a new story
-      await setDoc(storyRef, {
+      let storyId = generateId(userId).replace(".", "&");
+      const dbRef = getDatabase();
+
+      await set(databaseRef(dbRef, `stories/${storyId}`), {
         contentUrl: contentUrl,
         id: storyId,
         author: {
@@ -103,6 +100,7 @@ function AddStoryModal({ onModalChange }) {
         type: file?.type,
         authorProfilePic: personalInformation.profilePic,
       });
+
       toast.success("story created successfully");
     } catch (error) {
       console.log(error);

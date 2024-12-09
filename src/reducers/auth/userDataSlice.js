@@ -8,6 +8,7 @@ import { auth, db, gitHubProvider, googleProvider } from "src/config/firebase";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { avatarsUrl } from "/src/common/utils/constants";
 import toast from "react-hot-toast";
+import { getGuestUserId, setUseridCookie } from "../../common/utils/constants";
 
 // default state
 const defaultUserData = {
@@ -316,12 +317,19 @@ const userSlice = createSlice({
       Object.entries(payload).forEach(([key, value]) => (state[key] = value));
       // user is authorized
       state.auth_status = 200;
+      // remove guest user id
+      document.cookie = `guestUserId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     });
     builder.addCase(getUserData.rejected, (state, { payload }) => {
       state.loading = false;
+
       // on not logged in users case
       if (payload.code === 401) {
+        // dispatch user is unauthorized
         console.log("user isn't logged in");
+        // set temporary id for guest user (6 days ex)
+        setUseridCookie();
+        state.userId = getGuestUserId();
         // user is unauthorized
         state.auth_status = payload.code;
       }
@@ -366,6 +374,7 @@ const userSlice = createSlice({
         }
       }
       state.loading = false;
+      document.cookie = `guestUserId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     });
     builder.addCase(signInUser.rejected, (state, action) => {
       state.loading = false;

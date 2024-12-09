@@ -320,12 +320,12 @@ export const avatarsUrl = [
 ];
 
 // convert time stamp to local date string
-export function timestampToDate(timestamp, selectedOptions) {
-  const totalMilliseconds =
-    timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000;
-  const dateObject = new Date(totalMilliseconds);
-
-  // Customize date formatting options as desired
+export function timestampToDate(
+  timestamp,
+  selectedOptions,
+  type = "firestore"
+) {
+  // default date structure
   const options = {
     year: "numeric",
     month: "2-digit",
@@ -333,8 +333,13 @@ export function timestampToDate(timestamp, selectedOptions) {
     hour: "2-digit",
     minute: "2-digit",
   };
-
-  return dateObject.toLocaleDateString("en-US", selectedOptions || options); // Adjust locale and options if needed
+  // transform time state to data object
+  const date =
+    type === "firestore"
+      ? new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1e6)
+      : new Date(timestamp);
+  // return time stamp as a date with custom or default structure
+  return date.toLocaleDateString("en-US", selectedOptions || options);
 }
 
 // delivery status information
@@ -445,3 +450,20 @@ export const methodsInfo = [
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fdhl%20logo.png?alt=media&token=2350c603-e5ee-4a39-b919-e4c630e0afb6",
   },
 ];
+
+// set guest user id
+export function setUseridCookie() {
+  const currentGuestId = getGuestUserId();
+  if (currentGuestId) return;
+  const geustUserId = generateId("guest-user-");
+  const date = new Date();
+  date.setTime(date.getTime() + 6 * 24 * 60 * 60 * 1000);
+  document.cookie = `guestUserId=${geustUserId}; expires=${date.toUTCString()}; path=/; SameSite=Lax`;
+}
+
+// get guest user id
+export function getGuestUserId() {
+  const match = document.cookie.match(new RegExp(`(^| )guestUserId=([^;]+)`));
+
+  return match ? match[2] : null;
+}
