@@ -33,7 +33,6 @@ const useGetStories = (ownerId, isModalOpen) => {
 
     onValue(storiesQuery, (snapshot) => {
       const stories = Object.values(snapshot.val() || {});
-
       unsortedStoriesRef.current = stories;
 
       if (!isModalOpenRef.current) {

@@ -13,10 +13,10 @@ const useStoryList = (currentListIndex, setList, storiesList) => {
   const params = useParams();
 
   useEffect(() => {
-    // const lastSeenSlide = storiesList[currentListIndex]?.slides?.findIndex(
-    //   ({ isSeen }) => !isSeen
-    // );
-    // setSlide(lastSeenSlide >= 0 ? lastSeenSlide : 0);
+    const lastSeenSlide = storiesList[currentListIndex]?.slides?.findIndex(
+      ({ isSeen }) => !isSeen
+    );
+    setSlide(lastSeenSlide >= 0 ? lastSeenSlide : 0);
   }, [currentListIndex]);
 
   // Update current slide index and list index based on the swipe gesture

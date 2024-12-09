@@ -28,7 +28,7 @@ function SellersStories() {
                 <img
                   src={slides[0].authorProfilePic}
                   alt="author-profile"
-                  className="size-20 rounded-full ring-2"
+                  className="size-20 rounded-full ring-2 ring-red-300"
                 />
                 <p className="font-semibold w-24 text-start break-words line-clamp-1">
                   {slides[0].author.first_name}

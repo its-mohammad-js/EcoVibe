@@ -18,6 +18,7 @@ function ProfileHeader() {
     params.id,
     isStoriesShow !== null
   );
+  console.log();
 
   // calculate cutomers count
   function calculateCustomers() {
@@ -61,7 +62,7 @@ function ProfileHeader() {
               {...{
                 currentListIndex: isStoriesShow,
                 setList: setStorieModal,
-                storiesList: storiesList[0]?.slides,
+                storiesList: [storiesList[0]],
               }}
             />
           )}

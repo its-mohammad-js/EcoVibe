@@ -21,8 +21,6 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
   // const [seenList, setSeenList] = useState([]);
   const { auth_status, userId } = useSelector((state) => state.userData);
 
-  console.log(getPaginatedLists());
-
   return (
     <div
       ref={containerRef}
