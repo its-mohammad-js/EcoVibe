@@ -38,7 +38,6 @@ async function addDocumentToFirestore() {
     const storiesRef = dbRef(database, "stories");
 
     const docs = await get(storiesRef).then((snapShot) => snapShot.val());
-    console.log(docs);
 
     docs.forEach(async (story, i) => {
       try {
