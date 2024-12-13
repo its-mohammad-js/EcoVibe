@@ -1,24 +1,37 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { Route } from "react-router-dom";
+import withSuspense from "./AutoSuspense";
 
 // Lazy load components
-const SellerSolutionsPage = lazy(() =>
-  import("../pages/Seller Pages/Seller Solutions/sellerSolutionsPage")
+const SellerSolutionsPage = withSuspense(
+  lazy(() =>
+    import("../pages/Seller Pages/Seller Solutions/sellerSolutionsPage")
+  )
 );
-const SellerDashboardPage = lazy(() =>
-  import("../pages/Seller Pages/Dashboard/SellerDashboardPage")
+
+const SellerDashboardPage = withSuspense(
+  lazy(() => import("../pages/Seller Pages/Dashboard/SellerDashboardPage"))
 );
-const SellerProfilePage = lazy(() =>
-  import("../pages/Seller Pages/Profile/SellerProfilePage")
+
+const SellerProfilePage = withSuspense(
+  lazy(() => import("../pages/Seller Pages/Profile/SellerProfilePage"))
 );
-const AnalyticsTab = lazy(() =>
-  import("../pages/Seller Pages/Dashboard/tabs/Analytics/MainTab")
+
+const AnalyticsTab = withSuspense(
+  lazy(() => import("../pages/Seller Pages/Dashboard/tabs/Analytics/MainTab"))
 );
-const ProductTab = lazy(() =>
-  import("../pages/Seller Pages/Dashboard/tabs/Products Management/ProductTab")
+const ProductTab = withSuspense(
+  lazy(() =>
+    import(
+      "../pages/Seller Pages/Dashboard/tabs/Products Management/ProductTab"
+    )
+  )
 );
-const OrdersTab = lazy(() =>
-  import("../pages/Seller Pages/Dashboard/tabs/Orders Management/OrdersTab")
+
+const OrdersTab = withSuspense(
+  lazy(() =>
+    import("../pages/Seller Pages/Dashboard/tabs/Orders Management/OrdersTab")
+  )
 );
 
 const SellerRoutes = [
@@ -46,11 +59,7 @@ const SellerRoutes = [
   <Route
     key="seller-profile"
     path="/EcoVibe/seller/:id?"
-    element={
-      <Suspense fallback="loading">
-        <SellerProfilePage />
-      </Suspense>
-    }
+    element={<SellerProfilePage />}
   />,
 ];
 

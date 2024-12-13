@@ -1,22 +1,27 @@
 import { lazy } from "react";
 import { Route } from "react-router-dom";
 import ProtectedRoute from "../common/UI elements/ProtectedRoute/ProtectedRoute";
+import withSuspense from "./AutoSuspense";
 
 // Lazy load components
-const WishListPage = lazy(() =>
-  import("../pages/Customer Pages/WishList/WishListPage")
+const WishListPage = withSuspense(
+  lazy(() => import("../pages/Customer Pages/WishList/WishListPage"))
 );
 
-const CartPage = lazy(() => import("../pages/Customer Pages/Cart/CartPage"));
+const CartPage = withSuspense(
+  lazy(() => import("../pages/Customer Pages/Cart/CartPage"))
+);
 
-const CheckoutPage = lazy(() =>
-  import("../pages/Customer Pages/Checkout/CheckoutPage")
+const CheckoutPage = withSuspense(
+  lazy(() => import("../pages/Customer Pages/Checkout/CheckoutPage"))
 );
-const OrdersPage = lazy(() =>
-  import("../pages/Customer Pages/Orders/OrdersPage")
+
+const OrdersPage = withSuspense(
+  lazy(() => import("../pages/Customer Pages/Orders/OrdersPage"))
 );
-const CustomerProfilePage = lazy(() =>
-  import("../pages/Customer Pages/Profile/CustomerProfilePage")
+
+const CustomerProfilePage = withSuspense(
+  lazy(() => import("../pages/Customer Pages/Profile/CustomerProfilePage"))
 );
 
 const CustomerRoutes = [

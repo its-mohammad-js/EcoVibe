@@ -1,29 +1,32 @@
 import { lazy } from "react";
 import { Route } from "react-router-dom";
+import withSuspense from "./AutoSuspense";
 
 // Lazy load components
-const CustomerAuthPage = lazy(() =>
-  import("../pages/Auth Pages/Customers/CustomerAuthPage")
+const CustomerAuthPage = withSuspense(
+  lazy(() => import("../pages/Auth Pages/Customers/CustomerAuthPage"))
 );
-const SignUpCustomer = lazy(() =>
-  import("../pages/Auth Pages/Customers/tabs/SignUpCustomer")
+const SignUpCustomer = withSuspense(
+  lazy(() => import("../pages/Auth Pages/Customers/tabs/SignUpCustomer"))
 );
-const PersonalDetailsForm = lazy(() =>
-  import("../pages/Auth Pages/Customers/tabs/PersonalDetailsForm")
+const PersonalDetailsForm = withSuspense(
+  lazy(() => import("../pages/Auth Pages/Customers/tabs/PersonalDetailsForm"))
 );
-const UserInterestsForm = lazy(() =>
-  import("../pages/Auth Pages/Customers/tabs/UserInterestsForm")
+const UserInterestsForm = withSuspense(
+  lazy(() => import("../pages/Auth Pages/Customers/tabs/UserInterestsForm"))
 );
-const SellerAuthPage = lazy(() =>
-  import("../pages/Auth Pages/Sellers/SellerAuthPage")
+const SellerAuthPage = withSuspense(
+  lazy(() => import("../pages/Auth Pages/Sellers/SellerAuthPage"))
 );
-const SignUpSeller = lazy(() =>
-  import("../pages/Auth Pages/Sellers/tabs/SignUpSeller")
+const SignUpSeller = withSuspense(
+  lazy(() => import("../pages/Auth Pages/Sellers/tabs/SignUpSeller"))
 );
-const BusinessInfoForm = lazy(() =>
-  import("../pages/Auth Pages/Sellers/tabs/BusinessInfoForm")
+const BusinessInfoForm = withSuspense(
+  lazy(() => import("../pages/Auth Pages/Sellers/tabs/BusinessInfoForm"))
 );
-const SignInPage = lazy(() => import("../pages/Auth Pages/SignIn"));
+const SignInPage = withSuspense(
+  lazy(() => import("../pages/Auth Pages/SignIn"))
+);
 
 // Routes
 const AuthRoutes = [

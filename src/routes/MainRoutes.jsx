@@ -1,15 +1,24 @@
 import { Route } from "react-router-dom";
 import { lazy } from "react";
+import withSuspense from "./AutoSuspense";
 
-const HomePage = lazy(() => import("../pages/Main Pages/Home/HomePage"));
-const ShopPage = lazy(() => import("../pages/Main Pages/Shop/ShopPage"));
-const ExploreProducts = lazy(() =>
-  import("../pages/Main Pages/Explore Products/ExploreProductsPage")
+const HomePage = withSuspense(
+  lazy(() => import("../pages/Main Pages/Home/HomePage"))
 );
-const ProductDetailsPage = lazy(() =>
-  import("../pages/Main Pages/Home/HomePage")
+const ShopPage = withSuspense(
+  lazy(() => import("../pages/Main Pages/Shop/ShopPage"))
 );
-const ChatPage = lazy(() => import("../pages/Main Pages/Chat/ChatPage"));
+const ExploreProducts = withSuspense(
+  lazy(() => import("../pages/Main Pages/Explore Products/ExploreProductsPage"))
+);
+
+const ProductDetailsPage = withSuspense(
+  lazy(() => import("../pages/Main Pages/Home/HomePage"))
+);
+
+const ChatPage = withSuspense(
+  lazy(() => import("../pages/Main Pages/Chat/ChatPage"))
+);
 
 const MainRoutes = [
   // main pages

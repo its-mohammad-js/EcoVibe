@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import useOutSideClick from "../../../hooks/UseOutsideClick";
 
 function FeedBackSection({ story }) {
-  const { userId, personalInformation } = useSelector(
+  const { userId, personalInformation, auth_status } = useSelector(
     (state) => state.userData
   );
   const [isLiked, setLiked] = useState(false);
@@ -61,13 +61,14 @@ function FeedBackSection({ story }) {
   return (
     <div
       ref={commentListRef}
-      className="absolute w-full bottom-0 left-0 h-5 flex items-center pb-8 gap-x-2 z-50"
+      className="absolute w-full bottom-0 left-0 h-5 flex items-center justify-end pb-8 gap-x-2 z-50"
     >
       <input
+        disabled={auth_status !== 200}
         onClick={() => setShowComments(true)}
         value=""
         type="text"
-        className="bg-transparent outline-none border flex-1 px-2 py-2 border-gray-400 text-gray-300 rounded-2xl"
+        className="bg-transparent disabled:hidden outline-none border flex-1 px-2 py-2 border-gray-400 text-gray-300 rounded-2xl"
         placeholder="comment something"
       />
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import { BsTrash } from "react-icons/bs";
@@ -8,6 +8,7 @@ import LastStoriesLoader from "UI/Loaders/LastStoriesLoader";
 import { LoaderIcon } from "react-hot-toast";
 import useGetStories from "../../../../../../common/hooks/useGetStories";
 import useRemoveStory from "../../../../../../common/hooks/useRemoveSlide";
+import { AiFillHeart, AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
 
 function LastStories() {
   const [alertIsShow, setAlert] = useState(false); // delete story alert state
@@ -22,6 +23,12 @@ function LastStories() {
   const { loading, groupedStories: storyList } = useGetStories(userId);
   // remove slide handler
   const { loading: deleting, onDeleteSlide } = useRemoveStory();
+
+  useEffect(() => {
+    if (storyList?.length) {
+      onChangeSlide(0);
+    }
+  }, [storyList]);
 
   // handle slide stories change
   function onChangeSlide(slideIndex) {
@@ -74,9 +81,16 @@ function LastStories() {
               created at: &nbsp;
               {timestampToDate(currentStory?.createdAt, null, "database")}
             </h4>
-            <p className="font-semibold text-gray-300">
-              seen count : {currentStory?.seenBy?.length}
-            </p>
+            <div className="flex items-center gap-x-2">
+              <p className="flex items-center gap-x-1 text-gray-400">
+                <AiOutlineEye className="text-gray-300 text-2xl" />
+                {currentStory?.seenBy?.length}
+              </p>
+              <p className="flex items-center gap-x-1 text-gray-400">
+                <AiFillHeart className="text-gray-300 text-2xl" />
+                {currentStory?.seenBy?.length}
+              </p>
+            </div>
 
             <button
               onClick={() => {
