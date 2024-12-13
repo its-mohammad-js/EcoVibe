@@ -22,15 +22,22 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
 // check createAt date
-function isTwoDaysPassed(dateObject) {
-  if (!dateObject) return false;
-  const date = new Date(
-    dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
-  );
+// Check if two days (or a custom duration) have passed since a given timestamp
+function isTwoDaysPassed(timestamp) {
+  if (!timestamp) return false;
+
+  // Ensure timestamp is a number
+  const date = new Date(timestamp);
   const now = new Date();
+
+  // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
-  const minutesPassed = difference / (1000 * 60);
-  return minutesPassed >= 10; // Adjust based on requirements
+
+  // Convert milliseconds to days
+  const daysPassed = difference / (1000 * 60 * 60 * 24);
+
+  // Check if at least two days have passed
+  return daysPassed >= 2; // Adjust the number if you want a different threshold
 }
 
 async function removeExpiredSlides() {
@@ -44,6 +51,8 @@ async function removeExpiredSlides() {
     // Process each story sequentially
     for (const [i, story] of allSlides.entries()) {
       try {
+        console.log(isTwoDaysPassed(story.createdAt));
+
         // if (isTwoDaysPassed(story.createdAt)) {
         const contentRef = ref(storage, story.contentUrl);
         await deleteObject(contentRef);
