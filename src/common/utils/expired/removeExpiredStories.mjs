@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref as dbRef, remove, get } from "firebase/database";
+import {
+  getDatabase,
+  ref as dbRef,
+  remove,
+  get,
+  goOffline,
+} from "firebase/database";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const firebaseConfig = {
@@ -38,8 +44,9 @@ async function addDocumentToFirestore() {
     const storiesRef = dbRef(database, "stories");
 
     const docs = await get(storiesRef).then((snapShot) => snapShot.val());
+    const allSlides = Object.values(docs || {});
 
-    Object.values(docs || {})?.forEach(async (story, i) => {
+    allSlides?.forEach(async (story, i) => {
       try {
         // if (isTwoDaysPassed(story.createdAt)) {
         // ref to content in storage
@@ -49,6 +56,9 @@ async function addDocumentToFirestore() {
         const slideRef = dbRef(database, `stories/${story.id}`);
         // delete story from firestore
         await remove(slideRef);
+        if (i === allSlides?.length) {
+          goOffline(database);
+        }
         // dispatch delete report
         console.log(
           `${i + 1}st story has been deleted, story created at ${
