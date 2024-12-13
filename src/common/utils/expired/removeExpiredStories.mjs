@@ -66,7 +66,7 @@ async function removeExpiredSlides() {
 
     // Go offline after processing all slides
     goOffline(database);
-    console.log("All slides processed, database connection closed.");
+    console.log("All slides processed, database connection closed");
   } catch (error) {
     console.error("Error in the whole process:", error);
     throw error;
