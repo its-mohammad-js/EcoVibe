@@ -24,21 +24,16 @@ const storage = getStorage(app);
 // check createAt date
 function isTwoDaysPassed(dateObject) {
   if (!dateObject) return false;
-  // Convert the date object to a JavaScript Date object
   const date = new Date(
     dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
   );
-  // Calculate the current time
   const now = new Date();
-  // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
-  // Convert milliseconds to days
-  const daysPassed = difference / (1000 * 60);
-  // Check if two days have passed
-  return daysPassed >= 10;
+  const minutesPassed = difference / (1000 * 60);
+  return minutesPassed >= 10; // Adjust based on requirements
 }
 
-async function addDocumentToFirestore() {
+async function removeExpiredSlides() {
   try {
     const database = getDatabase();
     const storiesRef = dbRef(database, "stories");
@@ -46,20 +41,16 @@ async function addDocumentToFirestore() {
     const docs = await get(storiesRef).then((snapShot) => snapShot.val());
     const allSlides = Object.values(docs || {});
 
-    allSlides?.forEach(async (story, i) => {
+    // Process each story sequentially
+    for (const [i, story] of allSlides.entries()) {
       try {
         // if (isTwoDaysPassed(story.createdAt)) {
-        // ref to content in storage
         const contentRef = ref(storage, story.contentUrl);
         await deleteObject(contentRef);
-        // ref to story in firestore
+
         const slideRef = dbRef(database, `stories/${story.id}`);
-        // delete story from firestore
         await remove(slideRef);
-        if (i === allSlides?.length) {
-          goOffline(database);
-        }
-        // dispatch delete report
+
         console.log(
           `${i + 1}st story has been deleted, story created at ${
             story.createdAt
@@ -69,13 +60,17 @@ async function addDocumentToFirestore() {
         //   console.log("wasent from 10 minutes before");
         // }
       } catch (error) {
-        console.log(error);
+        console.error(`Error deleting story ${i + 1}:`, error);
       }
-    });
+    }
+
+    // Go offline after processing all slides
+    goOffline(database);
+    console.log("All slides processed, database connection closed.");
   } catch (error) {
-    console.error("Error on whole proccess");
-    throw error; // Re-throw error for GitHub Action to fail
+    console.error("Error in the whole process:", error);
+    throw error;
   }
 }
 
-addDocumentToFirestore();
+removeExpiredSlides();
