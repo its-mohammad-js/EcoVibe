@@ -28,7 +28,7 @@ function SlideContent({
     const userSeenId = auth_status === 401 ? getGuestUserId() : userId;
     // filters seen by, to avoid duplicating id
     const seenBy = story?.seenBy?.filter((id) => id !== userSeenId);
-    //
+    // update seen list of slide with current user id
     update(slideRef, { seenBy: [...(seenBy || []), userSeenId] });
   }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AiOutlineHeart, AiOutlineRight } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart, AiOutlineRight } from "react-icons/ai";
 import { useTimer } from "../hooks/useTimer";
 import SlideContent from "./SlideContent";
 import { useSlide } from "../StoryListModal";
@@ -9,6 +9,8 @@ import { BiUser } from "react-icons/bi";
 import useRemoveStory from "../../../hooks/useRemoveSlide";
 import { getDatabase, ref, update } from "firebase/database";
 import { useSelector } from "react-redux";
+import { fakeArray, toggleElementInArray } from "../../../utils/constants";
+import FeedBackSection from "./FeedBackSection";
 
 function SlideFrame() {
   const { changeStoryHandler, listIndex, currentListIndex, story } = useSlide(); // slide data
@@ -19,26 +21,6 @@ function SlideFrame() {
   const [contextMenuShow, setContextMenu] = useState(false); //context menu state
   const { onDeleteSlide, loading, onRemoveHighlight } =
     useRemoveStory(handlePause);
-  const { userId } = useSelector((state) => state.userData);
-  const [isLiked, setLiked] = useState(false);
-
-  useEffect(() => {
-    const isLikedbyUser = story?.likes?.includes(userId);
-
-    setLiked(isLikedbyUser);
-  }, [story]);
-
-  function likeSlideHandler() {
-    const updatedLikes = isLiked
-      ? [...(story?.likes || [])].filter((id) => id !== userId)
-      : [...(story?.likes || []), userId];
-    // get database
-    const db = getDatabase();
-    // ref to story in database
-    const storyRef = ref(db, `stories/${story.id}`);
-    // update likes array
-    update(storyRef, { likes: [...(story?.likes || []), userId] });
-  }
 
   return (
     <>
@@ -101,17 +83,7 @@ function SlideFrame() {
             contextMenuShow,
           }}
         />
-        <div className="absolute w-full bottom-0 left-0 h-5 flex items-center pb-8 gap-x-2 z-50">
-          <input
-            type="text"
-            className="bg-transparent outline-none border flex-1 px-2 py-2 border-gray-400 rounded-2xl"
-            placeholder="comment something"
-          />
-          <button onClick={likeSlideHandler} className="text-gray-400 text-4xl">
-            <AiOutlineHeart />
-            <p className="text-lg">{story?.likes?.length}</p>
-          </button>
-        </div>
+        <FeedBackSection {...{ story }} />
         {/* next btn */}
         <div
           className={`${
@@ -121,7 +93,7 @@ function SlideFrame() {
           <button
             disabled={loading}
             onClick={() => changeStoryHandler("next")}
-            className="text-2xl disabled:hidden disabled:bg-gray-500 disabled:opacity-50 rounded-full p-1.5 z-50 hover:bg-opacity-100 bg-gray-50 bg-opacity-50 transition-all top-1/2"
+            className="text-2xl disabled:hidden disabled:bg-gray-500 disabled:opacity-50 rounded-full p-1.5 z-40 hover:bg-opacity-100 bg-gray-50 bg-opacity-50 transition-all top-1/2"
           >
             <AiOutlineRight />
           </button>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import SellerStoriesListLoader from "../../../../common/UI elements/Loaders/SellerStoriesListLoader";
 import StoryListModal from "../../../../common/UI elements/StoriesList/StoryListModal";
 import useGetStories from "../../../../common/hooks/useGetStories";
-import toast from "react-hot-toast";
+
 
 function SellersStories() {
   const [currentListIndex, setList] = useState(null);
@@ -10,7 +10,7 @@ function SellersStories() {
     undefined,
     currentListIndex !== null
   );
-  // console.log(storiesList);
+
 
   if (loading) return <SellerStoriesListLoader />;
 
@@ -36,8 +36,7 @@ function SellersStories() {
                   {list.first_name}
                 </p>
                 <p className="text-sm text-center w-20 line-clamp-1">
-                  {listIndex}
-                  {/* {list.last_name} */}
+                  {list.last_name}
                 </p>
               </div>
             );

@@ -143,7 +143,7 @@ export const isInArray = (array, element) => {
 };
 
 // add / remove an specific element from array (without mutation)
-export const toggleElementInArray = (array, element) => {
+export const toggleElementInArray = (array = [], element) => {
   // find index of specific element
   const indexOfEl = array.findIndex((item) => item === element);
   // clone of original array
