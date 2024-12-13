@@ -39,7 +39,7 @@ async function addDocumentToFirestore() {
 
     const docs = await get(storiesRef).then((snapShot) => snapShot.val());
 
-    Object.values(docs).forEach(async (story, i) => {
+    Object.values(docs || {})?.forEach(async (story, i) => {
       try {
         // if (isTwoDaysPassed(story.createdAt)) {
         // ref to content in storage
