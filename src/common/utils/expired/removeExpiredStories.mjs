@@ -34,10 +34,11 @@ function isTwoDaysPassed(timestamp) {
   const difference = now.getTime() - date.getTime();
 
   // Convert milliseconds to days
-  const daysPassed = difference / (1000 * 60 * 60 * 24);
+  // const daysPassed = difference / (1000 * 60 * 60 * 24);
+  const daysPassed = difference / (1000 * 60);
 
   // Check if at least two days have passed
-  return daysPassed >= 2; // Adjust the number if you want a different threshold
+  return daysPassed >= 1; // Adjust the number if you want a different threshold
 }
 
 async function removeExpiredSlides() {
