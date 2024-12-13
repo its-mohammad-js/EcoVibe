@@ -15,4 +15,4 @@ jobs:
         with:
           node-version: "20" # Replace with your desired Node.js version
       - run: npm install firebase
-      - run: node src/common/utils/removeExpiredStories.mjs
+      - run: node src/common/utils/reomve expired data//removeExpiredStories.mjs
