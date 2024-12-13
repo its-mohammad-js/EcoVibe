@@ -2,8 +2,8 @@ import { FaPlus } from "react-icons/fa";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { useEffect, useState } from "react";
 import AddHighlightModal from "../Modals/AddHighlightModal";
-import { useProfileData } from "../../SellerProfilePage";
 import StoryListModal from "../../../../../common/UI elements/StoriesList/StoryListModal";
+import { useProfileData } from "../../SellerProfilePage";
 
 function HighLights() {
   // seller stories modal state
@@ -14,18 +14,17 @@ function HighLights() {
   useHorizontalTouchScroll(".highlights-wrapper");
   // highlights state
   const [highlightsList, setHighLightsList] = useState([]);
-  // necessary data & hooks
-  const {
-    sellerStories: { storiesList },
-  } = useProfileData();
+  const { storiesList } = useProfileData();
 
   // update highlight list
   useEffect(() => {
-    if (!storiesList.length) return;
+    const allSlides = storiesList[0]?.slides;
+
+    if (!allSlides?.length) return;
     // store highlight as object
     let highlights = {};
     // seperate highlights base on highlightRef into properties
-    storiesList.forEach((slide) => {
+    allSlides.forEach((slide) => {
       // check slides highlightRef
       if (slide.highlightRef) {
         // set highlightRef as property & add all slides related to this ref into property

@@ -9,7 +9,6 @@ function SellerInfo({ onEditHandler }) {
   // seller profile data
   const {
     sellerData: { userInfo },
-    currentUserId,
     isOwner,
   } = useProfileData();
   // current user data
@@ -18,6 +17,7 @@ function SellerInfo({ onEditHandler }) {
   // nevessary data & hooks
   const params = useParams();
   const navigate = useNavigate();
+  const currentUserId = JSON.parse(localStorage.getItem("userData"))?.userId;
 
   // send message handler
   async function sendMessage() {

@@ -12,9 +12,7 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
   // highlight title state
   const [title, setTitle] = useState("");
   // necessary data & hooks
-  const {
-    sellerStories: { storiesList, loading },
-  } = useProfileData();
+  const { storyLoading, storiesList } = useProfileData();
 
   // select slide handler
   function selectSlideHandler(slide) {
@@ -53,14 +51,12 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
           highlightRef: highlightId,
           title,
         });
-
         // increase update count
         updateCount = updateCount + 1;
         // dispatch success on end process
         if (updateCount === selectedSlides.length) {
           toast.success("highlight succesfully added");
           onCloseModal();
-          window.location.reload();
         }
       } catch (error) {
         console.log("error on update slide");
@@ -80,8 +76,8 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
       {/* all stories list */}
       <div className="w-full flex-1 overflow-auto styled-scroll-bar p-2.5">
         <div className="w-full grid grid-cols-2 gap-4">
-          {!loading ? (
-            storiesList?.map((story, i) => (
+          {!storyLoading ? (
+            storiesList[0]?.slides?.map((story, i) => (
               <div
                 key={i}
                 onClick={() => {
@@ -95,7 +91,7 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
                   story?.highlightRef && "opacity-60 !bg-gray-400"
                 } relative bg-gray-200 h-36 overflow-hidden rounded-lg`}
               >
-                {story.type.includes("image") ? (
+                {story.type?.includes("image") ? (
                   <img
                     src={story?.contentUrl}
                     alt="story thumnail"

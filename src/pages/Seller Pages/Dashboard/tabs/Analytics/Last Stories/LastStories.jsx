@@ -5,8 +5,9 @@ import { BsTrash } from "react-icons/bs";
 import { timestampToDate } from "constants";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import LastStoriesLoader from "UI/Loaders/LastStoriesLoader";
-import { useStories } from "./LastStories.hooks";
 import { LoaderIcon } from "react-hot-toast";
+import useGetStories from "../../../../../../common/hooks/useGetStories";
+import useRemoveStory from "../../../../../../common/hooks/useRemoveSlide";
 
 function LastStories() {
   const [alertIsShow, setAlert] = useState(false); // delete story alert state
@@ -16,22 +17,15 @@ function LastStories() {
     personalInformation: { first_name, last_name },
   } = useSelector((state) => state.userData);
   // current story slide state
-  const [{ currentStory, deleting }, setCurrentStory] = useState({
-    currentStory: {},
-    deleting: false,
-  });
-  const { loading, storyList, deleteStory } = useStories(
-    userId,
-    setCurrentStory,
-    setAlert
-  ); // stories data
+  const [currentStory, setCurrentStory] = useState(null);
+  // get stories hook
+  const { loading, groupedStories: storyList } = useGetStories(userId);
+  // remove slide handler
+  const { loading: deleting, onDeleteSlide } = useRemoveStory();
 
   // handle slide stories change
   function onChangeSlide(slideIndex) {
-    setCurrentStory((prev) => ({
-      ...prev,
-      currentStory: storyList[slideIndex],
-    }));
+    setCurrentStory(storyList[0]?.slides[slideIndex]);
   }
 
   if (loading)
@@ -50,7 +44,7 @@ function LastStories() {
             className="h-full"
             afterChange={(e) => onChangeSlide(e)}
           >
-            {storyList.map((story, i) => (
+            {storyList[0]?.slides.map((story, i) => (
               <div key={i} className="h-96">
                 {story.type.includes("image") ? (
                   <img
@@ -111,7 +105,9 @@ function LastStories() {
             <IconicWarningAlert
               title="Are you sure you want to delete this story?"
               subTitle="Cancel"
-              callBack={() => deleteStory(currentStory)}
+              callBack={() =>
+                onDeleteSlide(currentStory, () => setAlert(false))
+              }
               onClose={() => setAlert(false)}
             />
           )}

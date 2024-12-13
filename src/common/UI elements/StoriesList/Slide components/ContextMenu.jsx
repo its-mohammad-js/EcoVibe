@@ -6,17 +6,13 @@ import { IoPauseOutline } from "react-icons/io5";
 import useOutSideClick from "hooks/UseOutsideClick";
 import { CiFileOn } from "react-icons/ci";
 import { useSlide } from "../StoryListModal";
-import { deleteObject, ref } from "firebase/storage";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { getDatabase } from "firebase/database";
-import { ref as databaseRef, remove, update } from "firebase/database";
-import { storage } from "/src/config/firebase";
 
 function ContextMenu({
   pause, // pause state
   handlePause, // change pause handler
-  setLoading, // set loading process
+  onDeleteSlide, // remove story slide
   loading, // loading process state
   contextMenuShow, // context menu state
   setContextMenu, // change context menu hanlder
@@ -34,27 +30,19 @@ function ContextMenu({
   }
 
   // delete story function
-  async function deleteStory() {
+  async function removeSlideHandler() {
     try {
-      // dispatch loading
-      setLoading(true);
-      handlePause(false);
-      // ref to story content on storage
-      const contentRef = ref(storage, story.contentUrl);
-      // delete story content from storage
-      await deleteObject(contentRef);
-      // ref to story slide
-      const db = getDatabase();
-      const storyRef = databaseRef(db, `stories/${story.id}`);
-      // remove slide from data base
-      await remove(storyRef);
+      handlePause(true);
+      // remove slide from server
+      await onDeleteSlide(story, () => changeStoryHandler("close"));
       // dispatch success
       toast.success("story removed successfully");
+      handlePause(false);
     } catch (error) {
       // dispatch error
       toast.remove();
       toast.error("There was an error on delete story, please try again later");
-      setLoading(false);
+
       handlePause(false);
       console.log(error);
     }
@@ -62,27 +50,27 @@ function ContextMenu({
 
   // remove story from highlight
   async function removeHighlight() {
-    try {
-      // dispatch loading
-      setLoading(true);
-      handlePause(false);
-      // ref to story slide
-      const db = getDatabase();
-      const storyRef = databaseRef(db, `stories/${story.id}`);
-      update(storyRef, { highlightRef: null, title: null });
-      // dispatch success
-      toast.success("highlight removed successfully");
-      setLoading(false);
-      handlePause(true);
-    } catch (error) {
-      // dispatch error
-      toast.error(
-        "There was an error on remove highlight, please try again later"
-      );
-      setLoading(false);
-      handlePause(false);
-      console.log(error);
-    }
+    // try {
+    //   // dispatch loading
+    //   setLoading(true);
+    //   handlePause(false);
+    //   // ref to story slide
+    //   const db = getDatabase();
+    //   const storyRef = databaseRef(db, `stories/${story.id}`);
+    //   update(storyRef, { highlightRef: null, title: null });
+    //   // dispatch success
+    //   toast.success("highlight removed successfully");
+    //   setLoading(false);
+    //   handlePause(true);
+    // } catch (error) {
+    //   // dispatch error
+    //   toast.error(
+    //     "There was an error on remove highlight, please try again later"
+    //   );
+    //   setLoading(false);
+    //   handlePause(false);
+    //   console.log(error);
+    // }
   }
 
   return (
@@ -130,7 +118,7 @@ function ContextMenu({
         <button
           disabled={story.authorId !== userId}
           onClick={() => {
-            deleteStory();
+            removeSlideHandler();
             setContextMenu(false);
           }}
           className="flex disabled:hidden hover:bg-gray-800 rounded-md hover:text-gray-50 transition-all items-center gap-x-2 text-center text-nowrap px-4 py-2"

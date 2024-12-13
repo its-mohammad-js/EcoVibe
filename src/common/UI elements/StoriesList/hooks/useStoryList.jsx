@@ -98,10 +98,11 @@ const useStoryList = (currentListIndex, setList, storiesList) => {
     else {
       // Calculate the new slide index based on the action
       let newSlide = currentSlideIndex + (isNext ? 1 : -1);
+
       // Calculate the next list index based on the action
       const nextIndex = currentListIndex + (isNext ? 1 : -1);
       // Check if the new slide index is out of bounds (negative or beyond list length)
-      if (newSlide < 0 || newSlide >= currentList.length) {
+      if (newSlide < 0 || newSlide >= currentList.slides.length) {
         // Set the next list index if within valid range, otherwise null (close modal)
         setList(
           nextIndex >= 0 && nextIndex < storiesList.length ? nextIndex : null

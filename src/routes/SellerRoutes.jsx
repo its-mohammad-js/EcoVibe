@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 
 // Lazy load components
@@ -46,7 +46,11 @@ const SellerRoutes = [
   <Route
     key="seller-profile"
     path="/EcoVibe/seller/:id?"
-    element={<SellerProfilePage />}
+    element={
+      <Suspense fallback="loading">
+        <SellerProfilePage />
+      </Suspense>
+    }
   />,
 ];
 

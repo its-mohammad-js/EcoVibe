@@ -15,15 +15,11 @@ import { useSelector } from "react-redux";
 const useGetStories = (ownerId, isModalOpen) => {
   const [loading, setLoading] = useState(false);
   const [groupedStories, setGroupedStories] = useState([]);
-  const unsortedStoriesRef = useRef([]); // Stores all stories without sorting
-  const isModalOpenRef = useRef(isModalOpen); // Tracks modal open state
   const database = getDatabase();
-
-  const {
-    userId,
-    auth_status,
-    loading: authLoading,
-  } = useSelector((state) => state.userData);
+  const { userId, loading: authLoading } = useSelector(
+    (state) => state.userData
+  );
+  const orderListRef = useRef();
 
   const fetchStories = () => {
     const storiesRef = ref(database, "stories");
@@ -33,24 +29,20 @@ const useGetStories = (ownerId, isModalOpen) => {
 
     onValue(storiesQuery, (snapshot) => {
       const stories = Object.values(snapshot.val() || {});
-      unsortedStoriesRef.current = stories;
 
-      if (!isModalOpenRef.current) {
-        // Only sort when the modal is closed
-        const sortedStories = groupAndSort(stories);
-        setGroupedStories(sortedStories);
-      }
+      setGroupedStories(stories);
     });
   };
 
   const groupAndSort = (stories) => {
+    // group slides based their authors into story (list) arrays
     const grouped = groupBy(stories, "authorId");
 
-    // Add `isSeen` property to each slide
+    // Add `isSeen` property to each slide and extract author details
     Object.keys(grouped).forEach((authorId) => {
       grouped[authorId] = grouped[authorId].map((slide) => ({
         ...slide,
-        isSeen: slide.seenBy.includes(userId),
+        isSeen: slide.seenBy?.includes(userId),
       }));
     });
 
@@ -58,17 +50,21 @@ const useGetStories = (ownerId, isModalOpen) => {
     const sortedAuthors = sortBy(Object.keys(grouped), (authorId) =>
       grouped[authorId].every((slide) => slide.isSeen)
     );
+    orderListRef.current = isModalOpen ? orderListRef.current : sortedAuthors;
 
-    // Return authors with their slides (slides remain unsorted)
-    return sortedAuthors.map((authorId) => ({
-      authorId,
-      slides: grouped[authorId],
-    }));
+    // Map sorted authors with their details
+    return orderListRef.current.map((authorId) => {
+      const slides = grouped[authorId];
+
+      return {
+        authorId,
+        first_name: slides[0]?.author?.first_name,
+        last_name: slides[0]?.author?.last_name,
+        profile_pic: slides[0]?.authorProfilePic,
+        slides,
+      };
+    });
   };
-
-  useEffect(() => {
-    isModalOpenRef.current = isModalOpen; // Keep modal state in sync
-  }, [isModalOpen]);
 
   useEffect(() => {
     goOnline(database);
@@ -86,19 +82,11 @@ const useGetStories = (ownerId, isModalOpen) => {
     return () => {
       goOffline(database);
     };
-  }, [auth_status, userId]);
-
-  useEffect(() => {
-    if (!isModalOpen) {
-      // Re-sort when the modal closes
-      const sortedStories = groupAndSort(unsortedStoriesRef.current);
-      setGroupedStories(sortedStories);
-    }
-  }, [isModalOpen]);
+  }, [userId]);
 
   return {
     loading,
-    groupedStories,
+    groupedStories: groupAndSort(groupedStories),
   };
 };
 

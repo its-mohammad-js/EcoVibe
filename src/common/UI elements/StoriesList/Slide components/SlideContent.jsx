@@ -17,7 +17,6 @@ function SlideContent({
   const videoRef = useRef(); // ref to video content
   const [isLoaded, setLoaded] = useState(false); // load content state
   const { auth_status, userId } = useSelector((state) => state.userData);
-  // const [isSeen, setSeen] = useState(false);
 
   // on loading content handler
   function handleLoadContent() {
@@ -84,7 +83,7 @@ function SlideContent({
       <div
         onTouchStart={() => handlePause(true)}
         onTouchEnd={() => handlePause(false)}
-        className="absolute z-50 inset-0 flex"
+        className="absolute z-40 inset-0 flex lg:hidden"
       >
         <div
           onClick={() =>

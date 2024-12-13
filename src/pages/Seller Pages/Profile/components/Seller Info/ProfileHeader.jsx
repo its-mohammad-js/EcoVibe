@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react";
 import StoryListModal from "../../../../../common/UI elements/StoriesList/StoryListModal";
 import { calculateAverage } from "../../../../../common/utils/constants";
 import { useProfileData } from "../../SellerProfilePage";
 import { uniq } from "lodash";
-import useGetStories from "../../../../../common/hooks/useGetStories";
-import { useParams } from "react-router-dom";
 
 function ProfileHeader() {
-  // seller stories modal state
-  const [isStoriesShow, setStorieModal] = useState(null);
   const {
     sellerData: { userInfo, orders, products, reviews },
+    storyLoading,
+    storiesList,
+    isStoriesShow,
+    setStorieModal,
   } = useProfileData();
   const { personalInformation, businessInformation } = userInfo || {};
-  const params = useParams();
-  const { loading, groupedStories: storiesList } = useGetStories(
-    params.id,
-    isStoriesShow !== null
-  );
-  console.log();
 
   // calculate cutomers count
   function calculateCustomers() {
@@ -44,13 +37,13 @@ function ProfileHeader() {
           {/* profile pic */}
           <div
             onClick={() => {
-              if (!loading && storiesList?.length > 0) {
+              if (!storyLoading && storiesList?.length > 0) {
                 // it sets to 0 becuase StoryModal component logic uses isStoriesShow (in SellerProfile component) as currentListIndex
                 setStorieModal(0);
               }
             }}
-            className={`${loading && "animate-pulse"} ${
-              !loading && storiesList?.length > 0 && "ring-4 ring-red-500"
+            className={`${storyLoading && "animate-pulse"} ${
+              !storyLoading && storiesList?.length > 0 && "ring-4 ring-red-500"
             } size-20 lg:size-24 bg-gray-100 rounded-full overflow-hidden select-none cursor-pointer`}
           >
             <img src={personalInformation?.profilePic} alt="user-avatar" />
@@ -68,7 +61,7 @@ function ProfileHeader() {
           )}
         </>
         {/* stars, products, customers count */}
-        {/* <div className="flex items-center justify-evenly gap-x-4">
+        <div className="flex items-center justify-evenly gap-x-4">
           <div className="flex items-center justify-center flex-col font-medium">
             <h6 className="text-center">{calculateStars()}</h6>
             <p className="text-center ">stars</p>
@@ -81,10 +74,10 @@ function ProfileHeader() {
             <h6 className="text-center">{calculateCustomers()}</h6>
             <p className="text-center ">customers</p>
           </div>
-        </div> */}
+        </div>
       </div>
       {/* biography */}
-      {/* <div className="my-2">
+      <div className="my-2">
         <h4 className="text-lg font-bold">
           {personalInformation?.first_name +
             " " +
@@ -93,7 +86,7 @@ function ProfileHeader() {
         <p className="">{businessInformation?.business_name}</p>
         <p className="">{businessInformation?.career_title}</p>
         <p className="line-clamp-2">{businessInformation?.biography}</p>
-      </div> */}
+      </div>
     </>
   );
 }

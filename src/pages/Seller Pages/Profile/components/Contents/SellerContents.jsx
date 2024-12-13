@@ -4,9 +4,11 @@ import { useProfileData } from "../../SellerProfilePage";
 import LastOrders from "./LastOrders";
 import LastProducts from "./LastProducts";
 import Reviews from "./Reviews";
+import { useState } from "react";
 
 function SellerContents() {
-  const { setContentMode, currentMode, isOwner } = useProfileData();
+  const [currentMode, setContentMode] = useState("products");
+  const { isOwner } = useProfileData();
   const { auth_status } = useSelector((state) => state.userData);
 
   return (

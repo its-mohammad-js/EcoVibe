@@ -44,16 +44,16 @@ function HomePage() {
     <>
       <SellersStories />
       {/* hero section  */}
-      <HeroSection />
+      {/* <HeroSection /> */}
       {/* Trend Products Section */}
-      <ProductsContainer
+      {/* <ProductsContainer
         isLoading={loading}
         products={data}
         filterObject={{ tags: ["trend"] }}
         title="Trend Products"
-      />
+      /> */}
       {/* simple mobile banner (only visible on mobile screens) */}
-      <aside className="sm:hidden h-24 mx-auto w-11/12 shadow-md shadow-black/15 bg-gray-50 flex items-center justify-start gap-x-3 px-4 py-2 rounded-lg">
+      {/* <aside className="sm:hidden h-24 mx-auto w-11/12 shadow-md shadow-black/15 bg-gray-50 flex items-center justify-start gap-x-3 px-4 py-2 rounded-lg">
         <img src={bannerIcon} alt="banner icon" />
 
         <div className="">
@@ -68,32 +68,32 @@ function HomePage() {
             We make sure you get the <br /> offer you need at best prices
           </span>
         </div>
-      </aside>
+      </aside> */}
       {/* Collections Gallery Section */}
-      <CollectionsGallery isLoading={loading} products={data} />
+      {/* <CollectionsGallery isLoading={loading} products={data} /> */}
       {/* Product Types Gallery */}
-      <ProductsGallery />
+      {/* <ProductsGallery /> */}
       {/* Offer Cards */}
-      <TopCards />
+      {/* <TopCards /> */}
       {/* Best Sellers Section */}
-      <BestSellers />
+      {/* <BestSellers /> */}
       {/* Top Categories Section */}
-      <TopCategories />
+      {/* <TopCategories /> */}
       {/* Best Selling Banners */}
-      <BestSellingBanners />
+      {/* <BestSellingBanners /> */}
       {/* Our Services Section */}
-      <NewArrivals />
+      {/* <NewArrivals /> */}
       {/* Top Brands */}
-      <TopBrands />
+      {/* <TopBrands /> */}
       {/* User May Like Products */}
-      <ProductsContainer
+      {/* <ProductsContainer
         isLoading={loading}
         products={data}
         filterObject={{ tags: ["featured"] }}
         title="You May Also Like"
-      />
+      /> */}
       {/* Simple Banner */}
-      <div className="mx-auto 2xl:max-w-screen-2xl my-6 md:my-8">
+      {/* <div className="mx-auto 2xl:max-w-screen-2xl my-6 md:my-8">
         <div
           id="wrapper"
           className="flex flex-col md:flex-row items-center relative bg-gray-200 md:h-96"
@@ -133,9 +133,9 @@ function HomePage() {
             />
           </motion.div>
         </div>
-      </div>
+      </div> */}
       {/* Testimoianls */}
-      <Testimonials />
+      {/* <Testimonials /> */}
     </>
   );
 }

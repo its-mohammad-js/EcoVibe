@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SellerStoriesListLoader from "../../../../common/UI elements/Loaders/SellerStoriesListLoader";
 import StoryListModal from "../../../../common/UI elements/StoriesList/StoryListModal";
 import useGetStories from "../../../../common/hooks/useGetStories";
+import toast from "react-hot-toast";
 
 function SellersStories() {
   const [currentListIndex, setList] = useState(null);
@@ -9,6 +10,7 @@ function SellersStories() {
     undefined,
     currentListIndex !== null
   );
+  // console.log(storiesList);
 
   if (loading) return <SellerStoriesListLoader />;
 
@@ -18,7 +20,7 @@ function SellersStories() {
         {/* stories list */}
         <div className="mx-auto 2xl:max-w-screen-2xl px-4 py-2 flex gap-x-2.5 items-center justify-start">
           {/* story lists */}
-          {storiesList.map(({ slides }, listIndex) => {
+          {storiesList.map((list, listIndex) => {
             return (
               <div
                 key={listIndex}
@@ -26,15 +28,16 @@ function SellersStories() {
                 className="flex flex-col justify-center items-start cursor-pointer"
               >
                 <img
-                  src={slides[0].authorProfilePic}
+                  src={list.profile_pic}
                   alt="author-profile"
                   className="size-20 rounded-full ring-2 ring-red-300"
                 />
                 <p className="font-semibold w-24 text-start break-words line-clamp-1">
-                  {slides[0].author.first_name}
+                  {list.first_name}
                 </p>
                 <p className="text-sm text-center w-20 line-clamp-1">
-                  {slides[0].author.last_name}
+                  {listIndex}
+                  {/* {list.last_name} */}
                 </p>
               </div>
             );
