@@ -24,11 +24,11 @@ function LastStories() {
   // remove slide handler
   const { loading: deleting, onDeleteSlide } = useRemoveStory();
 
-  useEffect(() => {
-    if (storyList?.length) {
-      onChangeSlide(0);
-    }
-  }, [storyList]);
+  // useEffect(() => {
+  //   if (storyList?.length) {
+  //     onChangeSlide(0);
+  //   }
+  // }, [storyList]);
 
   // handle slide stories change
   function onChangeSlide(slideIndex) {

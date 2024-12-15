@@ -33,12 +33,11 @@ function isTwoDaysPassed(timestamp) {
   // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
 
-  // Convert milliseconds to days
-  // const daysPassed = difference / (1000 * 60 * 60 * 24);
-  const daysPassed = difference / (1000 * 60);
+  // Convert milliseconds to hours
+  const hoursPassed = difference / (1000 * 60 * 60);
 
   // Check if at least two days have passed
-  return daysPassed >= 1; // Adjust the number if you want a different threshold
+  return hoursPassed >= 18; // Adjust the number if you want a different threshold
 }
 
 async function removeExpiredSlides() {
@@ -53,7 +52,7 @@ async function removeExpiredSlides() {
     for (const [i, story] of allSlides.entries()) {
       try {
         console.log(isTwoDaysPassed(story.createdAt));
-
+        return;
         // if (isTwoDaysPassed(story.createdAt)) {
         const contentRef = ref(storage, story.contentUrl);
         await deleteObject(contentRef);

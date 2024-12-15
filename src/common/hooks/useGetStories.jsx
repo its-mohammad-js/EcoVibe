@@ -55,7 +55,6 @@ const useGetStories = (ownerId, isModalOpen) => {
     // Map sorted authors with their details
     return orderListRef.current.map((authorId) => {
       const slides = grouped[authorId];
-      
 
       return {
         authorId,
