@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import { BsTrash } from "react-icons/bs";
@@ -8,7 +8,7 @@ import LastStoriesLoader from "UI/Loaders/LastStoriesLoader";
 import { LoaderIcon } from "react-hot-toast";
 import useGetStories from "../../../../../../common/hooks/useGetStories";
 import useRemoveStory from "../../../../../../common/hooks/useRemoveSlide";
-import { AiFillHeart, AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineEye } from "react-icons/ai";
 
 function LastStories() {
   const [alertIsShow, setAlert] = useState(false); // delete story alert state
@@ -23,12 +23,6 @@ function LastStories() {
   const { loading, groupedStories: storyList } = useGetStories(userId);
   // remove slide handler
   const { loading: deleting, onDeleteSlide } = useRemoveStory();
-
-  // useEffect(() => {
-  //   if (storyList?.length) {
-  //     onChangeSlide(0);
-  //   }
-  // }, [storyList]);
 
   // handle slide stories change
   function onChangeSlide(slideIndex) {
@@ -49,6 +43,7 @@ function LastStories() {
             autoplay={true}
             speed={1500}
             className="h-full"
+            onInit={() => onChangeSlide(0)}
             afterChange={(e) => onChangeSlide(e)}
           >
             {storyList[0]?.slides.map((story, i) => (
