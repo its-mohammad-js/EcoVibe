@@ -22,21 +22,27 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
 // check createAt date
+// check createAt date
 function checkIsExpired(timestamp) {
   if (!timestamp) return false;
 
-  // Ensure timestamp is a number
+  // Ensure timestamp is a number and convert it to UTC time
   const date = new Date(timestamp);
   const now = new Date();
 
+  // Convert both to UTC time to avoid timezone issues
+  const utcDate = new Date(date.toUTCString());
+  const utcNow = new Date(now.toUTCString());
+
   // Calculate the difference in milliseconds
-  const difference = now.getTime() - date.getTime();
+  const difference = utcNow.getTime() - utcDate.getTime();
 
   // Convert milliseconds to hours
-  const hoursPassed = difference / (1000 * 60 * 60);
+  // const hoursPassed = difference / (1000 * 60 * 60);
+  const hoursPassed = difference / (1000 * 60);
 
-  // Check if at least two days have passed
-  return hoursPassed >= 18; // Adjust the number if you want a different threshold
+  // Check if at least 18 hours have passed (adjust the threshold as needed)
+  return hoursPassed >= 10;
 }
 
 async function removeExpiredSlides() {
@@ -51,24 +57,26 @@ async function removeExpiredSlides() {
     // Process each story sequentially
     for (const [i, story] of allSlides.entries()) {
       try {
+        console.log(checkIsExpired(story.createdAt));
+        continue;
         // remove slide content and cell if is expired
-        if (checkIsExpired(story.createdAt)) {
-          const contentRef = ref(storage, story.contentUrl);
-          await deleteObject(contentRef);
+        // if (checkIsExpired(story.createdAt)) {
+        //   const contentRef = ref(storage, story.contentUrl);
+        //   await deleteObject(contentRef);
 
-          const slideRef = dbRef(database, `stories/${story.id}`);
-          await remove(slideRef);
+        //   const slideRef = dbRef(database, `stories/${story.id}`);
+        //   await remove(slideRef);
 
-          console.log(
-            `${i + 1}st story has been deleted, story created at ${
-              story.createdAt
-            }`
-          );
-        } else {
-          console.log("This story wasn't expired yet.");
-          // Continue to the next iteration if not expired
-          continue;
-        }
+        //   console.log(
+        //     `${i + 1}st story has been deleted, story created at ${
+        //       story.createdAt
+        //     }`
+        //   );
+        // } else {
+        //   console.log("This story wasn't expired yet.");
+        //   // Continue to the next iteration if not expired
+        //   continue;
+        // }
       } catch (error) {
         console.error(`Error deleting story ${i + 1}:`, error);
       }
