@@ -52,7 +52,7 @@ async function removeExpiredSlides() {
     for (const [i, story] of allSlides.entries()) {
       try {
         console.log(checkIsExpired(story.createdAt));
-        return;
+
         // if (isTwoDaysPassed(story.createdAt)) {
         const contentRef = ref(storage, story.contentUrl);
         await deleteObject(contentRef);
