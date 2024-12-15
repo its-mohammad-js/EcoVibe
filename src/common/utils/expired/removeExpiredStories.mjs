@@ -7,19 +7,20 @@ import {
   goOffline,
 } from "firebase/database";
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import { storage } from "/src/config/firebase";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCdnuxel4imeAOVQVogRiHvqvrXb5qVRQw",
-  authDomain: "ecovibe-c6720.firebaseapp.com",
-  databaseURL: "https://ecovibe-c6720-default-rtdb.firebaseio.com",
-  projectId: "ecovibe-c6720",
-  storageBucket: "ecovibe-c6720.appspot.com",
-  messagingSenderId: "944059551615",
-  appId: "1:944059551615:web:2f96d7e9a67d0065e9544a",
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCdnuxel4imeAOVQVogRiHvqvrXb5qVRQw",
+//   authDomain: "ecovibe-c6720.firebaseapp.com",
+//   databaseURL: "https://ecovibe-c6720-default-rtdb.firebaseio.com",
+//   projectId: "ecovibe-c6720",
+//   storageBucket: "ecovibe-c6720.appspot.com",
+//   messagingSenderId: "944059551615",
+//   appId: "1:944059551615:web:2f96d7e9a67d0065e9544a",
+// };
 
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
+// const app = initializeApp(firebaseConfig);
+// const storage = getStorage(app);
 
 // check createAt date
 // Check if two days (or a custom duration) have passed since a given timestamp
@@ -42,37 +43,37 @@ function checkIsExpired(timestamp) {
 
 async function removeExpiredSlides() {
   try {
+    // ref to database
     const database = getDatabase();
+    // ref to slide's in database
     const storiesRef = dbRef(database, "stories");
-
+    // get all slides data & convert it to array
     const docs = await get(storiesRef).then((snapShot) => snapShot.val());
     const allSlides = Object.values(docs || {});
-
     // Process each story sequentially
     for (const [i, story] of allSlides.entries()) {
       try {
-        console.log(checkIsExpired(story.createdAt));
+        // remove slide content and cell if is expired
+        if (checkIsExpired(story.createdAt)) {
+          const contentRef = ref(storage, story.contentUrl);
+          await deleteObject(contentRef);
 
-        // if (isTwoDaysPassed(story.createdAt)) {
-        const contentRef = ref(storage, story.contentUrl);
-        await deleteObject(contentRef);
+          const slideRef = dbRef(database, `stories/${story.id}`);
+          await remove(slideRef);
 
-        const slideRef = dbRef(database, `stories/${story.id}`);
-        await remove(slideRef);
-
-        console.log(
-          `${i + 1}st story has been deleted, story created at ${
-            story.createdAt
-          }`
-        );
-        // } else {
-        //   console.log("wasent from 10 minutes before");
-        // }
+          console.log(
+            `${i + 1}st story has been deleted, story created at ${
+              story.createdAt
+            }`
+          );
+        } else {
+          console.log("wasn't expired yet");
+          return;
+        }
       } catch (error) {
         console.error(`Error deleting story ${i + 1}:`, error);
       }
     }
-
     // Go offline after processing all slides
     goOffline(database);
     console.log("All slides processed, database connection closed.");
