@@ -23,7 +23,7 @@ const storage = getStorage(app);
 
 // check createAt date
 // Check if two days (or a custom duration) have passed since a given timestamp
-function isTwoDaysPassed(timestamp) {
+function checkIsExpired(timestamp) {
   if (!timestamp) return false;
 
   // Ensure timestamp is a number
@@ -51,7 +51,7 @@ async function removeExpiredSlides() {
     // Process each story sequentially
     for (const [i, story] of allSlides.entries()) {
       try {
-        console.log(isTwoDaysPassed(story.createdAt));
+        console.log(checkIsExpired(story.createdAt));
         return;
         // if (isTwoDaysPassed(story.createdAt)) {
         const contentRef = ref(storage, story.contentUrl);
