@@ -42,7 +42,7 @@ function checkIsExpired(timestamp) {
   const hoursPassed = difference / (1000 * 60);
 
   // Check if at least 18 hours have passed (adjust the threshold as needed)
-  return hoursPassed >= 24;
+  return hoursPassed >= 28;
 }
 
 async function removeExpiredSlides() {
