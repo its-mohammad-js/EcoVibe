@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { AiFillHeart, AiOutlineHeart, AiOutlineRight } from "react-icons/ai";
+import { useState } from "react";
+import { AiOutlineRight } from "react-icons/ai";
 import { useTimer } from "../hooks/useTimer";
 import SlideContent from "./SlideContent";
 import { useSlide } from "../StoryListModal";
@@ -7,9 +7,6 @@ import ProgressBar from "./ProgressBar";
 import ContextMenu from "./ContextMenu";
 import { BiUser } from "react-icons/bi";
 import useRemoveStory from "../../../hooks/useRemoveSlide";
-import { getDatabase, ref, update } from "firebase/database";
-import { useSelector } from "react-redux";
-import { fakeArray, toggleElementInArray } from "../../../utils/constants";
 import FeedBackSection from "./FeedBackSection";
 
 function SlideFrame() {
@@ -83,7 +80,7 @@ function SlideFrame() {
             contextMenuShow,
           }}
         />
-        <FeedBackSection {...{ story }} />
+        <FeedBackSection {...{ story, handlePause }} />
         {/* next btn */}
         <div
           className={`${

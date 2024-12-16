@@ -136,7 +136,6 @@ export default QuickAccessMenu;
 
 const CartSummary = ({ onMenuNavigation }) => {
   const { cartData } = useSelector((state) => state.userData);
-  const navigate = useNavigate();
 
   if (!cartData?.length)
     return (
@@ -180,9 +179,7 @@ const CartSummary = ({ onMenuNavigation }) => {
               />
               <div className="w-3/5 h-full flex flex-col justify-evenly px-2">
                 <h6
-                  onClick={() =>
-                    onMenuNavigation(`/EcoVibe/Products/${item.productId}`)
-                  }
+                  onClick={() => onMenuNavigation(`/EcoVibe/bag/cart`)}
                   className="line-clamp-1 font-bold text-gray-900 hover:text-primary-500 transition-all cursor-pointer"
                 >
                   {item.Name}
