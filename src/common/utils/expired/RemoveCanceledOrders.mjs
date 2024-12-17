@@ -33,9 +33,9 @@ function checkIsExpired(dateObject) {
   // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
   // Convert milliseconds to days
-  const minutePassed = difference / (1000 * 60);
+  const daysPassed = difference / (1000 * 60 * 60 * 24);
   // Check if two days have passed
-  return minutePassed >= 5;
+  return daysPassed >= 2;
 }
 
 async function removeCanceledOrders() {
