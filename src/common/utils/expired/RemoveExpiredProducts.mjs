@@ -49,7 +49,7 @@ async function removeExpiredProducts() {
       collection(db, "Products"),
       where("createdByUser", "==", true)
     );
-
+    // get all products created by user's
     const expiredProducts = await getDocs(expiredProductsRef).then(({ docs }) =>
       docs.map((_product) => ({ ..._product.data(), id: _product.id }))
     );
