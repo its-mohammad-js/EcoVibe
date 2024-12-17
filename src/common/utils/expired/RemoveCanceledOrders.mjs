@@ -72,14 +72,20 @@ async function removeCanceledOrders() {
             (sellerId) => !removedSellerIds.includes(sellerId)
           );
 
-          // Step 6: Update the Firestore document with the new data
           const orderDocRef = doc(db, "Orders", order.id); // `order.id` is assumed to be the document ID
-          await updateDoc(orderDocRef, {
-            orders: updatedOrders,
-            sellers: updatedSellers,
-          });
 
-          console.log(`Successfully updated Order ${i} in Firestore.`);
+          // remove order if it was the last ordered items
+          if (Object.values(updatedSellers).length <= 0) {
+            deleteDoc(orderDocRef);
+          } else {
+            // update order data with new values
+            await updateDoc(orderDocRef, {
+              orders: updatedOrders,
+              sellers: updatedSellers,
+            });
+          }
+
+          console.log(`Successfully updated Order ${i + 1}st in Firestore.`);
         } else {
           console.log("order isn't expired yet");
         }
