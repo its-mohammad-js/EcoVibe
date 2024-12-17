@@ -40,21 +40,61 @@ function checkIsExpired(dateObject) {
   return daysPassed >= 7;
 }
 
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
+import { getStorage, ref, deleteObject } from "firebase/storage";
+import { db } from "./firebaseConfig"; // Adjust your import path as needed
+
+const storage = getStorage();
+
 async function removeExpiredProducts() {
   try {
+    // 1. Query expired products
     const expiredProductsRef = query(
       collection(db, "Products"),
       where("createdByUser", "==", true)
     );
 
     const expiredProducts = await getDocs(expiredProductsRef).then(({ docs }) =>
-      docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      docs.map((_product) => ({ ..._product.data(), id: _product.id }))
     );
 
-    console.log(expiredProducts);
+    // 2. Process each expired product
+    const deleteOperations = expiredProducts.map(async (item) => {
+      try {
+        // 3. Remove images from Firebase Storage
+        if (item.Images && Array.isArray(item.Images)) {
+          const imageDeletionPromises = productData.Images.map((imageUrl) => {
+            const imageRef = ref(storage, imageUrl);
+            return deleteObject(imageRef);
+          });
+
+          await Promise.all(imageDeletionPromises);
+          console.log(`All images deleted for product ${item.id}`);
+        }
+
+        // 4. Delete the product document from Firestore
+        await deleteDoc(doc(db, "Products", item.id));
+        console.log(`Product ${item.id} deleted successfully.`);
+      } catch (error) {
+        console.error(`Error processing product ${item.id}:`, error);
+        throw error; // Re-throw to ensure any errors stop the process
+      }
+    });
+
+    // 5. Wait for all delete operations to complete
+    await Promise.all(deleteOperations);
+
+    console.log("All expired products processed successfully.");
   } catch (error) {
-    console.error("Error on whole proccess");
-    throw error; // Re-throw error for GitHub Action to fail
+    console.error("Error during the product cleanup process:", error);
+    throw error; // Re-throw for error monitoring
   }
 }
 
