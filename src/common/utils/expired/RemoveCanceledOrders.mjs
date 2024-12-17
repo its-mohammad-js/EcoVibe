@@ -50,7 +50,7 @@ async function removeCanceledOrders() {
       try {
         // if (isTwoDaysPassed(story.createdAt)) {
         // ref to order in firestore
-        const storyRef = doc(collection(db, "Stories"), order.id);
+        const storyRef = doc(collection(db, "Orders"), order.id);
         // delete story from firestore
         await deleteDoc(storyRef);
         // dispatch delete report
