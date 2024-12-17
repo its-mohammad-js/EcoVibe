@@ -4,7 +4,7 @@ import ProductInformation from "./ProductInformation";
 import ProductOptions from "./ProductOptions";
 import { useForm } from "react-hook-form";
 import toast, { LoaderIcon } from "react-hot-toast";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "src/config/firebase";
 import { useSelector } from "react-redux";
 import { generateId } from "constants";
@@ -86,6 +86,7 @@ function AddEditProductForm({
           SellerEmail: "test mail",
           SellerProfile: personalInformation?.profilePic || "",
           createdByUser: true,
+          createdAt: serverTimestamp(),
         });
         // dispatch success on each modes (edit || add)
         if (isEdit) {

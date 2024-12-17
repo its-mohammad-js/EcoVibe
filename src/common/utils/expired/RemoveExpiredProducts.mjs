@@ -34,10 +34,10 @@ function checkIsExpired(dateObject) {
   const now = new Date();
   // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
-  // Convert milliseconds to days
-  const daysPassed = difference / (1000 * 60 * 60 * 24);
-  // Check if 7 days have passed
-  return daysPassed >= 7;
+  // Convert milliseconds to hours
+  const hoursPassed = difference / (1000 * 60 * 60);
+  // Check if 12 hours have passed
+  return hoursPassed >= 12;
 }
 
 const storage = getStorage();
@@ -57,20 +57,24 @@ async function removeExpiredProducts() {
     // 2. Process each expired product
     const deleteOperations = expiredProducts.map(async (item) => {
       try {
-        // 3. Remove images from Firebase Storage
-        if (item.Images && Array.isArray(item.Images)) {
-          const imageDeletionPromises = item.Images.map((imageUrl) => {
-            const imageRef = ref(storage, imageUrl);
-            return deleteObject(imageRef);
-          });
+        if (checkIsExpired(item.createdAt)) {
+          // 3. Remove images from Firebase Storage
+          if (item.Images && Array.isArray(item.Images)) {
+            const imageDeletionPromises = item.Images.map((imageUrl) => {
+              const imageRef = ref(storage, imageUrl);
+              return deleteObject(imageRef);
+            });
 
-          await Promise.all(imageDeletionPromises);
-          console.log(`All images deleted for product ${item.id}`);
+            await Promise.all(imageDeletionPromises);
+            console.log(`All images deleted for product ${item.id}`);
+          }
+
+          // 4. Delete the product document from Firestore
+          await deleteDoc(doc(db, "Products", item.id));
+          console.log(`Product ${item.id} deleted successfully.`);
+        } else {
+          console.log(`items, hasn't expired yet`);
         }
-
-        // 4. Delete the product document from Firestore
-        await deleteDoc(doc(db, "Products", item.id));
-        console.log(`Product ${item.id} deleted successfully.`);
       } catch (error) {
         console.error(`Error processing product ${item.id}:`, error);
         throw error; // Re-throw to ensure any errors stop the process
