@@ -57,6 +57,7 @@ async function removeExpiredSlides() {
     // Process each story sequentially
     for (const [i, story] of allSlides.entries()) {
       try {
+        
         console.log(checkIsExpired(story.createdAt));
         continue;
         // remove slide content and cell if is expired
