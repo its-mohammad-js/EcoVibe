@@ -43,7 +43,7 @@ function checkIsExpired(dateObject) {
 async function removeExpiredProducts() {
   try {
     const expiredProductsRef = query(
-      collection(db, "Orders"),
+      collection(db, "Products"),
       where("createdByUser", "==", true)
     );
 

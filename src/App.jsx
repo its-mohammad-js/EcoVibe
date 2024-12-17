@@ -11,33 +11,41 @@ import AuthRoutes from "./routes/AuthRoutes";
 import CustomerRoutes from "./routes/CustomerRoutes";
 import SellerRoutes from "./routes/SellerRoutes";
 import NotFoundPage from "./pages/404 Page/NotFoundPage";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "/src/config/firebase";
 
 function App() {
-  const dispatch = useDispatch();
-
-  // read all user data from local storage
   useEffect(() => {
-    // read user data
-    dispatch(getUserData());
+    const testFetch = async () => {
+      try {
+        const expiredProductsRef = query(
+          collection(db, "Products"),
+          where("createdByUser", "==", true)
+        );
+
+        const expiredProducts = await getDocs(expiredProductsRef).then(
+          ({ docs }) => docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+
+        console.log(expiredProducts);
+      } catch (error) {
+        console.error("Error on whole proccess");
+        throw error; // Re-throw error for GitHub Action to fail
+      }
+    };
+
+    testFetch();
   }, []);
 
-  return (
-    <AppLayout>
-      <Toaster />
-      <Routes>
-        {/* main pages */}
-        {MainRoutes}
-        {/* customer's sign-up */}
-        {AuthRoutes}
-        {/* customer routes */}
-        {CustomerRoutes}
-        {/* seller pages */}
-        {SellerRoutes}
-        {/* 404 page */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </AppLayout>
-  );
+  // const dispatch = useDispatch();
+
+  // // read all user data from local storage
+  // useEffect(() => {
+  //   // read user data
+  //   dispatch(getUserData());
+  // }, []);
+
+  return <></>;
 }
 
 export default App;
