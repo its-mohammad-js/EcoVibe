@@ -50,21 +50,30 @@ async function removeCanceledOrders() {
     docs.forEach(async (order, i) => {
       try {
         // Step 1: Convert the `orders` property (object) into an array of entries
-        // Each entry will be in the form: [sellerId, orderData]
-        const ordersArray = Object.entries(order.orders);
+        const ordersArray = Object.entries(order.orders); // [sellerId, orderData]
 
-        // Step 2: Filter the orders based on the `delivery_status` property
+        // Step 2: Filter the orders based on `delivery_status`
         const filteredOrders = ordersArray.filter(([sellerId, orderData]) => {
           return orderData.delivery_status !== 900;
         });
 
-        // Step 3: Map the filtered orders back to an object if necessary (optional)
+        // Step 3: Map the filtered orders back to an object
         const updatedOrders = Object.fromEntries(filteredOrders);
 
-        // Step 4: Return the updated order object with filtered orders
+        // Step 4: Update the `sellers` array to exclude seller IDs of removed orders
+        const removedSellerIds = ordersArray
+          .filter(([sellerId, orderData]) => orderData.delivery_status === 900) // Get removed orders
+          .map(([sellerId]) => sellerId); // Extract seller IDs
+
+        const updatedSellers = order.sellers.filter(
+          (sellerId) => !removedSellerIds.includes(sellerId)
+        );
+
+        // Step 5: Return the updated order object with filtered orders and sellers
         const updatedOrderData = {
           ...order,
           orders: updatedOrders,
+          sellers: updatedSellers,
         };
 
         // Use the updatedOrderData as needed here
