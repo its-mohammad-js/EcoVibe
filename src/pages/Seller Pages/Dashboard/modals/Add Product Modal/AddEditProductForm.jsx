@@ -7,7 +7,7 @@ import toast, { LoaderIcon } from "react-hot-toast";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "src/config/firebase";
 import { useSelector } from "react-redux";
-import { generateId, loadingIcon } from "constants";
+import { generateId } from "constants";
 import { useNavigate } from "react-router-dom";
 import useDisableScroll from "hooks/UseDisableScroll";
 
@@ -85,6 +85,7 @@ function AddEditProductForm({
             "",
           SellerEmail: "test mail",
           SellerProfile: personalInformation?.profilePic || "",
+          createdByUser: true,
         });
         // dispatch success on each modes (edit || add)
         if (isEdit) {

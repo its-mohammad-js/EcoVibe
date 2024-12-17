@@ -7,6 +7,7 @@ import {
   getFirestore,
   query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -35,35 +36,26 @@ function checkIsExpired(dateObject) {
   const difference = now.getTime() - date.getTime();
   // Convert milliseconds to days
   const daysPassed = difference / (1000 * 60 * 60 * 24);
-  // Check if 30 days have passed
-  return daysPassed >= 30;
+  // Check if 7 days have passed
+  return daysPassed >= 7;
 }
 
-async function removeExpiredOrders() {
+async function removeExpiredProducts() {
   try {
-    const storiesRef = query(collection(db, "Orders"));
+    const expiredProductsRef = query(
+      collection(db, "Orders"),
+      where("createdByUser", "==", true)
+    );
 
-    const docs = await getDocs(storiesRef).then(({ docs }) =>
+    const expiredProducts = await getDocs(expiredProductsRef).then(({ docs }) =>
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    docs.forEach(async (order, i) => {
-      try {
-        if (checkIsExpired(order.createdAt)) {
-          const orderDocRef = doc(db, "Orders", order.id); // `order.id` is assumed to be the document ID
-          deleteDoc(orderDocRef);
-          console.log(`${i + 1} order has been removed`);
-        } else {
-          console.log("order isn't expired yet");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    });
+    console.log(expiredProducts);
   } catch (error) {
     console.error("Error on whole proccess");
     throw error; // Re-throw error for GitHub Action to fail
   }
 }
 
-removeExpiredOrders();
+removeExpiredProducts();
