@@ -6,9 +6,9 @@ import {
   getDocs,
   getFirestore,
   query,
-  updateDoc,
   where,
 } from "firebase/firestore";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -40,17 +40,6 @@ function checkIsExpired(dateObject) {
   return daysPassed >= 7;
 }
 
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
-import { getStorage, ref, deleteObject } from "firebase/storage";
-import { db } from "./firebaseConfig"; // Adjust your import path as needed
-
 const storage = getStorage();
 
 async function removeExpiredProducts() {
@@ -70,7 +59,7 @@ async function removeExpiredProducts() {
       try {
         // 3. Remove images from Firebase Storage
         if (item.Images && Array.isArray(item.Images)) {
-          const imageDeletionPromises = productData.Images.map((imageUrl) => {
+          const imageDeletionPromises = item.Images.map((imageUrl) => {
             const imageRef = ref(storage, imageUrl);
             return deleteObject(imageRef);
           });
