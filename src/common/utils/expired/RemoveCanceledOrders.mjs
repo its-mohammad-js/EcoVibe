@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { collection, getDocs, getFirestore, query } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+  query,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -38,31 +45,27 @@ async function removeCanceledOrders() {
     const docs = await getDocs(storiesRef).then(({ docs }) =>
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
-    console.log(docs);
 
-    // docs.forEach(async (story, i) => {
-    //   try {
-    //     // if (isTwoDaysPassed(story.createdAt)) {
-    //     // ref to content in storage
-    //     const contentRef = ref(storage, story.contentUrl);
-    //     await deleteObject(contentRef);
-    //     // ref to story in firestore
-    //     const storyRef = doc(collection(db, "Stories"), story.id);
-    //     // delete story from firestore
-    //     await deleteDoc(storyRef);
-    //     // dispatch delete report
-    //     console.log(
-    //       `${i + 1}st story has been deleted, story created at ${
-    //         story.createdAt
-    //       }`
-    //     );
-    //     // } else {
-    //     //   console.log("wasent from 10 minutes before");
-    //     // }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // });
+    docs.forEach(async (order, i) => {
+      try {
+        // if (isTwoDaysPassed(story.createdAt)) {
+        // ref to order in firestore
+        const storyRef = doc(collection(db, "Stories"), order.orderId);
+        // delete story from firestore
+        await deleteDoc(storyRef);
+        // dispatch delete report
+        console.log(
+          `${i + 1}st story has been deleted, story created at ${
+            order.createdAt
+          }`
+        );
+        // } else {
+        //   console.log("wasent from 10 minutes before");
+        // }
+      } catch (error) {
+        console.log(error);
+      }
+    });
   } catch (error) {
     console.error("Error on whole proccess");
     throw error; // Re-throw error for GitHub Action to fail
