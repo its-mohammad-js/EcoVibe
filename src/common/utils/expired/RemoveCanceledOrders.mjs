@@ -32,6 +32,8 @@ function checkIsExpired(dateObject) {
 }
 
 async function removeCanceledOrders() {
+  console.log("ok runned");
+
   try {
     const storiesRef = query(collection(db, "Stories"));
 
