@@ -37,4 +37,4 @@ jobs:
       - run: npm install firebase # Install the Firebase library to interact with Firebase services.
 
       # Step 5: Execute the script to remove expired products.
-      - run: node src/common/utils/expired/RemoveCanceledOrders.mjs # Run the Node.js script to clean up products.
+      - run: node src/common/utils/expired/RemoveExpiredProducts.mjs # Run the Node.js script to clean up products.
