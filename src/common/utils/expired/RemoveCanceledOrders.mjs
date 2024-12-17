@@ -33,9 +33,9 @@ function checkIsExpired(dateObject) {
   // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
   // Convert milliseconds to days
-  const daysPassed = difference / (1000 * 60);
+  const minutePassed = difference / (1000 * 60);
   // Check if two days have passed
-  return daysPassed >= 10;
+  return minutePassed >= 5;
 }
 
 async function removeCanceledOrders() {
@@ -48,19 +48,21 @@ async function removeCanceledOrders() {
 
     docs.forEach(async (order, i) => {
       try {
-        // if (isTwoDaysPassed(story.createdAt)) {
-        // ref to order in firestore
-        const storyRef = doc(collection(db, "Orders"), order.id);
-        // delete story from firestore
-        await deleteDoc(storyRef);
-        // dispatch delete report
-        console.log(
-          `${i + 1}st order has been deleted, order created at ${
-            order.createdAt
-          }`
-        );
+        console.log(checkIsExpired(order.createdAt));
+
+        // if (checkIsExpired(order.createdAt)) {
+        //   // ref to order in firestore
+        //   const storyRef = doc(collection(db, "Orders"), order.id);
+        //   // delete story from firestore
+        //   await deleteDoc(storyRef);
+        //   // dispatch delete report
+        //   console.log(
+        //     `${i + 1}st order has been deleted, order created at ${
+        //       order.createdAt
+        //     }`
+        //   );
         // } else {
-        //   console.log("wasent from 10 minutes before");
+        //   console.log("orders wasen't expired yet");
         // }
       } catch (error) {
         console.log(error);

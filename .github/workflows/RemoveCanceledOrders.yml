@@ -2,12 +2,12 @@
 
 name: Remove Canceled Orders
 
-# Trigger the workflow on a push to the main branch and every week.
+# Trigger the workflow on a push to the main branch and every 23 hours.
 on:
   push:
     branches: [main] # Run the workflow when changes are pushed to the 'main' branch.
   schedule:
-    - cron: "* * */7 * *" # Schedule the workflow to run every week.
+    - cron: "* */23 * * *" # Schedule the workflow to run every 23 hours.
 
 jobs:
   add-document:
