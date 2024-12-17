@@ -42,7 +42,7 @@ function checkIsExpired(timestamp) {
   const hoursPassed = difference / (1000 * 60);
 
   // Check if at least 18 hours have passed (adjust the threshold as needed)
-  return hoursPassed >= 28;
+  return hoursPassed >= 2;
 }
 
 async function removeExpiredSlides() {
@@ -57,7 +57,6 @@ async function removeExpiredSlides() {
     // Process each story sequentially
     for (const [i, story] of allSlides.entries()) {
       try {
-        
         console.log(checkIsExpired(story.createdAt));
         continue;
         // remove slide content and cell if is expired
