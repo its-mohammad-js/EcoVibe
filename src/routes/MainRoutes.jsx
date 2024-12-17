@@ -13,7 +13,7 @@ const ExploreProducts = withSuspense(
 );
 
 const ProductDetailsPage = withSuspense(
-  lazy(() => import("../pages/Main Pages/Home/HomePage"))
+  lazy(() => import("../pages/Main Pages/Product Detail/ProductDetailsPage"))
 );
 
 const ChatPage = withSuspense(
