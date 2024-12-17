@@ -73,7 +73,7 @@ async function removeCanceledOrders() {
           );
 
           // Step 6: Update the Firestore document with the new data
-          const orderDocRef = doc(db, "orders", order.id); // `order.id` is assumed to be the document ID
+          const orderDocRef = doc(db, "Orders", order.id); // `order.id` is assumed to be the document ID
           await updateDoc(orderDocRef, {
             orders: updatedOrders,
             sellers: updatedSellers,
