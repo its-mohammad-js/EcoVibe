@@ -6,6 +6,7 @@ import {
   getDocs,
   getFirestore,
   query,
+  updateDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -35,8 +36,7 @@ function checkIsExpired(dateObject) {
   // Convert milliseconds to days
   const daysPassed = difference / (1000 * 60 * 60 * 24);
   // Check if two days have passed
-  // return daysPassed >= 7;
-  return true;
+  return daysPassed >= 7;
 }
 
 async function removeCanceledOrders() {
@@ -49,35 +49,40 @@ async function removeCanceledOrders() {
 
     docs.forEach(async (order, i) => {
       try {
-        // Step 1: Convert the `orders` property (object) into an array of entries
-        const ordersArray = Object.entries(order.orders); // [sellerId, orderData]
+        if (checkIsExpired(order.createdAt)) {
+          // Step 1: Convert the `orders` property (object) into an array of entries
+          const ordersArray = Object.entries(order.orders); // [sellerId, orderData]
 
-        // Step 2: Filter the orders based on `delivery_status`
-        const filteredOrders = ordersArray.filter(([sellerId, orderData]) => {
-          return orderData.delivery_status !== 900;
-        });
+          // Step 2: Filter the orders based on `delivery_status`
+          const filteredOrders = ordersArray.filter(([sellerId, orderData]) => {
+            return orderData.delivery_status !== 900;
+          });
 
-        // Step 3: Map the filtered orders back to an object
-        const updatedOrders = Object.fromEntries(filteredOrders);
+          // Step 3: Map the filtered orders back to an object
+          const updatedOrders = Object.fromEntries(filteredOrders);
 
-        // Step 4: Update the `sellers` array to exclude seller IDs of removed orders
-        const removedSellerIds = ordersArray
-          .filter(([sellerId, orderData]) => orderData.delivery_status === 900) // Get removed orders
-          .map(([sellerId]) => sellerId); // Extract seller IDs
+          // Step 4: Update the `sellers` array to exclude seller IDs of removed orders
+          const removedSellerIds = ordersArray
+            .filter(
+              ([sellerId, orderData]) => orderData.delivery_status === 900
+            ) // Get removed orders
+            .map(([sellerId]) => sellerId); // Extract seller IDs
 
-        const updatedSellers = order.sellers.filter(
-          (sellerId) => !removedSellerIds.includes(sellerId)
-        );
+          const updatedSellers = order.sellers.filter(
+            (sellerId) => !removedSellerIds.includes(sellerId)
+          );
 
-        // Step 5: Return the updated order object with filtered orders and sellers
-        const updatedOrderData = {
-          ...order,
-          orders: updatedOrders,
-          sellers: updatedSellers,
-        };
+          // Step 6: Update the Firestore document with the new data
+          const orderDocRef = doc(db, "orders", order.id); // `order.id` is assumed to be the document ID
+          await updateDoc(orderDocRef, {
+            orders: updatedOrders,
+            sellers: updatedSellers,
+          });
 
-        // Use the updatedOrderData as needed here
-        console.log(`Updated Order ${i}:`, updatedOrderData);
+          console.log(`Successfully updated Order ${i} in Firestore.`);
+        } else {
+          console.log("order isn't expired yet");
+        }
       } catch (error) {
         console.log(error);
       }

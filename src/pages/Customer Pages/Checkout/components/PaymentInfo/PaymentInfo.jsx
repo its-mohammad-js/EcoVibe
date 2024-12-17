@@ -11,6 +11,7 @@ import AddCreditCardForm from "UI/Forms/AddCreditCardForm";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import PaymentForm from "./PaymentForm";
 import CartsSlider from "./CartsSlider";
+import { uniq } from "lodash";
 
 function PaymentInfo({ shippingMethod, totalPrice, setLoading }) {
   // form data
@@ -69,7 +70,7 @@ function PaymentInfo({ shippingMethod, totalPrice, setLoading }) {
       return;
     }
     // declare all seller's
-    const sellers = cartData.map((item) => item.SellerId);
+    const sellers = uniq(cartData.map((item) => item.SellerId));
     // create an object of items with seller id key
     let orders = {};
     sellers.forEach((id) => {
