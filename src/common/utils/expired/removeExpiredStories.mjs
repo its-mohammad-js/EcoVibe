@@ -57,23 +57,23 @@ async function removeExpiredSlides() {
     for (const [i, story] of allSlides.entries()) {
       try {
         // remove slide content and cell if is expired
-        if (checkIsExpired(story.createdAt)) {
-          const contentRef = ref(storage, story.contentUrl);
-          await deleteObject(contentRef);
+        // if (checkIsExpired(story.createdAt)) {
+        const contentRef = ref(storage, story.contentUrl);
+        await deleteObject(contentRef);
 
-          const slideRef = dbRef(database, `stories/${story.id}`);
-          await remove(slideRef);
+        const slideRef = dbRef(database, `stories/${story.id}`);
+        await remove(slideRef);
 
-          console.log(
-            `${i + 1}st story has been deleted, story created at ${
-              story.createdAt
-            }`
-          );
-        } else {
-          console.log("This story wasn't expired yet.");
-          // Continue to the next iteration if not expired
-          continue;
-        }
+        console.log(
+          `${i + 1}st story has been deleted, story created at ${
+            story.createdAt
+          }`
+        );
+        // } else {
+        //   console.log("This story wasn't expired yet.");
+        //   // Continue to the next iteration if not expired
+        //   continue;
+        // }
       } catch (error) {
         console.error(`Error deleting story ${i + 1}:`, error);
       }

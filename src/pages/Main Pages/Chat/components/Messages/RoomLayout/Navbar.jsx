@@ -100,7 +100,7 @@ function Navbar({ searchBar, setSearchBar, setShowAlert }) {
           <AiOutlineLeft />
         </button>
         {/* user summary info */}
-        <>
+        <div onClick={() => setUserDetails(true)} className="cursor-pointer">
           {profilePic ? (
             <img
               src={profilePic}
@@ -112,9 +112,12 @@ function Navbar({ searchBar, setSearchBar, setShowAlert }) {
               <AiOutlineUser className="text-4xl lg:text-6xl mt-3 rounded-full" />
             </div>
           )}
-        </>
+        </div>
         {/* user info & status */}
-        <div className="flex flex-col ml-4 cursor-pointer">
+        <div
+          onClick={() => setUserDetails(true)}
+          className="flex flex-col ml-4 cursor-pointer"
+        >
           <h4
             className={userType === "customer" ? "" : "flex flex-col gap-y-1"}
           >
