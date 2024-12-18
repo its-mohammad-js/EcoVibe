@@ -52,10 +52,10 @@ async function removeCanceledOrders() {
         firstPersonLastSeen,
         secondPersonLastSeen,
       ]);
-      const isEmpty =
-        room?.members?.length <= 0 ||
-        !firstPersonLastSeen ||
-        !secondPersonLastSeen;
+      const isEmpty = room?.members?.length <= 0;
+      //  ||
+      // !firstPersonLastSeen ||
+      // !secondPersonLastSeen;
 
       if (isEmpty) {
         console.log("delete it");
