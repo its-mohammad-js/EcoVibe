@@ -15,20 +15,27 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // check createAt date
-function checkIsExpired(dateObject) {
-  if (!dateObject) return false;
-  // Convert the date object to a JavaScript Date object
-  const date = new Date(
-    dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
+async function checkIsExpired(timestamp) {
+  const currentServerTime = get(ref(db, ".info/serverTimeOffset")).then(
+    (timeOffset) => Date.now() + timeOffset.val()
   );
-  // Calculate the current time
-  const now = new Date();
-  // Calculate the difference in milliseconds
-  const difference = now.getTime() - date.getTime();
-  // Convert milliseconds to days
-  const daysPassed = difference / (1000 * 60 * 60 * 24);
-  // Check if 7 days have passed
-  return daysPassed >= 7;
+  const timeDifference = currentServerTime - timestamp;
+
+  console.log(timeDifference);
+
+  //   if (!dateObject) return false;
+  //   // Convert the date object to a JavaScript Date object
+  //   const date = new Date(
+  //     dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
+  //   );
+  //   // Calculate the current time
+  //   const now = new Date();
+  //   // Calculate the difference in milliseconds
+  //   const difference = now.getTime() - date.getTime();
+  //   // Convert milliseconds to days
+  //   const daysPassed = difference / (1000 * 60 * 60 * 24);
+  //   // Check if 7 days have passed
+  //   return daysPassed >= 7;
 }
 
 async function removeCanceledOrders() {
@@ -37,7 +44,11 @@ async function removeCanceledOrders() {
 
     const allRooms = await get(roomsRef).then((snapshot) => snapshot.val());
 
-    console.log(allRooms);
+    Object.entries(allRooms).forEach(([roomId, room]) => {
+      console.log(roomId);
+
+      //   checkIsExpired(room?.createdAt);
+    });
   } catch (error) {
     console.error("Error on whole proccess");
     throw error; // Re-throw error for GitHub Action to fail
