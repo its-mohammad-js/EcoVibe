@@ -108,15 +108,15 @@ function RoomsContext({ children }) {
   }
 
   // set last seen on disconnect
-  useEffect(() => {
-    if (selectedRoom && userId) {
-      onDisconnect(
-        ref(db, `rooms/${selectedRoom.roomId}/${userId}/last_seen`)
-      ).set({
-        date: 0,
-      });
-    }
-  }, [selectedRoom, userId]);
+  // useEffect(() => {
+  //   if (selectedRoom && userId) {
+  //     onDisconnect(
+  //       ref(db, `rooms/${selectedRoom.roomId}/${userId}/last_seen`)
+  //     ).set({
+  //       date: 0,
+  //     });
+  //   }
+  // }, [selectedRoom, userId]);
 
   // get all chat rooms on app mount
   useEffect(() => {

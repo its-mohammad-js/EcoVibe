@@ -87,7 +87,6 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
 
         const timeDifference = serverTime - last_seen?.date;
         const timeDifferenceInSeconds = Math.floor(timeDifference / 1000);
-        console.log(timeDifferenceInSeconds);
 
         setUserStatus(timeDifferenceInSeconds >= 30);
       }

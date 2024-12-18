@@ -74,9 +74,9 @@ const MessageList = () => {
       }, 10000); // Adjust interval as needed
 
       return () => {
-        update(roomsRef, {
-          date: 0,
-        });
+        // update(roomsRef, {
+        //   date: 0,
+        // });
         clearInterval(interval);
       };
     }

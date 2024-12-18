@@ -15,27 +15,27 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // check createAt date
-async function checkIsExpired(timestamp) {
-  const currentServerTime = get(ref(db, ".info/serverTimeOffset")).then(
-    (timeOffset) => Date.now() + timeOffset.val()
-  );
-  const timeDifference = currentServerTime - timestamp;
+async function checkIsExpired([firstDate, secondDate]) {
+  // Get the server time offset
+  let serverTimeOffset = await new Promise((resolve) => {
+    onValue(
+      ref(db, ".info/serverTimeOffset"),
+      (snapshot) => {
+        resolve(snapshot.val());
+      },
+      { onlyOnce: true }
+    );
+  });
 
-  console.log(timeDifference);
+  // Calculate the server time
+  const serverTime = Date.now() + serverTimeOffset;
 
-  //   if (!dateObject) return false;
-  //   // Convert the date object to a JavaScript Date object
-  //   const date = new Date(
-  //     dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
-  //   );
-  //   // Calculate the current time
-  //   const now = new Date();
-  //   // Calculate the difference in milliseconds
-  //   const difference = now.getTime() - date.getTime();
-  //   // Convert milliseconds to days
-  //   const daysPassed = difference / (1000 * 60 * 60 * 24);
-  //   // Check if 7 days have passed
-  //   return daysPassed >= 7;
+  // Check if each date is at least 7 days old
+  const isExpired = (date) =>
+    Math.floor((serverTime - date) / (24 * 60 * 60 * 1000)) >= 7;
+
+  // Return the result as a boolean
+  return isExpired(firstDate) && isExpired(secondDate);
 }
 
 async function removeCanceledOrders() {
@@ -43,10 +43,24 @@ async function removeCanceledOrders() {
     const roomsRef = ref(db, "rooms");
 
     const allRooms = await get(roomsRef).then((snapshot) => snapshot.val());
-    const roomEnteries = Object.values(allRooms);
 
-    for (const [roomId, room] of roomEnteries.entries()) {
-      console.log(roomId);
+    for (const [i, room] of Object.entries(allRooms)) {
+      const firstPersonLastSeen = room[room.members[0] || {}]?.last_seen?.date;
+      const secondPersonLastSeen = room[room.members[1] || {}]?.last_seen?.date;
+
+      const expired = await checkIsExpired([
+        firstPersonLastSeen,
+        secondPersonLastSeen,
+      ]);
+      const isEmpty =
+        room?.members?.length <= 0 ||
+        !firstPersonLastSeen ||
+        !secondPersonLastSeen;
+
+      if (expired || isEmpty) {
+        console.log("delete it");
+      }
+
       continue;
     }
   } catch (error) {
@@ -54,5 +68,7 @@ async function removeCanceledOrders() {
     throw error; // Re-throw error for GitHub Action to fail
   }
 }
+
+removeCanceledOrders();
 
 removeCanceledOrders();
