@@ -57,11 +57,11 @@ async function removeCanceledOrders() {
       // !firstPersonLastSeen ||
       // !secondPersonLastSeen;
 
-      if (isEmpty) {
-        console.log("delete it");
-      }
+      //   if (isEmpty) {
+      console.log("delete it");
+      //   }
 
-      continue;
+      return;
     }
   } catch (error) {
     console.error("Error on whole proccess");
