@@ -43,12 +43,12 @@ async function removeCanceledOrders() {
     const roomsRef = ref(db, "rooms");
 
     const allRooms = await get(roomsRef).then((snapshot) => snapshot.val());
+    const roomEnteries = Object.entries(allRooms);
 
-    Object.entries(allRooms).forEach(([roomId, room]) => {
+    for (const [roomId, room] of allRooms) {
       console.log(roomId);
-
-      //   checkIsExpired(room?.createdAt);
-    });
+      continue;
+    }
   } catch (error) {
     console.error("Error on whole proccess");
     throw error; // Re-throw error for GitHub Action to fail
