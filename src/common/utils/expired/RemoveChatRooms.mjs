@@ -57,7 +57,7 @@ async function removeCanceledOrders() {
         !firstPersonLastSeen ||
         !secondPersonLastSeen;
 
-      if (expired || isEmpty) {
+      if (isEmpty) {
         console.log("delete it");
       }
 
