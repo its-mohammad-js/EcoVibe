@@ -16,7 +16,7 @@ function ChatList({ openSideNav, deleteRoom }) {
     // return messages match with search query
     return rooms.flatMap(({ messageList, roomId, reciver }) =>
       messageList
-        .filter((message) =>
+        ?.filter((message) =>
           message?.content?.toLowerCase().includes(queryLower)
         )
         .map((message) => ({ messageList: [message], roomId, reciver }))

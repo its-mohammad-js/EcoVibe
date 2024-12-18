@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AiOutlineClose,
   AiOutlineDelete,
@@ -11,6 +11,7 @@ import UserInfo from "../../Modals/User Info/UserInfo";
 import { HiDotsVertical } from "react-icons/hi";
 import useOutSideClick from "hooks/UseOutsideClick";
 import { useRoomsData } from "../../RoomsContext";
+import { getDatabase, onValue, ref } from "firebase/database";
 
 function Navbar({ searchBar, setSearchBar, setShowAlert }) {
   // user info modal state
@@ -34,8 +35,40 @@ function Navbar({ searchBar, setSearchBar, setShowAlert }) {
     career_title,
     last_seen,
   } = selectedRoom?.reciver || {};
+  const lastStatus = useRef("");
 
-  function calculateLastSeenDate(date) {
+  useEffect(() => {
+    if (!last_seen) {
+      lastStatus.current =
+        userType !== "customer" ? career_title || business_name : last_name;
+      return;
+    }
+
+    const db = getDatabase();
+
+    const updateUserStatus = onValue(
+      ref(db, ".info/serverTimeOffset"),
+      (snapshot) => {
+        // Get the current server time
+        const serverTime = Date.now() + snapshot.val();
+
+        // Step B-1 & B-2: Calculate the difference between lastSeen.date and serverTime
+
+        const timeDifference = serverTime - last_seen?.date;
+        const timeDifferenceInSeconds = Math.floor(timeDifference / 1000);
+
+        lastStatus.current =
+          timeDifferenceInSeconds >= 30
+            ? `last seen at ${calculateLastseen(last_seen?.date)}`
+            : "online";
+      }
+    );
+
+    // Cleanup the listener when the component unmounts
+    return () => updateUserStatus();
+  }, [last_seen]);
+
+  function calculateLastseen(date) {
     // Create a Date object from the timestamp
     const dateToCheck = new Date(date);
 
@@ -89,13 +122,7 @@ function Navbar({ searchBar, setSearchBar, setShowAlert }) {
               {userType === "customer" ? first_name : business_name}
             </p>
             <p className="-mt-1 text-sm line-clamp-1 break-words lg:text-base">
-              {last_seen?.date
-                ? last_seen?.status === "offline"
-                  ? `last seen at ${calculateLastSeenDate(last_seen.date)}`
-                  : last_seen.status
-                : userType === "customer"
-                ? last_name
-                : career_title}
+              {lastStatus.current}
             </p>
           </h4>
 

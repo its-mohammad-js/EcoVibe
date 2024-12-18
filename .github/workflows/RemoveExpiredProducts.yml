@@ -7,7 +7,7 @@ on:
   push:
     branches: [main] # Run the workflow when changes are pushed to the 'main' branch.
   schedule:
-    - cron: "* */6 * * *" # Schedule the workflow to run every 6 hours.
+    - cron: "* */4 * * *" # Schedule the workflow to run every 6 hours.
 
 jobs:
   add-document:

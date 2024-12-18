@@ -64,14 +64,25 @@ const MessageList = () => {
     // set user status online
     if (selectedRoom) {
       update(roomsRef, {
-        status: "online",
         date: serverTimestamp(),
       });
+
+      const interval = setInterval(() => {
+        update(roomsRef, {
+          date: serverTimestamp(),
+        });
+      }, 10000); // Adjust interval as needed
+
+      return () => {
+        update(roomsRef, {
+          date: 0,
+        });
+        clearInterval(interval);
+      };
     }
     // set user status offline
     return () => {
       update(roomsRef, {
-        status: "offline",
         date: serverTimestamp(),
       });
     };

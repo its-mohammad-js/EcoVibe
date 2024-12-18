@@ -4,6 +4,7 @@ import { useRoomsData } from "../RoomsContext";
 import { CiChat1 } from "react-icons/ci";
 import useOutSideClick from "hooks/UseOutsideClick";
 import TextAlert from "UI/Alerts/TextAlert";
+import { getDatabase, onValue, ref } from "firebase/database";
 
 const ChatColumn = ({ room, mode, deleteRoom }) => {
   // reciver data
@@ -27,7 +28,9 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
   // date of last message
   const [lastMessageDate, setLastDate] = useState("");
   // necessary data
-  const { setSelectedRoom, setSelectedMessage, rooms } = useRoomsData();
+  const { selectedRoom, setSelectedRoom, setSelectedMessage, rooms } =
+    useRoomsData();
+  const userStatus = useRef(0);
 
   // calculate last meesage date
   useEffect(() => {
@@ -67,6 +70,34 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
     setSelectedRoom(findedRoom);
   }
 
+  // update last status of user (online / offline)
+  useEffect(() => {
+    if (!last_seen) {
+      userStatus.current = false;
+      return;
+    }
+
+    const db = getDatabase();
+
+    const updateUserStatus = onValue(
+      ref(db, ".info/serverTimeOffset"),
+      (snapshot) => {
+        // Get the current server time
+        const serverTime = Date.now() + snapshot.val();
+
+        const timeDifference = serverTime - last_seen?.date;
+        const timeDifferenceInSeconds = Math.floor(timeDifference / 1000);
+        // console.log(timeDifferenceInSeconds);
+
+        userStatus.current = timeDifferenceInSeconds >= 30;
+        console.log(timeDifferenceInSeconds >= 30);
+      }
+    );
+
+    // Cleanup the listener when the component unmounts
+    return () => updateUserStatus();
+  }, [last_seen, selectedRoom]);
+
   return (
     <>
       {/* chat column */}
@@ -94,10 +125,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
           )}
           <div
             className={`
-              ${!last_seen?.status && "!bg-gray-400"}
-              ${
-                last_seen?.status === "offline" ? "bg-gray-400" : "bg-green-400"
-              } ${
+              ${!userStatus.current ? "bg-gray-400" : "bg-green-400"} ${
               mode === "message" && "hidden"
             } absolute -bottom-1 size-5 right-1 rounded-full transition-all`}
           ></div>

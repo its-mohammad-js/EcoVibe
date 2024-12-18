@@ -6,13 +6,13 @@ import {
   goOffline,
   goOnline,
   onDisconnect,
+  serverTimestamp,
 } from "firebase/database";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { find } from "lodash";
 import toast from "react-hot-toast";
-import { serverTimestamp } from "firebase/firestore";
 
 const RoomsProvider = createContext();
 
@@ -113,8 +113,7 @@ function RoomsContext({ children }) {
       onDisconnect(
         ref(db, `rooms/${selectedRoom.roomId}/${userId}/last_seen`)
       ).set({
-        status: "offline",
-        date: serverTimestamp(),
+        date: 0,
       });
     }
   }, [selectedRoom, userId]);
