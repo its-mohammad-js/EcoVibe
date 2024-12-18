@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, onValue, ref } from "firebase/database";
+import { get, getDatabase, onValue, ref } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -12,6 +12,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
 // check createAt date
 function checkIsExpired(dateObject) {
@@ -32,12 +33,11 @@ function checkIsExpired(dateObject) {
 
 async function removeCanceledOrders() {
   try {
-    const db = getDatabase();
     const roomsRef = ref(db, "rooms");
 
-    onValue(roomsRef, (snapshot) => {
-      console.log(Object.values(snapshot.val()));
-    });
+    const allRooms = await get(roomsRef).then((snapshot) => snapshot.val());
+
+    console.log(allRooms);
   } catch (error) {
     console.error("Error on whole proccess");
     throw error; // Re-throw error for GitHub Action to fail

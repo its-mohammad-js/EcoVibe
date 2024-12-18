@@ -1,6 +1,6 @@
 # GitHub Action to Remove Expired chat rooms from the database.
 
-name: Remove Expired Orders
+name: Remove Expired Rooms
 
 # Trigger the workflow on a push to the main branch and every 12 hours.
 on:
