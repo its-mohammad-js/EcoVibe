@@ -1,6 +1,6 @@
 # GitHub Action to Remove Canceled Orders from the database.
 
-name: Remove Canceled Orders
+name: Remove Expired products
 
 # Trigger the workflow on a push to the main branch and every 6 hours.
 on:

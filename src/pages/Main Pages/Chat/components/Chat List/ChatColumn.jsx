@@ -30,7 +30,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
   // necessary data
   const { selectedRoom, setSelectedRoom, setSelectedMessage, rooms } =
     useRoomsData();
-  const userStatus = useRef(0);
+  const [userStatus, setUserStatus] = useState(false);
 
   // calculate last meesage date
   useEffect(() => {
@@ -87,10 +87,9 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
 
         const timeDifference = serverTime - last_seen?.date;
         const timeDifferenceInSeconds = Math.floor(timeDifference / 1000);
-        // console.log(timeDifferenceInSeconds);
+        console.log(timeDifferenceInSeconds);
 
-        userStatus.current = timeDifferenceInSeconds >= 30;
-        console.log(timeDifferenceInSeconds >= 30);
+        setUserStatus(timeDifferenceInSeconds >= 30);
       }
     );
 
@@ -125,7 +124,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
           )}
           <div
             className={`
-              ${!userStatus.current ? "bg-gray-400" : "bg-green-400"} ${
+              ${userStatus ? "bg-gray-400" : "bg-green-400"} ${
               mode === "message" && "hidden"
             } absolute -bottom-1 size-5 right-1 rounded-full transition-all`}
           ></div>
