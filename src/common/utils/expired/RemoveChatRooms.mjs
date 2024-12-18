@@ -43,9 +43,9 @@ async function removeCanceledOrders() {
     const roomsRef = ref(db, "rooms");
 
     const allRooms = await get(roomsRef).then((snapshot) => snapshot.val());
-    const roomEnteries = Object.entries(allRooms);
+    const roomEnteries = Object.values(allRooms);
 
-    for (const [roomId, room] of allRooms) {
+    for (const [roomId, room] of roomEnteries.entries()) {
       console.log(roomId);
       continue;
     }
