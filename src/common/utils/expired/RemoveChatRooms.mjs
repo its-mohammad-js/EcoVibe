@@ -67,7 +67,7 @@ async function removeExpiredRooms() {
       const isEmpty = !room?.members?.length;
 
       if (isEmpty || expired) {
-        console.log(`Removing room ${roomId}`);
+        console.log(`Removing room, ${roomId}`);
         // Remove the room if necessary
         remove(ref(db, `rooms/${roomId}`));
       }
