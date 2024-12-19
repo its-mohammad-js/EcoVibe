@@ -12,7 +12,6 @@ function ProfileHeader() {
     setStorieModal,
   } = useProfileData();
   const { personalInformation, businessInformation } = userInfo || {};
-  console.log(storiesList);
 
   // calculate cutomers count
   function calculateCustomers() {
@@ -47,11 +46,15 @@ function ProfileHeader() {
               storyLoading && "animate-pulse"
             } size-20 lg:size-[5.5rem] border-4 border-gray-50 bg-gray-50 flex items-center justify-center rounded-full overflow-hidden select-none cursor-pointer`}
           >
-            <div
-              className={`${
-                storiesList[0].isSeen ? "bg-slate-400" : "gradient-background"
-              } absolute size-24 -z-10 rounded-full`}
-            ></div>
+            {storiesList?.length > 0 && (
+              <div
+                className={`${
+                  storiesList[0]?.isSeen
+                    ? "bg-slate-400"
+                    : "gradient-background"
+                } absolute size-24 -z-10 rounded-full`}
+              ></div>
+            )}
             <img src={personalInformation?.profilePic} alt="user-avatar" />
           </div>
 

@@ -34,7 +34,9 @@ async function checkIsExpired([firstDate, secondDate]) {
 
   // Helper to check expiration
   const isExpired = (date) =>
-    Math.floor((serverTime - date) / (24 * 60 * 60 * 1000)) >= 7;
+    Math.floor((serverTime - date) / (24 * 60 * 60 * 1000)) >= 7 ||
+    !firstDate ||
+    !secondDate;
 
   // Return the result
   return isExpired(firstDate) && isExpired(secondDate);
@@ -62,8 +64,7 @@ async function removeExpiredRooms() {
         firstPersonLastSeen,
         secondPersonLastSeen,
       ]);
-      const isEmpty =
-        !room?.members?.length || !firstPersonLastSeen || !secondPersonLastSeen;
+      const isEmpty = !room?.members?.length;
 
       if (isEmpty || expired) {
         console.log(`Removing room ${roomId}`);

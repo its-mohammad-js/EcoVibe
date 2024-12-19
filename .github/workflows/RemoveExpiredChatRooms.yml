@@ -2,12 +2,12 @@
 
 name: Remove Expired Rooms
 
-# Trigger the workflow on a push to the main branch and every 8 hours.
+# Trigger the workflow on a push to the main branch and every 6 hours.
 on:
   push:
     branches: [main] # Run the workflow when changes are pushed to the 'main' branch.
   schedule:
-    - cron: "* */8 * * *" # Schedule the workflow to run every 8 hours.
+    - cron: "* */6 * * *" # Schedule the workflow to run every 6 hours.
 
 jobs:
   clean-rooms:

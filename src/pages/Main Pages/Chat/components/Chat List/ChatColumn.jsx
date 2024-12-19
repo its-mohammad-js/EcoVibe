@@ -73,7 +73,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
   // update last status of user (online / offline)
   useEffect(() => {
     if (!last_seen) {
-      userStatus.current = false;
+      setUserStatus(true);
       return;
     }
 
