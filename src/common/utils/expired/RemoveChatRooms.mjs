@@ -43,6 +43,7 @@ async function checkIsExpired([firstDate, secondDate]) {
 }
 
 // Remove expired rooms
+// Remove expired rooms
 async function removeExpiredRooms() {
   try {
     const roomsRef = ref(db, "rooms");
@@ -54,6 +55,7 @@ async function removeExpiredRooms() {
     }
 
     const allRooms = snapshot.val();
+    const promises = [];
 
     // Loop through all rooms and process them
     for (const [roomId, room] of Object.entries(allRooms)) {
@@ -68,10 +70,13 @@ async function removeExpiredRooms() {
 
       if (isEmpty || expired) {
         console.log(`Removing room, ${roomId}`);
-        // Remove the room if necessary
-        remove(ref(db, `rooms/${roomId}`));
+        // Add the removal promise to the promises array
+        promises.push(remove(ref(db, `rooms/${roomId}`)));
       }
     }
+
+    // Wait for all removals to complete
+    await Promise.all(promises);
 
     console.log("All expired rooms have been processed.");
   } catch (error) {
