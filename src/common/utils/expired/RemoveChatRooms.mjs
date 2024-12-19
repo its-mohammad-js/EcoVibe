@@ -38,7 +38,7 @@ async function checkIsExpired([firstDate, secondDate]) {
   return isExpired(firstDate) && isExpired(secondDate);
 }
 
-async function removeCanceledOrders() {
+async function removeExpiredRooms() {
   try {
     const roomsRef = ref(db, "rooms");
 
@@ -52,14 +52,9 @@ async function removeCanceledOrders() {
         firstPersonLastSeen,
         secondPersonLastSeen,
       ]);
-      const isEmpty = room?.members?.length <= 0;
-      //  ||
-      // !firstPersonLastSeen ||
-      // !secondPersonLastSeen;
+      const isEmpty = !room?.members?.length;
 
-      //   if (isEmpty) {
-      console.log("delete it");
-      //   }
+      console.log(isEmpty);
 
       return;
     }
@@ -69,6 +64,4 @@ async function removeCanceledOrders() {
   }
 }
 
-removeCanceledOrders();
-
-removeCanceledOrders();
+removeExpiredRooms();
