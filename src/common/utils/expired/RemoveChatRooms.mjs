@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { get, getDatabase, ref } from "firebase/database";
+import { get, getDatabase, onValue, ref } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -16,9 +16,18 @@ const db = getDatabase(app);
 
 // Check if a date is expired
 async function checkIsExpired([firstDate, secondDate]) {
-  // Fetch the server time offset using `get` to avoid hanging listeners
-  const serverTimeOffsetSnapshot = await get(ref(db, ".info/serverTimeOffset"));
-  const serverTimeOffset = serverTimeOffsetSnapshot.val();
+  // Get the server time offset
+  let serverTimeOffset = await new Promise((resolve, reject) => {
+    const offsetRef = ref(db, ".info/serverTimeOffset");
+    const unsubscribe = onValue(
+      offsetRef,
+      (snapshot) => {
+        resolve(snapshot.val());
+        unsubscribe(); // Clean up the listener
+      },
+      { onlyOnce: true }
+    );
+  });
 
   // Calculate server time
   const serverTime = Date.now() + serverTimeOffset;
@@ -55,13 +64,10 @@ async function removeExpiredRooms() {
       ]);
       const isEmpty = !room?.members?.length;
 
-      // Log for debugging
-      console.log(`Room ${roomId}: Expired = ${expired}, Empty = ${isEmpty}`);
-
       if (expired || isEmpty) {
         console.log(`Removing room ${roomId}`);
-        // Remove the room if necessary (use database ref)
-        await ref(db, `rooms/${roomId}`).remove();
+        // Remove the room if necessary
+        // await ref(db, `rooms/${roomId}`).remove();
       }
     }
 
@@ -72,14 +78,13 @@ async function removeExpiredRooms() {
   }
 }
 
-// Execute the action and ensure the process ends
-(async () => {
-  try {
-    await removeExpiredRooms();
+// Execute the action
+removeExpiredRooms()
+  .then(() => {
     console.log("Action completed successfully.");
-    process.exit(0); // Ensure the script exits naturally
-  } catch (error) {
+    process.exit(0); // Ensure the script exits
+  })
+  .catch((error) => {
     console.error("Action failed with error:", error);
-    process.exit(1); // Exit with error code for GitHub Action to detect failure
-  }
-})();
+    process.exit(1); // Exit with failure
+  });
