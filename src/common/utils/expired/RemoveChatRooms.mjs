@@ -64,7 +64,8 @@ async function removeExpiredRooms() {
         firstPersonLastSeen,
         secondPersonLastSeen,
       ]);
-      const isEmpty = !room?.members?.length;
+      const isEmpty =
+        !room?.members?.length || !firstPersonLastSeen || !secondPersonLastSeen;
 
       if (expired || isEmpty) {
         console.log(`Removing room ${roomId}`);
