@@ -70,7 +70,7 @@ async function removeExpiredRooms() {
       if (isEmpty || expired) {
         console.log(`Removing room ${roomId}`);
         // Remove the room if necessary
-        await remove(ref(db, `rooms/${roomId}`));
+        remove(ref(db, `rooms/${roomId}`));
       }
     }
 
