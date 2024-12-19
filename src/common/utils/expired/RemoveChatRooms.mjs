@@ -33,8 +33,10 @@ async function checkIsExpired([firstDate, secondDate]) {
   const serverTime = Date.now() + serverTimeOffset;
 
   // Helper to check expiration
+  // const isExpired = (date) =>
+  //   Math.floor((serverTime - date) / (24 * 60 * 60 * 1000)) >= 7;
   const isExpired = (date) =>
-    Math.floor((serverTime - date) / (24 * 60 * 60 * 1000)) >= 7;
+    Math.floor((serverTime - date) / (60 * 1000)) >= 7;
 
   // Return the result
   return isExpired(firstDate) && isExpired(secondDate);
