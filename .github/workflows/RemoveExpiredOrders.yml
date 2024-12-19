@@ -10,7 +10,7 @@
 #     - cron: "* * */7 * *" # Schedule the workflow to run every week.
 
 # jobs:
-#   add-document:
+#   clean-expired-orders:
 #     # Specify the environment where the job runs.
 #     runs-on: ubuntu-latest # Use the latest Ubuntu environment for running this job.
 

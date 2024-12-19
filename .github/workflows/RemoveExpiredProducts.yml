@@ -10,7 +10,7 @@
 #     - cron: "* */4 * * *" # Schedule the workflow to run every 6 hours.
 
 # jobs:
-#   add-document:
+#   clean-expired-products:
 #     # Specify the environment where the job runs.
 #     runs-on: ubuntu-latest # Use the latest Ubuntu environment for running this job.
 

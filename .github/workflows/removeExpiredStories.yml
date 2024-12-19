@@ -10,7 +10,7 @@
 #     - cron: "* */8 * * *" # Schedule the workflow to run every 8 hours.
 
 # jobs:
-#   add-document:
+#   clean-expired-stories:
 #     # Specify the environment where the job runs.
 #     runs-on: ubuntu-latest # Use the latest Ubuntu environment for running this job.
 

@@ -10,7 +10,7 @@
 #     - cron: "* */23 * * *" # Schedule the workflow to run every 23 hours.
 
 # jobs:
-#   add-document:
+#   clean-canceled-orders:
 #     # Specify the environment where the job runs.
 #     runs-on: ubuntu-latest # Use the latest Ubuntu environment for running this job.
 
