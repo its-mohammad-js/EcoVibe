@@ -11,31 +11,30 @@ import AuthRoutes from "./routes/AuthRoutes";
 import CustomerRoutes from "./routes/CustomerRoutes";
 import SellerRoutes from "./routes/SellerRoutes";
 import NotFoundPage from "./pages/404 Page/NotFoundPage";
-import { get, getDatabase, onValue, ref } from "firebase/database";
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // // read all user data from local storage
-  // useEffect(() => {
-  //   // read user data
-  //   dispatch(getUserData());
-  // }, []);
+  // read all user data from local storage
+  useEffect(() => {
+    // read user data
+    dispatch(getUserData());
+  }, []);
 
   return (
     <AppLayout>
       <Toaster />
       <Routes>
         {/* main pages */}
-        {/* {MainRoutes} */}
+        {MainRoutes}
         {/* customer's sign-up */}
-        {/* {AuthRoutes} */}
+        {AuthRoutes}
         {/* customer routes */}
-        {/* {CustomerRoutes} */}
+        {CustomerRoutes}
         {/* seller pages */}
-        {/* {SellerRoutes} */}
+        {SellerRoutes}
         {/* 404 page */}
-        {/* <Route path="*" element={<NotFoundPage />} /> */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AppLayout>
   );

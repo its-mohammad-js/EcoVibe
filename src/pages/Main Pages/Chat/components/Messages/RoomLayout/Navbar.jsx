@@ -12,6 +12,7 @@ import { HiDotsVertical } from "react-icons/hi";
 import useOutSideClick from "hooks/UseOutsideClick";
 import { useRoomsData } from "../../RoomsContext";
 import { getDatabase, onValue, ref } from "firebase/database";
+import toast from "react-hot-toast";
 
 function Navbar({ searchBar, setSearchBar, setShowAlert }) {
   // user info modal state
@@ -45,27 +46,37 @@ function Navbar({ searchBar, setSearchBar, setShowAlert }) {
     }
 
     const db = getDatabase();
+    const serverTimeRef = ref(db, ".info/serverTimeOffset");
 
-    const updateUserStatus = onValue(
-      ref(db, ".info/serverTimeOffset"),
-      (snapshot) => {
-        // Get the current server time
-        const serverTime = Date.now() + snapshot.val();
+    let intervalId;
 
-        // Step B-1 & B-2: Calculate the difference between lastSeen.date and serverTime
+    const fetchServerTime = () => {
+      onValue(
+        serverTimeRef,
+        (snapshot) => {
+          // Get the current server time
+          const serverTime = Date.now() + snapshot.val();
+          // Step B-1 & B-2: Calculate the difference between lastSeen.date and serverTime
+          const timeDifference = serverTime - last_seen?.date;
+          const timeDifferenceInSeconds = Math.floor(timeDifference / 1000);
+          // Update the lastStatus based on the difference
+          lastStatus.current =
+            timeDifferenceInSeconds >= 30 || last_seen?.offline
+              ? `last seen at ${calculateLastseen(last_seen?.date)}`
+              : "online";
+        },
+        { onlyOnce: true } // Make sure this reads only once for each fetch
+      );
+    };
 
-        const timeDifference = serverTime - last_seen?.date;
-        const timeDifferenceInSeconds = Math.floor(timeDifference / 1000);
+    // Start an interval to fetch server time repeatedly
+    fetchServerTime(); // Fetch immediately
+    intervalId = setInterval(fetchServerTime, 15000); // Check every 30 seconds
 
-        lastStatus.current =
-          timeDifferenceInSeconds >= 30
-            ? `last seen at ${calculateLastseen(last_seen?.date)}`
-            : "online";
-      }
-    );
-
-    // Cleanup the listener when the component unmounts
-    return () => updateUserStatus();
+    // Cleanup interval and Firebase listener on component unmount
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [last_seen]);
 
   function calculateLastseen(date) {

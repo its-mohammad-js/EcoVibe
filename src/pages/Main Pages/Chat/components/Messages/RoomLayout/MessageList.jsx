@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  serverTimestamp,
+  set,
+  update,
+} from "firebase/database";
 import MessageLayout from "../MessageRowTypes/MessageLayout";
 import { useSelector } from "react-redux";
 import TextAlert from "UI/Alerts/TextAlert";
@@ -63,20 +69,21 @@ const MessageList = () => {
     const roomsRef = ref(db, `rooms/${lastRoom.roomId}/${userId}/last_seen`);
     // set user status online
     if (selectedRoom) {
-      update(roomsRef, {
+      set(roomsRef, {
         date: serverTimestamp(),
       });
 
       const interval = setInterval(() => {
-        update(roomsRef, {
+        set(roomsRef, {
           date: serverTimestamp(),
         });
-      }, 10000); // Adjust interval as needed
+      }, 45000); // Adjust interval as needed
 
       return () => {
-        // update(roomsRef, {
-        //   date: 0,
-        // });
+        update(roomsRef, {
+          date: serverTimestamp(),
+          offline: true,
+        });
         clearInterval(interval);
       };
     }
@@ -84,6 +91,7 @@ const MessageList = () => {
     return () => {
       update(roomsRef, {
         date: serverTimestamp(),
+        offline: true,
       });
     };
   }, [lastRoom]);

@@ -33,10 +33,10 @@ async function checkIsExpired([firstDate, secondDate]) {
   const serverTime = Date.now() + serverTimeOffset;
 
   // Helper to check expiration
-  const isExpired = (date) =>
-    Math.floor((serverTime - date) / (24 * 60 * 60 * 1000)) >= 1;
   // const isExpired = (date) =>
-  //   Math.floor((serverTime - date) / (60 * 1000)) >= 24;
+  //   Math.floor((serverTime - date) / (24 * 60 * 60 * 1000)) >= 1;
+  const isExpired = (date) =>
+    Math.floor((serverTime - date) / (60 * 1000)) >= 20;
 
   // Return the result
   return isExpired(firstDate) && isExpired(secondDate);
@@ -70,7 +70,7 @@ async function removeExpiredRooms() {
       if (isEmpty || expired) {
         console.log(`Removing room ${roomId}`);
         // Remove the room if necessary
-        remove(ref(db, `rooms/${roomId}`));
+        // remove(ref(db, `rooms/${roomId}`));
       }
     }
 
