@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { get, getDatabase, onValue, ref } from "firebase/database";
+import { get, getDatabase, ref } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -14,39 +14,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// check createAt date
+// Check if a date is expired
 async function checkIsExpired([firstDate, secondDate]) {
-  // Get the server time offset
-  let serverTimeOffset = await new Promise((resolve) => {
-    onValue(
-      ref(db, ".info/serverTimeOffset"),
-      (snapshot) => {
-        resolve(snapshot.val());
-      },
-      { onlyOnce: true }
-    );
-  });
+  // Fetch the server time offset using `get` to avoid hanging listeners
+  const serverTimeOffsetSnapshot = await get(ref(db, ".info/serverTimeOffset"));
+  const serverTimeOffset = serverTimeOffsetSnapshot.val();
 
-  // Calculate the server time
+  // Calculate server time
   const serverTime = Date.now() + serverTimeOffset;
 
-  // Check if each date is at least 7 days old
+  // Helper to check expiration
   const isExpired = (date) =>
     Math.floor((serverTime - date) / (24 * 60 * 60 * 1000)) >= 7;
 
-  // Return the result as a boolean
+  // Return the result
   return isExpired(firstDate) && isExpired(secondDate);
 }
 
+// Remove expired rooms
 async function removeExpiredRooms() {
   try {
     const roomsRef = ref(db, "rooms");
+    const snapshot = await get(roomsRef);
 
-    const allRooms = await get(roomsRef).then((snapshot) => snapshot.val());
+    if (!snapshot.exists()) {
+      console.log("No rooms found.");
+      return;
+    }
 
-    for (const [i, room] of Object.entries(allRooms)) {
-      const firstPersonLastSeen = room[room.members[0] || {}]?.last_seen?.date;
-      const secondPersonLastSeen = room[room.members[1] || {}]?.last_seen?.date;
+    const allRooms = snapshot.val();
+
+    // Loop through all rooms and process them
+    for (const [roomId, room] of Object.entries(allRooms)) {
+      const firstPersonLastSeen = room?.[room.members?.[0]]?.last_seen?.date;
+      const secondPersonLastSeen = room?.[room.members?.[1]]?.last_seen?.date;
 
       const expired = await checkIsExpired([
         firstPersonLastSeen,
@@ -54,14 +55,31 @@ async function removeExpiredRooms() {
       ]);
       const isEmpty = !room?.members?.length;
 
-      console.log(isEmpty);
+      // Log for debugging
+      console.log(`Room ${roomId}: Expired = ${expired}, Empty = ${isEmpty}`);
 
-      continue;
+      if (expired || isEmpty) {
+        console.log(`Removing room ${roomId}`);
+        // Remove the room if necessary (use database ref)
+        await ref(db, `rooms/${roomId}`).remove();
+      }
     }
+
+    console.log("All expired rooms have been processed.");
   } catch (error) {
-    console.error("Error on whole proccess");
+    console.error("Error during room cleanup:", error);
     throw error; // Re-throw error for GitHub Action to fail
   }
 }
 
-removeExpiredRooms();
+// Execute the action and ensure the process ends
+(async () => {
+  try {
+    await removeExpiredRooms();
+    console.log("Action completed successfully.");
+    process.exit(0); // Ensure the script exits naturally
+  } catch (error) {
+    console.error("Action failed with error:", error);
+    process.exit(1); // Exit with error code for GitHub Action to detect failure
+  }
+})();
