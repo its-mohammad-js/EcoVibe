@@ -19,13 +19,12 @@ async function checkIsExpired([firstDate, secondDate]) {
   // Get the server time offset
   let serverTimeOffset = await new Promise((resolve, reject) => {
     const offsetRef = ref(db, ".info/serverTimeOffset");
-    const unsubscribe = onValue(
+    onValue(
       offsetRef,
       (snapshot) => {
-        resolve(snapshot.val());
-        unsubscribe(); // Clean up the listener
+        resolve(snapshot.val()); // Automatically unsubscribes after first data retrieval
       },
-      { onlyOnce: true }
+      { onlyOnce: true } // Ensures the listener is removed after the first event
     );
   });
 
@@ -42,7 +41,6 @@ async function checkIsExpired([firstDate, secondDate]) {
   return isExpired(firstDate) && isExpired(secondDate);
 }
 
-// Remove expired rooms
 // Remove expired rooms
 async function removeExpiredRooms() {
   try {
