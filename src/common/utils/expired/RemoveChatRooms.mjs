@@ -56,7 +56,7 @@ async function removeExpiredRooms() {
 
       console.log(isEmpty);
 
-      return;
+      continue;
     }
   } catch (error) {
     console.error("Error on whole proccess");
