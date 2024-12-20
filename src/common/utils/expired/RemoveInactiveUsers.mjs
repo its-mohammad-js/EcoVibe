@@ -17,9 +17,9 @@ const serviceAccount = {
 try {
   if (!admin.apps.length) {
     // console.log(JSON.stringify(serviceAccount));
-
+    const config = JSON.stringify(serviceAccount);
     admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
+      credential: admin.credential.cert(config),
     });
   }
 } catch (error) {
