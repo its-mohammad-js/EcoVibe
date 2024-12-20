@@ -1,6 +1,5 @@
 import fs from "fs-extra";
 import path from "path";
-import admin from "firebase-admin";
 
 const serviceAccountPath = path.resolve(
   process.cwd(),
@@ -12,11 +11,6 @@ async function initializeFirebase() {
     // Use fs-extra to read and parse the JSON
     const serviceAccount = await fs.readJson(serviceAccountPath);
     console.log(serviceAccount);
-
-    // Initialize Firebase Admin SDK
-    // admin.initializeApp({
-    //   credential: admin.credential.cert(serviceAccount),
-    // });
 
     // console.log("Firebase Admin SDK initialized successfully!");
   } catch (error) {
