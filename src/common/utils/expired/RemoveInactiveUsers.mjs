@@ -7,17 +7,10 @@ const serviceAccountPath = path.resolve(
 );
 
 try {
-  console.log(typeof serviceAccountPath);
-  console.log(serviceAccountPath);
-
-  //   // Read and log the service account JSON contents
-  //   const fileContents = await readFile(serviceAccountPath, "utf8");
-  //   //   console.log("Service Account File Contents: ", fileContents);
-  //   console.log(fileContents);
-
-  //   // Parse the JSON
-  //   const serviceAccount = JSON.parse(fileContents);
-  //   console.log("Parsed Service Account Object: ", serviceAccount);
+  const fileContents = await readFile(serviceAccountPath, "utf8");
+  console.log("Raw File Contents:", fileContents); // Add this line to debug
+  const serviceAccount = JSON.parse(fileContents); // Parse the JSON
+  console.log("Parsed Service Account:", serviceAccount);
 } catch (error) {
-  console.error("Error reading or parsing service account JSON:", error);
+  console.error("Error reading or parsing JSON:", error.message, error.stack);
 }
