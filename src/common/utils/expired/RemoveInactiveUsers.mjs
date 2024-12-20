@@ -1,5 +1,6 @@
 import { readFile } from "fs/promises";
 import path from "path";
+import admin from "firebase-admin";
 
 const serviceAccountPath = path.resolve(
   process.cwd(),
@@ -9,11 +10,17 @@ const serviceAccountPath = path.resolve(
 try {
   const fileContents = await readFile(serviceAccountPath, "utf8");
 
-  console.log(fileContents.slice("***"));
+  console.log(fileContents.split("***")[1]);
 
   //   console.log("Raw File Contents:", fileContents); // Add this line to debug
   //   const serviceAccount = JSON.parse(fileContents); // Parse the JSON
   //   console.log("Parsed Service Account:", serviceAccount);
+
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(fileContents.split("***")[1]),
+    });
+  }
 } catch (error) {
   console.error("Error reading or parsing JSON:", error.message, error.stack);
 }
