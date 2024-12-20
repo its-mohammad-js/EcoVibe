@@ -30,11 +30,7 @@ const testString = `***
 
 function App() {
   useEffect(() => {
-    const config = testString.split("***")[1];
-
-    console.log(JSON.stringify(`{${config}}`));
-
-    console.log(typeof JSON.parse(`{"test": "test" }`));
+    console.log(testString.replace("***", "{").replace("***", "}"));
   }, []);
 
   // const dispatch = useDispatch();

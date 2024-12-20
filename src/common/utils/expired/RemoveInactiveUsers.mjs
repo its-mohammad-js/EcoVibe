@@ -10,7 +10,7 @@ try {
   // Read and log the service account JSON contents
   const fileContents = await readFile(serviceAccountPath, "utf8");
 
-  console.log(fileContents.slice("***"));
+  console.log(fileContents.replace("***", "{").replace("***", "}"));
 
   // Parse the JSON
   const serviceAccount = JSON.parse(`{${fileContents}}`);
