@@ -27,23 +27,23 @@ const db = getFirestore(app);
 function checkIsExpired(dateObject) {
   console.log(dateObject);
 
-  if (!dateObject) {
-    console.log("it haven't any activity");
+  //   if (!dateObject) {
+  //     console.log("it haven't any activity");
 
-    return;
-  }
-  // Convert the date object to a JavaScript Date object
-  const date = new Date(
-    dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
-  );
-  // Calculate the current time
-  const now = new Date();
-  // Calculate the difference in milliseconds
-  const difference = now.getTime() - date.getTime();
-  // Convert milliseconds to hours
-  const hoursPassed = difference / (1000 * 60 * 60);
-  // Check if 12 hours have passed
-  return hoursPassed >= 12 ? "is expired" : "isn't expired yet";
+  //     return;
+  //   }
+  //   // Convert the date object to a JavaScript Date object
+  //   const date = new Date(
+  //     dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
+  //   );
+  //   // Calculate the current time
+  //   const now = new Date();
+  //   // Calculate the difference in milliseconds
+  //   const difference = now.getTime() - date.getTime();
+  //   // Convert milliseconds to hours
+  //   const hoursPassed = difference / (1000 * 60 * 60);
+  //   // Check if 12 hours have passed
+  //   return hoursPassed >= 12 ? "is expired" : "isn't expired yet";
 }
 
 async function removeExpiredProducts() {
