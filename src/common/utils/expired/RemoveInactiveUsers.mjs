@@ -14,13 +14,13 @@ async function initializeFirebaseAdmin() {
     rawContent = rawContent.replace(/^\*\*\*|\*\*\*$/g, "").trim();
 
     // Step 2: Clean up keys and fix formatting
-    rawContent = rawContent
-      .replace(/(\w+):/g, '"$1":') // Add quotes around keys
-      .replace(/,\s*}/g, "}") // Remove trailing commas
-      .replace(/-----BEGIN PRIVATE KEY-----/g, "-----BEGIN PRIVATE KEY-----\\n")
-      .replace(/-----END PRIVATE KEY-----/g, "\\n-----END PRIVATE KEY-----") // Escape private key for JSON
-      .replace(/\n/g, "\\n") // Escape all newline characters
-      .replace(/https":/g, "https:"); // Fix malformed URLs
+    // rawContent = rawContent
+    //   .replace(/(\w+):/g, '"$1":') // Add quotes around keys
+    //   .replace(/,\s*}/g, "}") // Remove trailing commas
+    //   .replace(/-----BEGIN PRIVATE KEY-----/g, "-----BEGIN PRIVATE KEY-----\\n")
+    //   .replace(/-----END PRIVATE KEY-----/g, "\\n-----END PRIVATE KEY-----") // Escape private key for JSON
+    //   .replace(/\n/g, "\\n") // Escape all newline characters
+    //   .replace(/https":/g, "https:"); // Fix malformed URLs
 
     // // Step 3: Parse the cleaned-up content as JSON
     // const serviceAccountConfig = JSON.parse(rawContent);
