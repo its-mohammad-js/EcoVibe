@@ -11,16 +11,10 @@ const serviceAccountPath = path.resolve(
 try {
   // Log the contents of the file before parsing
   const fileContents = await readFile(serviceAccountPath, "utf8");
-  console.log("Service Account File Contents: ", typeof fileContents); // Debugging line
+  console.log("Service Account File Contents: ", fileContents); // Debugging line
 
   // Parse the service account JSON
-  //   const serviceAccount = JSON.parse(fileContents);
-
-  //   if (!admin.apps.length) {
-  //     admin.initializeApp({
-  //       credential: admin.credential.cert(serviceAccount), // Use the loaded JSON key
-  //     });
-  //   }
+  const serviceAccount = JSON.parse(fileContents);
 } catch (error) {
   console.error("Error reading or parsing service account JSON:", error);
 }

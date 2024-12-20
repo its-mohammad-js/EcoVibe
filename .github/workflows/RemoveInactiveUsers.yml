@@ -21,8 +21,10 @@ jobs:
 
       - name: Create Firebase service account key
         run: |
+          echo "Debugging: Writing service account key to file..."
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $GITHUB_WORKSPACE/firebaseServiceAccountKey.json
-          cat $GITHUB_WORKSPACE/firebaseServiceAccountKey.json  # Log the contents for debugging
+          echo "Debugging: File contents after write:"
+          cat $GITHUB_WORKSPACE/firebaseServiceAccountKey.json || echo "File is empty or does not exist"
 
       - name: Install dependencies
         run: npm install firebase-admin
