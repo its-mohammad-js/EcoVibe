@@ -15,18 +15,15 @@ try {
   const fileContents = await readFile(serviceAccountPath, "utf8");
   //   console.log("Service Account File Contents: ", fileContents);
 
-  console.log(typeof fileContents);
-
   // Parse the JSON
   const serviceAccount = JSON.stringify(fileContents);
   //   console.log("Parsed Service Account Object: ", serviceAccount);
 
-  // Initialize Firebase Admin SDK
-  //   admin.initializeApp({
-  //     credential: admin.credential.cert(serviceAccount),
-  //   });
-
-  //   console.log("Firebase Admin Initialized Successfully");
+  //   Initialize Firebase Admin SDK
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+  console.log("Firebase Admin Initialized Successfully");
 
   // Add your cleanup logic here (e.g., deleting inactive users)
   //   console.log("Performing cleanup operation...");
