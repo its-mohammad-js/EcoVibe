@@ -9,6 +9,12 @@ const serviceAccountPath = path.resolve(
 try {
   // Read and log the service account JSON contents
   const fileContents = await readFile(serviceAccountPath, "utf8");
+  // Remove the *** markers using a regular expression
+  const cleanedContents = fileContents
+    .replace(/\*\*\*[\s\S]*\*\*\*/g, "")
+    .trim();
+
+  console.log(cleanedContents);
 
   // Parse the JSON
   const serviceAccount = JSON.parse(fileContents);
