@@ -11,7 +11,7 @@ const serviceAccountPath = path.resolve(
 try {
   // Log the contents of the file before parsing
   const fileContents = await readFile(serviceAccountPath, "utf8");
-  console.log("Service Account File Contents: ", fileContents); // Debugging line
+  console.log("Service Account File Contents: ", typeof fileContents); // Debugging line
 
   // Parse the service account JSON
   //   const serviceAccount = JSON.parse(fileContents);
