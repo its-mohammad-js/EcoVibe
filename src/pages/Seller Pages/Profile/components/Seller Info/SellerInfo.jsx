@@ -47,13 +47,14 @@ function SellerInfo({ onEditHandler }) {
         [currentUserId]: {
           ...currentUserData.personalInformation,
           ...currentUserData?.businessInformation,
-          currentUserId,
+          userId: currentUserId,
         },
         // seller data
         [params?.id]: {
           ...userInfo.personalInformation,
           ...userInfo.businessInformation,
           userType: userInfo.userType,
+          userId: params?.id,
         },
         members: [currentUserId, params.id],
       });

@@ -7,6 +7,9 @@ import {
   goOnline,
   onDisconnect,
   serverTimestamp,
+  query,
+  orderByChild,
+  equalTo,
 } from "firebase/database";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -67,7 +70,11 @@ function RoomsContext({ children }) {
 
   // get chat rooms data
   function getRooms() {
-    const roomsRef = ref(db, "rooms");
+    const roomsRef = query(
+      ref(db, "rooms"),
+      orderByChild(`${userId}/userId`),
+      equalTo(userId)
+    );
 
     onValue(roomsRef, (snapshot) => {
       if (!snapshot.exists()) {
@@ -81,27 +88,33 @@ function RoomsContext({ children }) {
         ...val,
         roomId: k,
       }));
+
       const filteredRooms = allRooms
         .filter(({ members }) => members.includes(userId))
-        .map((room) => ({
-          roomId: room.roomId,
-          messageList: room.messageList || null,
-          members: room.members,
-          owner: room[userId],
-          reciver: {
-            ...find(
-              room,
-              (v, key) =>
-                ![userId, "roomId", "messageList", "members"].includes(key)
-            ),
-            reciverId: Object.keys(room).find(
+        .map((room) => {
+          const reciverId =
+            room?.members?.find((id) => id !== userId) ||
+            Object.keys(room).find(
               (key) =>
                 ![userId, "roomId", "messageList", "members"].includes(key)
-            ),
-          },
-        }));
+            );
+          const ownerLastSeen = room[userId]?.last_seen;
+
+          if (ownerLastSeen || room?.messageList?.length > 0)
+            return {
+              roomId: room.roomId,
+              messageList: room.messageList || null,
+              members: room.members,
+              owner: room[userId],
+              reciver: {
+                ...room[reciverId],
+                reciverId,
+              },
+            };
+        });
+
       setRooms({
-        rooms: filteredRooms,
+        rooms: filteredRooms.filter((room) => room),
         status: filteredRooms.length ? null : "No Conversations Yet...",
       });
     });
@@ -160,28 +173,10 @@ function RoomsContext({ children }) {
       ({ members }) =>
         members.includes(userId) && members.includes(contact.userId)
     );
-
     // create new chat room
     if (!findedRoom) {
       try {
         const roomId = `FROM:${userId}&TO:${contact.userId}`;
-        console.log({
-          roomId,
-          // customer data
-          [userId]: {
-            ...personalInformation,
-            ...businessInformation,
-            userType,
-          },
-          // seller data
-          [contact.userId]: {
-            ...contact.personalInformation,
-            ...contact.businessInformation,
-            userType: contact.userType,
-          },
-          members: [userId, contact.userId],
-        });
-
         await set(ref(db, `rooms/${roomId}`), {
           roomId,
           // customer data
@@ -189,17 +184,35 @@ function RoomsContext({ children }) {
             ...personalInformation,
             ...businessInformation,
             userType,
+            userId: userId,
           },
           // seller data
           [contact.userId]: {
             ...contact.personalInformation,
             ...contact.businessInformation,
             userType: contact.userType,
+            userId: contact.userId,
           },
           members: [userId, contact.userId],
         });
 
-        setSelectedRoom(rooms.find((room) => room.roomId === roomId));
+        setSelectedRoom({
+          roomId,
+          owner: {
+            ...personalInformation,
+            ...businessInformation,
+            userType,
+            userId: userId,
+          },
+          reciver: {
+            ...contact.personalInformation,
+            ...contact.businessInformation,
+            userType: contact.userType,
+            userId: contact.userId,
+            reciverId: contact.userId,
+          },
+          members: [userId, contact.userId],
+        });
       } catch (error) {
         console.log(error);
         toast.error("There was an error, please try again later");
@@ -210,6 +223,7 @@ function RoomsContext({ children }) {
       setSelectedRoom(findedRoom);
     }
   };
+  // console.log(selectedRoom);
 
   return (
     <RoomsProvider.Provider
