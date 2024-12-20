@@ -22,7 +22,8 @@ jobs:
           node-version: "20"
 
       - name: Create Firebase service account key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > src/common/utils/expired/firebaseServiceAccountKey.json
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | sed 's/\\n/\n/g' > src/common/utils/expired/firebaseServiceAccountKey.json
 
       - name: Debug - List files in the directory
         run: ls -R src/common/utils/expired/
