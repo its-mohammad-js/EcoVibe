@@ -35,36 +35,41 @@ function checkIsExpired(dateObject) {
 // Function to remove expired users
 async function removeExpiredUsers() {
   try {
-    const usersRef = collection(db, "users");
+    const usersRef = db.collection("users"); // Use Firestore instance to reference the "users" collection
 
-    const allUsersData = await getDocs(usersRef).then(({ docs }) =>
-      docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    );
+    // Fetch all user documents from Firestore
+    const snapshot = await usersRef.get();
+    const allUsersData = snapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
 
-    for (const user of allUsersData) {
-      if (checkIsExpired(user.lastActivity)) {
-        console.log(`User expired: ${user.id}`);
+    console.log(allUsersData);
 
-        // try {
-        //   // Delete user data from Firestore
-        //   const userDocRef = doc(db, "users", user.id);
-        //   await deleteDoc(userDocRef);
-        //   console.log(`Deleted Firestore document for user: ${user.id}`);
+    // for (const user of allUsersData) {
+    //   if (checkIsExpired(user.lastActivity)) {
+    //     console.log(`User expired: ${user.id}`);
 
-        //   // Optional: Add user ID to a log for manual Firebase Auth cleanup later
-        //   console.log(
-        //     `User ${user.id} marked for manual Firebase Authentication deletion.`
-        //   );
-        // } catch (error) {
-        //   console.error(
-        //     `Failed to delete Firestore document for user: ${user.id}`,
-        //     error
-        //   );
-        // }
-      } else {
-        console.log(`User is still active: ${user.id}`);
-      }
-    }
+    //     // try {
+    //     //   // Delete user data from Firestore
+    //     //   const userDocRef = doc(db, "users", user.id);
+    //     //   await deleteDoc(userDocRef);
+    //     //   console.log(`Deleted Firestore document for user: ${user.id}`);
+
+    //     //   // Optional: Add user ID to a log for manual Firebase Auth cleanup later
+    //     //   console.log(
+    //     //     `User ${user.id} marked for manual Firebase Authentication deletion.`
+    //     //   );
+    //     // } catch (error) {
+    //     //   console.error(
+    //     //     `Failed to delete Firestore document for user: ${user.id}`,
+    //     //     error
+    //     //   );
+    //     // }
+    //   } else {
+    //     console.log(`User is still active: ${user.id}`);
+    //   }
+    // }
   } catch (error) {
     console.error("Error during the user cleanup process:", error);
     throw error;
