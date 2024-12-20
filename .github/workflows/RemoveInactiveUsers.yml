@@ -1,3 +1,5 @@
+# GitHub Action to Remove inactive users from the database.
+
 name: Remove inactive users
 
 on:
@@ -19,9 +21,12 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Set Firebase secrets as environment variables
+      - name: Create Firebase service account key
         run: |
-          echo "SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" >> $GITHUB_ENV
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | sed 's/\\n/\n/g' > src/common/utils/expired/firebaseServiceAccountKey.json
+
+      - name: Debug - List files in the directory
+        run: ls -R src/common/utils/expired/
 
       - name: Install dependencies
         run: npm install firebase-admin
