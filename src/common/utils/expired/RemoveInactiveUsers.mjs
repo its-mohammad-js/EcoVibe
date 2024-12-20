@@ -18,9 +18,9 @@ try {
   if (!admin.apps.length) {
     console.log(JSON.stringify(serviceAccount));
 
-    // admin.initializeApp({
-    //   credential: admin.credential.cert(JSON.stringify(serviceAccount)),
-    // });
+    admin.initializeApp({
+      credential: admin.credential.cert(JSON.stringify(serviceAccount)),
+    });
   }
 } catch (error) {
   console.error("Error reading or parsing JSON:", error.message, error.stack);
