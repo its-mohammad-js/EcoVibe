@@ -14,11 +14,12 @@ try {
     .replace(/\*\*\*[\s\S]*\*\*\*/g, "")
     .trim();
 
-  console.log(cleanedContents);
+  const jsonString = cleanedContents.replace(/(\w+):/g, '"$1":');
+  console.log(jsonString);
 
   // Parse the JSON
-  const serviceAccount = JSON.parse(fileContents);
-  console.log("Parsed Service Account Object: ", serviceAccount);
+  const serviceAccount = JSON.parse(jsonString);
+  //   console.log("Parsed Service Account Object: ", serviceAccount);
 } catch (error) {
   console.error("Error reading or parsing service account JSON:", error);
 }
