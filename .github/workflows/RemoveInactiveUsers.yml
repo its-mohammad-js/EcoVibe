@@ -29,7 +29,9 @@ jobs:
         run: ls -R src/common/utils/expired/
 
       - name: Install dependencies
-        run: npm install firebase-admin
+        run: |
+          npm install firebase-admin
+          npm install fs-extra
 
       - name: Run cleanup script
         run: node src/common/utils/expired/RemoveInactiveUsers.mjs

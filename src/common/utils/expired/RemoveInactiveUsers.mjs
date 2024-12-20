@@ -1,20 +1,26 @@
-import { readFile } from "fs/promises";
+import fs from "fs-extra";
 import path from "path";
+import admin from "firebase-admin";
 
 const serviceAccountPath = path.resolve(
   process.cwd(),
-  "src/common/utils/expired/firebaseServiceAccountKey.json" // Updated to match the GitHub Action path
+  "path/to/your/firebaseServiceAccountKey.json" // Update with the correct path
 );
 
-try {
-  // Read and log the service account JSON contents
-  const fileContents = await readFile(serviceAccountPath, "utf8");
+async function initializeFirebase() {
+  try {
+    // Use fs-extra to read and parse the JSON
+    const serviceAccount = await fs.readJson(serviceAccountPath);
 
-  console.log(fileContents.replace("***", "{").replace("***", "}"));
+    // Initialize Firebase Admin SDK
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
 
-  // Parse the JSON
-  const serviceAccount = JSON.parse(`{${fileContents}}`);
-  //   console.log("Parsed Service Account Object: ", serviceAccount);
-} catch (error) {
-  console.error("Error reading or parsing service account JSON:", error);
+    console.log("Firebase Admin SDK initialized successfully!");
+  } catch (error) {
+    console.error("Error initializing Firebase Admin SDK:", error);
+  }
 }
+
+initializeFirebase();
