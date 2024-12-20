@@ -1,3 +1,5 @@
+# GitHub Action to Remove inactive user's from the database.
+
 name: Remove inactive users
 
 on:
@@ -20,14 +22,10 @@ jobs:
           node-version: "20"
 
       - name: Create Firebase service account key
-        run: |
-          echo "Debugging: Writing service account key to file..."
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $GITHUB_WORKSPACE/firebaseServiceAccountKey.json
-          echo "Debugging: File contents after write:"
-          cat $GITHUB_WORKSPACE/firebaseServiceAccountKey.json || echo "File is empty or does not exist"
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > src/common/utils/expired/firebaseServiceAccountKey.json
 
-      - name: Install dependencies
-        run: npm install firebase-admin
+    #   - name: Install dependencies
+    #     run: npm install firebase-admin
 
-      - name: Run cleanup script
-        run: node src/common/utils/expired/RemoveInactiveUsers.mjs
+    #   - name: Run cleanup script
+    #     run: node src/common/utils/expired/RemoveInactiveUsers.mjs
