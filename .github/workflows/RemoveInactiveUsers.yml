@@ -24,8 +24,8 @@ jobs:
       - name: Create Firebase service account key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > src/common/utils/expired/firebaseServiceAccountKey.json
 
-    #   - name: Install dependencies
-    #     run: npm install firebase-admin
+      - name: Install dependencies
+        run: npm install firebase-admin
 
-    #   - name: Run cleanup script
-    #     run: node src/common/utils/expired/RemoveInactiveUsers.mjs
+      - name: Run cleanup script
+        run: node src/common/utils/expired/RemoveInactiveUsers.mjs
