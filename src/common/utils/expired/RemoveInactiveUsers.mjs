@@ -8,9 +8,12 @@ const serviceAccountPath = path.resolve(
 
 try {
   const fileContents = await readFile(serviceAccountPath, "utf8");
-  console.log("Raw File Contents:", fileContents); // Add this line to debug
-  const serviceAccount = JSON.parse(fileContents); // Parse the JSON
-  console.log("Parsed Service Account:", serviceAccount);
+
+  console.log(fileContents.replace("***", ""));
+
+  //   console.log("Raw File Contents:", fileContents); // Add this line to debug
+  //   const serviceAccount = JSON.parse(fileContents); // Parse the JSON
+  //   console.log("Parsed Service Account:", serviceAccount);
 } catch (error) {
   console.error("Error reading or parsing JSON:", error.message, error.stack);
 }
