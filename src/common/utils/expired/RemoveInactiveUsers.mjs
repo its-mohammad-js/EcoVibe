@@ -1,3 +1,5 @@
+import admin from "firebase-admin";
+
 const serviceAccount = {
   type: "service_account",
   project_id: process.env.ADMIN_PROJECT_ID,
@@ -13,7 +15,11 @@ const serviceAccount = {
 };
 
 try {
-  console.log(JSON.parse(serviceAccount));
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(JSON.stringify(serviceAccount)),
+    });
+  }
 } catch (error) {
   console.error("Error reading or parsing JSON:", error.message, error.stack);
 }
