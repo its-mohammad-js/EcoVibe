@@ -9,12 +9,12 @@ const serviceAccountPath = path.resolve(
 async function initializeFirebase() {
   try {
     // Use fs-extra to read and parse the JSON
-    const serviceAccount = await fs.readJson(serviceAccountPath);
+    const serviceAccount = await fs.readFile(serviceAccountPath);
     console.log(serviceAccount);
 
     // console.log("Firebase Admin SDK initialized successfully!");
   } catch (error) {
-    console.error("Error initializing Firebase Admin SDK:", error);
+    console.error("Error initializing:", error);
   }
 }
 
