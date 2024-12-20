@@ -11,24 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
 
-      # Step 3: Decode Firebase service account key
-      - name: Decode Firebase service account key
-        run: echo "${{ secrets.ENCODED_FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode > src/common/utils/expired/firebaseServiceAccountKey.json
+      - name: Create Firebase service account key
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $GITHUB_WORKSPACE/firebaseServiceAccountKey.json
 
-      # Step 4: Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm install firebase-admin
 
-      # Step 5: Run the cleanup script
       - name: Run cleanup script
         run: node src/common/utils/expired/RemoveInactiveUsers.mjs

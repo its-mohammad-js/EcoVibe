@@ -1,11 +1,16 @@
 import admin from "firebase-admin";
 import { getFirestore } from "firebase-admin/firestore";
 import { readFile } from "fs/promises";
+import path from "path";
+
+// Resolve the path of the service account key
+const serviceAccountPath = path.resolve(
+  process.cwd(),
+  "firebaseServiceAccountKey.json"
+);
 
 // Load the service account key from the JSON file created in the GitHub Action
-const serviceAccount = JSON.parse(
-  await readFile(new URL("./firebaseServiceAccountKey.json", import.meta.url))
-);
+const serviceAccount = JSON.parse(await readFile(serviceAccountPath));
 
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -43,30 +48,7 @@ async function removeExpiredUsers() {
 
     console.log(allUsersData);
 
-    // for (const user of allUsersData) {
-    //   if (checkIsExpired(user.lastActivity)) {
-    //     console.log(`User expired: ${user.id}`);
-
-    //     // try {
-    //     //   // Delete user data from Firestore
-    //     //   const userDocRef = doc(db, "users", user.id);
-    //     //   await deleteDoc(userDocRef);
-    //     //   console.log(`Deleted Firestore document for user: ${user.id}`);
-
-    //     //   // Optional: Add user ID to a log for manual Firebase Auth cleanup later
-    //     //   console.log(
-    //     //     `User ${user.id} marked for manual Firebase Authentication deletion.`
-    //     //   );
-    //     // } catch (error) {
-    //     //   console.error(
-    //     //     `Failed to delete Firestore document for user: ${user.id}`,
-    //     //     error
-    //     //   );
-    //     // }
-    //   } else {
-    //     console.log(`User is still active: ${user.id}`);
-    //   }
-    // }
+    // Here you can implement your logic to handle expired users
   } catch (error) {
     console.error("Error during the user cleanup process:", error);
     throw error;
