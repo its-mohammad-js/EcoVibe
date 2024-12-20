@@ -1,5 +1,3 @@
-# GitHub Action to Remove inactive users from the database.
-
 name: Remove inactive users
 
 on:
@@ -13,22 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
 
-      - name: Create Firebase service account key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > src/common/utils/expired/firebaseServiceAccountKey.json
+      # Step 3: Decode Firebase service account key
+      - name: Decode Firebase service account key
+        run: echo "${{ secrets.ENCODED_FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode > src/common/utils/expired/firebaseServiceAccountKey.json
 
-      - name: Verify Firebase JSON
-        run: cat src/common/utils/expired/firebaseServiceAccountKey.json
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: npm install
 
-    #   - name: Install dependencies
-    #     run: npm install firebase-admin
-
-    #   - name: Run cleanup script
-    #     run: node src/common/utils/expired/RemoveInactiveUsers.mjs
+      # Step 5: Run the cleanup script
+      - name: Run cleanup script
+        run: node src/common/utils/expired/RemoveInactiveUsers.mjs
