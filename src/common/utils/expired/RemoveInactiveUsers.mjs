@@ -1,7 +1,9 @@
 import admin from "firebase-admin";
 
-// Parse the service account JSON from the environment variable
-const serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT);
+// Decode the base64 encoded service account string and parse it into a JSON object
+const serviceAccount = JSON.parse(
+  Buffer.from(process.env.SERVICE_ACCOUNT, "base64").toString("utf8")
+);
 
 try {
   if (!admin.apps.length) {
