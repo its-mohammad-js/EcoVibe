@@ -9,12 +9,11 @@ const serviceAccountPath = path.resolve(
 try {
   // Read and log the service account JSON contents
   const fileContents = await readFile(serviceAccountPath, "utf8");
-  // Remove the *** markers using a regular expression
-  const cleanedContents = fileContents.split("***")[1];
-  console.log(cleanedContents);
+
+  console.log(fileContents);
 
   // Parse the JSON
-  const serviceAccount = JSON.parse(`{${cleanedContents}}`);
+  const serviceAccount = JSON.parse(`{${fileContents}}`);
   //   console.log("Parsed Service Account Object: ", serviceAccount);
 } catch (error) {
   console.error("Error reading or parsing service account JSON:", error);
