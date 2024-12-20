@@ -1,22 +1,17 @@
 import admin from "firebase-admin";
-import fs from "fs";
-import path from "path";
 
-// Path to the service account file created during the GitHub Action
-const serviceAccountPath = path.join(__dirname, "../../service-account.json");
+// Parse the service account JSON from the environment variable
+const serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT);
 
 try {
   if (!admin.apps.length) {
-    const serviceAccount = JSON.parse(
-      fs.readFileSync(serviceAccountPath, "utf8")
-    );
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
     });
   }
 } catch (error) {
   console.error(
-    "Error reading or parsing service account file:",
+    "Error initializing Firebase Admin SDK:",
     error.message,
     error.stack
   );
