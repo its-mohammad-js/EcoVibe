@@ -23,8 +23,9 @@ jobs:
 
       - name: Create Firebase service account key
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" \
-          | jq '.' > src/common/utils/expired/firebaseServiceAccountKey.json
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > temp.json
+          jq '.' temp.json > src/common/utils/expired/firebaseServiceAccountKey.json
+          rm temp.json
 
       - name: Debug - Print service account key
         run: cat src/common/utils/expired/firebaseServiceAccountKey.json
