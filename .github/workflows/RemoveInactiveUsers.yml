@@ -22,7 +22,7 @@ jobs:
           node-version: "20"
 
       - name: Create Firebase service account key
-        run: echo "${{ secrets.ENCODED_FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode > src/common/utils/expired/firebaseServiceAccountKey.json
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode > src/common/utils/expired/firebaseServiceAccountKey.json
 
       - name: Install dependencies
         run: npm install firebase-admin
