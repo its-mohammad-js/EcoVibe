@@ -16,10 +16,10 @@ const serviceAccount = {
 
 try {
   if (!admin.apps.length) {
-    console.log(JSON.stringify(serviceAccount));
+    // console.log(JSON.stringify(serviceAccount));
 
     admin.initializeApp({
-      credential: admin.credential.cert(JSON.stringify(serviceAccount)),
+      credential: admin.credential.cert(serviceAccount),
     });
   }
 } catch (error) {
