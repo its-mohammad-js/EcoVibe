@@ -20,7 +20,9 @@ jobs:
           node-version: "20"
 
       - name: Create Firebase service account key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $GITHUB_WORKSPACE/firebaseServiceAccountKey.json
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $GITHUB_WORKSPACE/firebaseServiceAccountKey.json
+          cat $GITHUB_WORKSPACE/firebaseServiceAccountKey.json  # Log the contents for debugging
 
       - name: Install dependencies
         run: npm install firebase-admin
