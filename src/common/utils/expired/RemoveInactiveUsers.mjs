@@ -37,7 +37,7 @@ function checkIsExpired(dateObject) {
   // Convert milliseconds to hours
   const hoursPassed = difference / (1000 * 60 * 60);
   // Check if 12 hours have passed
-  return hoursPassed >= 12;
+  return hoursPassed >= 12 ? "is expired" : "isn't expired yet";
 }
 
 async function removeExpiredProducts() {
