@@ -23,7 +23,13 @@ jobs:
 
       - name: Create Firebase service account key
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | sed 's/\\\\n/\\n/g' | jq '.' > src/common/utils/expired/firebaseServiceAccountKey.json
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | sed 's/\\\\n/\n/g' > temp.json
+          if ! jq empty temp.json; then
+            echo "Error: The JSON in FIREBASE_SERVICE_ACCOUNT_KEY is invalid."
+            cat temp.json
+            exit 1
+          fi
+          mv temp.json src/common/utils/expired/firebaseServiceAccountKey.json
 
       #   - name: Debug - List files in the directory
       #     run: ls -R src/common/utils/expired/
