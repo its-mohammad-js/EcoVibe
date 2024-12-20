@@ -1,31 +1,32 @@
-# GitHub Action to Remove inactive users from the database.
-
-name: Remove inactive users
+name: Write Firebase JSON Secret
 
 on:
-  push:
-    branches: [main]
-  schedule:
-    - cron: "0 0 */4 * *" # Every 4 days
+  workflow_dispatch:
 
 jobs:
-  clean-inactive-users:
+  write-secret:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: 18
 
-      - name: Create Firebase service account key
+      - name: Install dependencies
+        run: npm install fs-extra
+
+      - name: Write Firebase JSON Secret
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | sed 's/\\n/\n/g' > src/common/utils/expired/firebaseServiceAccountKey.json
+          echo "Creating service account file from secret..."
+          node writeSecret.js
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
 
-      - name: Debug - Log Firebase service account key
+      - name: Verify File Creation
         run: cat src/common/utils/expired/firebaseServiceAccountKey.json
 
       #   - name: Debug - List files in the directory

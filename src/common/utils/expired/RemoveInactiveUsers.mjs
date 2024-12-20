@@ -23,7 +23,7 @@ async function initializeFirebaseAdmin() {
       .replace(/https":/g, "https:"); // Fix malformed URLs
 
     // // Step 3: Parse the cleaned-up content as JSON
-    const serviceAccountConfig = JSON.parse(rawContent);
+    // const serviceAccountConfig = JSON.parse(rawContent);
 
     // console.log(
     //   "Parsed Firebase Service Account Config:",
