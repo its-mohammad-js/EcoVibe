@@ -1,8 +1,11 @@
 import admin from "firebase-admin";
 import { getFirestore } from "firebase-admin/firestore";
+import { readFile } from "fs/promises";
 
 // Load the service account key from the JSON file created in the GitHub Action
-const serviceAccount = require("./firebaseServiceAccountKey.json");
+const serviceAccount = JSON.parse(
+  await readFile(new URL("./firebaseServiceAccountKey.json", import.meta.url))
+);
 
 if (!admin.apps.length) {
   admin.initializeApp({

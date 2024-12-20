@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+.github/workflows/RemoveCanceledOrders.yml
+.github/workflows/Deploy.yml
+.github/workflows/RemoveExpiredChatRooms.yml
+.github/workflows/RemoveExpiredOrders.yml
+.github/workflows/RemoveExpiredProducts.yml
+.github/workflows/removeExpiredStories.yml
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
