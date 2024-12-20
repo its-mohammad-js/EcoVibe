@@ -9,7 +9,7 @@ const serviceAccountPath = path.resolve(
 try {
   const fileContents = await readFile(serviceAccountPath, "utf8");
 
-  console.log(fileContents.replace("***", ""));
+  console.log(fileContents.slice("***"));
 
   //   console.log("Raw File Contents:", fileContents); // Add this line to debug
   //   const serviceAccount = JSON.parse(fileContents); // Parse the JSON
