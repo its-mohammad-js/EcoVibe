@@ -18,7 +18,7 @@ try {
   console.log(typeof fileContents);
 
   // Parse the JSON
-  const serviceAccount = JSON.parse(fileContents);
+  const serviceAccount = JSON.stringify(fileContents);
   //   console.log("Parsed Service Account Object: ", serviceAccount);
 
   // Initialize Firebase Admin SDK
