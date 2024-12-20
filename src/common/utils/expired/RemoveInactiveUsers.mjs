@@ -10,15 +10,11 @@ try {
   // Read and log the service account JSON contents
   const fileContents = await readFile(serviceAccountPath, "utf8");
   // Remove the *** markers using a regular expression
-  const cleanedContents = fileContents
-    .replace(/\*\*\*[\s\S]*\*\*\*/g, "")
-    .trim();
-
-  const jsonString = cleanedContents.replace(/(\w+):/g, '"$1":');
-  console.log(jsonString);
+  const cleanedContents = fileContents.split("***")[1];
+  console.log(cleanedContents);
 
   // Parse the JSON
-  const serviceAccount = JSON.parse(jsonString);
+  const serviceAccount = JSON.parse(`{${cleanedContents}}`);
   //   console.log("Parsed Service Account Object: ", serviceAccount);
 } catch (error) {
   console.error("Error reading or parsing service account JSON:", error);
