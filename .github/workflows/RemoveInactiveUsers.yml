@@ -23,11 +23,7 @@ jobs:
 
       - name: Create Firebase service account key
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" \
-          | jq '.' > src/common/utils/expired/firebaseServiceAccountKey.json
-
-      - name: Debug - Print service account key
-        run: ls -R src/common/utils/expired/
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | sed 's/\\n/\n/g' > src/common/utils/expired/firebaseServiceAccountKey.json
 
       #   - name: Debug - List files in the directory
       #     run: ls -R src/common/utils/expired/
