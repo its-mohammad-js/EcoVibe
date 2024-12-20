@@ -19,10 +19,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version:
-            "20"
+          node-version: "20"
 
-            # Step 3: Set Firebase secrets as environment variables.
+        # Step 3: Set Firebase secrets as environment variables.
+      - name: Create Json file
         run: |
           echo '{
             "type": "service_account",
