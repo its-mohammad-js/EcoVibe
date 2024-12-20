@@ -18,7 +18,7 @@ try {
   console.log(typeof fileContents);
 
   // Parse the JSON
-  //   const serviceAccount = JSON.parse(fileContents);
+  const serviceAccount = JSON.parse(fileContents);
   //   console.log("Parsed Service Account Object: ", serviceAccount);
 
   // Initialize Firebase Admin SDK
@@ -26,10 +26,10 @@ try {
   //     credential: admin.credential.cert(serviceAccount),
   //   });
 
-  console.log("Firebase Admin Initialized Successfully");
+  //   console.log("Firebase Admin Initialized Successfully");
 
   // Add your cleanup logic here (e.g., deleting inactive users)
-  console.log("Performing cleanup operation...");
+  //   console.log("Performing cleanup operation...");
 } catch (error) {
   console.error("Error reading or parsing service account JSON:", error);
 }
