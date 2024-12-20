@@ -27,7 +27,7 @@ jobs:
       - name: Write Firebase JSON Secret
         run: |
           echo "Creating service account file from secret..."
-          node src/common/utils/writeSecret.js
+          node src/common/utils/writeSecret.mjs
         env:
           FIREBASE_SECRET: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
 

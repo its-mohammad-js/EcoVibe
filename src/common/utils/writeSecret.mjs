@@ -1,4 +1,4 @@
-const fs = require("fs-extra");
+import { outputJson } from "fs-extra";
 
 async function createServiceAccountFile() {
   const secret = process.env.FIREBASE_SECRET;
@@ -17,7 +17,7 @@ async function createServiceAccountFile() {
       "./src/common/utils/expired/firebaseServiceAccountKey.json";
 
     // Write the parsed JSON to the file
-    await fs.outputJson(filePath, parsedSecret, { spaces: 2 });
+    await outputJson(filePath, parsedSecret, { spaces: 2 });
 
     console.log(`Service account key successfully written to ${filePath}`);
   } catch (err) {
