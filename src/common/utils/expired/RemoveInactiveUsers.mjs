@@ -1,16 +1,19 @@
-import { readFile } from "fs/promises";
-import path from "path";
-
-const serviceAccountPath = path.resolve(
-  process.cwd(),
-  "src/common/utils/expired/firebaseServiceAccountKey.json"
-);
+const serviceAccount = {
+  type: "service_account",
+  project_id: process.env.ADMIN_PROJECT_ID,
+  private_key_id: process.env.ADMIN_private_key_id,
+  private_key: process.env.ADMIN_private_key.replace(/\\n/g, "\n"), // Replace escaped newlines
+  client_email: process.env.ADMIN_client_email,
+  client_id: process.env.ADMIN_client_id,
+  auth_uri: process.env.ADMIN_auth_uri,
+  token_uri: process.env.ADMIN_token_uri,
+  auth_provider_x509_cert_url: process.env.ADMIN_auth_provider_x509_cert_url,
+  client_x509_cert_url: process.env.ADMIN_client_x509_cert_url,
+  universe_domain: process.env.ADMIN_universe_domain,
+};
 
 try {
-  const fileContents = await readFile(serviceAccountPath, "utf8");
-  console.log("Raw File Contents:", fileContents); // Debugging line
-  const serviceAccount = JSON.parse(fileContents); // Parse JSON
-  console.log("Parsed Service Account:", serviceAccount); // Debugging line
+  console.log(serviceAccount);
 } catch (error) {
   console.error("Error reading or parsing JSON:", error.message, error.stack);
 }

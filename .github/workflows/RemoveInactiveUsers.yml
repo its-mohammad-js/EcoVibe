@@ -19,23 +19,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version:
+            "20"
 
-      - name: Create Firebase service account key
-        run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | sed 's/\\\\n/\n/g' > temp.json
-          if ! jq empty temp.json; then
-            echo "Error: The JSON in FIREBASE_SERVICE_ACCOUNT_KEY is invalid."
-            cat temp.json
-            exit 1
-          fi
-          mv temp.json src/common/utils/expired/firebaseServiceAccountKey.json
-
-      #   - name: Debug - List files in the directory
-      #     run: ls -R src/common/utils/expired/
-
-      - name: Print the Firebase service account key (for debugging)
-        run: cat src/common/utils/expired/firebaseServiceAccountKey.json
+            # Step 3: Set Firebase secrets as environment variables.
+      - run: |
+          echo "ADMIN_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> $GITHUB_ENV
+          echo "ADMIN_private_key_id=${{ secrets.ADMIN_private_key_id }}" >> $GITHUB_ENV
+          echo "ADMIN_private_key=${{ secrets.ADMIN_private_key }}" >> $GITHUB_ENV
+          echo "ADMIN_client_email=${{ secrets.ADMIN_client_email }}" >> $GITHUB_ENV 
+          echo "ADMIN_client_id=${{ secrets.ADMIN_client_id }}" >> $GITHUB_ENV
+          echo "ADMIN_auth_uri=${{ secrets.ADMIN_auth_uri }}" >> $GITHUB_ENV
+          echo "ADMIN_token_uri=${{ secrets.ADMIN_token_uri }}" >> $GITHUB_ENV
+          echo "ADMIN_auth_provider_x509_cert_url=${{ secrets.ADMIN_auth_provider_x509_cert_url }}" >> $GITHUB_ENV
+          echo "ADMIN_client_x509_cert_url=${{ secrets.ADMIN_client_x509_cert_url }}" >> $GITHUB_ENV
+          echo "secrets.ADMIN_universe_domain=${{ secrets.ADMIN_universe_domain }}" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: npm install firebase-admin
