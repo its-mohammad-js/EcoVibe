@@ -1,11 +1,5 @@
 import admin from "firebase-admin";
-import {
-  getFirestore,
-  collection,
-  doc,
-  getDocs,
-  deleteDoc,
-} from "firebase-admin/firestore";
+import { getFirestore } from "firebase-admin/firestore";
 
 // Load the service account key from the JSON file created in the GitHub Action
 const serviceAccount = require("./firebaseServiceAccountKey.json");
