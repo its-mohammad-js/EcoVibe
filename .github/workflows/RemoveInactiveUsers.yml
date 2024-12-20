@@ -25,16 +25,16 @@ jobs:
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > src/common/utils/expired/firebaseServiceAccountKey.json
 
-      - name: Debug - Log Firebase service account key
-        run: cat src/common/utils/expired/firebaseServiceAccountKey.json
+      #   - name: Debug - Log Firebase service account key
+      #     run: cat src/common/utils/expired/firebaseServiceAccountKey.json
 
-    #   - name: Debug - List files in the directory
-    #     run: ls -R src/common/utils/expired/
+      #   - name: Debug - List files in the directory
+      #     run: ls -R src/common/utils/expired/
 
-    #   - name: Install dependencies
-    #     run: |
-    #       npm install firebase-admin
-    #       npm install fs-extra
+      - name: Install dependencies
+        run: |
+          npm install firebase-admin
+          npm install fs-extra
 
-    #   - name: Run cleanup script
-    #     run: node src/common/utils/expired/RemoveInactiveUsers.mjs
+      - name: Run cleanup script
+        run: node src/common/utils/expired/RemoveInactiveUsers.mjs
