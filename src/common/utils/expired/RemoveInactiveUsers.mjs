@@ -13,7 +13,7 @@ const serviceAccount = {
 };
 
 try {
-  console.log(serviceAccount);
+  console.log(JSON.parse(serviceAccount));
 } catch (error) {
   console.error("Error reading or parsing JSON:", error.message, error.stack);
 }
