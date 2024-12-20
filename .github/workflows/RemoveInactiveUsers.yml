@@ -23,13 +23,13 @@ jobs:
 
       - name: Create Firebase service account key
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | sed 's/\\\\n/\n/g' > src/common/utils/expired/firebaseServiceAccountKey.json
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | sed 's/\\\\n/\\n/g' | jq '.' > src/common/utils/expired/firebaseServiceAccountKey.json
 
-      - name: Debug - List files in the directory
-        run: ls -R src/common/utils/expired/
+      #   - name: Debug - List files in the directory
+      #     run: ls -R src/common/utils/expired/
 
-      #   - name: Print the Firebase service account key (for debugging)
-      #     run: cat src/common/utils/expired/firebaseServiceAccountKey.json
+      - name: Print the Firebase service account key (for debugging)
+        run: cat src/common/utils/expired/firebaseServiceAccountKey.json
 
       - name: Install dependencies
         run: npm install firebase-admin
