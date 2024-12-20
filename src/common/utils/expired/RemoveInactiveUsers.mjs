@@ -4,7 +4,7 @@ import admin from "firebase-admin";
 
 const serviceAccountPath = path.resolve(
   process.cwd(),
-  "path/to/your/firebaseServiceAccountKey.json" // Update with the correct path
+  "src/common/utils/expired/firebaseServiceAccountKey.json" // Update with the correct path
 );
 
 async function initializeFirebase() {
