@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { deleteUser, getAuth } from "firebase/auth";
 import {
   collection,
   deleteDoc,
@@ -22,6 +23,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 // check createAt date
 function checkIsExpired(dateObject) {
@@ -39,7 +41,7 @@ function checkIsExpired(dateObject) {
     // Convert milliseconds to hours
     const hoursPassed = difference / (1000 * 60 * 60);
     // Check if 12 hours have passed
-    return hoursPassed >= 12;
+    return hoursPassed >= 10;
   }
 }
 
@@ -51,9 +53,12 @@ async function removeExpiredProducts() {
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    allUsersData.forEach((user, i) => {
+    allUsersData.forEach(async (user, i) => {
       if (checkIsExpired(user.lastActivity)) {
-        console.log("its expired on unvalid");
+        await deleteUser(user.userId);
+        const userDocRef = doc(db, "users", user.id);
+        await deleteDoc(userDocRef);
+        console.log(`${user.userId} deleted`);
       } else {
         console.log("isn't expired yet", user);
       }
