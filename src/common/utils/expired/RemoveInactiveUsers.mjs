@@ -1,27 +1,23 @@
 import admin from "firebase-admin";
+import fs from "fs";
+import path from "path";
 
-const serviceAccount = {
-  type: "service_account",
-  project_id: process.env.ADMIN_PROJECT_ID,
-  private_key_id: process.env.ADMIN_private_key_id,
-  private_key: process.env.ADMIN_private_key,
-  client_email: process.env.ADMIN_client_email,
-  client_id: process.env.ADMIN_client_id,
-  auth_uri: process.env.ADMIN_auth_uri,
-  token_uri: process.env.ADMIN_token_uri,
-  auth_provider_x509_cert_url: process.env.ADMIN_auth_provider_x509_cert_url,
-  client_x509_cert_url: process.env.ADMIN_client_x509_cert_url,
-  universe_domain: process.env.ADMIN_universe_domain,
-};
+// Path to the service account file created during the GitHub Action
+const serviceAccountPath = path.join(__dirname, "../../service-account.json");
 
 try {
   if (!admin.apps.length) {
-    // console.log(JSON.stringify(serviceAccount));
-    const config = JSON.stringify(serviceAccount);
+    const serviceAccount = JSON.parse(
+      fs.readFileSync(serviceAccountPath, "utf8")
+    );
     admin.initializeApp({
-      credential: admin.credential.cert(config),
+      credential: admin.credential.cert(serviceAccount),
     });
   }
 } catch (error) {
-  console.error("Error reading or parsing JSON:", error.message, error.stack);
+  console.error(
+    "Error reading or parsing service account file:",
+    error.message,
+    error.stack
+  );
 }

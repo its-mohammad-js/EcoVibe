@@ -23,17 +23,23 @@ jobs:
             "20"
 
             # Step 3: Set Firebase secrets as environment variables.
-      - run: |
-          echo "ADMIN_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> $GITHUB_ENV
-          echo "ADMIN_private_key_id=${{ secrets.ADMIN_private_key_id }}" >> $GITHUB_ENV
-          echo "ADMIN_private_key=${{ secrets.ADMIN_private_key }}" >> $GITHUB_ENV
-          echo "ADMIN_client_email=${{ secrets.ADMIN_client_email }}" >> $GITHUB_ENV 
-          echo "ADMIN_client_id=${{ secrets.ADMIN_client_id }}" >> $GITHUB_ENV
-          echo "ADMIN_auth_uri=${{ secrets.ADMIN_auth_uri }}" >> $GITHUB_ENV
-          echo "ADMIN_token_uri=${{ secrets.ADMIN_token_uri }}" >> $GITHUB_ENV
-          echo "ADMIN_auth_provider_x509_cert_url=${{ secrets.ADMIN_auth_provider_x509_cert_url }}" >> $GITHUB_ENV
-          echo "ADMIN_client_x509_cert_url=${{ secrets.ADMIN_client_x509_cert_url }}" >> $GITHUB_ENV
-          echo "secrets.ADMIN_universe_domain=${{ secrets.ADMIN_universe_domain }}" >> $GITHUB_ENV
+        run: |
+          echo '{
+            "type": "service_account",
+            "project_id": "${{ secrets.FIREBASE_PROJECT_ID }}",
+            "private_key_id": "${{ secrets.ADMIN_private_key_id }}",
+            "private_key": "${{ secrets.ADMIN_private_key }}",
+            "client_email": "${{ secrets.ADMIN_client_email }}",
+            "client_id": "${{ secrets.ADMIN_client_id }}",
+            "auth_uri": "${{ secrets.ADMIN_auth_uri }}",
+            "token_uri": "${{ secrets.ADMIN_token_uri }}",
+            "auth_provider_x509_cert_url": "${{ secrets.ADMIN_auth_provider_x509_cert_url }}",
+            "client_x509_cert_url": "${{ secrets.ADMIN_client_x509_cert_url }}",
+            "universe_domain": "${{ secrets.ADMIN_universe_domain }}"
+          }' > ./service-account.json
+
+      - name: Debug - List files in the directory
+        run: ls -R src/common/utils/expired/
 
       - name: Install dependencies
         run: npm install firebase-admin
