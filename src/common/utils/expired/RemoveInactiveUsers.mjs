@@ -25,8 +25,10 @@ const db = getFirestore(app);
 
 // check createAt date
 function checkIsExpired(dateObject) {
+  console.log(dateObject);
+
   if (!dateObject) {
-    console.log("it have any activity");
+    console.log("it haven't any activity");
 
     return;
   }
