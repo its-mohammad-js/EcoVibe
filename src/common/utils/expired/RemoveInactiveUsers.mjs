@@ -14,7 +14,7 @@ try {
   console.log("Service Account File Contents: ", fileContents); // Debugging line
 
   // Parse the service account JSON
-  const serviceAccount = JSON.parse(fileContents);
+  //   const serviceAccount = JSON.parse(fileContents);
 
   //   if (!admin.apps.length) {
   //     admin.initializeApp({
