@@ -25,7 +25,11 @@ const db = getFirestore(app);
 
 // check createAt date
 function checkIsExpired(dateObject) {
-  if (!dateObject) return "it have any activity";
+  if (!dateObject) {
+    console.log("it have any activity");
+
+    return;
+  }
   // Convert the date object to a JavaScript Date object
   const date = new Date(
     dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
