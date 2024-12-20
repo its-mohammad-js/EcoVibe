@@ -39,7 +39,7 @@ function checkIsExpired(dateObject) {
     // Convert milliseconds to hours
     const hoursPassed = difference / (1000 * 60 * 60);
     // Check if 12 hours have passed
-    return hoursPassed >= 2;
+    return hoursPassed >= 24;
   }
 }
 
