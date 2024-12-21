@@ -33,16 +33,42 @@ const fetchAndLogUsers = async () => {
     const usersSnapshot = await db.collection("users").get();
 
     if (usersSnapshot.empty) {
-      console.log("No users found in the 'Users' collection.");
+      console.log("No users found in targeted collection.");
     } else {
       usersSnapshot.forEach((doc) => {
-        console.log(`User ID: ${doc.id}, Data:`, doc.data());
+        const userData = doc.data();
+        checkIsExpired(userData?.lastActivity);
       });
     }
   } catch (error) {
     console.error("Error fetching users from Firestore:", error);
   }
 };
+
+function checkIsExpired(dateObject) {
+  if (!dateObject) {
+    console.log("user haven't any activity");
+    return false;
+  }
+  // Convert the date object to a JavaScript Date object
+  const date = new Date(
+    dateObject.seconds * 1000 + dateObject.nanoseconds / 1000000
+  );
+  // Calculate the current time
+  const now = new Date();
+  // Calculate the difference in milliseconds
+  const difference = now.getTime() - date.getTime();
+  // Convert milliseconds to days
+  // const daysPassed = difference / (1000 * 60);
+  const daysPassed = difference / (1000 * 60 * 60 * 24);
+  // Check if two days have passed
+  // return daysPassed >= 10;
+  if (daysPassed >= 10) {
+    console.log("user has valid time activity");
+  } else {
+    console.log("user has been offline for more than 10 days ");
+  }
+}
 
 // Main execution block
 (async () => {
