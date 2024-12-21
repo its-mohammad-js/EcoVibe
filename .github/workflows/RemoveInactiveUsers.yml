@@ -26,9 +26,6 @@ jobs:
           echo "Decoding Firebase service account key..."
           echo ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }} | base64 -d > src/common/utils/expired/firebaseServiceAccountKey.json
 
-      - name: Debug - List files in the directory
-        run: ls -R src/common/utils/expired/
-
       - name: Install dependencies
         run: npm install firebase-admin
 
