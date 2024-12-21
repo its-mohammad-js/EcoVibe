@@ -59,11 +59,9 @@ function checkIsExpired(dateObject) {
   // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
   // Convert milliseconds to days
-  // const daysPassed = difference / (1000 * 60);
   const daysPassed = difference / (1000 * 60 * 60 * 24);
   // Check if two days have passed
-  // return daysPassed >= 10;
-  if (daysPassed >= 1) {
+  if (daysPassed >= 25) {
     console.log("user has been offline for more than limitation");
   } else {
     console.log("user has valid time activity");
