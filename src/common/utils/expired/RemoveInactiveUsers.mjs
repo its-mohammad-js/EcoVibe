@@ -63,8 +63,8 @@ function checkIsExpired(dateObject) {
   const daysPassed = difference / (1000 * 60 * 60 * 24);
   // Check if two days have passed
   // return daysPassed >= 10;
-  if (daysPassed >= 10) {
-    console.log("user has been offline for more than 10 days ");
+  if (daysPassed >= 1) {
+    console.log("user has been offline for more than limitation");
   } else {
     console.log("user has valid time activity");
   }
