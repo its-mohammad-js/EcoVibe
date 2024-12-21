@@ -24,7 +24,7 @@ jobs:
       - name: Decode Firebase JSON Secret
         run: |
           echo "Decoding Firebase service account key..."
-          echo ${{ secrets.TEST_ENCODED }} | base64 -d > src/common/utils/firebaseServiceAccountKey.json
+          echo ${{ secrets.TEST_ENCODED }} | base64 -d > src/common/utils/expired/firebaseServiceAccountKey.json
 
       - name: Debug - List files in the directory
         run: ls -R src/common/utils/expired/
