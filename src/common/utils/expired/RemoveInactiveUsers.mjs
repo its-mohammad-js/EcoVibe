@@ -30,14 +30,34 @@ const initializeFirebaseAdmin = async () => {
 const fetchAndLogUsers = async () => {
   try {
     const db = admin.firestore();
+    const auth = admin.auth();
+
     const usersSnapshot = await db.collection("users").get();
 
     if (usersSnapshot.empty) {
-      console.log("No users found in targeted collection.");
+      console.log("No users found in the 'users' collection.");
     } else {
-      usersSnapshot.forEach((doc) => {
+      usersSnapshot.forEach(async (doc) => {
         const userData = doc.data();
-        checkIsExpired(userData?.lastActivity);
+        const userId = doc.id; // Assuming the Firestore doc ID matches the Firebase Auth UID
+
+        if (checkIsExpired(userData?.lastActivity)) {
+          try {
+            // Delete user account from Firebase Authentication
+            await auth.deleteUser(userId);
+            console.log(`Successfully deleted user account: ${userId}`);
+
+            // Delete corresponding document from Firestore
+            await db.collection("users").doc(userId).delete();
+            console.log(
+              `Successfully deleted user document from Firestore: ${userId}`
+            );
+          } catch (error) {
+            console.error(`Error deleting user (${userId}):`, error);
+          }
+        } else {
+          console.log(`User (${userId}) is not expired yet.`);
+        }
       });
     }
   } catch (error) {
@@ -47,7 +67,6 @@ const fetchAndLogUsers = async () => {
 
 function checkIsExpired(dateObject) {
   if (!dateObject || !dateObject.seconds || !dateObject.nanoseconds) {
-    console.log("user haven't any activity");
     return false;
   }
   // Convert the date object to a JavaScript Date object
@@ -60,12 +79,8 @@ function checkIsExpired(dateObject) {
   const difference = now.getTime() - date.getTime();
   // Convert milliseconds to days
   const daysPassed = difference / (1000 * 60 * 60 * 24);
-  // Check if two days have passed
-  if (daysPassed >= 25) {
-    console.log("user has been offline for more than limitation");
-  } else {
-    console.log("user has valid time activity");
-  }
+  // Check if 25 days have passed
+  return daysPassed >= 25;
 }
 
 // Main execution block
