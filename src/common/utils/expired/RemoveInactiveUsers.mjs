@@ -67,7 +67,7 @@ const fetchAndLogUsers = async () => {
 
 function checkIsExpired(dateObject) {
   if (!dateObject || !dateObject.seconds || !dateObject.nanoseconds) {
-    return false;
+    return true;
   }
   // Convert the date object to a JavaScript Date object
   const date = new Date(
