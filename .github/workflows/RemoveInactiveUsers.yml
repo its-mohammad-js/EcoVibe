@@ -21,15 +21,12 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        run: npm install fs-extra
-
-      - name: Write Firebase JSON Secret
+      - name: Decode Firebase JSON Secret
         run: |
-          echo "Creating service account file from secret..."
-          node src/common/utils/writeSecret.mjs
-        env:
-          FIREBASE_SECRET: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          echo "Decoding Firebase service account key..."
+          echo ${{ secrets.TEST_ENCODED }} | base64 -d > src/common/utils/firebaseServiceAccountKey.json
 
-      - name: Verify File Creation
-        run: cat src/common/utils/expired/firebaseServiceAccountKey.json
+      - name: Verify File Content
+        run: |
+          echo "Logging Firebase service account key..."
+          cat src/common/utils/firebaseServiceAccountKey.json
