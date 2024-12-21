@@ -26,7 +26,11 @@ jobs:
           echo "Decoding Firebase service account key..."
           echo ${{ secrets.TEST_ENCODED }} | base64 -d > src/common/utils/firebaseServiceAccountKey.json
 
-      - name: Verify File Content
-        run: |
-          echo "Logging Firebase service account key..."
-          cat src/common/utils/firebaseServiceAccountKey.json
+      - name: Debug - List files in the directory
+        run: ls -R src/common/utils/expired/
+
+      - name: Install dependencies
+        run: npm install firebase-admin
+
+      - name: Run cleanup script
+        run: node src/common/utils/expired/RemoveInactiveUsers.mjs
