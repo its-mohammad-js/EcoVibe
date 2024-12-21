@@ -37,28 +37,39 @@ const fetchAndLogUsers = async () => {
     if (usersSnapshot.empty) {
       console.log("No users found in the 'users' collection.");
     } else {
-      usersSnapshot.forEach(async (doc) => {
-        const userData = doc.data();
-        const userId = doc.id; // Assuming the Firestore doc ID matches the Firebase Auth UID
+      await Promise.all(
+        usersSnapshot.docs.map(async (doc) => {
+          const userData = doc.data();
+          const userId = doc.id; // Assuming the Firestore doc ID matches the Firebase Auth UID
 
-        if (checkIsExpired(userData?.lastActivity)) {
-          try {
-            // Delete user account from Firebase Authentication
-            await auth.deleteUser(userId);
-            console.log(`Successfully deleted user account: ${userId}`);
+          if (checkIsExpired(userData?.lastActivity)) {
+            try {
+              // Attempt to delete user account from Firebase Authentication
+              await auth.deleteUser(userId);
+              console.log(`Successfully deleted user account: ${userId}`);
+            } catch (error) {
+              console.warn(
+                `Warning: Could not delete user account (${userId}) from Firebase Authentication. Proceeding to delete Firestore document.`
+              );
+            }
 
-            // Delete corresponding document from Firestore
-            await db.collection("users").doc(userId).delete();
-            console.log(
-              `Successfully deleted user document from Firestore: ${userId}`
-            );
-          } catch (error) {
-            console.error(`Error deleting user (${userId}):`, error);
+            // Delete corresponding document from Firestore regardless of auth deletion success
+            try {
+              await db.collection("users").doc(userId).delete();
+              console.log(
+                `Successfully deleted user document from Firestore: ${userId}`
+              );
+            } catch (error) {
+              console.error(
+                `Error deleting Firestore document (${userId}):`,
+                error
+              );
+            }
+          } else {
+            console.log(`User (${userId}) is not expired yet.`);
           }
-        } else {
-          console.log(`User (${userId}) is not expired yet.`);
-        }
-      });
+        })
+      );
     }
   } catch (error) {
     console.error("Error fetching users from Firestore:", error);
