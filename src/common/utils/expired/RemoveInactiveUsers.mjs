@@ -30,7 +30,7 @@ const initializeFirebaseAdmin = async () => {
 const fetchAndLogUsers = async () => {
   try {
     const db = admin.firestore();
-    const usersSnapshot = await db.collection("Users").get();
+    const usersSnapshot = await db.collection("users").get();
 
     if (usersSnapshot.empty) {
       console.log("No users found in the 'Users' collection.");
