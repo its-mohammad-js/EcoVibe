@@ -46,7 +46,7 @@ const fetchAndLogUsers = async () => {
 };
 
 function checkIsExpired(dateObject) {
-  if (!dateObject) {
+  if (!dateObject || !dateObject.seconds || !dateObject.nanoseconds) {
     console.log("user haven't any activity");
     return false;
   }
@@ -64,9 +64,9 @@ function checkIsExpired(dateObject) {
   // Check if two days have passed
   // return daysPassed >= 10;
   if (daysPassed >= 10) {
-    console.log("user has valid time activity");
-  } else {
     console.log("user has been offline for more than 10 days ");
+  } else {
+    console.log("user has valid time activity");
   }
 }
 
