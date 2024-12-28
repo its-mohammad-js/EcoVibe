@@ -15,13 +15,13 @@ import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "/src/config/firebase";
 
 function App() {
-  const dispatch = useDispatch();
-  const { auth_status, userId } = useSelector((state) => state.userData);
+  // const dispatch = useDispatch();
+  // const { auth_status, userId } = useSelector((state) => state.userData);
 
-  useEffect(() => {
-    // read user data
-    dispatch(getUserData());
-  }, []);
+  // useEffect(() => {
+  //   // read user data
+  //   dispatch(getUserData());
+  // }, []);
 
   // useEffect(() => {
   //   const updateUserAcitvity = async () => {
