@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import { MdFilterList } from "react-icons/md";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import useOutSideClick from "hooks/UseOutsideClick";
 import { query } from "firebase/database";
 import { collection, getDocs, where } from "firebase/firestore";
 import { db } from "/src/config/firebase";
 import { uniq } from "lodash";
 import Contact from "./Contact";
 import ContactsLoader from "UI/Loaders/ContactsLoader";
+import FilterMenu from "./FilterMenu";
 
 function ContactsList({ onCloseModal }) {
   // filter menu state
@@ -26,11 +25,6 @@ function ContactsList({ onCloseModal }) {
   const [orders, setOrders] = useState([]);
   // necessary data
   const { userType, userId } = useSelector((state) => state.userData);
-  // filter menu ref & hook
-  const menuRef = useRef();
-  useOutSideClick(menuRef, () =>
-    setTab((prev) => ({ ...prev, menuIsShow: false }))
-  );
 
   // get related contacts based on user type
   async function getAllowedUsers() {
@@ -118,54 +112,9 @@ function ContactsList({ onCloseModal }) {
     return (
       <div className="w-80 lg:w-96 h-[90vh] 2xl:h-[45rem] bg-gray-50 rounded-md z-10 p-2 flex flex-col">
         {/* search input */}
-        <div className="flex bg-gray-200 rounded-md relative">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={({ target }) =>
-              setQuery(target.value.toLocaleLowerCase())
-            }
-            placeholder="search contacts"
-            className="w-full px-4 py-2 bg-transparent placeholder:text-gray-600 outline-none rounded-md"
-          />
-          <div ref={menuRef}>
-            <button
-              onClick={() => setTab((prev) => ({ ...prev, menuIsShow: true }))}
-              className="px-2 h-full text-2xl hover:text-gray-500 transition-all"
-            >
-              <MdFilterList />
-            </button>
-
-            <div
-              className={`${
-                menuIsShow
-                  ? "translate-y-0 opacity-100 visible"
-                  : "-translate-y-10 opacity-0 invisible"
-              } absolute top-14 transition-all right-0 w-48 h-24 bg-gray-100 justify-evenly px-2 py-1 rounded-md flex flex-col`}
-            >
-              <div className="tooltip absolute -top-1 right-8 bg-gray-200"></div>
-              <button
-                onClick={() => setTab({ menuIsShow: false, searchType: "all" })}
-                className={`${
-                  searchType === "all" && "bg-gray-300"
-                } px-4 py-2 rounded-md hover:bg-gray-200 transition-all`}
-              >
-                All Sellers
-              </button>
-              <hr />
-              <button
-                onClick={() =>
-                  setTab({ menuIsShow: false, searchType: "orders" })
-                }
-                className={`${
-                  searchType === "orders" && "bg-gray-300"
-                } px-4 py-2 rounded-md hover:bg-gray-200 transition-all`}
-              >
-                {userType === "customer" ? "From my purchases" : "My Customers"}
-              </button>
-            </div>
-          </div>
-        </div>
+        <FilterMenu
+          {...{ searchQuery, setQuery, menuIsShow, setTab, searchType }}
+        />
         {/* contacts list */}
         <div className="flex-1 overflow-auto h-[27rem] xl:h-[35rem] styled-scroll-bar my-2">
           <div className="inline-flex flex-col w-full gap-y-4 h-full">

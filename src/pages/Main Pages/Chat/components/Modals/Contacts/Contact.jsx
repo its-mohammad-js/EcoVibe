@@ -3,6 +3,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useRoomsData } from "../../RoomsContext";
+import useCreateChatRoom from "../../../../../../common/hooks/useCreateChatRoom";
 
 function Contact({ user, searchType, orders, onCloseModal }) {
   // last order of this contact
@@ -11,7 +12,8 @@ function Contact({ user, searchType, orders, onCloseModal }) {
   const { userType } = useSelector((state) => state.userData);
   const { personalInformation, businessInformation, userId } = user || {};
   const navigate = useNavigate();
-  const { createNewChatRoom } = useRoomsData();
+  const { setSelectedRoom } = useRoomsData();
+  const { createRoom } = useCreateChatRoom();
 
   useEffect(() => {
     if (searchType === "orders") {
@@ -32,12 +34,34 @@ function Contact({ user, searchType, orders, onCloseModal }) {
     }
   }, [searchType, orders, user]);
 
+  const handleSendMessage = () => {
+    const contactData = {
+      ...user.personalInformation,
+      ...user.businessInformation,
+      userId: user.userId,
+      userType: user.userType,
+    };
+
+    createRoom(contactData, ({ roomId }) => {
+      setSelectedRoom({
+        roomId,
+        owner: {
+          ...personalInformation,
+          ...businessInformation,
+          userType,
+          userId: userId,
+        },
+        reciver: { ...contactData, reciverId: contactData.userId },
+        members: [userId, user.userId],
+      });
+
+      onCloseModal();
+    });
+  };
+
   return (
     <div
-      onClick={() => {
-        createNewChatRoom(user);
-        onCloseModal();
-      }}
+      onClick={handleSendMessage}
       className="w-full h-28 flex items-center px-4 py-2 gap-x-4 cursor-pointer hover:bg-gray-200 transition-all rounded-xl"
     >
       {personalInformation.profilePic ? (

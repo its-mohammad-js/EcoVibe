@@ -4,7 +4,7 @@ import { VscListOrdered } from "react-icons/vsc";
 import { BsBox } from "react-icons/bs";
 import { useState } from "react";
 import { useRoomsData } from "../../../RoomsContext";
-import OrdersList from "../../../Modals/Share Content Types/OrdersList";
+import OrdersList from "../../../Modals/Share Content Types/ShareOrder/OrdersList";
 import SendLocation from "../../../Modals/Share Content Types/SendLocation";
 import ShareProduct from "../../../Modals/Share Content Types/ShareProduct";
 

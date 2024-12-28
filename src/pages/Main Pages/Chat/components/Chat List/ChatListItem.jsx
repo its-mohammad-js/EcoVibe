@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { AiOutlineDelete, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
 import { useRoomsData } from "../RoomsContext";
-import { CiChat1 } from "react-icons/ci";
 import useOutSideClick from "hooks/UseOutsideClick";
-import TextAlert from "UI/Alerts/TextAlert";
 import { getDatabase, onValue, ref } from "firebase/database";
+import ContextMenu from "./ContextMenu";
 
-const ChatColumn = ({ room, mode, deleteRoom }) => {
+const ChatListItem = ({ room, mode, deleteRoom }) => {
   // reciver data
   const {
     profilePic,
@@ -21,8 +20,6 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
   const contextMenuRef = useRef();
   useOutSideClick(contextMenuRef, () => setContextMenu(false)); // close context menu on outside click
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  // warning alert state
-  const [showAlert, setShowAlert] = useState(false);
   // last message data
   const { content, createdAt, type } = room.messageList?.at(-1) || {};
   // date of last message
@@ -58,7 +55,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
     }
   }, [createdAt]);
 
-  function openChateMessageHandler() {
+  function openChatMessageHandler() {
     setSelectedMessage(mode === "message" ? room.messageList?.at(-1) : null);
     if (mode === "message") {
       // reset selected message
@@ -105,7 +102,7 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
           setPosition({ x: e.clientX, y: e.clientY });
           setContextMenu(!contextMenu);
         }}
-        onClick={() => openChateMessageHandler()}
+        onClick={() => openChatMessageHandler()}
         className="w-full h-24 relative select-none rounded-md flex items-center hover:bg-gray-300/30 transition-all cursor-pointer gap-x-2 px-4 py-2"
       >
         {/* user profile */}
@@ -151,59 +148,11 @@ const ChatColumn = ({ room, mode, deleteRoom }) => {
         </div>
       </div>
       {/* context menu */}
-      <div
-        style={{
-          top: position.y,
-          left: position.x / 1.7,
-        }}
-        ref={contextMenuRef}
-        className={`${
-          contextMenu ? "opacity-100 visible" : "opacity-0 invisible"
-        } fixed rounded-md transition-all overflow-hidden z-50 top-24 flex flex-col`}
-      >
-        <button
-          onClick={() => {
-            const findedRoom = rooms.find(
-              ({ roomId }) => roomId === room.roomId
-            );
-            setSelectedRoom(findedRoom);
-            setContextMenu(false);
-          }}
-          className="p-4 bg-gray-100 hover:bg-gray-200 transition-all flex items-center gap-x-2"
-        >
-          <CiChat1 className="text-2xl" />
-          open Chat
-        </button>
-        <button
-          onClick={() => {
-            setShowAlert(true);
-            setContextMenu(false);
-          }}
-          className="p-4 bg-gray-100 hover:bg-gray-200 transition-all flex items-center gap-x-2 text-red-500"
-        >
-          <AiOutlineDelete className="text-2xl" />
-          delete chat
-        </button>
-      </div>
-      {/* warning alert on delete chat room */}
-      <div
-        className={`${
-          showAlert ? "opacity-100 visible" : "opacity-0 invisible"
-        } fixed inset-0 z-50 flex justify-center items-center transition-all`}
-      >
-        <TextAlert
-          action="Delete Chat Room"
-          closeModal={() => setShowAlert(false)}
-          message="Are You Sure You Want To Delete This Chat?, you cannot access messages again..."
-          submitCallBack={() => deleteRoom(room.roomId, rooms)}
-        />
-        <div
-          onClick={() => setShowAlert(false)}
-          className="absolute inset-0 bg-gray-950/50 -z-10"
-        ></div>
-      </div>
+      <ContextMenu
+        {...{ deleteRoom, room, position, setContextMenu, contextMenu }}
+      />
     </>
   );
 };
 
-export default ChatColumn;
+export default ChatListItem;

@@ -1,7 +1,7 @@
 import { AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { useRoomsData } from "../RoomsContext";
 import { useState } from "react";
-import ChatColumn from "./ChatColumn";
+import ChatColumn from "./ChatListItem";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 
 function ChatList({ openSideNav, deleteRoom }) {

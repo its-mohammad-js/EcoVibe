@@ -1,9 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { get, getDatabase, ref, set } from "firebase/database";
 import { useProfileData } from "../../SellerProfilePage";
-import toast from "react-hot-toast";
 import ProfileHeader from "./ProfileHeader";
+import useCreateChatRoom from "../../../../../common/hooks/useCreateChatRoom";
 
 function SellerInfo({ onEditHandler }) {
   // seller profile data
@@ -13,55 +11,23 @@ function SellerInfo({ onEditHandler }) {
   } = useProfileData();
   // current user data
   const { personalInformation } = userInfo || {};
-  const currentUserData = useSelector((state) => state.userData);
   // nevessary data & hooks
   const params = useParams();
   const navigate = useNavigate();
-  const currentUserId = JSON.parse(localStorage.getItem("userData"))?.userId;
+  const { createRoom } = useCreateChatRoom();
 
   // send message handler
-  async function sendMessage() {
-    if (isOwner) {
-      toast("you cant message your self!");
-      return;
-    }
+  function sendMessage() {
+    const contactData = {
+      ...userInfo.personalInformation,
+      ...userInfo.businessInformation,
+      userType: userInfo.userType,
+      userId: params?.id,
+    };
 
-    if (!currentUserId) {
-      toast("you should sign up first");
-    }
-
-    const roomId = `FROM:${currentUserId}&TO:${params.id}`;
-    const dbRef = getDatabase();
-
-    const room = await get(ref(dbRef, "rooms")).then((res) =>
-      Object?.entries(res.val() || {}).find(
-        ([k, v]) =>
-          v.members?.includes(currentUserId) &&
-          v.members?.includes("j3zLI30uZAhzpzJzbi9a5Ccr9fJ3")
-      )
-    );
-    if (!room) {
-      await set(ref(dbRef, `rooms/${roomId}`), {
-        roomId,
-        // customer data
-        [currentUserId]: {
-          ...currentUserData.personalInformation,
-          ...currentUserData?.businessInformation,
-          userId: currentUserId,
-        },
-        // seller data
-        [params?.id]: {
-          ...userInfo.personalInformation,
-          ...userInfo.businessInformation,
-          userType: userInfo.userType,
-          userId: params?.id,
-        },
-        members: [currentUserId, params.id],
-      });
-      navigate(`/EcoVibe/Messages/`, { state: { roomId: roomId } });
-    } else {
-      navigate(`/EcoVibe/Messages/`, { state: { roomId: room[1].roomId } });
-    }
+    createRoom(contactData, ({ roomId }) => {
+      navigate(`/EcoVibe/Messages/`, { state: { roomId } });
+    });
   }
 
   // open mail handler

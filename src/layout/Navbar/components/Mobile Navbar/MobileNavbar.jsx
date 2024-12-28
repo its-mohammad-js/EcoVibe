@@ -3,9 +3,9 @@ import { useLocation } from "react-router-dom";
 import { isInArray } from "constants";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import QuickAccessMenu from "../../modals/QuickAccessMenu";
+import QuickAccessMenu from "../../modals/Quick Access Menu/MainMenu";
 import useOutSideClick from "hooks/UseOutsideClick";
-import SearchModal from "../../modals/SearchModal";
+import SearchModal from "../../modals/Search Modal/SearchModal";
 import SideMenu from "./SideMenu";
 
 // search modal rendered only on this routes

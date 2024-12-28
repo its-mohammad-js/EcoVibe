@@ -6,13 +6,12 @@ import {
   set,
   update,
 } from "firebase/database";
-import MessageLayout from "../MessageRowTypes/MessageLayout";
+import MessageLayout from "../Messages List/MessageLayout";
 import { useSelector } from "react-redux";
 import TextAlert from "UI/Alerts/TextAlert";
 import { useRoomsData } from "../../RoomsContext";
 
 const MessageList = () => {
-  const [lastRoom, setLastRoom] = useState(null);
   // context menu state
   const [contextMenu, setContextMenu] = useState(null);
   // warning alert state
@@ -20,10 +19,10 @@ const MessageList = () => {
     alertIsShow: "",
     messageId: null,
   });
-  // message wrapper ref
-  const messagesWrapperRef = useRef();
+  const [lastRoom, setLastRoom] = useState(null);
   const { selectedRoom } = useRoomsData();
   const { userId } = useSelector((state) => state.userData);
+  const messagesWrapperRef = useRef();
 
   // disable scroll on display context menu
   useEffect(() => {
@@ -118,11 +117,11 @@ const MessageList = () => {
             (message, index) =>
               message?.visibleTo?.includes(userId) && (
                 <MessageLayout
-                  message={message}
                   key={index}
-                  setContextMenu={setContextMenu}
-                  contextMenu={contextMenu}
+                  message={message}
                   onDeleteMessage={onDeleteMessage}
+                  contextMenu={contextMenu}
+                  setContextMenu={setContextMenu}
                 />
               )
           )}

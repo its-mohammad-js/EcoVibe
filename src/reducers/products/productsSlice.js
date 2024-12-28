@@ -1,21 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../config/firebase";
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "../../config/firebase";
 import { filterProducts } from "/src/common/utils/filterPorducts";
+import axios from "axios";
 
 export const getFilteredProducts = createAsyncThunk(
   "products/getAsyncProducts",
   async (payload, { rejectWithValue, fulfillWithValue }) => {
     try {
-      // refrence to collection of products in database
-      const productsCollectionRef = collection(db, "Products");
-      // get docs by collection name
-      const data = await getDocs(productsCollectionRef);
-      // merge docs data with data id
-      const mergedData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
+      // // refrence to collection of products in database
+      // const productsCollectionRef = collection(db, "Products");
+      // // get docs by collection name
+      // const data = await getDocs(productsCollectionRef);
+      // // merge docs data with data id
+      // const mergedData = data.docs.map((doc) => ({
+      //   ...doc.data(),
+      //   id: doc.id,
+      // }));
+      const mergedData = await axios
+        .get("https://strapi-test-88eg.onrender.com/api/products")
+        .then((res) => {
+          return res.data.data[0]?.docs;
+        });
+
       if (!mergedData?.length) {
         throw new Error(420);
       }

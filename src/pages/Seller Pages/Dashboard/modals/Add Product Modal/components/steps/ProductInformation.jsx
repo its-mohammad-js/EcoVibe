@@ -6,12 +6,7 @@ import {
   supportedTags,
 } from "constants";
 import Select from "react-select";
-import { useEffect, useState } from "react";
-
-const categoryOptions = supportedCategories.map(({ title }) => ({
-  label: title,
-  value: title,
-}));
+import { useFormContext } from "react-hook-form";
 
 const inputsValidation = {
   Name: {
@@ -48,20 +43,13 @@ const inputsValidation = {
   },
 };
 
-const getCategoryOptions = (category, key) => {
-  return supportedCategories
-    .find(({ title }) => title === category)
-    ?.[key]?.filter(({ used }) => !used)
-    .map(({ title }) => ({ label: title, value: title }));
-};
-
-function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
-  const [tags, setTags] = useState([]);
-
-  // set tags to main (parent) form data
-  useEffect(() => {
-    setValue("Tags", JSON.stringify(tags));
-  }, [tags]);
+function ProductInformation({ isEdit }) {
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <div className="flex flex-col gap-y-2 mb-6 lg:basis-2/5">
@@ -85,8 +73,12 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
             menuShouldScrollIntoView={false}
             options={categoryOptions}
             {...register("Category", { ...inputsValidation.Category })}
-            onChange={({ value }) => setValue("Category", value)}
-            placeholder={isEdit ? getValues()?.Category : "Add Category"}
+            onChange={({ value }) => {
+              setValue("Category", value);
+              setValue("Type", undefined);
+              setValue("Collection", undefined);
+            }}
+            placeholder={watch()?.Category ? watch()?.Category : "Add Category"}
             isDisabled={isEdit}
           />
           <p className="text-red-500 px-1">{errors?.Category?.message}</p>
@@ -96,11 +88,12 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
           <h6 className="font-semibold lg:text-lg">Product Type :</h6>
           <Select
             menuShouldScrollIntoView={false}
-            {...register("Type", { ...inputsValidation.Type })}
+            {...register("Type", { required: "Choose Product Type" })}
             onChange={({ value }) => setValue("Type", value)}
-            options={getCategoryOptions(getValues()?.Category, "productTypes")}
-            placeholder={isEdit ? getValues()?.Type : "Select Product Type"}
+            options={getCategoryOptions(watch()?.Category, "productTypes")}
+            placeholder={watch()?.Type ? watch()?.Type : "Select type"}
             isDisabled={isEdit}
+            key={watch()?.Category}
           />
           <p className="text-red-500 px-1">{errors?.Type?.message}</p>
         </div>
@@ -111,8 +104,9 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
             menuShouldScrollIntoView={false}
             {...register("Collection")}
             onChange={({ value }) => setValue("Collection", value)}
-            options={getCategoryOptions(getValues()?.Category, "collections")}
-            placeholder={isEdit ? getValues()?.Collection : "Add Collection"}
+            options={getCategoryOptions(watch()?.Category, "collections")}
+            placeholder={isEdit ? watch()?.Collection : "Add Collection"}
+            key={watch()?.Category}
           />
         </div>
       </div>
@@ -123,10 +117,12 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
           {supportedTags.map(({ title }, index) => (
             <button
               type="button"
-              onClick={() => setTags(toggleElementInArray(tags, title))}
+              onClick={() =>
+                setValue("Tags", toggleElementInArray(watch()?.Tags, title))
+              }
               key={index}
               className={`${
-                isInArray(tags, title)
+                isInArray(watch()?.Tags, title)
                   ? "bg-primary-500 text-gray-50 border-gray-50 [&>span]:inline"
                   : "border-primary-300 bg-gray-50 text-primary-500 [&>span]:hidden"
               } flex items-center gap-1 px-2 py-1 rounded-md border transition-all`}
@@ -168,3 +164,15 @@ function ProductInformation({ register, setValue, getValues, errors, isEdit }) {
   );
 }
 export default ProductInformation;
+
+const categoryOptions = supportedCategories.map(({ title }) => ({
+  label: title,
+  value: title,
+}));
+
+const getCategoryOptions = (category, key) => {
+  return supportedCategories
+    .find(({ title }) => title === category)
+    ?.[key]?.filter(({ used }) => !used)
+    .map(({ title }) => ({ label: title, value: title }));
+};

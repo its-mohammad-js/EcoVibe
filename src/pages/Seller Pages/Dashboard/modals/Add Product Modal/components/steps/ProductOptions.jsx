@@ -1,11 +1,14 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
-import { db } from "../../../../../config/firebase";
+import { db } from "src/config/firebase";
 import toast from "react-hot-toast";
-import { fakeArray } from "constants";
+import { useFormContext } from "react-hook-form";
+import AddOptionsFormLoader from "UI/Loaders/AddOptionsFormLoader";
+import { map, filter } from "lodash";
 
-function ProductOptions({ getValues, setValue, isEdit }) {
+function ProductOptions({ isEdit }) {
+  const { setValue, getValues, watch } = useFormContext();
   // selected options data
   const [selectedOptions, setSelectedOptions] = useState([]);
   // options list fetch data
@@ -17,6 +20,19 @@ function ProductOptions({ getValues, setValue, isEdit }) {
   // necessary data
   const { Type } = getValues();
   const optionMenuRef = useRef();
+
+  // reset option values on product type | category change
+  useEffect(() => {
+    if (isEdit) return;
+    setSelectedOptions([]);
+    setValue("Options", []);
+  }, [watch()?.Type, watch()?.Category]);
+
+  // set selected options to main form state on each change
+  useEffect(() => {
+    // set options to main form state
+    setValue("Options", selectedOptions);
+  }, [selectedOptions]);
 
   // fetch product options
   async function fetchOptions() {
@@ -74,28 +90,14 @@ function ProductOptions({ getValues, setValue, isEdit }) {
   // change selected options
   function onSelectOptions(title, options) {
     // merge options data into single object
-    const mergedOptions = {
-      title,
-      options: options.map(({ value }) => value),
-    };
-    // filter selcted options
-    const filteredOptions = selectedOptions.filter(
-      (opt) => opt.title !== title
-    );
+    const mergedOptions = { title, options: map(options, "value") };
     // add | remove options from selected options
-    setSelectedOptions(() =>
-      options.length ? [...filteredOptions, mergedOptions] : filteredOptions
+    setSelectedOptions((prev) =>
+      options.length
+        ? [...filter(prev, (opt) => opt.title !== title), mergedOptions]
+        : filter(prev, (opt) => opt.title !== title)
     );
   }
-
-  // set selected options to main form state on each change
-  useEffect(() => {
-    // set options to main form state
-    setValue(
-      "Options",
-      !isEdit ? JSON.stringify(selectedOptions) : selectedOptions
-    );
-  }, [selectedOptions]);
 
   // display prev options on edit mode
   useEffect(() => {
@@ -119,20 +121,7 @@ function ProductOptions({ getValues, setValue, isEdit }) {
     );
 
   // loading screen
-  if (loading)
-    return (
-      <div className="w-full h-80 animate-pulse">
-        <h6 className="text-center text-3xl font-bold text-primary-300">
-          Load Options...
-        </h6>
-        <div className="flex flex-col gap-y-4 my-4">
-          {fakeArray(4).map((num, index) => (
-            <Select key={index} isDisabled={true} />
-          ))}
-        </div>
-      </div>
-    );
-  // console.log(selectedOptions);
+  if (loading) return <AddOptionsFormLoader />;
 
   // main form
   if (!loading && optionsList?.length)
@@ -156,7 +145,7 @@ function ProductOptions({ getValues, setValue, isEdit }) {
           </p>
         </div>
         {/* options list */}
-        <div className="">
+        <div key={watch()?.Options} className="">
           <h6 className="text-xl font-bold">Options List :</h6>
 
           <div ref={optionMenuRef} className="flex flex-col gap-y-4 my-2">
@@ -165,12 +154,13 @@ function ProductOptions({ getValues, setValue, isEdit }) {
                 <div key={index} className="option">
                   <Select
                     onChange={(e) => onSelectOptions(title, once ? [e] : e)}
-                    value={selectedOptions
-                      .filter(({ title: label }) => label === title)[0]
+                    value={watch()
+                      ?.Options.filter(({ title: label }) => label === title)[0]
                       ?.options?.map((opt) => ({ label: opt, value: opt }))}
                     isMulti={!once}
                     options={options.map((opt) => ({ label: opt, value: opt }))}
                     placeholder={`Choose ${title}`}
+                    controlShouldRenderValue={watch()?.Options}
                   />
                 </div>
               );

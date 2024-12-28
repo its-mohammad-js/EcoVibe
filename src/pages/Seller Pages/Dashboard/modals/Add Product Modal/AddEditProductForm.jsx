@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductImages from "./ProductImages";
-import ProductInformation from "./ProductInformation";
-import ProductOptions from "./ProductOptions";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import toast, { LoaderIcon } from "react-hot-toast";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "src/config/firebase";
@@ -10,6 +7,8 @@ import { useSelector } from "react-redux";
 import { generateId } from "constants";
 import { useNavigate } from "react-router-dom";
 import useDisableScroll from "hooks/UseDisableScroll";
+import StepNavigator from "./components/steps/StepNavigator";
+import { uniq } from "lodash";
 
 const stepsInfo = [
   { step: 1, title: "General Info" },
@@ -23,19 +22,18 @@ function AddEditProductForm({
   selectedProduct,
   getProducts,
 }) {
-  const [currentStep, setStep] = useState(1);
   const { userId, businessInformation, personalInformation } = useSelector(
     (state) => state.userData
   );
   const [loading, setLoading] = useState(false);
-  const {
-    register,
-    setValue,
-    getValues,
-    formState: { errors, isValid },
-    handleSubmit,
-    watch,
-  } = useForm();
+  const formMethods = useForm({
+    defaultValues: {
+      Collection: "",
+      Tags: [],
+    },
+  });
+  const [currentStep, setCurrentStep] = useState(1);
+  const { setValue, watch, handleSubmit } = formMethods;
   const navigate = useNavigate();
   useDisableScroll();
 
@@ -45,106 +43,83 @@ function AddEditProductForm({
         setValue(key, value);
       });
     }
-  }, []);
+  }, [isEdit, selectedProduct, setValue]);
 
-  // add new product to data base
-  async function uploadProduct() {
-    // parse images url json file to array
-    const Images = !isEdit
-      ? JSON.parse(getValues().Images)
-      : getValues().Images;
-    // define product id
-    const productId = !isEdit ? generateId(userId) : getValues().id;
+  function nextStep() {
+    // if (!isValid) {
+    //   return;
+    // }
+    const { Name, Type, Category, Price } = watch();
+    const Options = watch().Options;
 
-    if (Images.length > 0) {
-      // add new product to data base
-      try {
-        setLoading(true);
-        // add new product to data base
-        await setDoc(doc(db, "Products", productId), {
-          Category: getValues().Category,
-          Collection: getValues().Collection || "",
-          Description: getValues().Description,
-          Images,
-          Name: getValues().Name,
-          Options: !isEdit
-            ? JSON.parse(getValues()?.Options)
-            : getValues()?.Options,
-          Price: getValues().Price,
-          Tags: getValues()?.Tags?.length
-            ? !isEdit
-              ? JSON.parse(getValues()?.Tags)
-              : getValues()?.Tags
-            : [],
-          Thumbnail: Images[0] || "",
-          Type: getValues().Type,
-          SellerId: userId,
-          SellerName:
-            businessInformation?.business_name ||
-            personalInformation?.fisrt_name ||
-            "",
-          SellerEmail: "test mail",
-          SellerProfile: personalInformation?.profilePic || "",
-          createdByUser: true,
-          createdAt: serverTimestamp(),
-        });
-        // dispatch success on each modes (edit || add)
-        if (isEdit) {
-          toast.success("your changes sumbitted");
-          getProducts();
-          onModalChange();
-        } else {
-          toast.success("Product Uploaded Succesfully !");
-          navigate(`/EcoVibe/Products/${productId}`);
-        }
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        console.log(error);
-      }
-    } else {
-      toast.error("add one image at least");
-    }
-  }
-
-  // change tab handler
-  function changeTab() {
-    // stay on current step if current form isn't valid
-    if (!isValid) {
-      return;
-    }
-    // general informations
-    const { Name, Type, Category, Price } = getValues();
-    // // options data
-    const Options = !isEdit
-      ? JSON.parse(getValues().Options)
-      : getValues().Options;
-    // submit form data on last step
-    if (currentStep === 3) {
-      uploadProduct();
-      return;
-    }
-    // change tab
-    if (
-      currentStep === 1 &&
-      (!Name?.length || !Type || !Category || !Category || !Price)
-    ) {
+    if (currentStep === 1 && (!Name?.length || !Type || !Category || !Price)) {
       toast.error("Please complete the product information form");
       return;
     } else if (currentStep === 2 && !Options.length) {
       toast("Add at least one option");
       return;
-    } else if (currentStep !== 3) {
-      setStep((prev) => prev + 1);
+    } else if (currentStep === 3) {
+      if (watch()?.Images.length > 0) {
+        onSubmitProduct();
+        return;
+      } else {
+        toast.error("add one image at least");
+      }
+    }
+
+    setCurrentStep((prev) => Math.min(prev + 1, 3));
+  }
+
+  // add new product to data base
+  async function onSubmitProduct(e) {
+    if (currentStep !== 3) {
+      nextStep();
       return;
+    }
+    // define product id
+    const productId = !isEdit ? generateId(userId) : watch().id;
+    // main product data
+    const productData = {
+      ...watch(),
+      Images: uniq(watch("Images") || []),
+      Thumbnail: watch()?.Images[0] || "",
+      SellerId: userId,
+      SellerName:
+        businessInformation?.business_name ||
+        personalInformation?.fisrt_name ||
+        "",
+      SellerEmail: personalInformation?.email || "",
+      SellerProfile: personalInformation?.profilePic || "",
+      createdByUser: true,
+      createdAt: serverTimestamp(),
+    };
+
+    // add new product to data base
+    try {
+      setLoading(true);
+      // add new product to data base
+      await setDoc(doc(db, "Products", productId), productData);
+      // dispatch success on each modes (edit || add)
+      if (isEdit) {
+        toast.success("your changes sumbitted");
+        getProducts();
+        onModalChange();
+      } else {
+        toast.success("Product Uploaded Succesfully !");
+        navigate(`/EcoVibe/Products/${productId}`);
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
     }
   }
 
   return (
-    <>
+    <FormProvider {...formMethods}>
       {/* main add/edit product form */}
       <form
-        onSubmit={handleSubmit(() => changeTab())}
+        onSubmit={handleSubmit(onSubmitProduct)}
         className="px-4 bg-gray-50 relative py-2 lg:px-6 lg:py-4 flex flex-col lg:gap-4 w-[95vw] lg:w-[50vw] xl:w-[40vw] h-5/6 lg:h-auto mx-auto lg:border border-gray-200 lg:shadow hover:shadow-2xl transition-all duration-300 rounded-md"
       >
         {/* step counter */}
@@ -194,77 +169,16 @@ function AddEditProductForm({
             </h4>
           </div>
         )}
-        {/* main forms */}
-        <div className="max-h-96 lg:max-h-[55vh] overflow-y-auto overflow-x-hidden styled-scroll-bar scroll-smooth px-2 py-1.5 relative">
-          {/* step 01: set general information's */}
-          <div
-            className={`${
-              currentStep === 1
-                ? "visible opacity-100 static translate-x-0"
-                : "invisible opacity-0 absolute -top-96 -translate-y-96 -translate-x-96"
-            } transition-all duration-500`}
-          >
-            <ProductInformation
-              register={register}
-              setValue={setValue}
-              getValues={watch}
-              errors={errors}
-              isEdit={isEdit}
-            />
-          </div>
-          {/* step 02: set product option's */}
-          <div
-            className={`${
-              currentStep === 2
-                ? "visible opacity-100 static translate-x-0"
-                : "invisible opacity-0 absolute -top-96 -translate-y-96 -translate-x-96"
-            } transition-all duration-500`}
-          >
-            <ProductOptions
-              getValues={getValues}
-              setValue={setValue}
-              isEdit={isEdit}
-            />
-          </div>
-          {/* last step: set product images */}
-          <div
-            className={`${
-              currentStep === 3
-                ? "visible opacity-100 static translate-x-0"
-                : "invisible opacity-0 absolute -top-96 -translate-y-96 -translate-x-96"
-            } transition-all duration-500`}
-          >
-            <ProductImages
-              getValues={getValues}
-              setValue={setValue}
-              isEdit={isEdit}
-            />
-          </div>
-        </div>
-        {/* action btn's */}
-        <div className="flex items-center justify-end my-2 gap-x-2">
-          <button
-            type="button"
-            disabled={
-              (isEdit && currentStep === 3) ||
-              (currentStep === 3 && getValues().Images !== "[]")
-            }
-            onClick={() => {
-              currentStep === 1
-                ? onModalChange(null)
-                : setStep((prev) => prev - 1);
-            }}
-            className="px-4 py-2 lg:w-1/6 border-2 rounded-md border-gray-600 text-gray-900 hover:border-primary-800 hover:text-primary-800 transition-all disabled:invisible"
-          >
-            {currentStep === 1 ? "Close" : "Back"}
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-primary-500 text-gray-50 rounded-md border-2 border-primary-500 hover:bg-gray-50 hover:text-primary-500 transition-all lg:w-1/5"
-          >
-            {currentStep !== 3 ? "Next" : "Submit"}
-          </button>
-        </div>
+        {/* main form steps */}
+        <StepNavigator
+          {...{
+            isEdit,
+            onModalChange,
+            currentStep,
+            setCurrentStep,
+            onSubmitProduct: handleSubmit(onSubmitProduct),
+          }}
+        />
       </form>
       {/* background (close modal) */}
       <div
@@ -277,7 +191,7 @@ function AddEditProductForm({
               toast.error("Plase submit your changes...");
               return;
             }
-          } else if (getValues().Images !== "[]") {
+          } else if (watch().Images !== "[]") {
             toast.remove();
             toast.error(
               "Plase submit your product, you can remove it later..."
@@ -288,7 +202,7 @@ function AddEditProductForm({
         }}
         className="absolute inset-0 bg-gray-950/70 backdrop-blur cursor-pointer -z-10"
       ></div>
-    </>
+    </FormProvider>
   );
 }
 

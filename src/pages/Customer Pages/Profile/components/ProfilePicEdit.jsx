@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ProfileImagePicker from "UI/ProfileImagePicker/ProfileImagePicker";
 import { updateUserData } from "src/reducers/auth/userDataSlice";
 import { FaPencil } from "react-icons/fa6";
-import { loadingIcon } from "constants";
 import { LoaderIcon } from "react-hot-toast";
 
 function ProfilePicEdit() {

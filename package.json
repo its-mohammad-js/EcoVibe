@@ -12,6 +12,7 @@
   "dependencies": {
     "@jdion/tilt-react": "^1.0.0",
     "@reduxjs/toolkit": "^2.1.0",
+    "axios": "^1.7.9",
     "firebase": "^10.13.0",
     "framer-motion": "^10.18.0",
     "pigeon-maps": "^0.21.6",

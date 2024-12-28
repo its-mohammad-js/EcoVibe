@@ -41,6 +41,11 @@ function QuickAccessMenu({ onModalChange }) {
     };
   }, []);
 
+  const onMenuSelect = (type, payload) => {
+    !type ? navigate(payload) : onModalChange(payload);
+    setMenu(false);
+  };
+
   return (
     <>
       <div
@@ -52,7 +57,7 @@ function QuickAccessMenu({ onModalChange }) {
         {/* quick access to dashboard tabs */}
         <div className="flex flex-col transition-all">
           <button
-            onClick={() => navigate("Analytics")}
+            onClick={() => onMenuSelect(false, "Analytics")}
             className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
           >
             <p className="p-2 text-xl rounded-full border border-gray-50 group-hover:border-primary-500">
@@ -63,7 +68,7 @@ function QuickAccessMenu({ onModalChange }) {
             </p>
           </button>
           <button
-            onClick={() => navigate("Products")}
+            onClick={() => onMenuSelect(false, "Products")}
             className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
           >
             <p className="p-2 text-xl rounded-full border border-gray-50 group-hover:border-primary-500">
@@ -74,7 +79,7 @@ function QuickAccessMenu({ onModalChange }) {
             </p>
           </button>
           <button
-            onClick={() => navigate("Orders")}
+            onClick={() => onMenuSelect(false, "Orders")}
             className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
           >
             <p className="p-2 text-xl rounded-full border border-gray-50 group-hover:border-primary-500">
@@ -85,7 +90,7 @@ function QuickAccessMenu({ onModalChange }) {
             </p>
           </button>
           <button
-            onClick={() => navigate("/EcoVibe/")}
+            onClick={() => onMenuSelect(false, "/EcoVibe/")}
             className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
           >
             <p className="p-2 text-2xl rounded-full border border-gray-50 group-hover:border-primary-500">
@@ -96,7 +101,7 @@ function QuickAccessMenu({ onModalChange }) {
             </p>
           </button>
           <button
-            onClick={() => navigate("/EcoVibe/messages")}
+            onClick={() => onMenuSelect(false, "/EcoVibe/messages")}
             className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
           >
             <p className="p-2 text-2xl rounded-full border border-gray-50 group-hover:border-primary-500">
@@ -110,7 +115,7 @@ function QuickAccessMenu({ onModalChange }) {
         {/* qucik actions */}
         <div className="flex flex-col">
           <button
-            onClick={() => onModalChange("add-product")}
+            onClick={() => onMenuSelect(true, "add-product")}
             className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
           >
             <p className="p-2 text-2xl rounded-full border border-gray-50 group-hover:border-primary-500">
@@ -121,7 +126,7 @@ function QuickAccessMenu({ onModalChange }) {
             </p>
           </button>
           <button
-            onClick={() => onModalChange("add-story")}
+            onClick={() => onMenuSelect(true, "add-story")}
             className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
           >
             <p className="p-2 text-2xl rounded-full border border-gray-50 group-hover:border-primary-500">
@@ -132,7 +137,7 @@ function QuickAccessMenu({ onModalChange }) {
             </p>
           </button>
           <button
-            onClick={() => navigate(`/EcoVibe/seller/${userId}`)}
+            onClick={() => onMenuSelect(false, `/EcoVibe/seller/${userId}`)}
             className="flex flex-col items-center justify-center gap-y-1 text-primary-500 group"
           >
             <p className="p-2 text-2xl rounded-full border border-gray-50 group-hover:border-primary-500">

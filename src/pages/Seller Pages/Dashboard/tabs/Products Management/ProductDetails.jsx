@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { loadingIcon } from "constants";
 import toast from "react-hot-toast";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "src/config/firebase";
+import { db, storage } from "src/config/firebase";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
+import { deleteObject, ref } from "firebase/storage";
 
 function ProductDetails({ selectedItem, onModalClose, getProducts }) {
   // description state
@@ -20,13 +21,27 @@ function ProductDetails({ selectedItem, onModalClose, getProducts }) {
   // necessary data & hooks
   const imageGalleryRef = useRef();
   const navigate = useNavigate();
+  // console.log(selectedItem);
 
   async function deleteProduct() {
     // delete product if user confirmed
     if (isSelected) {
+      // delete product cell from firestore
       try {
         // display loading screen
         setDelete((prev) => ({ ...prev, loading: true }));
+        // Delete all images associated with the product
+        const deleteImagePromises = selectedItem.Images?.map(
+          async (imageUrl) => {
+            // Create a reference to the image in Firebase Storage
+            const imageRef = ref(storage, imageUrl);
+
+            // Delete the image
+            await deleteObject(imageRef);
+          }
+        );
+        // Wait for all images to be deleted
+        await Promise.all(deleteImagePromises);
         // ref to product on data base
         const docRef = doc(db, "Products", selectedItem.id);
         // delete product from data base
@@ -144,7 +159,7 @@ function ProductDetails({ selectedItem, onModalClose, getProducts }) {
         ))}
       </div>
       {/* tags list */}
-      <div className="flex items-start justify-start gap-2 mb-20">
+      <div className="flex flex-wrap items-start justify-start gap-2 mb-20">
         {selectedItem?.Tags?.length > 0 &&
           selectedItem?.Tags.map((tag, index) => (
             <button

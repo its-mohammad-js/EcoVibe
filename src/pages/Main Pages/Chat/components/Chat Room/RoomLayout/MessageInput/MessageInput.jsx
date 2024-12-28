@@ -4,9 +4,9 @@ import { getDatabase, ref, update, serverTimestamp } from "firebase/database";
 import { useSelector } from "react-redux";
 import { findIndex } from "lodash";
 import { generateId } from "constants";
-import { useRoomsData } from "../../RoomsContext";
-import ReplyHeader from "./MessageInput/ReplyHeader";
-import ShareContentMenu from "./MessageInput/ShareContentMenu";
+import ShareContentMenu from "./ShareContentMenu";
+import { useRoomsData } from "../../../RoomsContext";
+import ReplyHeader from "./ReplyHeader";
 
 function MessageInput() {
   // message content state
