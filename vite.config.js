@@ -11,6 +11,16 @@ export default defineConfig({
     }),
   ],
 
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://strapi-test-88eg.onrender.com",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+
   base: "/EcoVibe/",
 
   resolve: {
