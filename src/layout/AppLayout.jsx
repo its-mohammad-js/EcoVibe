@@ -1,4 +1,4 @@
-import Footer from "./Navbar/components/Footer";
+import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import useMediaQuery from "../common/hooks/useMediaQuery";

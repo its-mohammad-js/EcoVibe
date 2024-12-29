@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import ProductDetails from "./ProductDetails";
 import ProductsTabLoader from "UI/Loaders/ProductsTabLoader";
 import { NavLink, useParams } from "react-router-dom";
 import { useDashboardData } from "../../DashboardContext";
 import FilterProducts from "./FilterProducts";
 import ProductsList from "./ProductsList";
+import SingleProductManage from "./SingleProductManage";
 
 function ProductTab() {
   // filtered products
@@ -62,7 +62,7 @@ function ProductTab() {
               : "opacity-0 invisible absolute right-0 -translate-x-96"
           } transition-all duration-500 lg:mx-2 z-50`}
         >
-          <ProductDetails
+          <SingleProductManage
             selectedItem={selectedItem}
             onModalClose={() =>
               setDetail({ modalIsShow: false, selectedItem: null })

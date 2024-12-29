@@ -4,7 +4,6 @@ import EditBusinessInfoForm from "./components/Modals/EditBusinessInfoForm";
 import SellerProfilePageLoader from "UI/Loaders/SellerProfilePageLoader";
 import { AiOutlineLeft } from "react-icons/ai";
 import SellerContents from "./components/Contents/SellerContents";
-import { useSelector } from "react-redux";
 import SellerInfo from "./components/Seller Info/SellerInfo";
 import useSellerProfile from "./useGetSellerInfo";
 import Highlights from "./components/Seller Info/HighLights";
@@ -24,7 +23,6 @@ function SellerProfilePage() {
     setStorieModal,
     isOwner,
   } = useSellerProfile(params.id);
-
 
   if (sellerData.loading) return <SellerProfilePageLoader />;
 

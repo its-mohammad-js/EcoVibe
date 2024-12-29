@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { isInArray, toggleElementInArray } from "/src/common/utils/constants";
+import { isInArray, toggleElementInArray } from "helpers";
 
 const defaultFilters = {
   searchQuery: "",

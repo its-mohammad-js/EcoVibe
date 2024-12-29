@@ -1,8 +1,5 @@
 import { GoInfo } from "react-icons/go";
-import {
-  generateId,
-  timestampToDate,
-} from "../../../../../../../common/utils/constants";
+import { generateId, timestampToDate } from "helpers";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
 import { useSelector } from "react-redux";

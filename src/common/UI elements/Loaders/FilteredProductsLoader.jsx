@@ -1,4 +1,4 @@
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 import { BiCart } from "react-icons/bi";
 import { TbEye, TbHeart, TbStar } from "react-icons/tb";
 
@@ -37,9 +37,6 @@ function FilteredProductsLoader() {
                   <div className="w-full flex md:flex-col md:items-start justify-between">
                     <p className="w-10 h-2 bg-gray-300 rounded-md"></p>
                     <p className="flex items-center justify-center gap-x-0.5 md:gap-y-1">
-                      <span className="text-base">
-                        {/* {calculateAverage(item.Stars)} */}
-                      </span>
                       <span className="mb-0.5 text-gray-300">
                         <TbStar />
                       </span>

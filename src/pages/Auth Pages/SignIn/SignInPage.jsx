@@ -3,41 +3,11 @@ import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { signInUser } from "../../reducers/auth/userDataSlice";
-import { loadingIcon } from "constants";
-import toast from "react-hot-toast";
+import { signInUser } from "authActions/signinUser";
+import toast, { LoaderIcon } from "react-hot-toast";
 import TextInput from "UI/Forms/TextInput";
+import { inputsOptions } from "./inputsInfo";
 
-// inputs validation & condition's
-const inputsOptions = [
-  {
-    name: "email",
-    placeholder: "Please Enter Your Email",
-    validation: {
-      required: "Enter you email",
-      minLength: {
-        value: 4,
-        message: "Minimum Length Is 4 Characters",
-      },
-      pattern: {
-        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        message: "Invalid email format",
-      },
-    },
-  },
-  {
-    name: "password",
-    placeholder: "Enter Password",
-    type: "password",
-    validation: {
-      required: "Password is required",
-      minLength: {
-        value: 8,
-        message: "Minimum Length Is 8 Characters",
-      },
-    },
-  },
-];
 // bg url
 const bannerUrl =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Flogin-form-banner-66386d0ae74ba.webp?alt=media&token=a11080f5-ffd1-4e5f-b412-2735684bb9a1";
@@ -71,7 +41,7 @@ function SignInPage() {
   if (loading && auth_status === 204)
     return (
       <div className="h-screen flex items-center justify-center flex-col">
-        <img src={loadingIcon} alt="loading-icon" className="size-40" />
+        <LoaderIcon className="size-24" />
         <h4 className="my-2 text-2xl font-bold">
           Just a moment while we get things ready...
         </h4>

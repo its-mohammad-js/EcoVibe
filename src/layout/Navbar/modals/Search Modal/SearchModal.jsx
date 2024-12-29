@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supportedCategories } from "constants";
+import { supportedCategories } from "appData";
 import { BiSearch } from "react-icons/bi";
 import { FaChevronRight } from "react-icons/fa";
 import useTouchScroll from "hooks/useTouchScroll";

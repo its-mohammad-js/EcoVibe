@@ -6,7 +6,7 @@ import { FaInfoCircle } from "react-icons/fa";
 import FilterOptionRow from "./FilterOptionRow";
 import useMediaQuery from "hooks/useMediaQuery";
 import { BiSort } from "react-icons/bi";
-import { getProductOption } from "constants";
+import { getProductOption } from "./filterOptionsInfo";
 
 function ProductOptions({ onSelectOption }) {
   // selected product types

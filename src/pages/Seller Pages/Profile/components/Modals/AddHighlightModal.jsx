@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useProfileData } from "../../SellerProfilePage";
 import { FaCheck } from "react-icons/fa";
-import { fakeArray, generateId, isInArray } from "constants";
+import { fakeArray, generateId, isInArray } from "helpers";
 import toast from "react-hot-toast";
 import { getDatabase, ref, update } from "firebase/database";
 

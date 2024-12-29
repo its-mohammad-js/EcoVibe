@@ -4,7 +4,24 @@ import { useNavigate } from "react-router-dom";
 import OrderSummary from "customerPages/Checkout/components/OrderSummary";
 import PaymentInfo from "./components/PaymentInfo/PaymentInfo";
 import { LoaderIcon } from "react-hot-toast";
-import { methodsInfo } from "constants";
+
+// shiping methods info
+const methodsInfo = [
+  {
+    title: "FedEx Delivery",
+    subTitle: "Delivery: Friday, 25",
+    cost: "10.40",
+    logoUrl:
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2FFedEx%20logo.png?alt=media&token=efa51dde-4d71-418f-b760-bef0edacfaf2",
+  },
+  {
+    title: "DHL Fast Delivery",
+    subTitle: "Delivery: Sunday, 27",
+    cost: "10.99",
+    logoUrl:
+      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fdhl%20logo.png?alt=media&token=2350c603-e5ee-4a39-b919-e4c630e0afb6",
+  },
+];
 
 function CheckoutPage() {
   const { loading: authLoading, cartData } = useSelector(

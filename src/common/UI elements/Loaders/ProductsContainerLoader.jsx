@@ -1,6 +1,6 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ProductCardLoader from "./ProductCardLoader";
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 
 function ProductsContainerLoader({ title }) {
   return (

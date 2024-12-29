@@ -1,6 +1,6 @@
 import { BiTrash } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 
 function OrderSummary({ shippingCost, totalPrice }) {
   const { cartData } = useSelector((state) => state.userData); // current user cart data

@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import { BsTrash } from "react-icons/bs";
-import { timestampToDate } from "constants";
+import { timestampToDate } from "helpers";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import LastStoriesLoader from "UI/Loaders/LastStoriesLoader";
 import { LoaderIcon } from "react-hot-toast";
-import useGetStories from "../../../../../../common/hooks/useGetStories";
-import useRemoveStory from "../../../../../../common/hooks/useRemoveSlide";
+import useGetStories from "../../../../../common/hooks/useGetStories";
+import useRemoveStory from "../../../../../common/hooks/useRemoveSlide";
 import { AiFillHeart, AiOutlineEye } from "react-icons/ai";
 
 function LastStories() {

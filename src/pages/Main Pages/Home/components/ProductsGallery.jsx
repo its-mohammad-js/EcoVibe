@@ -1,44 +1,6 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-
-// product types list
-const galleryData = {
-  menTshirts: {
-    imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(2).webp?alt=media&token=fa0b6eb1-6bfd-487d-9cf9-2392cab8c623",
-    title: "T-Shirt for men's",
-    offer: "30%",
-    query: "Explore-Products/collections=men&productTypes=t-shirts",
-  },
-  menConverse: {
-    imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(1).webp?alt=media&token=21d0139d-5906-41ce-a471-6027b474dc56",
-    title: "Men's Converse sneakers",
-    offer: "40%",
-    query: "Explore-Products/collections=sneakers",
-  },
-  sweaterWomen: {
-    imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(5).webp?alt=media&token=85676e73-3572-443d-9697-deea3cb0e13d",
-    title: "Sweater For Women",
-    offer: "30-60%",
-    query: "Explore-Products/collections=women",
-  },
-  womenTshirts: {
-    imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(4).webp?alt=media&token=17802fd8-2f17-4e2e-ba9c-238d87b58de8",
-    title: "T-shirt For Womens",
-    offer: "40-50%",
-    query: "Explore-Products/collections=men&productTypes=t-shirts",
-  },
-  fashionBags: {
-    imgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-gallery-banner%20(3).webp?alt=media&token=2719153d-f9dd-40c8-a93d-306ec2b63e64",
-    title: "Fashoinable Bag Women",
-    offer: "20%",
-    query: "Explore-Products/category=fashion",
-  },
-};
+import { galleryData } from "./constants";
 
 function ProductsGallery() {
   const navigate = useNavigate(); // navigate hook

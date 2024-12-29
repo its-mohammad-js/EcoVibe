@@ -1,9 +1,10 @@
 import Select from "react-select";
 import { useDashboardData } from "../../../DashboardContext";
 import { useEffect, useState } from "react";
-import { supportedCategories, timestampToDate } from "constants";
+import { supportedCategories } from "appData";
 import TotalSellChartLoader from "UI/Loaders/TotalSellChartLoader";
 import { ProfitByCategory, ProfitByDate } from "./Charts.Types";
+import { timestampToDate } from "helpers";
 
 // chart options info
 const chartOptions = [

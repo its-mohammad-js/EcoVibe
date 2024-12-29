@@ -1,6 +1,6 @@
 import { BiCart, BiMenu, BiSearch } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
-import { isInArray } from "constants";
+import { isInArray } from "helpers";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import QuickAccessMenu from "../../modals/Quick Access Menu/MainMenu";

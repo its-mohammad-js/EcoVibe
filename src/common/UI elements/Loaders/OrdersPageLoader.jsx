@@ -1,4 +1,4 @@
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 import { TbSearch } from "react-icons/tb";
 
 function OrdersPageLoader() {

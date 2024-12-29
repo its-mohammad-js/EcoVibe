@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { fakeArray } from "../../../../../common/utils/constants";
 import { useProfileData } from "../../SellerProfilePage";
 import LastOrders from "./LastOrders";
 import LastProducts from "./LastProducts";

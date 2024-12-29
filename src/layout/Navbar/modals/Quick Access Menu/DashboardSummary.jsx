@@ -2,7 +2,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { supportedCategories } from "../../../../common/utils/constants";
+import { supportedCategories } from "appData";
 import { db } from "/src/config/firebase";
 import { DashboradSummaryLoader } from "UI/Loaders/NavbarMenuLoader";
 import {

@@ -1,24 +1,6 @@
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
-// categoreis list
-const categoriesInfo = [
-  {
-    title: "Living Room",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(2).webp?alt=media&token=cf33d03f-9c23-4147-b0d1-68f0406c1ebf",
-    query: "collections=living room",
-  },
-  {
-    title: "Bedroom",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(3).webp?alt=media&token=d8bd5490-7788-4d96-a259-447eb697d031",
-    query: "collections=bedroom",
-  },
-  {
-    title: "Kitchen",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20category%20banner%20(1).webp?alt=media&token=d4384226-4073-4f41-94d6-6094a93f7ab3",
-    query: "collections=kitchen",
-  },
-];
+import { categoriesInfo } from "./constants";
 
 function TopCategories() {
   const navigate = useNavigate(); // navigate hook

@@ -1,4 +1,4 @@
-import { calculateAverage, isInArray } from "./constants";
+import { calculateAverage, isInArray } from "helpers";
 
 export function filterProducts(products, filters) {
   // if filters are empty return products

@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { isInArray, supportedCategories } from "constants";
+import { supportedCategories } from "appData";
 import { useEffect, useState } from "react";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
+import { isInArray } from "helpers";
 
 function UserInterests() {
   // selected types state

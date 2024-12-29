@@ -25,7 +25,7 @@ const BusinessInfoForm = withSuspense(
   lazy(() => import("../pages/Auth Pages/Sellers/tabs/BusinessInfoForm"))
 );
 const SignInPage = withSuspense(
-  lazy(() => import("../pages/Auth Pages/SignIn"))
+  lazy(() => import("../pages/Auth Pages/SignIn/SignInPage"))
 );
 
 // Routes

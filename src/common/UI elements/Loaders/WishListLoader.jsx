@@ -1,5 +1,5 @@
 import { SlClose } from "react-icons/sl";
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 import { BiCartAlt } from "react-icons/bi";
 
 function WishListLoader() {

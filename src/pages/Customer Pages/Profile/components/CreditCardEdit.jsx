@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { BiTrash } from "react-icons/bi";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import AddCreditCardForm from "../../../../common/UI elements/Forms/AddCreditCardForm";
 
 function CreditCardEdit() {

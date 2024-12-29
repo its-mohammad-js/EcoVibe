@@ -3,48 +3,11 @@ import { BiUser } from "react-icons/bi";
 import { BsGithub } from "react-icons/bs";
 import { SiGmail } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
-import { signUpUser } from "src/reducers/auth/userDataSlice";
+import { signUpUser } from "authActions/signupUser";
 import { useNavigate } from "react-router-dom";
 import TextInput from "src/common/UI elements/Forms/TextInput";
+import { signUpInputs } from "./formInputsInfo";
 
-// sign-up form inputs
-const inputOptions = {
-  email: {
-    placeholder: "Ex@email.com",
-    validation: {
-      required: "Email Is Required",
-      minLength: {
-        value: 4,
-        message: "Minimum Length Is 4 Characters",
-      },
-      pattern: {
-        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        message: "Invalid email format",
-      },
-    },
-  },
-  password: {
-    placeholder: "Enter Password",
-    type: "password",
-    validation: {
-      required: "Password is required",
-      minLength: {
-        value: 8,
-        message: "Minimum Length Is 8 Characters",
-      },
-      pattern: {
-        value:
-          /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}\|;:'"\?><.,\/\\`~])[^\s]{8,}$/,
-        message:
-          "Password needs at least one uppercase letter, lowercase letter, number, and symbol.",
-      },
-    },
-  },
-  password_repeat: {
-    placeholder: "Re-peat Password",
-    type: "password",
-  },
-};
 // backgrond url
 const figureIcon =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ffisrt-step-figure-removebg-preview-6630e8a5af594.webp?alt=media&token=8e2e91b9-95a1-4416-866a-1bfe555ce0c9";
@@ -95,7 +58,7 @@ function SignUpCustomer() {
         >
           {/* all inputs  */}
           <div className="grid lg:grid-rows-2 gap-x-4 lg:grid-cols-2 w-full">
-            {Object.entries(inputOptions).map(
+            {Object.entries(signUpInputs).map(
               ([name, { placeholder, validation, type }], index) => (
                 <TextInput
                   key={index}

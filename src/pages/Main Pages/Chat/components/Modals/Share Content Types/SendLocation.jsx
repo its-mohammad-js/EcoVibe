@@ -3,7 +3,7 @@ import { Map, Marker } from "pigeon-maps";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { generateId } from "constants";
+import { generateId } from "helpers";
 import { useRoomsData } from "../../RoomsContext";
 
 function SendLocation({ onCloseModal }) {

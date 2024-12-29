@@ -7,7 +7,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { ImImages } from "react-icons/im";
 import { db, storage } from "src/config/firebase";
-import { generateId } from "constants";
+import { generateId } from "helpers";
 import { doc, setDoc } from "firebase/firestore";
 import { useFormContext } from "react-hook-form";
 import ImagePreview from "./ImagesReview";

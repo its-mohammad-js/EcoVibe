@@ -2,14 +2,14 @@ import { BiHeart } from "react-icons/bi";
 import { filterProducts } from "/src/common/utils/filterPorducts";
 import { FaHeart } from "react-icons/fa";
 import ReactStars from "react-stars";
-import { calculateAverage, isInArray, toggleElementInArray } from "constants";
+import { calculateAverage, isInArray, toggleElementInArray } from "helpers";
 import CollectionGalleryLoader from "UI/Loaders/CollectionGalleryLoader";
 import SimpleBanner from "./SimpleBanner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import toast from "react-hot-toast";
-import { checkUserAuthentication } from "../../../../common/utils/constants";
+import { checkUserAuthentication } from "helpers";
 
 function CollectionsGallery({ products, isLoading }) {
   // get summer collection products

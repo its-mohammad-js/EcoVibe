@@ -1,36 +1,4 @@
-// brand inforamtion
-const brandsInfo = [
-  {
-    name: "Astra",
-    iconSvg:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fastra-58827.svg?alt=media&token=3773d918-09c6-4434-a351-6297f7ab616a",
-  },
-  {
-    name: "Paramedicos",
-    iconSvg:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fparamedicos-policia.svg?alt=media&token=25e26a47-66ed-43a0-b5ca-20121cf22b98",
-  },
-  {
-    name: "Peta",
-    iconSvg:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fpeta-logo.svg?alt=media&token=d6bffc37-b79c-433b-82e5-e882e3c98825",
-  },
-  {
-    name: "Doctolib",
-    iconSvg:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Flogo-doctolib.svg?alt=media&token=8af252c5-8542-493d-ab1d-55bef616b21c",
-  },
-  {
-    name: "AIT",
-    iconSvg:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fait-group-42651.svg?alt=media&token=d83d5b83-c03d-4034-9cce-c200fc2620c7",
-  },
-  {
-    name: "All Star",
-    iconSvg:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fconverse-all-star-2.svg?alt=media&token=c5af88c9-88b9-40e4-8a96-13e568a1edd1",
-  },
-];
+import { brandsInfo } from "./constants";
 
 function TopBrands() {
   return (

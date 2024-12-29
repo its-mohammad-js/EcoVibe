@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import toast from "react-hot-toast";
+import toast, { LoaderIcon } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
-import { loadingIcon } from "constants";
 
 // seller authetication steps
 const stepsInfo = [
@@ -53,7 +52,7 @@ function SellerAuthPage() {
   if (loading && auth_status === 204)
     return (
       <div className="h-screen flex items-center justify-center flex-col">
-        <img src={loadingIcon} alt="loading-icon" className="size-40" />
+        <LoaderIcon className="size-24" />
         <h4 className="my-2 text-2xl font-bold">
           Just a moment while we get things ready...
         </h4>

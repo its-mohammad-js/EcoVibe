@@ -1,5 +1,5 @@
 import { FaPlus } from "react-icons/fa";
-import { avatarsUrl } from "constants";
+import { avatarsUrl } from "appData";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";

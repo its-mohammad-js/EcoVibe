@@ -1,13 +1,13 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import ReactStars from "react-stars";
 import { db } from "src/config/firebase";
-import { checkUserAuthentication, generateId } from "constants";
+import { checkUserAuthentication, generateId } from "helpers";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import TextInput from "/src/common/UI elements/Forms/TextInput";
+import StarRatnig from "./StarRatnig";
 
 const inputOptions = [
   { name: "first_name" },
@@ -69,8 +69,7 @@ function AddCommentInputs({
       checkUserAuthentication(auth_status);
       setSubmitLoading(true);
       // submit rate product
-      await setDoc(doc(db, "Products", productData[0]?.id), {
-        ...productData[0],
+      await updateDoc(doc(db, "Products", productData[0]?.id), {
         Stars: [...(productData[0]?.Stars || []), getValues().stars],
       });
       // submit comment
@@ -93,6 +92,7 @@ function AddCommentInputs({
     try {
       checkUserAuthentication(auth_status);
       setSubmitLoading(true);
+
       const replyData = {
         authorProfile: profilePic,
         authorId: userId,
@@ -102,11 +102,9 @@ function AddCommentInputs({
         type: "reply",
       };
 
-      await setDoc(
-        doc(db, "comments", parentId),
-        { replies: [...replyList, replyData] },
-        { merge: true, mergeFields: false }
-      );
+      await updateDoc(doc(db, "comments", parentId), {
+        replies: [...replyList, replyData],
+      });
       fetchComments();
     } catch (error) {
       toast.remove();
@@ -128,28 +126,7 @@ function AddCommentInputs({
       className="flex flex-col gap-2 bg-white"
     >
       {/* star ranger */}
-      {mode !== "reply" && (
-        <div className="flex flex-col">
-          <div className="flex items-center justify-between lg:flex-col lg:items-start">
-            <h6 className="text-sm font-medium lg:text-base">
-              Click on start to review :
-            </h6>
-            {!loading && !submitLoading && (
-              <ReactStars
-                size={25}
-                {...register("stars", {
-                  required: { value: true, message: "Please Rate Product" },
-                })}
-                value={getValues("stars")}
-                onChange={(e) => setValue("stars", e)}
-              />
-            )}
-          </div>
-          <p className="mx-1 text-sm text-red-500 font-semibold">
-            {errors?.stars?.message}
-          </p>
-        </div>
-      )}
+      <StarRatnig {...{ mode, getValues }} />
       {/* user info & comment header */}
       <div className="my-1 grid grid-rows-2 grid-cols-4 gap-x-2 gap-y-2">
         {inputOptions.map((input, index) => (

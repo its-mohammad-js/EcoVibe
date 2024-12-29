@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileImagePicker from "UI/ProfileImagePicker/ProfileImagePicker";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import { FaPencil } from "react-icons/fa6";
 import { LoaderIcon } from "react-hot-toast";
 

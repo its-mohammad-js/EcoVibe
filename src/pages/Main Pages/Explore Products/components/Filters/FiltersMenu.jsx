@@ -1,5 +1,4 @@
 import MultiThumbRange from "./MultiThumbRange";
-import { supportedCategories, supportedTags, getCategoryData } from "constants";
 import FilterOptionRow from "./FilterOptionRow";
 import ProductOptions from "./ProductOptions";
 import useMediaQuery from "hooks/useMediaQuery";
@@ -7,44 +6,13 @@ import { MdClose } from "react-icons/md";
 import { FaFilter, FaTrash } from "react-icons/fa";
 import { BiDollar } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import { getFilters } from "./filterOptionsInfo";
 
 function FiltersMenu({ changeFilterHandler, menuIsOpen, onCloseMenu }) {
   const selectedFilters = useSelector((state) => state.filters); // selected filters
   const isMobile = useMediaQuery({ maxWidth: 768 }); // detect screen size
-
-  // get category data
-  const { collections, productTypes } = getCategoryData(
-    selectedFilters.category.toString()
-  );
-
   // filter row's data
-  const filterOptionRows = [
-    {
-      title: "Categories",
-      filterKey: "category",
-      filterOptions: supportedCategories,
-    },
-    {
-      title: "Product Type",
-      filterKey: "productTypes",
-      filterOptions: productTypes,
-    },
-    {
-      title: "Collection's",
-      filterKey: "collections",
-      filterOptions: collections,
-    },
-    {
-      title: "Trend Tag's",
-      filterKey: "tags",
-      filterOptions: supportedTags,
-    },
-    {
-      title: "Seller",
-      filterKey: "seller",
-      filterOptions: [{ title: "All" }, { title: "Eco Vibe" }],
-    },
-  ];
+  const filterOptionRows = getFilters(selectedFilters.category.toString());
 
   return (
     <div

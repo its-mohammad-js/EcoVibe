@@ -1,5 +1,5 @@
 import Select from "react-select/base";
-import { supportedCategories } from "constants";
+import { supportedCategories } from "appData";
 import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 

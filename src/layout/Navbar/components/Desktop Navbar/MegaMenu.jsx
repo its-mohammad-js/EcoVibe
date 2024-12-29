@@ -1,6 +1,6 @@
 import { BiChevronDown } from "react-icons/bi";
 import { MdMenu } from "react-icons/md";
-import { supportedCategories } from "constants";
+import { supportedCategories } from "appData";
 import { IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";

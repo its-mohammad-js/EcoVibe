@@ -4,8 +4,8 @@ import toast, { LoaderIcon } from "react-hot-toast";
 import { BiPlus } from "react-icons/bi";
 import { MdOutlineFullscreen } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
-import { validateLocation } from "constants";
+import { updateUserData } from "authActions/updateUserData";
+import { validateLocation } from "helpers";
 
 function Locations() {
   // map full screen mode state

@@ -11,16 +11,6 @@ export default defineConfig({
     }),
   ],
 
-  server: {
-    proxy: {
-      "/api": {
-        target: "https://strapi-test-88eg.onrender.com",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
-
   base: "/EcoVibe/",
 
   resolve: {
@@ -32,8 +22,10 @@ export default defineConfig({
       customerPages: "/src/pages/Customer Pages/",
       sellerPages: "/src/pages/Seller Pages/",
       UI: "/src/common/UI elements/",
-      constants: "/src/common/utils/constants.js",
+      appData: "/src/common/utils/constants/appData.js",
+      helpers: "/src/common/utils/constants/helpers.js",
       hooks: "/src/common/hooks/",
+      authActions: "/src/reducers/auth/authActions/",
     },
   },
 });

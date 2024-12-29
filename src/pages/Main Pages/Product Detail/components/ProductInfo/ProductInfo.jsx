@@ -3,6 +3,7 @@ import ProductImages from "./ProductImages";
 import ProductDescription from "./ProductDescription";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { errorIconUrl } from "appData";
 
 function ProductInfo() {
   const {
@@ -92,11 +93,11 @@ function ProductInfo() {
   if ((!loading && !productData?.length) || error)
     return (
       <div className="flex items-center justify-center">
-        {/* <img
+        <img
           src={errorIconUrl}
           alt="error-icon"
           className="size-96 object-cover"
-        /> */}
+        />
         <div className="flex flex-col gap-y-4">
           <h4 className="text-8xl text-primary-800 font-bold">Oops!</h4>
           <p className="text-lg font-semibold">

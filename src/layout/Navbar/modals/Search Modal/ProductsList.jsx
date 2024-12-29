@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import NavbarSearchProductLoader from "UI/Loaders/NavbarSearchProductLoader";
 import { filterProducts } from "src/common/utils/filterPorducts";
 import { useEffect } from "react";
-import { isInArray } from "../../../../common/utils/constants";
+import { isInArray } from "helpers";
 import { getFilteredProducts } from "../../../../reducers/products/productsSlice";
 
 // fetch products isn't allowed on this routes

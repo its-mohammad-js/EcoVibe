@@ -2,9 +2,9 @@ import { CgClose } from "react-icons/cg";
 import TextInput from "/src/common/UI elements/Forms/TextInput";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { loadingIcon } from "constants";
-import { updateUserData } from "/src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import { useEffect } from "react";
+import { LoaderIcon } from "react-hot-toast";
 
 const inputOptions = [
   {
@@ -38,11 +38,7 @@ function EditBusinessInfoForm({ onModalClose }) {
   if (loading)
     return (
       <div className="z-40 size-full flex items-center justify-center flex-col bg-gray-50/80">
-        <img
-          src={loadingIcon}
-          alt="loading-icon"
-          className="size-40 lg:size-64 animate-pulse"
-        />
+        <LoaderIcon className="size-24" />
         <h4 className="text-2xl lg:text-4xl font-bold text-center">
           Update Your Business Information...
         </h4>

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { timestampToDate } from "constants";
+import { timestampToDate } from "helpers";
 import { useProfileData } from "../../SellerProfilePage";
 
 function LastOrders() {

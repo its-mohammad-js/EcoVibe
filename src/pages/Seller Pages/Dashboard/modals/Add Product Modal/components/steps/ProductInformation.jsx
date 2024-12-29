@@ -1,10 +1,6 @@
 import { CgClose } from "react-icons/cg";
-import {
-  isInArray,
-  supportedCategories,
-  toggleElementInArray,
-  supportedTags,
-} from "constants";
+import { supportedCategories, supportedTags } from "appData";
+import { isInArray, toggleElementInArray } from "helpers";
 import Select from "react-select";
 import { useFormContext } from "react-hook-form";
 

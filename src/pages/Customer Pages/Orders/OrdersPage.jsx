@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { errorIconUrl } from "constants";
+import { errorIconUrl } from "appData";
 import OrdersList from "customerPages/Orders/components/OrdersList";
 import OrderDetail from "customerPages/Orders/components/OrderDetail";
 import OrdersPageLoader from "UI/Loaders/OrdersPageLoader";

@@ -15,7 +15,6 @@ import NewArrivals from "mainPages/Home/components/NewArrivals";
 import TopBrands from "mainPages/Home/components/TopBrands";
 import Testimonials from "mainPages/Home/components/Testimonials";
 import ProductsContainer from "UI/ProductsContainer/ProductsContainer";
-import SellersStories from "./components/SellersStories";
 
 // url of simple banner home page
 export const bannerIcon =
@@ -42,7 +41,7 @@ function HomePage() {
 
   return (
     <>
-      <SellersStories />
+      {/* <SellersStories /> */}
       {/* hero section  */}
       <HeroSection />
       {/* Trend Products Section */}

@@ -14,8 +14,8 @@ import {
   FaVoicemail,
   FaWhatsapp,
 } from "react-icons/fa";
-import { routesInfo } from "constants";
 import { useNavigate } from "react-router-dom";
+import { mainRoutesInfo } from "./mainRoutesInfo";
 
 function Footer() {
   const navigate = useNavigate();
@@ -108,7 +108,7 @@ function Footer() {
           {/* pages */}
           <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0">
             <h4 className="text-2xl font-bold cursor-pointer">Pages</h4>
-            {routesInfo.map((route, index) => (
+            {mainRoutesInfo.map((route, index) => (
               <button
                 key={index}
                 onClick={() => {

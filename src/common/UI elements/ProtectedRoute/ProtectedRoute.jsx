@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import toast, { LoaderIcon } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
-import { errorIconUrl } from "constants";
-import { getUserData } from "src/reducers/auth/userDataSlice";
+import { errorIconUrl } from "appData";
+import { getUserData } from "authActions/getUserData";
 
 function ProtectedRoute() {
   // necessary data & hooks

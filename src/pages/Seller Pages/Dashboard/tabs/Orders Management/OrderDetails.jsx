@@ -1,5 +1,5 @@
 import { FaChevronRight } from "react-icons/fa";
-import { timestampToDate } from "constants";
+import { timestampToDate } from "helpers";
 import { CgClose } from "react-icons/cg";
 import useDisableScroll from "hooks/UseDisableScroll";
 

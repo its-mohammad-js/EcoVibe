@@ -3,7 +3,6 @@ import { LoaderIcon } from "react-hot-toast";
 import { useSlide } from "../StoryListModal";
 import { getDatabase, ref, update } from "firebase/database";
 import { useSelector } from "react-redux";
-import { getGuestUserId } from "../../../utils/constants";
 
 function SlideContent({
   setRemainingTime, // set remian time befor change slide

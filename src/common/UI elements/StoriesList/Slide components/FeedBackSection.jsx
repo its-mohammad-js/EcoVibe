@@ -4,7 +4,7 @@ import {
   AiOutlineSend,
   AiOutlineUser,
 } from "react-icons/ai";
-import { toggleElementInArray } from "../../../utils/constants";
+import { toggleElementInArray } from "helpers";
 import { useEffect, useRef, useState } from "react";
 import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
 import { useSelector } from "react-redux";

@@ -1,8 +1,8 @@
 import { FaCheck } from "react-icons/fa";
-import { supportedCategories } from "constants";
+import { supportedCategories } from "appData";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import { useNavigate } from "react-router-dom";
 
 function UserInterestsForm() {

@@ -4,7 +4,7 @@ import toast, { LoaderIcon } from "react-hot-toast";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "src/config/firebase";
 import { useSelector } from "react-redux";
-import { generateId } from "constants";
+import { generateId } from "helpers";
 import { useNavigate } from "react-router-dom";
 import useDisableScroll from "hooks/UseDisableScroll";
 import StepNavigator from "./components/steps/StepNavigator";

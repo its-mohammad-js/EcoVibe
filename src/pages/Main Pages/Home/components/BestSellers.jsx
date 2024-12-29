@@ -1,28 +1,6 @@
 import { motion } from "framer-motion";
-
-// fake sellers info
-const sellers = [
-  {
-    sellerName: "John",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(3).webp?alt=media&token=3c4014b2-2c56-4265-b4f4-9533ee70d370",
-    sellerShogaln: "ABC Store",
-  },
-  {
-    sellerName: "Alice",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(1).webp?alt=media&token=0950be8a-af45-4d18-ba99-7c1f8beebd06",
-    sellerShogaln: "XYZ Market",
-  },
-  {
-    sellerName: "Ashley",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(2).webp?alt=media&token=c97de2b9-686c-4d45-a03b-2fd250f0710b",
-    sellerShogaln: "123 Shop",
-  },
-  {
-    sellerName: "Emily",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(4).webp?alt=media&token=e7d47286-e311-480f-9a93-259be24cf119",
-    sellerShogaln: "Best Deals Co.",
-  },
-];
+import { RxDragHandleDots1 } from "react-icons/rx";
+import { sellers } from "./constants";
 
 function BestSellers() {
   return (
@@ -68,7 +46,7 @@ function BestSellers() {
             </div>
 
             <div className="w-full h-1/4 md:absolute md:bottom-0 md:flex items-center justify-center px-2 py-1 mt-4 md:mt-0 md:px-4 md:py-2">
-              <div className="w-11/12 flex flex-col items-center justify-center md:rounded-md md:bg-gray-50 md:hover:scale-105 transition-all h-full relative">
+              <div className="w-11/12 flex flex-col items-center justify-center md:rounded-md overflow-hidden md:bg-gray-50 md:hover:scale-105 transition-all h-full relative">
                 {/* background icon */}
                 <span className="hidden md:block absolute z-0 bottom-0 left-0">
                   <svg
@@ -98,157 +76,8 @@ function BestSellers() {
                 </div>
 
                 {/* background icon */}
-                <span className="hidden md:block absolute z-0 top-0 right-0">
-                  <span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="25"
-                      fill="none"
-                      viewBox="0 0 20 25"
-                    >
-                      <circle
-                        cx=".706257"
-                        cy="24.3533"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 .706257 24.3533)"
-                      />
-                      <circle
-                        cx="6.39687"
-                        cy="24.3533"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 6.39687 24.3533)"
-                      />
-                      <circle
-                        cx="12.0881"
-                        cy="24.3533"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 12.0881 24.3533)"
-                      />
-                      <circle
-                        cx="17.7787"
-                        cy="24.3533"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 17.7787 24.3533)"
-                      />
-                      <circle
-                        cx=".706257"
-                        cy="18.6624"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 .706257 18.6624)"
-                      />
-                      <circle
-                        cx="6.39687"
-                        cy="18.6624"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 6.39687 18.6624)"
-                      />
-                      <circle
-                        cx="12.0881"
-                        cy="18.6624"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 12.0881 18.6624)"
-                      />
-                      <circle
-                        cx="17.7787"
-                        cy="18.6624"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 17.7787 18.6624)"
-                      />
-                      <circle
-                        cx=".706257"
-                        cy="12.9717"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 .706257 12.9717)"
-                      />
-                      <circle
-                        cx="6.39687"
-                        cy="12.9717"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 6.39687 12.9717)"
-                      />
-                      <circle
-                        cx="12.0881"
-                        cy="12.9717"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 12.0881 12.9717)"
-                      />
-                      <circle
-                        cx="17.7787"
-                        cy="12.9717"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 17.7787 12.9717)"
-                      />
-                      <circle
-                        cx=".706257"
-                        cy="7.2808"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 .706257 7.2808)"
-                      />
-                      <circle
-                        cx="6.39687"
-                        cy="7.2808"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 6.39687 7.2808)"
-                      />
-                      <circle
-                        cx="12.0881"
-                        cy="7.2808"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 12.0881 7.2808)"
-                      />
-                      <circle
-                        cx="17.7787"
-                        cy="7.2808"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 17.7787 7.2808)"
-                      />
-                      <circle
-                        cx=".706257"
-                        cy="1.58989"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 .706257 1.58989)"
-                      />
-                      <circle
-                        cx="6.39687"
-                        cy="1.58989"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 6.39687 1.58989)"
-                      />
-                      <circle
-                        cx="12.0881"
-                        cy="1.58989"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 12.0881 1.58989)"
-                      />
-                      <circle
-                        cx="17.7787"
-                        cy="1.58989"
-                        r=".646687"
-                        fill="#3758F9"
-                        transform="rotate(-90 17.7787 1.58989)"
-                      />
-                    </svg>
-                  </span>
+                <span className="hidden md:block">
+                  <RxDragHandleDots1 className="text-5xl text-primary-300 absolute z-0 -top-2 -right-3" />
                 </span>
               </div>
             </div>

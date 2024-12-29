@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { changeFilterReducer as setFilter } from "src/reducers/filters/filterSlice";
-import { queryToFilterObject } from "constants";
 import { FaFilter, FaSearch, FaSortAmountDown } from "react-icons/fa";
 import SortMenu from "./components/Filters/SortMenu";
 import useDisableScroll from "hooks/UseDisableScroll";
@@ -26,6 +25,21 @@ function ExploreProducts() {
       navigate("/EcoVibe/Explore-Products/");
     }
   };
+
+  function queryToFilterObject(queryParams) {
+    if (!queryParams.filters) {
+      return "";
+    }
+
+    const query = queryParams?.filters?.split("&");
+    const keyQuery = query.map((filter) => {
+      let keyFilter = filter.split("=");
+
+      return { type: keyFilter[0], payload: keyFilter[1] };
+    });
+
+    return keyQuery;
+  }
 
   // effect query params to products rquest
   useEffect(() => {

@@ -6,9 +6,9 @@ import {
   checkUserAuthentication,
   isInArray,
   toggleElementInArray,
-} from "constants";
+} from "helpers";
 import { useNavigate } from "react-router-dom";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import toast from "react-hot-toast";
 import { TbHeart, TbHeartFilled } from "react-icons/tb";
 import { FaArrowLeft, FaStar } from "react-icons/fa";

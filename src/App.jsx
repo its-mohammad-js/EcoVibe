@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { getUserData } from "./reducers/auth/userDataSlice";
 import AppLayout from "./layout/AppLayout";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,15 +12,15 @@ import SellerRoutes from "./routes/SellerRoutes";
 import NotFoundPage from "./pages/404 Page/NotFoundPage";
 import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "/src/config/firebase";
+import { getUserData } from "authActions/getUserData";
 
 function App() {
-  // const dispatch = useDispatch();
-  // const { auth_status, userId } = useSelector((state) => state.userData);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   // read user data
-  //   dispatch(getUserData());
-  // }, []);
+  useEffect(() => {
+    // read user data
+    dispatch(getUserData());
+  }, []);
 
   // useEffect(() => {
   //   const updateUserAcitvity = async () => {

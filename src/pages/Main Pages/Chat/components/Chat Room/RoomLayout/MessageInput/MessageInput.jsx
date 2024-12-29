@@ -3,7 +3,7 @@ import { AiOutlineSend } from "react-icons/ai";
 import { getDatabase, ref, update, serverTimestamp } from "firebase/database";
 import { useSelector } from "react-redux";
 import { findIndex } from "lodash";
-import { generateId } from "constants";
+import { generateId } from "helpers";
 import ShareContentMenu from "./ShareContentMenu";
 import { useRoomsData } from "../../../RoomsContext";
 import ReplyHeader from "./ReplyHeader";

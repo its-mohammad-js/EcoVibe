@@ -2,34 +2,7 @@ import { FaArrowRight } from "react-icons/fa";
 import useMediaQuery from "hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
-
-// slides data
-const slidesInfo = [
-  {
-    title: "Tech Savvy Side ! ",
-    subTitle: "Best Deals",
-    offer: 40,
-    bgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20card%20banner%20%20(1).webp?alt=media&token=5eaf487e-d10c-4184-9285-f6ea7eaf38e0",
-    query: "productTypes=smart phones",
-  },
-  {
-    title: "Sale of the Month",
-    subTitle: "Summer Sale",
-    offer: 25,
-    bgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20card%20banner%20%20(1).jpg?alt=media&token=dae1321a-eda1-4803-bf01-f4080497ac28",
-    query: "category=fashion",
-  },
-  {
-    title: "home decor collection!",
-    subTitle: " Explore our",
-    offer: 10,
-    bgUrl:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftop%20card%20banner%20%20(2).webp?alt=media&token=5cf5b497-3d2c-40a4-9ed8-f4365a3802b9",
-    query: "category=home decor",
-  },
-];
+import { slidesInfo } from "./constants";
 
 function TopCards() {
   // check window width

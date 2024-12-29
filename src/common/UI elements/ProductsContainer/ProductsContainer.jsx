@@ -5,13 +5,13 @@ import { FaArrowRight, FaChevronLeft } from "react-icons/fa";
 import ProductsContainerLoader from "UI/Loaders/ProductsContainerLoader";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import {
   checkUserAuthentication,
   isInArray,
   toggleElementInArray,
   scrollContainer,
-} from "constants";
+} from "helpers";
 import toast from "react-hot-toast";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 

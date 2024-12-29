@@ -1,5 +1,5 @@
 import ReactStars from "react-stars";
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 function ProductReviewLoader() {

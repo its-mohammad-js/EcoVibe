@@ -2,51 +2,7 @@ import { useRef } from "react";
 import Slider from "react-slick";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { BiCommand } from "react-icons/bi";
-
-const testimonialsInfo = [
-  {
-    useName: "Sara White",
-    userJob: "Marketing Manager 🚀",
-    comment:
-      "Amazing product! It helped me streamline our marketing campaigns effortlessly. Highly recommended! 💯",
-    userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(5).webp?alt=media&token=9b33d65e-8bb3-4942-8757-6e107d57aac8",
-  },
-  {
-    useName: "John Cash",
-    userJob: "Graphic Designer 🖌️",
-    comment:
-      "This tool is a game-changer for designers! It has improved our team's efficiency and creativity. Love it! ❤️",
-    userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(3).webp?alt=media&token=c8300167-fe17-41f1-b393-720a27a570a6",
-  },
-  {
-    useName: "Alex",
-    userJob: "Social Media Specialist 📱",
-    comment:
-      "As a social media specialist, I rely on this product daily to schedule posts and analyze performance. It's a must-have for any social media team! 👍",
-    userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(1).webp?alt=media&token=b6bada1c-4536-4091-9331-8657250bbcc7",
-  },
-
-  {
-    useName: "Emily",
-    userJob: "Fitness Trainer 💪",
-    comment:
-      "I use this app to plan workouts for my clients and track their progress. It's user-friendly and has enriched my training programs. Fantastic job! 🏋️‍♂️",
-    userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(2).webp?alt=media&token=5db67a72-1b68-4c4d-81c3-314789c62d88",
-  },
-
-  {
-    useName: "John Doe",
-    userJob: "Educator 👩‍🏫",
-    comment:
-      "Teaching has never been easier with this software! It helps me create engaging lessons and assess student performance effectively. A must-have for educators! 📚",
-    userPic:
-      "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftestimonial%20user%20(4).webp?alt=media&token=c4aec5b0-9506-417e-9b4e-739894125274",
-  },
-];
+import { testimonialsInfo } from "./constants";
 
 function Testimonials() {
   // ref to slider

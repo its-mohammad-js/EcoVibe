@@ -1,5 +1,5 @@
 import { BiHeart } from "react-icons/bi";
-import { calculateAverage } from "constants";
+import { calculateAverage } from "helpers";
 import ReactStars from "react-stars";
 import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";

@@ -5,9 +5,9 @@ import { FaCheck } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import TextInput from "UI/Forms/TextInput";
-import { validateLocation } from "constants";
+import { validateLocation } from "helpers";
 
 // inputs information
 const inputsInfo = [

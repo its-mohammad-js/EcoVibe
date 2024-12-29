@@ -18,7 +18,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { supportedCategories } from "constants";
+import { supportedCategories } from "appData";
 
 function ShopPage() {
   // necessary hooks

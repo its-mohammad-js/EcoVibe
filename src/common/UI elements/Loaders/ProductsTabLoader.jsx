@@ -1,5 +1,5 @@
 import { BiSearch } from "react-icons/bi";
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 
 function ProductsTabLoader() {
   return (

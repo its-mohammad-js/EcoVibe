@@ -9,9 +9,9 @@ import { useSelector } from "react-redux";
 import { db } from "/src/config/firebase";
 import { collection, getDocs, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { generateId } from "constants";
+import { generateId } from "helpers";
 import { useRoomsData } from "../../RoomsContext";
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 
 function ShareProduct({ onCloseModal }) {
   // products state

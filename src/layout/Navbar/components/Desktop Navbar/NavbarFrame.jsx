@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { routesInfo } from "constants";
 import { useEffect, useRef } from "react";
 import MainNavbar from "./MainNavbar";
 import SubMenu from "./MegaMenu";
+import { mainRoutesInfo } from "../../../mainRoutesInfo";
 
 // navbar change poition on this routes
 const stickyRoutes = ["/EcoVibe/sellers-solutions"];
@@ -74,7 +74,7 @@ const NavbarFrame = () => {
       >
         {/* header links */}
         <div className="flex items-center gap-x-5">
-          {routesInfo.map(({ title, path }, index) => (
+          {mainRoutesInfo.map(({ title, path }, index) => (
             <Link
               key={index}
               to={path}

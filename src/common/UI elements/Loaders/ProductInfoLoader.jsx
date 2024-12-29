@@ -1,5 +1,5 @@
 import { FaHeart, FaStar } from "react-icons/fa";
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 
 function ProductInfoLoader() {
   return (

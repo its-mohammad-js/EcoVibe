@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/reducers/products/productsSlice";
-import { errorIconUrl, paginateElements } from "constants";
+import { errorIconUrl } from "appData";
+import { paginateElements } from "helpers";
 import FilteredProductsLoader from "UI/Loaders/FilteredProductsLoader";
 import { debounce } from "lodash";
 import PaginationButtons from "../PaginationButtons";

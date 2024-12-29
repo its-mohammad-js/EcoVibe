@@ -1,5 +1,4 @@
-
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 import { AiOutlineUser } from "react-icons/ai";
 
 function ContactsLoader() {

@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { generateId } from "constants";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { generateId } from "helpers";
+import { updateUserData } from "authActions/updateUserData";
 import TextInput from "UI/Forms/TextInput";
 import { TbX } from "react-icons/tb";
 

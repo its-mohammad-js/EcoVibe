@@ -1,7 +1,7 @@
 import Slider from "react-slick";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { heroSectionsInfo } from "constants";
+import { heroSectionsInfo } from "../heroSectionInfo";
 
 function ShopHeroSection() {
   // slider settings
@@ -41,7 +41,7 @@ function ShopHeroSection() {
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-4 md:mt-2">
       <Slider ref={sliderRef} {...settings} className="mx-2">
-        {heroSectionsInfo.shopPage.map((banner, index) => {
+        {heroSectionsInfo.map((banner, index) => {
           return (
             <div
               className="w-full h-48 rounded-md md:h-[34rem] relative focus:outline-none"

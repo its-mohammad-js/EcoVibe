@@ -1,7 +1,7 @@
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import useMediaQuery from "hooks/useMediaQuery";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import { useEffect, useState } from "react";
 
 function CartItem({ orderDetails }) {

@@ -1,5 +1,5 @@
-import StoryListModal from "../../../../../common/UI elements/StoriesList/StoryListModal";
-import { calculateAverage } from "../../../../../common/utils/constants";
+import StoryListModal from "UI/StoriesList/StoryListModal";
+import { calculateAverage } from "helpers";
 import { useProfileData } from "../../SellerProfilePage";
 import { uniq } from "lodash";
 

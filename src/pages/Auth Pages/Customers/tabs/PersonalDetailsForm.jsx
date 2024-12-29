@@ -1,46 +1,12 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
-import { avatarsUrl } from "constants";
+import { avatarsUrl } from "appData";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "src/reducers/auth/userDataSlice";
+import { updateUserData } from "authActions/updateUserData";
 import ProfileImagePicker from "UI/ProfileImagePicker/ProfileImagePicker";
 import TextInput from "UI/Forms/TextInput";
-
-// personal information for inputs data
-const inputOptions = [
-  {
-    name: "first_name",
-    validation: {
-      required: "First Name Is Required",
-      minLength: {
-        value: 3,
-        message: "Minimum Length Is 4 Characters",
-      },
-    },
-  },
-  {
-    name: "last_name",
-    validation: {
-      required: "Last Name Is Required",
-      minLength: {
-        value: 3,
-        message: "Minimum Length Is 3 Characters",
-      },
-    },
-  },
-  {
-    name: "address",
-    placeholder: "Enter Your Address",
-    validation: {
-      required: "Address Is Required",
-      minLength: {
-        value: 10,
-        message: "Minimum Length Is 10 Characters",
-      },
-    },
-  },
-];
+import { personalFormInputs } from "./formInputsInfo";
 
 function PersonalDetailsForm() {
   const { loading, personalInformation, userType } = useSelector(
@@ -64,11 +30,6 @@ function PersonalDetailsForm() {
       setValue("first_name", personalInformation?.first_name);
     }
   }, [personalInformation]);
-
-  // change profile pic handler
-  function changeProfilePic(picUrl) {
-    setProfile(picUrl);
-  }
 
   // submit personal info on user profile
   function submitPersonalDetails(formData) {
@@ -134,7 +95,7 @@ function PersonalDetailsForm() {
               } transition-all duration-200`}
             >
               <ProfileImagePicker
-                onPicChange={changeProfilePic}
+                onPicChange={(picUrl) => setProfile(picUrl)}
                 onModalClose={() => setModalShow(false)}
               />
             </div>
@@ -142,7 +103,7 @@ function PersonalDetailsForm() {
         </div>
         {/* main inputs (first name,last name,address) */}
         <div className="grid lg:grid-cols-4 lg:grid-rows-2 gap-2 mb-1">
-          {inputOptions.map((input, index) => (
+          {personalFormInputs.map((input, index) => (
             <TextInput
               key={index}
               placeholder={input.placeholder || input.name.replace("_", " ")}

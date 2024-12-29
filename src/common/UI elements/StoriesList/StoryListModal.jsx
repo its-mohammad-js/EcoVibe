@@ -2,7 +2,6 @@ import { BiUser } from "react-icons/bi";
 import { createContext, useContext } from "react";
 import SlideFrame from "./Slide components/SlideFrame";
 import useStoryList from "./hooks/useStoryList";
-import toast from "react-hot-toast";
 
 // create slide data context provider
 const SlideContext = createContext();

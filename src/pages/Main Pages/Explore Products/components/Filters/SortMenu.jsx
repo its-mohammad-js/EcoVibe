@@ -1,4 +1,4 @@
-import { supportedSortOptions } from "constants";
+import { supportedSortOptions } from "./filterOptionsInfo";
 import useOutSideClick from "hooks/UseOutsideClick";
 import { useRef, useState } from "react";
 import { BiSort } from "react-icons/bi";

@@ -1,4 +1,4 @@
-import { fakeArray } from "constants";
+import { fakeArray } from "helpers";
 
 function SellerStoriesListLoader() {
   return (

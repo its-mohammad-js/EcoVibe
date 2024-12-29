@@ -1,12 +1,12 @@
 import { useRef } from "react";
-import { timestampToDate } from "constants";
+import { timestampToDate } from "helpers";
 import { BiChevronLeft } from "react-icons/bi";
 import { IoOpenOutline } from "react-icons/io5";
 import { useDashboardData } from "../../DashboardContext";
 import OrdersSummaryLoader from "UI/Loaders/OrdersSummaryLoader";
 import { useNavigate } from "react-router-dom";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
-import { scrollContainer } from "src/common/utils/constants";
+import { scrollContainer } from "helpers";
 import { useSelector } from "react-redux";
 
 function OrdersSummary() {

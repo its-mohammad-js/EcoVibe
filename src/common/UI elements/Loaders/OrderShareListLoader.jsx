@@ -1,4 +1,4 @@
-import { fakeArray } from "/src/common/utils/constants";
+import { fakeArray } from "helpers";
 
 function OrderShareListLoader() {
   return (
