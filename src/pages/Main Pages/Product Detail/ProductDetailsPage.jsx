@@ -19,9 +19,9 @@ function ProductDetailsPage() {
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl">
       <ProductInfo />
-      <ProductReviews />
+      {/* <ProductReviews />
       <BestSellProductTypes />
-      <CategoriesBanner />
+      <CategoriesBanner /> */}
     </div>
   );
 }

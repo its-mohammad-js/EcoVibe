@@ -19,27 +19,34 @@ const FilterOptionRow = ({
 
   // on select filter option
   const onSelectOption = (option) => {
+    const selectedOption = option.title?.code
+      ? option.title.code
+      : option.title;
+
     // if isOption is true return a object from title and selected option (for product options)
     const payload = isOption
       ? {
           title: title.toLowerCase(),
-          selectedOption: option.title.toLowerCase(),
+          selectedOption: selectedOption.toLowerCase(),
         }
-      : option.title.toLowerCase();
-
+      : selectedOption.toLowerCase();
     changeFilterHandler({ payload, type: filterKey });
   };
 
-  // check options is selected
+  // // check options is selected
   function checkIsSelected(option) {
+    const selectedOption = option.title?.code
+      ? option.title.code
+      : option.title;
+
     return isInArray(
       selectedFilters[filterKey],
       isOption
         ? {
             title: title.toLowerCase(),
-            selectedOption: option.title.toLowerCase(),
+            selectedOption: selectedOption.toLowerCase(),
           }
-        : option.title.toLowerCase()
+        : selectedOption.toLowerCase()
     );
   }
 
@@ -81,7 +88,10 @@ const FilterOptionRow = ({
             onClick={() => onSelectOption(option)}
             className="flex items-center justify-between px-2 cursor-pointer"
           >
-            <span>{option.title}</span>
+            <span>
+              {/* test mode */}
+              {option.title?.name ? option.title.name : option.title}
+            </span>
             {selectedFilters[filterKey] && (
               <p
                 className={`${

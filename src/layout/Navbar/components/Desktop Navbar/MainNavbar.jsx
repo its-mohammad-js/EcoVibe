@@ -109,10 +109,10 @@ function MainNavbar() {
           </button>
         </div>
         {/* search modal */}
-        <SearchModal
+        {/* <SearchModal
           modalIsShow={searchShow}
           onCloseModal={() => setSearchModal(false)}
-        />
+        /> */}
       </div>
       {/* side buttons & quick access menu */}
       <div className="flex items-center justify-center gap-x-2 xl:gap-x-4 relative">

@@ -1,25 +1,29 @@
-import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
-import { db } from "src/config/firebase";
-import toast from "react-hot-toast";
 import { useFormContext } from "react-hook-form";
 import AddOptionsFormLoader from "UI/Loaders/AddOptionsFormLoader";
 import { map, filter } from "lodash";
+import useGetOptions from "../../../../../../../common/hooks/useGetOptions";
 
 function ProductOptions({ isEdit }) {
   const { setValue, getValues, watch } = useFormContext();
   // selected options data
   const [selectedOptions, setSelectedOptions] = useState([]);
-  // options list fetch data
-  const [{ optionsList, loading, error }, setOptions] = useState({
-    loading: false,
-    optionsList: [],
-    error: null,
-  });
   // necessary data
   const { Type } = getValues();
+  // options list data
+  const { error, getSupportedOptions, loading, optionsList } =
+    useGetOptions(Type);
   const optionMenuRef = useRef();
+
+  // get options for select component
+  function getOptionValues(options, title) {
+    return options.map((opt) =>
+      title.toLowerCase() === "color"
+        ? { label: opt.name, value: opt.code }
+        : { label: opt, value: opt }
+    );
+  }
 
   // reset option values on product type | category change
   useEffect(() => {
@@ -33,59 +37,6 @@ function ProductOptions({ isEdit }) {
     // set options to main form state
     setValue("Options", selectedOptions);
   }, [selectedOptions]);
-
-  // fetch product options
-  async function fetchOptions() {
-    try {
-      // set loading
-      setOptions((prev) => ({ ...prev, loading: true }));
-      // refrence to collection of produscts in database
-      const optionsCollectionRef = collection(db, "ProductsOptions");
-      // send request to database
-      const data = (await getDocs(optionsCollectionRef))?.docs.map((doc) =>
-        doc.data()
-      );
-      // store data in local storage
-      localStorage.setItem("productsOptions", JSON.stringify(data));
-      // read selected product options
-      const productOptions = data[0].OptionData.find(
-        (opt) => opt.productType === Type
-      ).productOptions;
-
-      // dispatch success
-      setOptions({
-        optionsList: productOptions || [],
-        loading: false,
-        error: null,
-      });
-    } catch (error) {
-      toast.error(error?.message);
-      setOptions((prev) => ({
-        ...prev,
-        error: error?.message,
-        loading: false,
-      }));
-    }
-  }
-
-  // read product options from local storage or from data-base
-  useEffect(() => {
-    if (!Type) return;
-
-    const storedOptionList = JSON.parse(
-      localStorage.getItem("productsOptions")
-    );
-
-    if (storedOptionList?.length) {
-      const productOptions = storedOptionList[0].OptionData.find(
-        (opt) => opt.productType === Type
-      )?.productOptions;
-
-      setOptions((prev) => ({ ...prev, optionsList: productOptions }));
-    } else {
-      fetchOptions();
-    }
-  }, [Type]);
 
   // change selected options
   function onSelectOptions(title, options) {
@@ -112,7 +63,7 @@ function ProductOptions({ isEdit }) {
       <div className="h-80 flex flex-col items-center justify-center gap-y-4">
         <h6 className="text-2xl font-bold">Failed To Get Product Options...</h6>
         <button
-          onClick={() => fetchOptions()}
+          onClick={() => getSupportedOptions()}
           className="px-4 py-2 rounded-md bg-primary-500 text-gray-50"
         >
           Try Again
@@ -145,7 +96,7 @@ function ProductOptions({ isEdit }) {
           </p>
         </div>
         {/* options list */}
-        <div key={watch()?.Options} className="">
+        <div key={watch()?.Type} className="">
           <h6 className="text-xl font-bold">Options List :</h6>
 
           <div ref={optionMenuRef} className="flex flex-col gap-y-4 my-2">
@@ -154,13 +105,9 @@ function ProductOptions({ isEdit }) {
                 <div key={index} className="option">
                   <Select
                     onChange={(e) => onSelectOptions(title, once ? [e] : e)}
-                    value={watch()
-                      ?.Options.filter(({ title: label }) => label === title)[0]
-                      ?.options?.map((opt) => ({ label: opt, value: opt }))}
                     isMulti={!once}
-                    options={options.map((opt) => ({ label: opt, value: opt }))}
+                    options={getOptionValues(options, title)}
                     placeholder={`Choose ${title}`}
-                    controlShouldRenderValue={watch()?.Options}
                   />
                 </div>
               );

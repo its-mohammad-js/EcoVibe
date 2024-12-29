@@ -23,6 +23,8 @@ function BoxOptions({ Options, selectedOptions, setOptions }) {
     setOptions(updatedOptions);
   }
 
+  console.log(Options);
+
   return (
     <div
       className={`${

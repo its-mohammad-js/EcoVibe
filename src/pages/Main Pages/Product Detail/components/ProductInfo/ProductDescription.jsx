@@ -1,5 +1,5 @@
 import { useState } from "react";
-import OrderBox from "../OrderBox";
+import OrderBox from "../Order Box/OrderBox";
 import { useDispatch, useSelector } from "react-redux";
 import {
   calculateAverage,

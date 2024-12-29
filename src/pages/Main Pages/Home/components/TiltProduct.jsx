@@ -3,6 +3,9 @@ import { filterProducts } from "../../../../common/utils/filterPorducts";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Tilt } from "@jdion/tilt-react";
+import ReactStars from "react-stars";
+import { FaPlus } from "react-icons/fa";
+import { calculateAverage } from "../../../../common/utils/constants/helpers";
 
 function TiltProduct() {
   // get products data

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { checkUserAuthentication } from "helpers";
 import BoxOptions from "./BoxOptions";
 import BoxActions from "./BoxActions";
+import { isEqual } from "lodash";
 
 function OrderBox({ Options, productData }) {
   const [selectedOptions, setOptions] = useState([]); // selecyed options
@@ -13,6 +14,46 @@ function OrderBox({ Options, productData }) {
   const { cartData, auth_status } = useSelector((state) => state.userData);
   // necessary data & hooks
   const dispatch = useDispatch();
+  // order details
+  const [currentOrder, setOrder] = useState({
+    orderId: "",
+    isOrdered: false,
+    orderQuantity: 1,
+  });
+  // ref to last action
+  const [actionRef, setActionRef] = useState("");
+  // current user data
+  const { loading } = useSelector((state) => state.userData);
+
+  // reset action ref after each action
+  useEffect(() => {
+    if (actionRef !== "" && !loading) {
+      setActionRef("");
+    }
+  }, [loading]);
+
+  // check product is already ordered with this selected options
+  useEffect(() => {
+    // get order with same selected options
+    const orderedOptions = cartData.find((order) => {
+      if (
+        order.productId === productData.id &&
+        isEqual(order.selectedOption, selectedOptions)
+      ) {
+        return order;
+      }
+    });
+
+    if (orderedOptions) {
+      setOrder({
+        isOrdered: true,
+        orderId: orderedOptions.orderId,
+        orderQuantity: orderedOptions.quantity,
+      });
+    } else {
+      setOrder({ isOrdered: false, orderId: "", orderQuantity: 1 });
+    }
+  }, [cartData, selectedOptions]);
 
   // set order info to default options
   useEffect(() => {
@@ -44,14 +85,15 @@ function OrderBox({ Options, productData }) {
         Name: productData.Name,
         Thumbnail: productData.Thumbnail,
         Seller: productData.SellerId,
-        Price: productData.Price * orderQuantity,
-        quantity: orderQuantity,
+        Price: productData.Price * currentOrder.orderQuantity,
+        quantity: currentOrder.orderQuantity,
         selectedOption: selectedOptions,
         SellerId: productData.SellerId,
         SellerName: productData.SellerName,
         SellerProfile: productData.SellerProfile,
         SellerEmail: productData.SellerEmail,
       };
+      console.log(order);
 
       // add product with default order to cart
       dispatch(
@@ -65,7 +107,9 @@ function OrderBox({ Options, productData }) {
 
   // remove order from cart
   function removeProductFromCart() {
-    const updatedCart = cartData.filter((order) => order.orderId !== orderId);
+    const updatedCart = cartData.filter(
+      (order) => order.orderId !== currentOrder.orderId
+    );
 
     dispatch(updateUserData({ data: updatedCart, field: "cartData" }));
   }
@@ -75,7 +119,8 @@ function OrderBox({ Options, productData }) {
       {/* order total price */}
       <div className="flex items-center mb-2">
         <h6 className="text-2xl font-medium">
-          Price: ${Number(productData.Price * orderQuantity).toFixed(2)}
+          Price: $
+          {Number(productData.Price * currentOrder.orderQuantity).toFixed(2)}
         </h6>
       </div>
       {/* porduct options */}
@@ -86,6 +131,10 @@ function OrderBox({ Options, productData }) {
           selectedOptions,
           addOrderToCart,
           removeProductFromCart,
+          currentOrder,
+          setOrder,
+          setActionRef,
+          actionRef,
         }}
       />
     </div>

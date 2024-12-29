@@ -33,13 +33,12 @@ function ProductCard({ productData }) {
   // add product with default
   function addProductToCart(product) {
     // set cart action ref to product id
-    setActions((prev) => ({ ...prev, orderRef: id }));
+    setActions((prev) => ({ ...prev, orderRef: product.id }));
     // get default options of product
     let defaultOptions = map(
       filter(product.Options, ({ options }) => options.length > 1),
       ({ title, options }) => ({ title, option: options[0] })
     );
-
     // order product with default options
     const defaultOrder = {
       orderId: generateId(product.id),
@@ -56,7 +55,6 @@ function ProductCard({ productData }) {
       SellerProfile: product.SellerProfile,
       SellerEmail: product.SellerEmail,
     };
-
     // add product with default order to cart
     dispatch(
       updateUserData({ data: [...cartData, defaultOrder], field: "cartData" })

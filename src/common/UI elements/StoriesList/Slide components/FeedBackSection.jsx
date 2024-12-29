@@ -69,20 +69,8 @@ function FeedBackSection({ story, handlePause }) {
     <>
       <div
         ref={commentListRef}
-        className="absolute w-full bottom-0 left-0 h-5 flex items-center justify-end pb-8 gap-x-2 z-50 p-2"
+        className="absolute w-full bottom-20 left-0 h-5 items-end flex gap-y-3 flex-col pb-8 gap-x-2 z-50 p-2"
       >
-        <input
-          disabled={auth_status !== 200}
-          onClick={() => {
-            handlePause(true);
-            setShowComments(true);
-          }}
-          value=""
-          type="text"
-          className="bg-transparent disabled:hidden outline-none border flex-1 px-2 py-2 border-gray-400 text-gray-300 rounded-2xl"
-          placeholder="comment something"
-        />
-
         <button onClick={likeSlideHandler} className="text-gray-400 text-4xl">
           {isLiked ? (
             <AiFillHeart className="text-red-500" />
@@ -92,12 +80,24 @@ function FeedBackSection({ story, handlePause }) {
           <p className="text-lg">{story?.likes?.length || 0}</p>
         </button>
 
+        <input
+          disabled={auth_status !== 200}
+          onClick={() => {
+            handlePause(true);
+            setShowComments(true);
+          }}
+          value=""
+          type="text"
+          className="bg-transparent w-full disabled:hidden outline-none border flex-1 px-2 py-2 border-gray-400 text-gray-300 rounded-2xl"
+          placeholder="comment something"
+        />
+
         <div
           className={`${
             showComments
               ? "opacity-100 visible translate-y-0"
               : "opacity-0 invisible translate-y-10"
-          } absolute bottom-0 grid grid-rows-8 transition-all rounded-t-3xl px-2 pb-1 pt-3 overflow-hidden h-[25rem] w-full left-0 bg-gray-900/85 backdrop-blur-xl`}
+          } absolute -bottom-24 grid grid-rows-8 transition-all rounded-t-3xl px-2 pb-1 pt-3 overflow-hidden h-[25rem] w-full left-0 bg-gray-900/85 backdrop-blur-xl`}
         >
           <div className="w-full row-span-7 overflow-auto styled-scroll-bar flex flex-col gap-y-4">
             {story?.comments?.length ? (

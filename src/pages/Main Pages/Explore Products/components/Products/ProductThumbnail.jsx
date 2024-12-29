@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   checkUserAuthentication,
   isInArray,
@@ -16,14 +16,20 @@ function ProductThumbnail({ productData }) {
   ); // current userdata
   const [summaryDesc, setSummaryDesc] = useState(false); // display summary product info
   const isLiked = isInArray(wishlist, productData.id); // check product is liked
+  const [lastAction, setAction] = useState(null);
   // necessary hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading) setAction(null);
+  }, [loading]);
 
   // add / remove product from wish list
   function toggleWishList(productId) {
     try {
       checkUserAuthentication(auth_status);
+      setAction(productId);
       // update wish list
       const updatedWishList = toggleElementInArray(wishlist, productId);
       // update wish list with new values
@@ -50,7 +56,7 @@ function ProductThumbnail({ productData }) {
       <div className="absolute top-0 right-0 rounded-t-md md:rounded-none flex flex-col gap-y-2 px-2 py-1 md:px-3 md:py-1.5 items-end">
         <button
           onClick={() => toggleWishList(productData.id)}
-          disabled={loading}
+          disabled={loading && lastAction === productData.id}
           className={`${
             isLiked && "!text-red-600 hover:scale-110 disabled:!text-red-700"
           } p-1.5 md:p-2 rounded-full bg-gray-50 text-gray-300 hover:text-red-500 transition-all disabled:animate-pulse disabled:cursor-wait disabled:bg-red-500`}

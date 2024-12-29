@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isEqual } from "lodash";
+
 import { useDispatch, useSelector } from "react-redux";
 import { TbMinus, TbPlus, TbTrash } from "react-icons/tb";
 import { updateUserData } from "../../../../../reducers/auth/authActions/updateUserData";
@@ -9,48 +9,16 @@ function BoxActions({
   selectedOptions,
   addOrderToCart,
   removeProductFromCart,
+  currentOrder,
+  setOrder,
+  actionRef,
+  setActionRef,
 }) {
-  // order details
-  const [{ orderId, isOrdered, orderQuantity }, setOrder] = useState({
-    orderId: "",
-    isOrdered: false,
-    orderQuantity: 1,
-  });
+  const { orderId, isOrdered, orderQuantity } = currentOrder;
   // current user data
   const { cartData, loading } = useSelector((state) => state.userData);
   const navigate = useNavigate();
-  const [actionRef, setActionRef] = useState("");
   const dispatch = useDispatch();
-
-  // check product is already ordered with this selected options
-  useEffect(() => {
-    // get order with same selected options
-    const orderedOptions = cartData.find((order) => {
-      if (
-        order.productId === productData.id &&
-        isEqual(order.selectedOption, selectedOptions)
-      ) {
-        return order;
-      }
-    });
-
-    if (orderedOptions) {
-      setOrder({
-        isOrdered: true,
-        orderId: orderedOptions.orderId,
-        orderQuantity: orderedOptions.quantity,
-      });
-    } else {
-      setOrder({ isOrdered: false, orderId: "", orderQuantity: 1 });
-    }
-  }, [cartData, selectedOptions]);
-
-  // reset action ref after each action
-  useEffect(() => {
-    if (actionRef !== "" && !loading) {
-      setActionRef("");
-    }
-  }, [loading]);
 
   // change order quantity
   function onQuantityChange(type) {

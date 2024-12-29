@@ -1,3 +1,6 @@
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "/src/config/firebase";
+
 // add / remove an specific element from array (without mutation)
 export const toggleElementInArray = (array = [], element) => {
   // find index of specific element

@@ -50,6 +50,8 @@ export const getFilters = (category) => {
 
 // get product option by product type
 export const getProductOption = (productType, optionsList = []) => {
+  // console.log(productType);
+
   if (!productType || !optionsList.length) return [];
 
   const productOptions =

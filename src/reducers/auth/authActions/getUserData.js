@@ -9,12 +9,12 @@ export const getUserData = createAsyncThunk(
   "userData/getUserData",
   async (p, { fulfillWithValue, rejectWithValue }) => {
     // read user uid from local storage
-    const localUserData = getUserData();
+    const localUserData = getUserIdCookie();
     // update app with user data
-    if (localUserData?.userId) {
+    if (localUserData) {
       try {
         // ref to user data cell in data base
-        const userCellRef = doc(db, "users", localUserData.userId);
+        const userCellRef = doc(db, "users", localUserData);
         // read user data from data base
         const userData = await getDoc(userCellRef).then((res) => res.data());
         // update app data with new data

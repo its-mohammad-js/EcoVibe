@@ -126,7 +126,7 @@ function AddCommentInputs({
       className="flex flex-col gap-2 bg-white"
     >
       {/* star ranger */}
-      <StarRatnig {...{ mode, getValues }} />
+      <StarRatnig {...{ mode, getValues, setValue, register }} />
       {/* user info & comment header */}
       <div className="my-1 grid grid-rows-2 grid-cols-4 gap-x-2 gap-y-2">
         {inputOptions.map((input, index) => (
