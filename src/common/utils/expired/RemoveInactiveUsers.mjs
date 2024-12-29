@@ -89,9 +89,12 @@ function checkIsExpired(dateObject) {
   // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
   // Convert milliseconds to days
-  const daysPassed = difference / (1000 * 60 * 60 * 24);
+  // const daysPassed = difference / (1000 * 60 * 60 * 24);
+
+  const daysPassed = difference / (1000 * 60);
+
   // Check if 25 days have passed
-  return daysPassed >= 25;
+  return daysPassed >= 5;
 }
 
 // Main execution block
