@@ -1,1 +1,0 @@
-import{r}from"./index-BktEY0AR.js";const d=({maxWidth:e})=>{const[t,n]=r.useState(null);return r.useEffect(()=>{n(window.innerWidth<=e);function i(o){n(window.innerWidth<=e)}return window.addEventListener("resize",i),()=>{window.removeEventListener("resize",i)}},[e,window.innerWidth,window.innerHeight]),t||window.innerWidth<=e};export{d as u};
