@@ -16,16 +16,16 @@ function SellersStories() {
     return (
       <>
         {/* stories list */}
-        <div className="mx-auto 2xl:max-w-screen-2xl px-4 py-2 flex gap-x-2.5 items-center justify-start">
+        <div className="mx-auto 2xl:max-w-screen-2xl px-4 py-2 flex gap-x-2.5 items-center justify-start overflow-auto">
           {/* story lists */}
           {storiesList.map((list, listIndex) => {
             return (
               <div
                 key={listIndex}
                 onClick={() => setList(listIndex)}
-                className="flex flex-col justify-center items-start cursor-pointer"
+                className="flex flex-col justify-center items-start cursor-pointer flex-none"
               >
-                <div className="flex items-center justify-center mb-1">
+                <div className="flex items-center justify-center mb-1 relative">
                   <div
                     className={`${
                       list.isSeen ? "bg-slate-400" : "gradient-background"
