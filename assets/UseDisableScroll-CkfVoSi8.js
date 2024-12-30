@@ -1,0 +1,1 @@
+import{r as t}from"./index-BktEY0AR.js";import{u}from"./useMediaQuery-sTwrKcTY.js";const l=(e=480,o)=>{const r=u({maxWidth:e});t.useEffect(()=>{const s=Number.isInteger(e)?r:e;return document.body.style.overflow=!s||o?"auto":"hidden",()=>{document.body.style.overflow="auto"}},[o,r])};export{l as u};
