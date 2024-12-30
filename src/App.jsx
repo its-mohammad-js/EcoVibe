@@ -13,6 +13,7 @@ import NotFoundPage from "./pages/404 Page/NotFoundPage";
 import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "/src/config/firebase";
 import { getUserData } from "authActions/getUserData";
+import LoaderIcon from "./common/UI elements/Loaders/LoaderIcon";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,14 @@ function App() {
   // }, [userId, auth_status]);
 
   // read all user data from local storage
+
+  if (true)
+    return (
+      <div className="flex-col flex items-center justify-center size-full">
+        <h4>test mode</h4>
+        <LoaderIcon />
+      </div>
+    );
 
   return (
     <AppLayout>
