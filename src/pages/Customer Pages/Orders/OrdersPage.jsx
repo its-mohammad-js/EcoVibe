@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { errorIconUrl } from "appData";
-import OrdersList from "customerPages/Orders/components/OrdersList";
-import OrderDetail from "customerPages/Orders/components/OrderDetail";
+import OrdersList from "./OrdersList/OrdersList";
+import OrderDetail from "./OrderDetail/OrderDetail";
 import OrdersPageLoader from "UI/Loaders/OrdersPageLoader";
 import { BiSearch } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router-dom";
