@@ -6,6 +6,7 @@ function useHorizontalTouchScroll(elClass, renderTime, elRef) {
   const [scrollLeft, setScrollLeft] = useState(false);
   const [container, setContainer] = useState(null);
 
+  console.log(container);
   // set container
   useEffect(() => {
     // note : when a ref attribute is not applicable, we can reference an element by its class name.
