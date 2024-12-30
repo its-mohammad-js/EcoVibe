@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { AiOutlineMore, AiOutlinePlus } from "react-icons/ai";
 import { BsTrash3 } from "react-icons/bs";
 import { FaPlay } from "react-icons/fa";
@@ -8,8 +8,10 @@ import { CiFileOn } from "react-icons/ci";
 import { useSlide } from "../StoryListModal";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { getDatabase, ref, update } from "firebase/database";
 
 function ContextMenu({
+  onRemoveHighlight,
   pause, // pause state
   handlePause, // change pause handler
   onDeleteSlide, // remove story slide
@@ -22,6 +24,7 @@ function ContextMenu({
   // handle outside click event on context menu open
   useOutSideClick(contextMenuRef, onOutsideClick, !contextMenuShow);
   const { userId } = useSelector((state) => state.userData); // current user data
+  // const [loading, setLoading] = useState(false);
 
   // on outside of context menu click event
   function onOutsideClick() {
@@ -42,35 +45,9 @@ function ContextMenu({
       // dispatch error
       toast.remove();
       toast.error("There was an error on delete story, please try again later");
-
       handlePause(false);
       console.log(error);
     }
-  }
-
-  // remove story from highlight
-  async function removeHighlight() {
-    // try {
-    //   // dispatch loading
-    //   setLoading(true);
-    //   handlePause(false);
-    //   // ref to story slide
-    //   const db = getDatabase();
-    //   const storyRef = databaseRef(db, `stories/${story.id}`);
-    //   update(storyRef, { highlightRef: null, title: null });
-    //   // dispatch success
-    //   toast.success("highlight removed successfully");
-    //   setLoading(false);
-    //   handlePause(true);
-    // } catch (error) {
-    //   // dispatch error
-    //   toast.error(
-    //     "There was an error on remove highlight, please try again later"
-    //   );
-    //   setLoading(false);
-    //   handlePause(false);
-    //   console.log(error);
-    // }
   }
 
   return (
@@ -104,7 +81,7 @@ function ContextMenu({
         {/* remove slide form highlights */}
         <button
           onClick={() => {
-            removeHighlight();
+            onRemoveHighlight(story);
             setContextMenu(false);
           }}
           disabled={!story?.highlightRef || story.authorId !== userId}

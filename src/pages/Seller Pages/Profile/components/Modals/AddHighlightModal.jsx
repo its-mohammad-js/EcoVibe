@@ -5,6 +5,7 @@ import { FaCheck } from "react-icons/fa";
 import { fakeArray, generateId, isInArray } from "helpers";
 import toast from "react-hot-toast";
 import { getDatabase, ref, update } from "firebase/database";
+import ContentSwitcher from "../../../../../common/UI elements/ContentSwitcher/ContentSwitcher";
 
 function AddHighlightModal({ onCloseModal, highlightsList }) {
   // selected slides for new highlight
@@ -56,6 +57,8 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
         // dispatch success on end process
         if (updateCount === selectedSlides.length) {
           toast.success("highlight succesfully added");
+          setSlides([]);
+          setTitle("");
           onCloseModal();
         }
       } catch (error) {
@@ -91,25 +94,11 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
                   story?.highlightRef && "opacity-60 !bg-gray-400"
                 } relative bg-gray-200 h-36 overflow-hidden rounded-lg`}
               >
-                {story.type?.includes("image") ? (
-                  <img
-                    src={story?.contentUrl}
-                    alt="story thumnail"
-                    className="size-full object-cover"
-                  />
-                ) : (
-                  <video
-                    width="400"
-                    controls={false}
-                    preload="metadata"
-                    className="object-contain size-full"
-                  >
-                    <source
-                      src={`${story?.contentUrl}#t=0.1`}
-                      type="video/mp4"
-                    ></source>
-                  </video>
-                )}
+                <ContentSwitcher
+                  contentUrl={story?.contentUrl}
+                  contentType={story.type}
+                  autoPlayCondition={false}
+                />
                 {/* screen select slide */}
                 <div
                   className={`${

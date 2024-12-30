@@ -16,8 +16,6 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
     currentSlideIndex, // current list index
   } = useStoryList(currentListIndex, setList, storiesList); // stories list data & list functionality
 
-  // console.log(currentListIndex);
-
   return (
     <div
       ref={containerRef}

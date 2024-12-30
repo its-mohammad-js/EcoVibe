@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "authActions/updateUserData";
 import toast from "react-hot-toast";
 import { checkUserAuthentication } from "helpers";
+import { generateId } from "../../../../common/utils/constants/helpers";
 
 function CollectionsGallery({ products, isLoading }) {
   // get summer collection products
@@ -146,7 +147,7 @@ const CustomProductCard = ({
                 <span
                   style={{ backgroundColor: opt }}
                   className="p-2 md:p-3 rounded-full border border-gray-400 hover:border-gray-800 transition-all"
-                  key={index}
+                  key={generateId(index)}
                 ></span>
               ))
             )}

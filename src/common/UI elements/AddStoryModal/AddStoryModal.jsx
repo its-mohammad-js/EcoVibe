@@ -8,13 +8,15 @@ import { storage } from "src/config/firebase";
 import { AiOutlineCheck } from "react-icons/ai";
 import { db } from "/src/config/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import toast, { LoaderIcon } from "react-hot-toast";
+import toast from "react-hot-toast";
 import {
   getDatabase,
   set,
   ref as databaseRef,
   serverTimestamp,
 } from "firebase/database";
+import ContentSwitcher from "../ContentSwitcher/ContentSwitcher";
+import LoaderIcon from "../Loaders/LoaderIcon";
 
 function AddStoryModal({ onModalChange }) {
   const [file, setFile] = useState(null);
@@ -100,7 +102,7 @@ function AddStoryModal({ onModalChange }) {
         type: file?.type,
         authorProfilePic: personalInformation.profilePic,
       });
-
+      setFile(null);
       toast.success("story created successfully");
     } catch (error) {
       console.log(error);
@@ -159,27 +161,19 @@ function AddStoryModal({ onModalChange }) {
               <TbTrash />
             </button>
             {/* content */}
-            {file?.type?.startsWith("image/") ? (
-              <img
-                className={`${
-                  loading && "animate-pulse"
-                } size-full object-cover rounded-md`}
-                src={URL.createObjectURL(file)}
-                alt=""
-              />
-            ) : (
-              <video width="320" height="240" controls className="size-full">
-                <source src={URL.createObjectURL(file)} type={file?.type} />
-                Your browser does not support the video tag.
-              </video>
-            )}
+            <ContentSwitcher
+              loading={loading}
+              contentType={file?.type}
+              contentUrl={URL.createObjectURL(file)}
+              controls={true}
+            />
             {/* loading screen */}
             <div
               className={`${
                 loading ? "opacity-100 visible" : "opacity-0 invisible"
               } absolute w-full h-[95%] rounded-md gap-y-6 px-4 bg-gray-800/80 transition-all backdrop-blur flex flex-col items-center justify-center`}
             >
-              <LoaderIcon className="size-24" />
+              <LoaderIcon />
 
               <h4 className="text-gray-50 text-center text-xl font-bold bg-gray-950/50 px-4 py-1 rounded-md">
                 Please do not refresh the page while adding story.
@@ -204,7 +198,10 @@ function AddStoryModal({ onModalChange }) {
         <div className="w-full h-1/6 flex items-center justify-end gap-2">
           <button
             disabled={loading}
-            onClick={() => onModalChange(null)}
+            onClick={() => {
+              setFile(null);
+              onModalChange(null);
+            }}
             className="px-4 py-2 disabled:hidden bg-gray-50 rounded-md text-primary-500 border-2 border-primary-500"
           >
             Cancel

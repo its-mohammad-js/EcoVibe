@@ -1,4 +1,4 @@
-import { LoaderIcon } from "react-hot-toast";
+import LoaderIcon from "./LoaderIcon";
 
 function FallBackLoader() {
   return (

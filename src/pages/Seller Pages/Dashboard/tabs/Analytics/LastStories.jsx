@@ -9,6 +9,7 @@ import { LoaderIcon } from "react-hot-toast";
 import useGetStories from "../../../../../common/hooks/useGetStories";
 import useRemoveStory from "../../../../../common/hooks/useRemoveSlide";
 import { AiFillHeart, AiOutlineEye } from "react-icons/ai";
+import ContentSwitcher from "../../../../../common/UI elements/ContentSwitcher/ContentSwitcher";
 
 function LastStories() {
   const [alertIsShow, setAlert] = useState(false); // delete story alert state
@@ -39,31 +40,16 @@ function LastStories() {
           <Slider
             autoplay={true}
             speed={1500}
-            className="h-full"
+            className="h-full rounded-lg overflow-hidden bg-gray-200"
             onInit={() => onChangeSlide(0)}
             afterChange={(e) => onChangeSlide(e)}
           >
             {storyList[0]?.slides.map((story, i) => (
               <div key={i} className="h-96">
-                {story.type.includes("image") ? (
-                  <img
-                    src={story?.contentUrl}
-                    alt="story thumnail"
-                    className="size-full object-cover"
-                  />
-                ) : (
-                  <video
-                    width="400"
-                    controls={false}
-                    preload="metadata"
-                    className="object-contain size-full"
-                  >
-                    <source
-                      src={`${story?.contentUrl}#t=0.1`}
-                      type="video/mp4"
-                    ></source>
-                  </video>
-                )}
+                <ContentSwitcher
+                  contentType={story.type}
+                  contentUrl={story?.contentUrl}
+                />
               </div>
             ))}
           </Slider>

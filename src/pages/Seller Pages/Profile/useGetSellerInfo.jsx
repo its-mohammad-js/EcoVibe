@@ -46,7 +46,7 @@ const fetchProducts = async (sellerId) => {
 };
 
 const useGetSellerInfo = (sellerId) => {
-  const currentUserId = JSON.parse(localStorage.getItem("userData"))?.userId;
+  const { userId: currentUserId } = useSelector((state) => state.userData);
   const isOwner = sellerId === currentUserId;
   const ownerData = useSelector((state) => state.userData);
 
@@ -74,6 +74,7 @@ const useGetSellerInfo = (sellerId) => {
         fetchOrders(currentUserId, sellerId),
         fetchProducts(sellerId),
       ]);
+
       setSellerData({
         userInfo,
         reviews,

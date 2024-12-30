@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../config/firebase";
-import { LoaderIcon } from "react-hot-toast";
+import LoaderIcon from "../Loaders/LoaderIcon";
 
 function ProfileImagePicker({ onPicChange, onModalClose }) {
   // upload picture state

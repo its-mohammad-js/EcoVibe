@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import AddHighlightModal from "../Modals/AddHighlightModal";
 import StoryListModal from "../../../../../common/UI elements/StoriesList/StoryListModal";
 import { useProfileData } from "../../SellerProfilePage";
+import ContentSwitcher from "../../../../../common/UI elements/ContentSwitcher/ContentSwitcher";
 
 function HighLights() {
   // seller stories modal state
@@ -36,7 +37,7 @@ function HighLights() {
     });
     // set highlights object as a array into highlightList state
     setHighLightsList(
-      Object.entries(highlights).map(([k, v]) => ({
+      Object.entries(highlights).map(([k, v], index) => ({
         // set title for list
         title: v[0].title,
         slides: v.map((slide) => ({
@@ -44,6 +45,7 @@ function HighLights() {
           // set title instead of author name
           author: { ...slide.author, first_name: slide.title },
         })),
+        listIndex: index,
       }))
     );
   }, [storiesList]);
@@ -60,25 +62,11 @@ function HighLights() {
               className="flex flex-col items-center justify-center"
             >
               <div className="size-16 cursor-pointer overflow-hidden rounded-full bg-gray-200 flex-none flex items-center justify-center text-3xl text-gray-500">
-                {highlight?.slides[0]?.type?.includes("image") ? (
-                  <img
-                    src={highlight?.slides[0]?.contentUrl}
-                    alt="story thumnail"
-                    className="size-full object-cover"
-                  />
-                ) : (
-                  <video
-                    width="400"
-                    controls={false}
-                    preload="metadata"
-                    className="object-contain size-full"
-                  >
-                    <source
-                      src={`${highlight?.slides[0]?.contentUrl}#t=0.1`}
-                      type="video/mp4"
-                    ></source>
-                  </video>
-                )}
+                <ContentSwitcher
+                  autoPlayCondition={false}
+                  contentType={highlight?.slides[0]?.type}
+                  contentUrl={highlight?.slides[0]?.contentUrl}
+                />
               </div>
 
               <h4 className="font-bold text-sm line-clamp-1 text-center w-20 break-words">
@@ -119,7 +107,7 @@ function HighLights() {
           {...{
             currentListIndex: isStoriesShow,
             setList: setStorieModal,
-            storiesList: highlightsList.map(({ slides }) => slides),
+            storiesList: highlightsList,
           }}
         />
       )}

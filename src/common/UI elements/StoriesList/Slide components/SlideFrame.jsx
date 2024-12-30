@@ -7,7 +7,7 @@ import ProgressBar from "./ProgressBar";
 import ContextMenu from "./ContextMenu";
 import { BiUser } from "react-icons/bi";
 import useRemoveStory from "../../../hooks/useRemoveSlide";
-import FeedBackSection from "./FeedBackSection";
+import FeedbackActions from "./FeedbackActions";
 
 function SlideFrame() {
   const { changeStoryHandler, listIndex, currentListIndex, story } = useSlide(); // slide data
@@ -80,7 +80,7 @@ function SlideFrame() {
             contextMenuShow,
           }}
         />
-        <FeedBackSection {...{ story, handlePause }} />
+        <FeedbackActions {...{ story, handlePause }} />
         {/* next btn */}
         <div
           className={`${

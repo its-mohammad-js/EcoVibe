@@ -4,7 +4,6 @@ import { storage } from "/src/config/firebase";
 import { deleteObject, ref as storageRef } from "firebase/storage";
 import toast from "react-hot-toast";
 
-
 function useRemoveStory(handlePause) {
   const [loading, setLoading] = useState(false);
 

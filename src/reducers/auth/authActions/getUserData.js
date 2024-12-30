@@ -17,7 +17,7 @@ export const getUserData = createAsyncThunk(
         // read user data from data base
         const userData = await getDoc(userCellRef).then((res) => res.data());
         // update app data with new data
-        return fulfillWithValue(userData);
+        return fulfillWithValue({ ...userData, lastActivity: null });
       } catch (error) {
         // on error case update app data with prev local user data
         return rejectWithValue({ error, code: 204 });
@@ -37,7 +37,7 @@ export const getUserReducer = (builder) => {
   });
   builder.addCase(getUserData.fulfilled, (state, { payload }) => {
     state.loading = false;
-    // setUseridCookie(payload.userId);
+    setUseridCookie(payload?.userId);
     // update user data with payload
     Object.assign(state, payload);
     // user is authorized

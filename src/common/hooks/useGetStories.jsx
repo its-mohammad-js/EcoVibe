@@ -9,7 +9,7 @@ import {
   ref,
 } from "firebase/database";
 import { useEffect, useRef, useState } from "react";
-import { sortBy, groupBy } from "lodash";
+import { orderBy, groupBy } from "lodash";
 import { useSelector } from "react-redux";
 
 const useGetStories = (ownerId, isModalOpen) => {
@@ -35,7 +35,7 @@ const useGetStories = (ownerId, isModalOpen) => {
   };
 
   const groupAndSort = (stories) => {
-    // group slides based their authors into story (list) arrays
+    // Group slides by their authors into story (list) arrays
     const grouped = groupBy(stories, "authorId");
 
     // Add `isSeen` property to each slide and extract author details
@@ -46,15 +46,23 @@ const useGetStories = (ownerId, isModalOpen) => {
       }));
     });
 
-    // Sort authors by "must-see slides" (authors with unseen slides come first)
-    const sortedAuthors = sortBy(Object.keys(grouped), (authorId) =>
-      grouped[authorId].every((slide) => slide.isSeen)
+    // Sort authors with a custom sort function
+    const sortedAuthors = orderBy(
+      Object.keys(grouped),
+      [
+        (author) => author === userId, // User ID comes first
+        (author) =>
+          grouped[author].every(
+            (slide) => slide.isSeen || slide.authorId === ownerId
+          ), // Authors with unseen slides come first
+      ],
+      ["desc", "asc"] // Ensure userId is prioritized, then unseen slides
     );
 
     orderListRef.current = isModalOpen ? orderListRef.current : sortedAuthors;
 
     // Map sorted authors with their details
-    return orderListRef.current.map((authorId) => {
+    return orderListRef.current.map((authorId, listIndex) => {
       const slides = grouped[authorId];
 
       return {
@@ -64,6 +72,7 @@ const useGetStories = (ownerId, isModalOpen) => {
         profile_pic: slides[0]?.authorProfilePic,
         slides,
         isSeen: slides.every(({ isSeen }) => isSeen),
+        listIndex,
       };
     });
   };

@@ -78,7 +78,6 @@ export async function createUserDataCell(userId, guestUserData, userType) {
 
 export function setUseridCookie(userId) {
   const geustUserId = getUserIdCookie() || generateId("guest-user-");
-  console.log(geustUserId);
 
   const date = new Date();
   date.setTime(date.getTime() + 20 * 24 * 60 * 60 * 1000);
