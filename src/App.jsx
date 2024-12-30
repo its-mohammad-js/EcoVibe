@@ -46,29 +46,30 @@ function App() {
 
   if (true)
     return (
-      <div className="flex-col flex items-center justify-center size-full">
+      <div className="flex-col flex items-center h-screen bg-gray-500 justify-center size-full">
         <h4>test mode</h4>
         <LoaderIcon />
       </div>
     );
 
-  return (
-    <AppLayout>
-      <Toaster />
-      <Routes>
-        {/* main pages */}
-        {MainRoutes}
-        {/* customer's sign-up */}
-        {AuthRoutes}
-        {/* customer routes */}
-        {CustomerRoutes}
-        {/* seller pages */}
-        {SellerRoutes}
-        {/* 404 page */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </AppLayout>
-  );
+  if (false)
+    return (
+      <AppLayout>
+        <Toaster />
+        <Routes>
+          {/* main pages */}
+          {MainRoutes}
+          {/* customer's sign-up */}
+          {AuthRoutes}
+          {/* customer routes */}
+          {CustomerRoutes}
+          {/* seller pages */}
+          {SellerRoutes}
+          {/* 404 page */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </AppLayout>
+    );
 }
 
 export default App;
