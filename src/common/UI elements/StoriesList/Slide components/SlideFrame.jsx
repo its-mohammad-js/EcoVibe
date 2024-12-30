@@ -80,7 +80,7 @@ function SlideFrame() {
             contextMenuShow,
           }}
         />
-        {/* <FeedBackSection {...{ story, handlePause }} /> */}
+        <FeedBackSection {...{ story, handlePause }} />
         {/* next btn */}
         <div
           className={`${

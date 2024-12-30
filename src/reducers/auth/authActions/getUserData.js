@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "src/config/firebase";
 import { getUserIdCookie, setUseridCookie } from "../authHelpers";
-import toast from "react-hot-toast";
 
 // read user infomation from data base
 export const getUserData = createAsyncThunk(
@@ -55,7 +54,7 @@ export const getUserReducer = (builder) => {
       console.log("user isn't logged in");
       // set guest user id for guest user (20 days ex)
       setUseridCookie();
-      state.userId = getUserIdCookie();
+      state.userId = getUserIdCookie(true);
       // user is unauthorized
       state.auth_status = payload.code;
     }

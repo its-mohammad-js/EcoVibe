@@ -184,19 +184,13 @@ function AddEditProductForm({
       <div
         onClick={() => {
           if (isEdit) {
-            if (currentStep !== 3) {
+            if (currentStep !== 3 || watch().Images !== "[]") {
               onModalChange();
             } else {
               toast.remove();
               toast.error("Plase submit your changes...");
               return;
             }
-          } else if (watch().Images !== "[]") {
-            toast.remove();
-            toast.error(
-              "Plase submit your product, you can remove it later..."
-            );
-            return;
           }
           onModalChange();
         }}

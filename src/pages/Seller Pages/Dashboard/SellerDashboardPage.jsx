@@ -34,6 +34,7 @@ function SellerDashboardPage() {
 
   // open / close modal's function
   function onModalChange(modalKey) {
+    navigate("/EcoVibe/dashboard");
     setModal(modal === modalKey ? null : modalKey);
   }
 

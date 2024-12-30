@@ -3,6 +3,7 @@ import SellerStoriesListLoader from "../../../../common/UI elements/Loaders/Sell
 import StoryListModal from "../../../../common/UI elements/StoriesList/StoryListModal";
 import useGetStories from "../../../../common/hooks/useGetStories";
 import useHorizontalTouchScroll from "../../../../common/hooks/useTouchScroll";
+import { useSelector } from "react-redux";
 
 function SellersStories() {
   const [currentListIndex, setList] = useState(null);
@@ -10,6 +11,7 @@ function SellersStories() {
     undefined,
     currentListIndex !== null
   );
+  const { userId } = useSelector((state) => state.userData);
   const containerRef = useRef();
   useHorizontalTouchScroll(null, storiesList, containerRef);
 
@@ -28,7 +30,10 @@ function SellersStories() {
               <div
                 key={listIndex}
                 onClick={() => setList(listIndex)}
-                className="flex select-none flex-col justify-center items-start cursor-pointer flex-none"
+                className={`${
+                  ""
+                  // list.authorId === userId && "order-[-1]"
+                } flex select-none flex-col justify-center items-start cursor-pointer flex-none`}
               >
                 <div className="flex items-center justify-center mb-1 relative">
                   <div

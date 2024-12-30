@@ -17,15 +17,16 @@ function FeedBackSection({ story, handlePause }) {
   const [isLiked, setLiked] = useState(false);
   const [showComments, setShowComments] = useState(null);
   const commentListRef = useRef();
-  useOutSideClick(commentListRef, () => {
-    setShowComments(false);
-  });
+  // "closes" || "open"
+  useOutSideClick(
+    commentListRef,
+    () => {
+      setShowComments(false);
+      if (showComments !== null) handlePause();
+    },
+    showComments === null
+  );
   const [comment, setComment] = useState("");
-
-  // // handle pause story on commenting
-  // useEffect(() => {
-  //   if (!showComments) handlePause();
-  // }, [showComments]);
 
   useEffect(() => {
     setLiked(story?.likes?.includes(userId));
@@ -81,12 +82,11 @@ function FeedBackSection({ story, handlePause }) {
         </button>
 
         <input
-          disabled={auth_status !== 200}
+          // disabled={auth_status !== 200}
           onClick={() => {
             handlePause(true);
             setShowComments(true);
           }}
-          value=""
           type="text"
           className="bg-transparent w-full disabled:hidden outline-none border flex-1 px-2 py-2 border-gray-400 text-gray-300 rounded-2xl"
           placeholder="comment something"
@@ -94,6 +94,7 @@ function FeedBackSection({ story, handlePause }) {
 
         <div
           className={`${
+            // showComments !== "closed" ||
             showComments
               ? "opacity-100 visible translate-y-0"
               : "opacity-0 invisible translate-y-10"

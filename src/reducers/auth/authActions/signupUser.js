@@ -36,6 +36,7 @@ export const signUpUser = createAsyncThunk(
         personalInformation,
         customer_step: "second-step",
         seller_step: "second-step",
+        auth_status: 200,
       };
       // store user id in cookies
       setUseridCookie(user?.uid);

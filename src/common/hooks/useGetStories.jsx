@@ -50,6 +50,7 @@ const useGetStories = (ownerId, isModalOpen) => {
     const sortedAuthors = sortBy(Object.keys(grouped), (authorId) =>
       grouped[authorId].every((slide) => slide.isSeen)
     );
+
     orderListRef.current = isModalOpen ? orderListRef.current : sortedAuthors;
 
     // Map sorted authors with their details

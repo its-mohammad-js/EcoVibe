@@ -53,40 +53,18 @@ function CollectionsGallery({ products, isLoading }) {
             id="wrapper"
             className="flex flex-col gap-y-3 lg:flex-row lg:gap-x-3 items-center px-2 py-1 lg:px-4 lg:py-2 lg:h-[450px]"
           >
-            <CustomProductCard
-              isLoading={loading}
-              onProductLike={toggleWishList}
-              isLiked={isInArray(wishlist, summerCollection[0].id)}
-              product={summerCollection[0]}
-              key={summerCollection[0].id}
-            />
-
-            <div className="flex items-center gap-x-3 w-full">
-              <CustomProductCard
-                isLoading={loading}
-                onProductLike={toggleWishList}
-                isLiked={isInArray(wishlist, summerCollection[1].id)}
-                product={summerCollection[1]}
-                key={summerCollection[1].id}
-                minimal={true}
-              />
-              <CustomProductCard
-                isLoading={loading}
-                onProductLike={toggleWishList}
-                isLiked={isInArray(wishlist, summerCollection[2].id)}
-                product={summerCollection[2]}
-                key={summerCollection[2].id}
-                minimal={true}
-              />
-            </div>
-
-            <CustomProductCard
-              isLoading={loading}
-              onProductLike={toggleWishList}
-              isLiked={isInArray(wishlist, summerCollection[3].id)}
-              product={summerCollection[3]}
-              key={summerCollection[3].id}
-            />
+            {summerCollection.map((product, index) => {
+              if (index <= 3)
+                return (
+                  <CustomProductCard
+                    key={index}
+                    isLoading={loading}
+                    onProductLike={toggleWishList}
+                    isLiked={isInArray(wishlist, product)}
+                    product={product}
+                  />
+                );
+            })}
           </div>
         </div>
         {/* offer banner (only visible on moblie) */}
@@ -114,7 +92,7 @@ const CustomProductCard = ({
   const navigate = useNavigate(); // navigate hook
 
   return (
-    <div className="w-full h-80 lg:h-96 bg-gray-300/35 rounded-xl">
+    <div className="w-full h-80 lg:h-96 bg-gray-300/35 rounded-xl first-of-type:basis-4/12 last-of-type:basis-4/12 basis-1/5">
       <div className="w-full h-3/5 relative">
         {/* product thumbnail */}
         <img

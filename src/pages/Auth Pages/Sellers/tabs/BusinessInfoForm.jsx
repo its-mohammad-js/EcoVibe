@@ -151,7 +151,10 @@ function BusinessInfoForm() {
           </div>
         </div>
         {/* location picker */}
-        <button className="px-4 py-2 bg-primary-500 w-fit rounded-md text-gray-50 self-end">
+        <button
+          onClick={() => window.scrollTo(0, 0)}
+          className="px-4 py-2 bg-primary-500 w-fit rounded-md text-gray-50 self-end"
+        >
           Submit
         </button>
       </form>
