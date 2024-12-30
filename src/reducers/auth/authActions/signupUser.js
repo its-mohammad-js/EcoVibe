@@ -14,13 +14,14 @@ export const signUpUser = createAsyncThunk(
   async (payload, { fulfillWithValue, rejectWithValue }) => {
     // sign up proccess
     try {
+      // sign up user with selected method
+      const user = await methodSwitcher(payload);
+      // define personal info of user
       const personalInformation = payload?.personalInformation || {
         email: user.email,
         profilePic: user.photoURL || avatarsUrl[2],
         first_name: user.email || null,
       };
-      // sign up user with selected method
-      const user = await methodSwitcher(payload);
       // create a cell on data base for user
       await createUserDataCell(
         user?.uid,

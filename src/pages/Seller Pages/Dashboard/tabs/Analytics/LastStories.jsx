@@ -13,10 +13,7 @@ import { AiFillHeart, AiOutlineEye } from "react-icons/ai";
 function LastStories() {
   const [alertIsShow, setAlert] = useState(false); // delete story alert state
   // current user data
-  const {
-    userId,
-    personalInformation: { first_name, last_name },
-  } = useSelector((state) => state.userData);
+  const { userId } = useSelector((state) => state.userData);
   // current story slide state
   const [currentStory, setCurrentStory] = useState(null);
   // get stories hook
@@ -77,13 +74,13 @@ function LastStories() {
               {timestampToDate(currentStory?.createdAt, null, "database")}
             </h4>
             <div className="flex items-center gap-x-2">
-              <p className="flex items-center gap-x-1 text-gray-400">
+              <p className={"flex items-center gap-x-1 text-gray-400"}>
                 <AiOutlineEye className="text-gray-300 text-2xl" />
-                {currentStory?.seenBy?.length}
+                {currentStory?.seenBy?.length || 0}
               </p>
-              <p className="flex items-center gap-x-1 text-gray-400">
+              <p className={"flex items-center gap-x-1 text-gray-400"}>
                 <AiFillHeart className="text-gray-300 text-2xl" />
-                {currentStory?.seenBy?.length}
+                {currentStory?.seenBy?.length || 0}
               </p>
             </div>
 

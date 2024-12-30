@@ -3,7 +3,6 @@ import OrdersSummary from "./OrdersSummary";
 import TotalSellsChart from "./Total sells charts/TotalSellsChart";
 import RatesChart from "./RatesChart";
 import Locations from "./Locations";
-
 import LastComments from "./LastComments";
 import { useDashboardData } from "../../DashboardContext";
 import LastStories from "./LastStories";
@@ -34,7 +33,7 @@ function AnalyticsTab() {
         <LastComments />
       </div>
       <div className="h-96 lg:h-auto lg:col-span-3 lg:row-span-3 lg:row-start-6">
-        {/* <LastStories /> */}
+        <LastStories />
       </div>
       <div className=" col-span-3 h-96 lg:h-auto lg:row-span-3 lg:col-start-4 lg:row-start-6 bg-gray-100 rounded-md px-4 py-2">
         <Locations />

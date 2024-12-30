@@ -18,11 +18,12 @@ function ProductOptions({ isEdit }) {
 
   // get options for select component
   function getOptionValues(options, title) {
-    return options.map((opt) =>
-      title.toLowerCase() === "color"
-        ? { label: opt.name, value: opt.code }
-        : { label: opt, value: opt }
-    );
+    if (options)
+      return options.map((opt) =>
+        title.toLowerCase() === "color"
+          ? { label: opt.name, value: opt.code }
+          : { label: opt, value: opt }
+      );
   }
 
   // reset option values on product type | category change

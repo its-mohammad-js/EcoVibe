@@ -130,12 +130,14 @@ const useStoryList = (currentListIndex, setList, storiesList) => {
   const getPaginatedLists = () =>
     params?.id
       ? storiesList
-      : storiesList.filter(
-          (_, index) =>
-            index === currentListIndex - 1 ||
-            index === currentListIndex ||
-            index === currentListIndex + 1
-        );
+      : storiesList
+          .map((item, index) => ({ ...item, listIndex: index }))
+          .filter(
+            (_, index) =>
+              index === currentListIndex - 1 ||
+              index === currentListIndex ||
+              index === currentListIndex + 1
+          );
 
   return {
     containerRef,

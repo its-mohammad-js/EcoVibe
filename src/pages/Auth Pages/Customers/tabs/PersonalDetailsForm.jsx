@@ -7,6 +7,13 @@ import { updateUserData } from "authActions/updateUserData";
 import ProfileImagePicker from "UI/ProfileImagePicker/ProfileImagePicker";
 import TextInput from "UI/Forms/TextInput";
 import { personalFormInputs } from "./formInputsInfo";
+import Select from "react-select";
+
+const genders = [
+  { label: "Man", value: "man" },
+  { label: "Women", value: "women" },
+  { label: "Other", value: "other" },
+];
 
 function PersonalDetailsForm() {
   const { loading, personalInformation, userType } = useSelector(
@@ -126,7 +133,24 @@ function PersonalDetailsForm() {
             Gender
           </label>
 
-          <select
+          <Select
+            placeholder="Select Your Gender"
+            styles={{
+              control: (provided, state) => ({
+                ...provided,
+                borderColor: state.menuIsOpen ? "#6b7280" : "#d1d5db", // Change border color when menu is open
+                boxShadow: "none", // Optional: Add focus shadow
+                "&:hover": {
+                  borderColor: state.menuIsOpen ? "#6b7280" : "#d1d5db", // Ensure consistent color on hover
+                },
+              }),
+            }}
+            options={genders}
+            className="[&>div]:p-1.5 [&>div]:rounded-lg"
+            onChange={({ value }) => setValue("gender", value)}
+          />
+
+          {/* <select
             id="gender"
             name="gender"
             {...register("gender")}
@@ -135,7 +159,7 @@ function PersonalDetailsForm() {
             <option>Man</option>
             <option>Women</option>
             <option>Other</option>
-          </select>
+          </select> */}
 
           <p className="text-sm md:text-base mt-1 px-1 text-red-500 font-medium">
             {errors?.gender?.message}

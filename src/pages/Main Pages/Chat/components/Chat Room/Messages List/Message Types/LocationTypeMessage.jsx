@@ -18,6 +18,8 @@ function LocationTypeMessage({ message }) {
           <Map
             defaultCenter={[message.location[0], message.location[1]]}
             defaultZoom={11}
+            minZoom={3}
+            maxZoom={10}
             mouseEvents={fullScreenMap}
             touchEvents={fullScreenMap}
           >

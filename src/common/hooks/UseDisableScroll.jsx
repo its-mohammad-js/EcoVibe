@@ -7,7 +7,10 @@ const useDisableScroll = (minWidth = 480, condition) => {
 
   // hidden window scroll-bar on mount
   useEffect(() => {
-    document.body.style.overflow = !screenSize || condition ? "auto" : "hidden";
+    const checkScreen = Number.isInteger(minWidth) ? screenSize : minWidth;
+
+    document.body.style.overflow =
+      !checkScreen || condition ? "auto" : "hidden";
 
     return () => {
       document.body.style.overflow = "auto";

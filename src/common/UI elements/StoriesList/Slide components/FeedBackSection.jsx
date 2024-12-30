@@ -22,10 +22,10 @@ function FeedBackSection({ story, handlePause }) {
   });
   const [comment, setComment] = useState("");
 
-  // handle pause story on commenting
-  useEffect(() => {
-    if (!showComments) handlePause();
-  }, [showComments]);
+  // // handle pause story on commenting
+  // useEffect(() => {
+  //   if (!showComments) handlePause();
+  // }, [showComments]);
 
   useEffect(() => {
     setLiked(story?.likes?.includes(userId));

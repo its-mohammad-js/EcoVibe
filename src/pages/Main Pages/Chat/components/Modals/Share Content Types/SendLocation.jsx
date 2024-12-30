@@ -52,6 +52,8 @@ function SendLocation({ onCloseModal }) {
           onClick={(e) => setLocation(e.latLng)}
           defaultCenter={[35.77142984637282, 51.46089654722849]}
           defaultZoom={11}
+          minZoom={3}
+          maxZoom={10}
         >
           {location && <Marker color="#1632e9" width={50} anchor={location} />}
         </Map>

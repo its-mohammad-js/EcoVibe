@@ -98,6 +98,8 @@ function BusinessInfoForm() {
             // height={mapFullScreen ? 1000 : 300}
             defaultCenter={[35.77142984637282, 51.46089654722849]}
             defaultZoom={11}
+            minZoom={3}
+            maxZoom={10}
           >
             {location && (
               <Marker color="#1632e9" width={50} anchor={location} />
@@ -140,7 +142,7 @@ function BusinessInfoForm() {
               })}
               placeholder="About you..."
               rows={5}
-              className="w-full border border-gray-300 px-2 disabled:animate-ping py-2 rounded-lg outline-none placeholder:text-gray-400 focus:border-gray-300 transition-all resize-none"
+              className="w-full border border-gray-300 px-2 disabled:animate-pulse py-2 rounded-lg outline-none placeholder:text-gray-400 focus:border-gray-300 transition-all resize-none"
             />
 
             <p className="text-sm text-red-500 mt-1">

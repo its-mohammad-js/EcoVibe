@@ -6,23 +6,27 @@ import { MdOutlineFullscreen } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "authActions/updateUserData";
 import { validateLocation } from "helpers";
+import useDisableScroll from "../../../../../common/hooks/UseDisableScroll";
 
 function Locations() {
   // map full screen mode state
   const [selectMode, setMode] = useState(false);
   // selected location data
-  const [location, setLocation] = useState({});
+  const [selectedLocation, setLocation] = useState({});
   // get seller location's
   const { businessInformation } = useSelector((state) => state.userData);
   // necessary data & hooks
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const { locations } = businessInformation || {};
+  useDisableScroll(true, !selectMode);
 
   // add location to seller profile information
   async function addLocation() {
     // check user selected location
-    if (!location.lat && !location.lng) {
+    if (!selectedLocation.lat && !selectedLocation.lng) {
       toast.error("Please select a location first");
+      return;
     }
     // limit seller locations count
     if (businessInformation?.location?.length >= 4) {
@@ -34,15 +38,18 @@ function Locations() {
       setLoading(true);
       // check location is valid
       const isValidatedLocation = await validateLocation(
-        location.lat,
-        location.lng
+        selectedLocation.lat,
+        selectedLocation.lng
       );
       // update seller pofile
       if (isValidatedLocation) {
         // update user data with new location
         const updatedInfo = {
           ...businessInformation,
-          locations: [...(businessInformation?.locations || []), location],
+          locations: [
+            ...(businessInformation?.locations || []),
+            selectedLocation,
+          ],
         };
         // add seller location to data base
         dispatch(
@@ -75,31 +82,32 @@ function Locations() {
       } size-full relative flex flex-col justify-end`}
     >
       <h4 className="text-xl font-bold my-2 absolute -top-2 left-0 z-10">
-        Location's
+        Your Location's
       </h4>
       <div className="h-5/6 [&>div]:!rounded-md ">
         <Map
+          key={selectMode}
           onClick={(e) => {
             if (selectMode) setLocation({ lat: e.latLng[0], lng: e.latLng[1] });
           }}
           defaultCenter={[
-            businessInformation?.locations
-              ? businessInformation?.locations[0]?.lat
-              : 30,
-            businessInformation?.locations
-              ? businessInformation?.locations[0]?.lng
-              : 50,
+            locations ? locations[0]?.lat : 30,
+            locations ? locations[0]?.lng : 50,
           ]}
-          defaultZoom={4}
+          zoom={10} // Set the fixed zoom level
+          minZoom={3}
+          maxZoom={20}
+          mouseEvents={selectMode} // Disable mouse interactions
+          touchEvents={selectMode} // Disable touch interactions
         >
-          {location.lat && location.lng && (
+          {selectedLocation.lat && selectedLocation.lng && (
             <Marker
-              anchor={[location.lat, location.lng]}
+              anchor={[selectedLocation.lat, selectedLocation.lng]}
               color="#7384f2"
               width={50}
             />
           )}
-          {businessInformation.locations?.map(({ lat, lng }, index) => (
+          {locations?.map(({ lat, lng }, index) => (
             <Marker
               key={index}
               anchor={[lat, lng]}

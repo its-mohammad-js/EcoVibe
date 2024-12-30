@@ -16,6 +16,8 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
     currentSlideIndex, // current list index
   } = useStoryList(currentListIndex, setList, storiesList); // stories list data & list functionality
 
+  // console.log(currentListIndex);
+
   return (
     <div
       ref={containerRef}
@@ -31,7 +33,7 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
         className="inline-flex items-center lg:gap-x-8 size-full lg:px-[500vw]"
       >
         {/* all lists */}
-        {getPaginatedLists().map(({ slides: list }, listIndex) => {
+        {getPaginatedLists().map(({ slides: list, listIndex }) => {
           if (list)
             return (
               <div
