@@ -5,22 +5,20 @@ import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
 import { useSelector } from "react-redux";
 import { useRoomsData } from "../../../RoomsContext";
 
-function OrderItem({
-  orders,
-  orderId,
-  totalPrice,
-  ordersType,
-  createdAt,
-  onCloseModal,
-}) {
-  const navigate = useNavigate();
-  const { selectedRoom, setMode, setSelectedMessage } = useRoomsData();
+function OrderItem({ orderData, ordersType, onCloseModal }) {
+  const { orders, createdAt, orderId, totalPrice } = orderData;
+  const {
+    selectedRoom,
+    setMode,
+    setSelectedMessage,
+    messageMode,
+    selectedMessage,
+  } = useRoomsData();
   const { userId } = useSelector((state) => state.userData);
+  const navigate = useNavigate();
 
   // share orders to the room
-  function shareOrder(id) {
-    // find selected order
-    const selectedOrder = orders.find((order) => order.orderId === id);
+  function shareOrder() {
     // ref to selected room
     const db = getDatabase();
     const roomsRef = ref(db, `rooms/${selectedRoom.roomId}`);
@@ -35,12 +33,10 @@ function OrderItem({
           senderId: userId,
           createdAt: serverTimestamp(),
           order: {
-            orderId: selectedOrder.orderId,
-            createdAt: selectedOrder.createdAt,
-            totalPrice: selectedOrder.totalPrice,
-            thumbnails: selectedOrder.orders.items.map(
-              (item) => item.Thumbnail
-            ),
+            orderId: orderId,
+            createdAt: createdAt,
+            totalPrice: totalPrice,
+            thumbnails: orders.items.map((item) => item.Thumbnail),
           },
           replyTo: messageMode === "reply" ? selectedMessage.uiid : null,
           visibleTo: [userId, selectedRoom.reciver.reciverId],

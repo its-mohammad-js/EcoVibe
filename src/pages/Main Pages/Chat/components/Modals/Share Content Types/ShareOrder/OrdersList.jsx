@@ -125,7 +125,12 @@ function OrdersList({ onCloseModal }) {
             <OrderShareListLoader />
           ) : orders.length ? (
             serachOrders().map((order, i) => (
-              <OrderItem key={i} {...{ order, ordersType, onCloseModal }} />
+              <OrderItem
+                key={i}
+                orderData={order}
+                onCloseModal={onCloseModal}
+                ordersType={ordersType}
+              />
             ))
           ) : (
             <h4 className="m-auto text-center my-20 text-lg font-semibold line-clamp-2">

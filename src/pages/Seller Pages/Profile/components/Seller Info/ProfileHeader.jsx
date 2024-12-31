@@ -58,7 +58,7 @@ function ProfileHeader() {
                   storiesList[0]?.isSeen
                     ? "bg-slate-400"
                     : "gradient-background"
-                } absolute size-24 -z-10 rounded-full`}
+                } absolute size-[5.5rem] lg:size-24 -z-10 rounded-full`}
               ></div>
             )}
             <img

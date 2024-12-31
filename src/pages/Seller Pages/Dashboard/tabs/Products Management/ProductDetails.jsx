@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiChevronLeft, BiChevronRight, BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { closest } from "color-2-name";
+import useHorizontalTouchScroll from "../../../../../common/hooks/useTouchScroll";
 
 function ProductDetails({ selectedItem, onModalClose, setEditShow }) {
   // description state
@@ -8,13 +10,19 @@ function ProductDetails({ selectedItem, onModalClose, setEditShow }) {
   // necessary data & hooks
   const imageGalleryRef = useRef();
   const navigate = useNavigate();
+  useHorizontalTouchScroll(null, null, imageGalleryRef);
+  const [currentImage, setCurrentImage] = useState("");
+
+  useEffect(() => {
+    setCurrentImage(selectedItem?.Images[0]);
+  }, [selectedItem]);
 
   return (
     <>
       {/* thumnail & title */}
       <div className="w-full bg-gray-200 rounded-md relative">
         <img
-          src={selectedItem?.Thumbnail}
+          src={currentImage}
           alt="product-thumbnail"
           className="w-full object-cover rounded-md h-64"
         />
@@ -72,12 +80,22 @@ function ProductDetails({ selectedItem, onModalClose, setEditShow }) {
         </button>
         <div
           ref={imageGalleryRef}
-          className="w-full overflow-x-scroll scroll-smooth hidden-scroll-bar md:px-4 my-4"
+          className="w-full overflow-x-scroll py-2 scroll-smooth hidden-scroll-bar md:px-4 my-4"
         >
-          <div className="inline-flex items-center gap-5">
+          <div className="inline-flex items-center gap-5 select-none">
             {selectedItem?.Images.map((url, index) => (
-              <div key={index} className="size-20 bg-gray-300 rounded-md">
-                <img src={url} className="size-full rounded-md object-cover" />
+              <div
+                key={index}
+                className={`${
+                  currentImage === url && "scale-110 rotate-6"
+                }  size-20 bg-gray-300 rounded-md transition-all`}
+              >
+                <img
+                  onClick={() => setCurrentImage(url)}
+                  src={url}
+                  className="size-full rounded-md object-cover"
+                  draggable={false}
+                />
               </div>
             ))}
           </div>
@@ -97,7 +115,7 @@ function ProductDetails({ selectedItem, onModalClose, setEditShow }) {
             <div className="flex items-center gap-x-1 flex-wrap w-2/3">
               {options.map((op, i) => (
                 <span key={i} className="text-sm lg:text-base">
-                  {op},
+                  {title === "Color" ? closest(op)?.name : op},
                 </span>
               ))}
             </div>

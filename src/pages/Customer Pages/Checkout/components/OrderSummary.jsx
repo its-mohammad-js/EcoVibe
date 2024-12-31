@@ -1,6 +1,7 @@
 import { BiTrash } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "authActions/updateUserData";
+import { closest } from "color-2-name";
 
 function OrderSummary({ shippingCost, totalPrice }) {
   const { cartData } = useSelector((state) => state.userData); // current user cart data
@@ -26,7 +27,10 @@ function OrderSummary({ shippingCost, totalPrice }) {
       {/* orders list */}
       <div className="flex flex-col gap-4 h-96 overflow-auto px-1 py-0.5 styled-scroll-bar">
         {cartData.map(
-          ({ Name, Price, quantity, Thumbnail, orderId }, index) => (
+          (
+            { Name, Price, quantity, Thumbnail, orderId, selectedOption },
+            index
+          ) => (
             <div
               key={index}
               className="border-2 rounded-md h-32 flex items-center px-2 py-1 gap-4 relative"
@@ -34,7 +38,7 @@ function OrderSummary({ shippingCost, totalPrice }) {
               <div className="w-2/5 h-full">
                 <img
                   src={Thumbnail}
-                  alt=""
+                  alt="order-thumbnail"
                   className="w-full h-full object-cover rounded-xl"
                 />
               </div>
@@ -43,8 +47,22 @@ function OrderSummary({ shippingCost, totalPrice }) {
                 <h6 className="font-medium line-clamp-1 text-lg text-gray-950">
                   {Name}
                 </h6>
-                <p className="">${Price}</p>
-                <p>Quantity: {quantity}</p>
+                <p className="flex w-full items-center justify-between">
+                  <span className="">${Price}</span>
+                  <span>Quantity: {quantity}</span>
+                </p>
+                <div className="">
+                  {selectedOption.map(
+                    ({ title, option }, index) =>
+                      index <= 3 && (
+                        <p key={index} className="font-semibold text-sm">
+                          {title.toLowerCase() === "color"
+                            ? closest(option)?.name
+                            : option}
+                        </p>
+                      )
+                  )}
+                </div>
               </div>
 
               <button

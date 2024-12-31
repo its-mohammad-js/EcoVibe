@@ -12,14 +12,17 @@ function SellerDashboardPage() {
   // modal's state
   const [modal, setModal] = useState(null);
   const params = useParams();
-  const { userType, seller_step } = useSelector((state) => state.userData);
+  const { userType, seller_step, auth_status } = useSelector(
+    (state) => state.userData
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userType === "customer") {
       toast.error("You aren't a selller yet please sign up as a seller");
       navigate("/EcoVibe/sellers-solutions");
-    } else if (seller_step !== "third-step") {
+    }
+    if (seller_step !== "third-step" && auth_status === 200) {
       navigate("/EcoVibe/sellers");
     }
   }, [userType]);

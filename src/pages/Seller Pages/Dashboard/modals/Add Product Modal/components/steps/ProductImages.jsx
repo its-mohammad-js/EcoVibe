@@ -14,12 +14,11 @@ import ImagePreview from "./ImagesReview";
 import { validateFile } from "../../../../../../../common/utils/constants/helpers";
 import toast from "react-hot-toast";
 
-const ProductImages = ({ isEdit, isUploading, setUploading }) => {
+const ProductImages = ({ isEdit, uploadState, setUploading }) => {
   const { setValue, getValues, watch } = useFormContext();
   const [imageFiles, setImageFiles] = useState([]);
   // Watch the "Images" value
   const images = watch("Images") || [];
-  console.log(watch("Images"));
 
   // Add selected images to state
   const handleFileSelection = (files) => {
@@ -48,24 +47,30 @@ const ProductImages = ({ isEdit, isUploading, setUploading }) => {
   // Upload a single image
   const uploadImage = useCallback(
     async ({ file, id }) => {
-      const category = getValues("Category");
-      const name = getValues("Name");
-      const imageRef = ref(
-        storage,
-        `Products Images/${category}/${name}-${id}`
-      );
-
       try {
-        setUploading(true);
+        // dispatch loading
+        setUploading({ isUploading: true, targetId: id });
+        // ref to file in storage
+        const imageRef = ref(
+          storage,
+          `Products Images/${watch("Category")}/${watch("name")}-${id}`
+        );
+        // upload file to storage
         await uploadBytes(imageRef, file);
         const url = await getDownloadURL(imageRef);
-        setValue("Images", [...(watch("Images") || []), url]); // Update form value directly
+        // Update form value directly
+        setValue("Images", [...(watch("Images") || []), url]);
+        // dispatch success
         setImageFiles((prevFiles) =>
           prevFiles.filter((image) => image.id !== id)
         );
-        setUploading(false);
+        setUploading({ isUploading: false, targetId: null });
       } catch (error) {
-        setUploading(false);
+        // dispatch error
+        toast.remove();
+        toast("there was an error on uploading, please try again later");
+        console.log(error);
+        setUploading({ isUploading: false, targetId: null });
       }
     },
     [getValues, images, setValue]
@@ -82,12 +87,14 @@ const ProductImages = ({ isEdit, isUploading, setUploading }) => {
   const removeImage = async (url, id, isPrev) => {
     try {
       if (url) {
+        setUploading({ isUploading: true, targetId: url });
         const imgRef = ref(storage, url);
         await deleteObject(imgRef);
         if (isPrev) {
           const updatedImages = images.filter((img) => img !== url);
           setValue("Images", updatedImages);
         }
+        setUploading({ isUploading: false, targetId: null });
       } else {
         setImageFiles((prev) => prev.filter((file) => file.id !== id));
       }
@@ -121,7 +128,6 @@ const ProductImages = ({ isEdit, isUploading, setUploading }) => {
   return (
     <div className="lg:h-96 relative flex flex-col gap-3 lg:justify-between">
       <h4 className="text-xl font-bold">Select Images:</h4>
-
       {/* Image Picker */}
       <div className="w-full relative h-60 lg:flex-1 flex flex-col items-center justify-center border-2 border-dotted border-primary-300 rounded-md gap-y-2">
         <input
@@ -149,17 +155,19 @@ const ProductImages = ({ isEdit, isUploading, setUploading }) => {
             url={url}
             onRemove={() => removeImage(url, null, true)}
             isUploaded={true}
+            loading={uploadState}
           />
         ))}
         {imageFiles.map(({ id, file }) => (
           <ImagePreview
             key={id}
+            fileId={id}
             url={URL.createObjectURL(file)}
             onRemove={() => removeImage(null, id, false)}
             onRetry={() => uploadImage({ id, file })}
             // isFailed={uploadState.failedImages.includes(id)}
             // pass loading only to images files
-            loading={isUploading && URL.createObjectURL(file)}
+            loading={uploadState}
           />
         ))}
       </div>
@@ -167,11 +175,11 @@ const ProductImages = ({ isEdit, isUploading, setUploading }) => {
       {/* Upload Button */}
       <button
         type="button"
-        disabled={imageFiles.length === 0 || isUploading}
+        disabled={imageFiles.length === 0 || uploadState.isUploading}
         className="px-4 py-2 bg-primary-500 text-white rounded disabled:bg-gray-400"
         onClick={uploadAllImages}
       >
-        {isUploading ? "Uploading..." : "Upload"}
+        {uploadState.isUploading ? "Uploading..." : "Upload"}
       </button>
     </div>
   );

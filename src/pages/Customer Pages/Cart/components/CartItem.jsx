@@ -9,6 +9,7 @@ function CartItem({ orderDetails }) {
   const { cartData, loading } = useSelector((state) => state.userData); // current user data
   const isMobile = useMediaQuery({ maxWidth: 480 }); // detect screen size
   const dispatch = useDispatch(); // dispatch hook
+  console.log(cartData[1]);
 
   // remove product order from cart
   function removeProduct() {
@@ -55,7 +56,7 @@ function CartItem({ orderDetails }) {
         loading &&
         actionRef === orderDetails.orderId &&
         "animate-pulse bg-gray-200"
-      } bg-gray-100/80 rounded-md flex items-center h-36 md:h-40 px-2 py-1 relative`}
+      } bg-gray-200/40 rounded-md flex items-center h-36 md:h-40 px-2 py-1 relative`}
     >
       {/* product tumbnail */}
       <div className="basis-3/6 md:basis-2/12 h-full">
@@ -83,10 +84,6 @@ function CartItem({ orderDetails }) {
           </p>
           {/* order title */}
           <h4 className="line-clamp-1 md:line-clamp-2 md:text-xl">
-            <span className="hidden md:inline text-sm border-b-2 border-b-gray-700 uppercase italic">
-              {orderDetails.selectedOption[0]?.option}
-            </span>
-            &nbsp;
             <span className="font-medium">{orderDetails.Name}</span> &nbsp;
             <span className="hidden md:inline">* {orderDetails.quantity}</span>
           </h4>
@@ -99,7 +96,10 @@ function CartItem({ orderDetails }) {
                 <div
                   key={index}
                   style={{ backgroundColor: title === "color" && option }}
-                  className={`${title === "color" && "size-5 rounded-full"}`}
+                  className={`${
+                    title === "color" &&
+                    "size-5 rounded-full ring-2 ring-gray-300"
+                  }`}
                 >
                   {title !== "color" && (
                     <div className="flex items-center gap-x-1 text-xs bg-gray-100 text-gray-950 border border-gray-500 w-fit px-2 py-0.5 rounded-xl">

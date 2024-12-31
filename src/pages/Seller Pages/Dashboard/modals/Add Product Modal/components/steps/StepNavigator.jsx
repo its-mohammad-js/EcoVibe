@@ -6,7 +6,10 @@ import { useFormContext } from "react-hook-form";
 
 function StepNavigator({ isEdit, onModalChange, currentStep, setCurrentStep }) {
   const { watch } = useFormContext();
-  const [isUploading, setUploading] = useState(false);
+  const [uploadState, setUploading] = useState({
+    isUploading: false,
+    targetId: null,
+  });
 
   const prevStep = () =>
     currentStep === 1
@@ -44,7 +47,7 @@ function StepNavigator({ isEdit, onModalChange, currentStep, setCurrentStep }) {
               : "invisible opacity-0 absolute -top-96 -translate-y-96 -translate-x-96"
           } transition-all duration-500`}
         >
-          <ProductImages {...{ isEdit, isUploading, setUploading }} />
+          <ProductImages {...{ isEdit, uploadState, setUploading }} />
         </div>
       </div>
       {/* action btn's */}
@@ -61,7 +64,7 @@ function StepNavigator({ isEdit, onModalChange, currentStep, setCurrentStep }) {
           {currentStep === 1 ? "Close" : "Back"}
         </button>
         <button
-          disabled={isUploading}
+          disabled={uploadState.isUploading}
           type="submit"
           className="px-4 py-2 disabled:cursor-not-allowed disabled:animate-pulse bg-primary-500 text-gray-50 rounded-md border-2 border-primary-500 hover:bg-gray-50 hover:text-primary-500 transition-all lg:w-1/5"
         >

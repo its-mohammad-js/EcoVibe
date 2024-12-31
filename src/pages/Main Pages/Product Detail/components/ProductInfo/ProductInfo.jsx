@@ -4,6 +4,7 @@ import ProductDescription from "./ProductDescription";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { errorIconUrl } from "appData";
+import { closest } from "color-2-name";
 
 function ProductInfo() {
   const {
@@ -76,7 +77,7 @@ function ProductInfo() {
                     <td className="px-4 py-2 border md:flex gap-2">
                       {options.map((opt, index) => (
                         <p key={index} className="inline">
-                          {opt},
+                          {title === "color" ? closest(opt)?.name : opt},
                         </p>
                       ))}
                     </td>
