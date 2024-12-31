@@ -8,6 +8,7 @@ import { BsCartCheck } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
 import { map, filter } from "lodash";
 import ProductThumbnail from "./ProductThumbnail";
+import useMediaQuery from "../../../../../common/hooks/useMediaQuery";
 
 function ProductCard({ productData }) {
   const { loading, cartData } = useSelector((state) => state.userData); // current userdata
@@ -19,13 +20,13 @@ function ProductCard({ productData }) {
   // necessary hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isMobile = useMediaQuery({ maxWidth: 480 });
 
   // clear actions ref after any action
   useEffect(() => {
     // reset actions ref value
     if (!loading)
       setActions({
-        likeRef: "",
         orderRef: "",
       });
   }, [loading]);
@@ -95,7 +96,7 @@ function ProductCard({ productData }) {
           {/* add to cart || navigate to cart btn */}
           <button
             onClick={() => {
-              window.scroll(0, 0);
+              isMobile && window.scroll(0, 0);
               isInCart
                 ? navigate("/EcoVibe/bag/cart")
                 : addProductToCart(productData);

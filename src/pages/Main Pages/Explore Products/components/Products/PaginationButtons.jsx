@@ -5,13 +5,13 @@ import { changeFilterReducer as setFilter } from "src/reducers/filters/filterSli
 
 function PaginationButtons({ productsData }) {
   // get selected filters
-  const filters = useSelector((state) => state.filters);
+  const { page } = useSelector((state) => state.filters);
   // redux dispatcher
   const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [filters.page]);
+  }, [page]);
 
   return (
     <div className="w-fit mx-auto mt-6 flex justify-center items-center gap-x-4 px-4 py-3 shadow-lg shadow-gray-950/15 rounded-lg">
@@ -20,7 +20,7 @@ function PaginationButtons({ productsData }) {
         onClick={() => {
           dispatch(setFilter({ type: "prevPage" }));
         }}
-        disabled={filters.page === 0}
+        disabled={page === 0}
         className="px-4 py-2 text-sm disabled:opacity-55 disabled:shadow-none disabled:cursor-not-allowed bg-gray-100 rounded-md shadow-lg shadow-gray-200 hover:shadow-gray-500 transition-all text-gray-800 flex items-center gap-x-2.5"
       >
         <FaArrowLeft />
@@ -30,15 +30,15 @@ function PaginationButtons({ productsData }) {
       <div className="flex items-center gap-x-2">
         {productsData.map(
           (p, index) =>
-            index > filters.page - 3 &&
-            index <= filters.page + 1 && (
+            index > page - 3 &&
+            index <= page + 1 && (
               <button
                 key={index}
                 onClick={() => {
                   dispatch(setFilter({ type: "changePage", payload: index }));
                 }}
                 className={`${
-                  filters.page === index &&
+                  page === index &&
                   "!bg-primary-400 text-white hover:!bg-gray-300/90 hover:text-gray-900"
                 } px-3 py-1.5 text-sm font-semibold bg-gray-200/70 rounded-md hover:bg-primary-400 hover:text-white transition-all text-center duration-500`}
               >
@@ -52,7 +52,7 @@ function PaginationButtons({ productsData }) {
         onClick={() => {
           dispatch(setFilter({ type: "nextPage" }));
         }}
-        disabled={filters.page === productsData.length - 1}
+        disabled={page === productsData.length - 1}
         className="px-4 py-2 text-sm disabled:opacity-55 disabled:shadow-none disabled:cursor-not-allowed bg-gray-200 rounded-md shadow-lg shadow-gray-200 hover:shadow-gray-500 transition-all text-gray-800 flex items-center gap-x-2.5"
       >
         <span className="hidden md:inline">Next</span>

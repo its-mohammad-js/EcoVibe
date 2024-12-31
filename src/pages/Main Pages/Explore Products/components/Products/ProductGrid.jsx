@@ -36,13 +36,14 @@ function ProductGrid() {
   }
 
   const debouncedFetchProducts = useCallback(
-    debounce(() => fetchProducts(), 300),
+    debounce(() => fetchProducts(), 800),
     [fetchProducts]
   );
 
   // get filtered products on each filter change
   useEffect(() => {
-    debouncedFetchProducts(filters);
+    fetchProducts();
+    // debouncedFetchProducts(filters);
     return () => debouncedFetchProducts.cancel();
   }, [
     filters.searchQuery,

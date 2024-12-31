@@ -28,6 +28,7 @@ export const updateUserData = createAsyncThunk(
           userType: payload?.userType || userType,
         });
       }
+
       return fulfillWithValue(payload);
     } catch (error) {
       console.log(error?.message);

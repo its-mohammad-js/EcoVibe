@@ -53,6 +53,8 @@ const productsSilce = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getFilteredProducts.pending, (state) => {
+      // console.log("ok");
+
       state.loading = true;
       state.data = [];
       state.error = "";

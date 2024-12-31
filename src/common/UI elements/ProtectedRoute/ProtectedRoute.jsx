@@ -67,7 +67,7 @@ function ProtectedRoute() {
   if (!userId && loading)
     return (
       <div className="h-screen flex flex-col gap-y-8 items-center justify-center">
-        <LoaderIcon/>
+        <LoaderIcon />
         <h4 className="text-2xl xl:text-4xl font-bold text-center animate-pulse">
           Getting ready to display your info...
         </h4>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { paginateElements, timestampToDate } from "helpers";
+import ChangeStatusMenu from "./ChangeStatusMenu";
 
 function OrdersTable({ filteredOrders, onOrderDetail, onStatusChange }) {
   // paginated orders list

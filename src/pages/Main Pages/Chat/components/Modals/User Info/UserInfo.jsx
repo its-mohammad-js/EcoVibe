@@ -14,8 +14,6 @@ function UserInfo({ modalShow, onCloseModal }) {
     setInfo(reciver?.userType === "customer" ? "customer" : "seller");
   }, [reciver?.userType]);
 
-  console.log(reciver?.userType);
-
   if (infoTab)
     return (
       <>

@@ -13,7 +13,7 @@ function QuickAccessMenu({ menuIsShow, onCloseMenu }) {
     (state) => state.userData
   );
   const navigate = useNavigate();
-  
+
   function onMenuNavigation(path) {
     navigate(path);
     onCloseMenu();

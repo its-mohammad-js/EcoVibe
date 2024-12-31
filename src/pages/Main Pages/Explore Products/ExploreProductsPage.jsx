@@ -9,7 +9,7 @@ import FiltersMenu from "./components/Filters/FiltersMenu";
 import ProductGrid from "./components/Products/ProductGrid";
 
 function ExploreProducts() {
-  const [menuIsOpen, setMenuIsOpen] = useState(false); // filters menu state (open close functionality on mobile)
+  const [menuIsOpen, setMenuIsOpen] = useState(false); // filters menu state (open/close functionality on mobile)
   useDisableScroll(480, !menuIsOpen); // disable screen scroll on filters menu open
   const selectedFilters = useSelector((state) => state.filters); // selected filters
   const navigate = useNavigate();
@@ -42,32 +42,32 @@ function ExploreProducts() {
   }
 
   // effect query params to products rquest
-  // useEffect(() => {
-  //   // destructure qeury to key / value array
-  //   const query = queryToFilterObject(queryParams);
-  //   // dispatch filters
-  //   if (query.length) {
-  //     query.forEach((filter) => {
-  //       dispatch(setFilter(filter));
-  //     });
-  //   } else if (!query?.length) {
-  //     // clear filters
-  //     dispatch(setFilter({ type: "clear" }));
-  //   }
-  //   // clear filters
-  //   return () => {
-  //     dispatch(setFilter({ type: "clear" }));
-  //   };
-  // }, [queryParams]);
+  useEffect(() => {
+    // destructure qeury to key / value array
+    const query = queryToFilterObject(queryParams);
+    // dispatch filters
+    if (query.length) {
+      // dispatch(setFilter({ type: "clear" }));
+      query.forEach((filter) => {
+        dispatch(setFilter(filter));
+      });
+    } else if (!query?.length) {
+      // clear filters
+      dispatch(setFilter({ type: "clear" }));
+    }
+    // clear filters
+    return () => {
+      dispatch(setFilter({ type: "clear" }));
+    };
+  }, [queryParams]);
 
   return (
     <>
       <div className="mx-auto min-h-screen 2xl:max-w-screen-2xl flex flex-col md:gap-y-2 md:px-2">
-        {/* header (filters) */}
         <div className="w-full relative md:mt-2">
           <div
             id="wrapper"
-            className="w-full md:h-20 grid grid-cols-2 grid-rows-2 gap-3 md:grid-cols-8 md:items-center md:grid-rows-1 md:gap-4 p-2.5 md:border border-gray-200 rounded-lg"
+            className="w-full md:h-20 grid grid-cols-2 grid-rows-2 gap-3 md:grid-cols-8 md:items-center md:grid-rows-1 md:gap-4 p-2.5 md:border border-gray-200/70 rounded-lg"
           >
             {/* search input */}
             <div className="col-span-2 md:col-span-6">
