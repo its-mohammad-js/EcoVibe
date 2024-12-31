@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LoaderIcon from "../../Loaders/LoaderIcon";
 import { useSlide } from "../StoryListModal";
 import { getDatabase, ref, update } from "firebase/database";
@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import ContentSwitcher from "../../ContentSwitcher/ContentSwitcher";
 
 function SlideContent({
+  setType, // set content type (for useTimer hook to update remaining time on pic type slides)
   setRemainingTime, // set remian time befor change slide
   loading, // loading process state
   changeStoryHandler, // change list || slide handler
@@ -16,7 +17,10 @@ function SlideContent({
   const { story, slideindex, currentSlideIndex } = useSlide(); // slide data
   const [isLoaded, setLoaded] = useState(false); // load content state
   const { userId } = useSelector((state) => state.userData);
-  // on loading content handler
+
+  useEffect(() => {
+    setType(story.type);
+  }, [currentSlideIndex]);
 
   function handleLoadContent() {
     setLoaded(true);

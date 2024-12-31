@@ -7,6 +7,7 @@ import { GrGithub } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import TextInput from "UI/Forms/TextInput";
 import inputsInfo from "./signupInputsInfo";
+import { signInUser } from "../../../../reducers/auth/authActions/signinUser";
 
 function SignUpSeller() {
   const { loading } = useSelector((state) => state.userData); // current user data
@@ -98,7 +99,7 @@ function SignUpSeller() {
             type="button"
             disabled={loading}
             onClick={() =>
-              dispatch(signUpUser({ method: "google", userType: "seller" }))
+              dispatch(signInUser({ method: "google", userType: "seller" }))
             }
             className="flex items-center justify-between gap-x-2 px-4 py-1 border-2 text-lg border-gray-300 rounded-3xl disabled:animate-pulse"
           >
@@ -111,7 +112,7 @@ function SignUpSeller() {
             type="button"
             disabled={loading}
             onClick={() =>
-              dispatch(signUpUser({ method: "gitHub", userType: "seller" }))
+              dispatch(signInUser({ method: "gitHub", userType: "seller" }))
             }
             className="flex items-center justify-between gap-x-2 px-4 py-1 border-2 text-lg border-gray-300 rounded-3xl disabled:animate-pulse"
           >

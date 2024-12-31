@@ -37,7 +37,7 @@ function SellerAuthPage() {
         navigate("/EcoVibe/Sellers/sign-up");
         break;
       case "second-step":
-        toast.success("Please add your business Information");
+        toast.success("Please complete your business Information");
         navigate("/EcoVibe/Sellers/business-details");
         break;
       case "third-step":

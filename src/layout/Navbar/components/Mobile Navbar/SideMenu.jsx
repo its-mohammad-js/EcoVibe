@@ -60,12 +60,12 @@ function SideMenu({ sideMenuShow, setSideMenu }) {
                 )}
               </div>
               <div className="max-w-[70%] flex flex-col justify-between items-start">
-                <h2 className="text-lg font-medium line-clamp-1 w-full break-words">
+                <h2 className="text-lg font-medium line-clamp-1 w-9/12 break-words">
                   {auth_status === 200
-                    ? personalInformation?.first_name || ""
-                    : "Guest user"}{" "}
+                    ? personalInformation?.first_name?.trim() || ""
+                    : "Guest user"}
                 </h2>
-                <p className="text-sm">
+                <p className="text-sm line-clamp-1 w-9/12 break-words">
                   {auth_status === 200
                     ? personalInformation?.email || ""
                     : "Click to sign-up"}

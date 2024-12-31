@@ -40,7 +40,7 @@ function CommentsList({ story, showComments }) {
         showComments
           ? "opacity-100 visible translate-y-0"
           : "opacity-0 invisible translate-y-10"
-      } absolute bottom-0 grid grid-rows-8 transition-all rounded-t-3xl px-2 pb-1 pt-3 overflow-hidden h-[25rem] w-full left-0 bg-gray-900/85 backdrop-blur-xl`}
+      } absolute bottom-0 grid grid-rows-8 transition-all rounded-t-3xl px-2 pb-1 pt-3 overflow-hidden h-[25rem] w-screen md:w-full right-0 bg-gray-900/85 backdrop-blur-xl`}
     >
       <div className="w-full row-span-7 overflow-auto styled-scroll-bar flex flex-col gap-y-4">
         {story?.comments?.length ? (

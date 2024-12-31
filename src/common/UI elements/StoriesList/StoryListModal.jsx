@@ -38,8 +38,8 @@ function StoryListModal({ currentListIndex, setList, storiesList }) {
                 key={listIndex}
                 className={`${
                   listIndex === currentListIndex
-                    ? "lg:h-[95vh] currentSlide"
-                    : "lg:h-[80vh]"
+                    ? "lg:h-[95vh] currentSlide opacity-100"
+                    : "lg:h-[80vh] opacity-90"
                 } flex-none h-full select-none w-full lg:relative lg:w-96 transition-all duration-500 z-40 snap-end`}
               >
                 {/* slides of selected list */}

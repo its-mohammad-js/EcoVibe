@@ -23,23 +23,23 @@ function App() {
     dispatch(getUserData());
   }, []);
 
-  useEffect(() => {
-    const updateUserAcitvity = async () => {
-      try {
-        const userCellDataRef = doc(db, "users", userId);
-        updateDoc(userCellDataRef, {
-          lastActivity: serverTimestamp(),
-        });
-      } catch (error) {
-        console.log("failed to update user activity");
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   const updateUserAcitvity = async () => {
+  //     try {
+  //       const userCellDataRef = doc(db, "users", userId);
+  //       updateDoc(userCellDataRef, {
+  //         lastActivity: serverTimestamp(),
+  //       });
+  //     } catch (error) {
+  //       console.log("failed to update user activity");
+  //       console.log(error);
+  //     }
+  //   };
 
-    if (auth_status === 200) {
-      updateUserAcitvity();
-    }
-  }, [userId, auth_status]);
+  //   if (auth_status === 200) {
+  //     updateUserAcitvity();
+  //   }
+  // }, [userId, auth_status]);
 
   // read all user data from local storage
   return (

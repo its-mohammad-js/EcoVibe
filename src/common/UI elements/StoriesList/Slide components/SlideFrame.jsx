@@ -12,10 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 function SlideFrame() {
   const { changeStoryHandler, listIndex, currentListIndex, story } = useSlide(); // slide data
-  const { remainingTime, pause, handlePause, setRemainingTime } = useTimer(
-    5000,
-    () => changeStoryHandler("next")
-  ); // timer data & functionlaties
+  const { remainingTime, pause, handlePause, setRemainingTime, setType } =
+    useTimer(5000, () => changeStoryHandler("next")); // timer data & functionlaties
   const [contextMenuShow, setContextMenu] = useState(false); //context menu state
   const { onDeleteSlide, loading, onRemoveHighlight } =
     useRemoveStory(handlePause);
@@ -77,6 +75,7 @@ function SlideFrame() {
         {/* main content */}
         <SlideContent
           {...{
+            setType,
             setRemainingTime,
             loading,
             changeStoryHandler,
@@ -85,7 +84,7 @@ function SlideFrame() {
             contextMenuShow,
           }}
         />
-        <FeedbackActions {...{ story, handlePause }} />
+        <FeedbackActions {...{ story, handlePause, changeStoryHandler }} />
         {/* next btn */}
         <div
           className={`${

@@ -6,6 +6,7 @@ export function useTimer(initialTime, onTimeout) {
   const [pause, setPause] = useState(true); // Pause state to control whether the timer is paused
   const timerRef = useRef(); // Reference to hold the timer ID
   const startTimeRef = useRef(); // Reference to track when the timer was started for pause calculations
+  const [contentType, setType] = useState(null);
 
   // Effect to manage the timer and update the remaining time
   useEffect(() => {
@@ -26,8 +27,24 @@ export function useTimer(initialTime, onTimeout) {
     setPause((prevPause) => (value ? value : !prevPause));
   };
 
+  useEffect(() => {
+    if (contentType?.startsWith("image/")) {
+      if (pause) {
+        // Calculate the difference between the start time and remaining time
+        const elapsedTime = Date.now() - startTimeRef.current;
+        const adjustedRemainingTime = Math.max(remainingTime - elapsedTime, 0);
+
+        if (adjustedRemainingTime > 0)
+          // Optionally, you can update the remaining time state here
+          setRemainingTime(adjustedRemainingTime);
+      }
+    }
+  }, [contentType, pause]);
+
   // return data & functions
   return {
+    setType,
+    startTimeRef,
     remainingTime,
     pause,
     handlePause,

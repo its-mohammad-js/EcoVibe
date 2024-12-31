@@ -29,6 +29,7 @@ function PersonalDetailsForm() {
     setValue,
   } = useForm();
   const dispatch = useDispatch(); // dispatch hook
+  console.log(userType);
 
   // change profile state if profile already set
   useEffect(() => {
@@ -49,7 +50,7 @@ function PersonalDetailsForm() {
     // update it on database
     dispatch(
       updateUserData({
-        userType: userType === "seller" ? "both" : "customer",
+        userType: userType === "customer" ? "customer" : "both",
         data: personalInfo,
         field: "personalInformation",
         customer_step: "third-step",
@@ -149,18 +150,6 @@ function PersonalDetailsForm() {
             className="[&>div]:p-1.5 [&>div]:rounded-lg"
             onChange={({ value }) => setValue("gender", value)}
           />
-
-          {/* <select
-            id="gender"
-            name="gender"
-            {...register("gender")}
-            className="mt-1 border w-full border-gray-300 px-4 py-3 appearance-none rounded-md outline-none none"
-          >
-            <option>Man</option>
-            <option>Women</option>
-            <option>Other</option>
-          </select> */}
-
           <p className="text-sm md:text-base mt-1 px-1 text-red-500 font-medium">
             {errors?.gender?.message}
           </p>

@@ -50,7 +50,7 @@ function ProfileHeader() {
           <div
             className={`${
               storyLoading && "animate-pulse"
-            } size-20 lg:size-[5.5rem] relative border-4 border-gray-50 bg-gray-50 flex items-center justify-center rounded-full select-none cursor-pointer`}
+            } size-20 flex-none lg:size-[5.5rem] relative border-4 border-gray-50 bg-gray-50 flex items-center justify-center rounded-full select-none cursor-pointer`}
           >
             {storiesList?.length > 0 && (
               <div
@@ -70,7 +70,7 @@ function ProfileHeader() {
             <button
               disabled={!isOwner}
               onClick={() => setModal(true)}
-              className="absolute hover:scale-125 transition-all -bottom-1 -right-1 p-1.5 bg-primary-500 rounded-full text-gray-50"
+              className="absolute disabled:hidden hover:scale-125 transition-all -bottom-1 -right-1 p-1.5 bg-primary-500 rounded-full text-gray-50"
             >
               <FaPlus />
             </button>

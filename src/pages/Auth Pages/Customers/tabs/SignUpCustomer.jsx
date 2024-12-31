@@ -7,6 +7,7 @@ import { signUpUser } from "authActions/signupUser";
 import { useNavigate } from "react-router-dom";
 import TextInput from "src/common/UI elements/Forms/TextInput";
 import { signUpInputs } from "./formInputsInfo";
+import { signInUser } from "../../../../reducers/auth/authActions/signinUser";
 
 // backgrond url
 const figureIcon =
@@ -113,7 +114,7 @@ function SignUpCustomer() {
             <button
               onClick={() => {
                 dispatch(
-                  signUpUser({ method: "gitHub", userType: "customer" })
+                  signInUser({ method: "gitHub", userType: "customer" })
                 );
               }}
               disabled={loading}
@@ -131,7 +132,7 @@ function SignUpCustomer() {
             <button
               onClick={() => {
                 dispatch(
-                  signUpUser({ method: "google", userType: "customer" })
+                  signInUser({ method: "google", userType: "customer" })
                 );
               }}
               type="button"
