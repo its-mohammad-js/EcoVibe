@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ProductImages from "./ProductImages";
 import ProductInformation from "./ProductInformation";
 import ProductOptions from "./ProductOptions";
@@ -5,6 +6,7 @@ import { useFormContext } from "react-hook-form";
 
 function StepNavigator({ isEdit, onModalChange, currentStep, setCurrentStep }) {
   const { watch } = useFormContext();
+  const [isUploading, setUploading] = useState(false);
 
   const prevStep = () =>
     currentStep === 1
@@ -42,7 +44,7 @@ function StepNavigator({ isEdit, onModalChange, currentStep, setCurrentStep }) {
               : "invisible opacity-0 absolute -top-96 -translate-y-96 -translate-x-96"
           } transition-all duration-500`}
         >
-          <ProductImages isEdit={isEdit} />
+          <ProductImages {...{ isEdit, isUploading, setUploading }} />
         </div>
       </div>
       {/* action btn's */}
@@ -51,16 +53,17 @@ function StepNavigator({ isEdit, onModalChange, currentStep, setCurrentStep }) {
           type="button"
           disabled={
             (isEdit && currentStep === 3) ||
-            (currentStep === 3 && watch().Images !== "[]")
+            (currentStep === 3 && !watch("Images")?.length)
           }
           onClick={prevStep}
-          className="px-4 py-2 lg:w-1/6 border-2 rounded-md border-gray-600 text-gray-900 hover:border-primary-800 hover:text-primary-800 transition-all disabled:invisible"
+          className="px-4 py-2 lg:w-1/6 border-2 rounded-md border-gray-600 text-gray-900 hover:border-primary-800 hover:text-primary-800 transition-all disabled:opacity-50"
         >
           {currentStep === 1 ? "Close" : "Back"}
         </button>
         <button
+          disabled={isUploading}
           type="submit"
-          className="px-4 py-2 bg-primary-500 text-gray-50 rounded-md border-2 border-primary-500 hover:bg-gray-50 hover:text-primary-500 transition-all lg:w-1/5"
+          className="px-4 py-2 disabled:cursor-not-allowed disabled:animate-pulse bg-primary-500 text-gray-50 rounded-md border-2 border-primary-500 hover:bg-gray-50 hover:text-primary-500 transition-all lg:w-1/5"
         >
           {currentStep !== 3 ? "Next" : "Submit"}
         </button>

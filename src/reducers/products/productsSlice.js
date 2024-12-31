@@ -15,6 +15,7 @@ export const getFilteredProducts = createAsyncThunk(
       const mergedData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
+        createdAt: null,
       }));
 
       if (!mergedData?.length) {
@@ -27,7 +28,7 @@ export const getFilteredProducts = createAsyncThunk(
         throw new Error(404);
       }
       // finally return data
-      return filteredData;
+      return fulfillWithValue(filteredData);
     } catch (error) {
       return rejectWithValue(error.message);
     }

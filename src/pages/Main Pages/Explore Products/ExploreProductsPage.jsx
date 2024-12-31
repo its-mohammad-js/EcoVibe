@@ -42,23 +42,23 @@ function ExploreProducts() {
   }
 
   // effect query params to products rquest
-  useEffect(() => {
-    // destructure qeury to key / value array
-    const query = queryToFilterObject(queryParams);
-    // dispatch filters
-    if (query.length) {
-      query.forEach((filter) => {
-        dispatch(setFilter(filter));
-      });
-    } else if (!query?.length) {
-      // clear filters
-      dispatch(setFilter({ type: "clear" }));
-    }
-    // clear filters
-    return () => {
-      dispatch(setFilter({ type: "clear" }));
-    };
-  }, [queryParams]);
+  // useEffect(() => {
+  //   // destructure qeury to key / value array
+  //   const query = queryToFilterObject(queryParams);
+  //   // dispatch filters
+  //   if (query.length) {
+  //     query.forEach((filter) => {
+  //       dispatch(setFilter(filter));
+  //     });
+  //   } else if (!query?.length) {
+  //     // clear filters
+  //     dispatch(setFilter({ type: "clear" }));
+  //   }
+  //   // clear filters
+  //   return () => {
+  //     dispatch(setFilter({ type: "clear" }));
+  //   };
+  // }, [queryParams]);
 
   return (
     <>

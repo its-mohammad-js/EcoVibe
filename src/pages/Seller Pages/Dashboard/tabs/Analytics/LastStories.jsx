@@ -5,7 +5,7 @@ import { BsTrash } from "react-icons/bs";
 import { timestampToDate } from "helpers";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import LastStoriesLoader from "UI/Loaders/LastStoriesLoader";
-import { LoaderIcon } from "react-hot-toast";
+import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
 import useGetStories from "../../../../../common/hooks/useGetStories";
 import useRemoveStory from "../../../../../common/hooks/useRemoveSlide";
 import { AiFillHeart, AiOutlineEye } from "react-icons/ai";

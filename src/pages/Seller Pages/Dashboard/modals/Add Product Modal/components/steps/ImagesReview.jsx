@@ -2,12 +2,21 @@ import { BiCheck } from "react-icons/bi";
 import { IoReload } from "react-icons/io5";
 import { TbTrash } from "react-icons/tb";
 
-const ImagePreview = ({ url, onRemove, onRetry, isFailed, isUploaded }) => (
-  <div className="relative size-24 flex-none overflow-hidden rounded-lg">
+const ImagePreview = ({
+  url,
+  onRemove,
+  onRetry,
+  isFailed,
+  isUploaded,
+  loading,
+}) => (
+  <div className="relative bg-gray-300 size-24 flex-none overflow-hidden rounded-lg">
     <img
       src={url}
       alt="preview"
-      className="w-full h-full object-cover rounded-md"
+      className={`${
+        loading && "animate-pulse"
+      } w-full h-full object-cover rounded-md`}
     />
     <button
       type="button"

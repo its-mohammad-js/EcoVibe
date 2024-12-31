@@ -1,12 +1,13 @@
 import { Map, Marker } from "pigeon-maps";
 import { useState } from "react";
-import toast, { LoaderIcon } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { BiPlus } from "react-icons/bi";
 import { MdOutlineFullscreen } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "authActions/updateUserData";
 import { validateLocation } from "helpers";
 import useDisableScroll from "../../../../../common/hooks/UseDisableScroll";
+import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
 
 function Locations() {
   // map full screen mode state

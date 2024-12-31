@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LoaderIcon } from "react-hot-toast";
+import LoaderIcon from "../../Loaders/LoaderIcon";
 import { useSlide } from "../StoryListModal";
 import { getDatabase, ref, update } from "firebase/database";
 import { useSelector } from "react-redux";

@@ -5,24 +5,26 @@ import { TbTrash } from "react-icons/tb";
 import { generateId } from "helpers";
 import { useSelector } from "react-redux";
 import { storage } from "src/config/firebase";
-import { AiOutlineCheck } from "react-icons/ai";
-import { db } from "/src/config/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import toast from "react-hot-toast";
 import {
   getDatabase,
   set,
   ref as databaseRef,
   serverTimestamp,
+  get,
+  orderByChild,
+  equalTo,
+  query as databaseQuery,
 } from "firebase/database";
 import ContentSwitcher from "../ContentSwitcher/ContentSwitcher";
 import LoaderIcon from "../Loaders/LoaderIcon";
+import { validateFile } from "../../utils/constants/helpers";
 
 function AddStoryModal({ onModalChange }) {
   const [file, setFile] = useState(null);
-  const [{ error, isUploaded, loading }, setUplaoding] = useState({
+  const [{ error, loading }, setUplaoding] = useState({
     loading: false,
-    isUploaded: false,
+
     error: null,
   });
   const { userId, businessInformation, personalInformation } = useSelector(
@@ -37,18 +39,21 @@ function AddStoryModal({ onModalChange }) {
         isUploaded: false,
         error: null,
       });
-      // check current user stories count
-      const storiesRef = query(
-        collection(db, "Stories"),
-        where("authorId", "==", userId)
+      // ref to stories related to this user
+      const dbRef = getDatabase();
+      const stroiesQuery = databaseQuery(
+        databaseRef(dbRef, "stories"),
+        orderByChild("authorId"),
+        equalTo(userId)
       );
-      const storiesListCount = await getDocs(storiesRef).then(
-        ({ docs }) => docs.length
+      // check current user stories count
+      const storiesListCount = await get(stroiesQuery).then(
+        (snap) => Object.values(snap.val() || {})?.length
       );
       // return if user uploaded 10 slides already
-      if (storiesListCount >= 10) {
+      if (storiesListCount >= 8) {
         toast.error(
-          "You can upload a maximum of 10 slides every 10 hours. 📊⏳"
+          "You can upload a maximum of 8 slides every 10 hours. 📊⏳"
         );
         onModalChange(null);
         return;
@@ -62,11 +67,7 @@ function AddStoryModal({ onModalChange }) {
       // create a new story
       await createNewStory(url);
       // dispatch success
-      setUplaoding({
-        loading: false,
-        isUploaded: true,
-        error: null,
-      });
+      setUplaoding({ loading: false, error: null });
       // close modal
       onModalChange(null);
     } catch (error) {
@@ -109,28 +110,6 @@ function AddStoryModal({ onModalChange }) {
     }
   }
 
-  function hanldeSelectContent(file) {
-    if (file.size > 20 * 1024 * 1024) {
-      toast.error("File size exceeds 20MB limit.");
-      return;
-    }
-    const allowedTypes = [
-      "image/jpeg",
-      "image/webp",
-      "image/png",
-      "image/gif",
-      "video/mp4",
-      "video/webm",
-      "video/ogg",
-    ];
-    if (!allowedTypes.includes(file.type)) {
-      toast.error("Only image, GIF, and video files are allowed.");
-      return;
-    } else {
-      setFile(file);
-    }
-  }
-
   return (
     <>
       {/* main modal */}
@@ -144,7 +123,10 @@ function AddStoryModal({ onModalChange }) {
               className="opacity-0 absolute inset-0 z-50 bg-red-300"
               accept="image/jpeg, image/webp, image/png, image/gif, video/mp4, video/webm, video/ogg"
               type="file"
-              onChange={(e) => hanldeSelectContent(e.target.files[0])}
+              onChange={(e) => {
+                validateFile(e.target.files[0], 20, (file) => setFile(file));
+                e.target.value = "";
+              }}
             />
             <MdAddCircle className="text-7xl text-primary-500" />
             <h6 className="text-xl font-bold">Add media</h6>
@@ -154,7 +136,7 @@ function AddStoryModal({ onModalChange }) {
           <div className="w-full h-5/6 relative flex flex-col items-center justify-center gap-y-4 py-3">
             {/* reomve content btn */}
             <button
-              disabled={loading || isUploaded}
+              disabled={loading}
               onClick={() => setFile(null)}
               className="absolute disabled:hidden z-50 -top-3 -right-3 p-2 text-red-500 bg-gray-50 text-2xl rounded-full border border-gray-200"
             >
@@ -177,19 +159,6 @@ function AddStoryModal({ onModalChange }) {
 
               <h4 className="text-gray-50 text-center text-xl font-bold bg-gray-950/50 px-4 py-1 rounded-md">
                 Please do not refresh the page while adding story.
-              </h4>
-            </div>
-            {/* success screen */}
-            <div
-              className={`${
-                isUploaded ? "opacity-100 visible" : "opacity-0 invisible"
-              } absolute w-full h-[96%] rounded-md  bg-gray-800/80 transition-all backdrop-blur flex flex-col items-center justify-center`}
-            >
-              <p className="text-9xl text-green-600">
-                <AiOutlineCheck />
-              </p>
-              <h4 className="text-gray-50 text-xl font-bold bg-gray-950/50 px-4 py-1 rounded-md">
-                Added to your stories
               </h4>
             </div>
           </div>

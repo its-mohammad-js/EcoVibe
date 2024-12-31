@@ -5,7 +5,7 @@ import { errorIconUrl } from "appData";
 import { paginateElements } from "helpers";
 import FilteredProductsLoader from "UI/Loaders/FilteredProductsLoader";
 import { debounce } from "lodash";
-import PaginationButtons from "../PaginationButtons";
+import PaginationButtons from "./PaginationButtons";
 import ProductCard from "./ProductCard";
 
 function ProductGrid() {
@@ -44,7 +44,16 @@ function ProductGrid() {
   useEffect(() => {
     debouncedFetchProducts(filters);
     return () => debouncedFetchProducts.cancel();
-  }, [filters]);
+  }, [
+    filters.searchQuery,
+    filters.category,
+    filters.productTypes,
+    filters.priceRange,
+    filters.collections,
+    filters.tags,
+    filters.seller,
+    filters.selectedOptions,
+  ]);
 
   // loading screen
   if (loading) return <FilteredProductsLoader />;

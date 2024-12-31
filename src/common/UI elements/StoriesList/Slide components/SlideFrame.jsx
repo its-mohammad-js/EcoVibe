@@ -8,6 +8,7 @@ import ContextMenu from "./ContextMenu";
 import { BiUser } from "react-icons/bi";
 import useRemoveStory from "../../../hooks/useRemoveSlide";
 import FeedbackActions from "./FeedbackActions";
+import { useNavigate } from "react-router-dom";
 
 function SlideFrame() {
   const { changeStoryHandler, listIndex, currentListIndex, story } = useSlide(); // slide data
@@ -18,6 +19,7 @@ function SlideFrame() {
   const [contextMenuShow, setContextMenu] = useState(false); //context menu state
   const { onDeleteSlide, loading, onRemoveHighlight } =
     useRemoveStory(handlePause);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -51,7 +53,10 @@ function SlideFrame() {
                   <BiUser className="text-4xl mt-2 text-gray-50" />
                 )}
               </div>
-              <h6 className="text-gray-50 text-lg">
+              <h6
+                onClick={() => navigate(`/EcoVibe/seller/${story?.authorId}`)}
+                className="text-gray-50 text-lg cursor-pointer"
+              >
                 {story.author.first_name}
               </h6>
             </div>

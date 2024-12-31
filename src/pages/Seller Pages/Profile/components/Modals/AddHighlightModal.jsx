@@ -97,7 +97,6 @@ function AddHighlightModal({ onCloseModal, highlightsList }) {
                 <ContentSwitcher
                   contentUrl={story?.contentUrl}
                   contentType={story.type}
-                  autoPlayCondition={false}
                 />
                 {/* screen select slide */}
                 <div

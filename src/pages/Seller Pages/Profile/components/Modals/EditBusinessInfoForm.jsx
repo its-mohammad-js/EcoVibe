@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "authActions/updateUserData";
 import { useEffect } from "react";
-import { LoaderIcon } from "react-hot-toast";
+import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
 
 const inputOptions = [
   {

@@ -6,7 +6,7 @@ function ContentSwitcher({
   autoPlayCondition = false,
   loadingCallBack = () => {},
   setRemainingTime = () => {},
-  pause = false,
+  pause,
   loading,
   controls = false,
 }) {
@@ -14,6 +14,8 @@ function ContentSwitcher({
 
   // Update video playback based on pause state
   useEffect(() => {
+    if (pause === undefined) return;
+
     if (videoRef.current) {
       if (pause) {
         videoRef.current.pause();

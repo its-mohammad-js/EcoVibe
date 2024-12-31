@@ -33,30 +33,50 @@ function ProductOptions({ isEdit }) {
     setValue("Options", []);
   }, [watch()?.Type, watch()?.Category]);
 
-  // set selected options to main form state on each change
-  useEffect(() => {
-    // set options to main form state
-    setValue("Options", selectedOptions);
-  }, [selectedOptions]);
-
   // change selected options
   function onSelectOptions(title, options) {
     // merge options data into single object
     const mergedOptions = { title, options: map(options, "value") };
+    const finalOptions = options.length
+      ? [
+          ...filter(selectedOptions, (opt) => opt.title !== title),
+          mergedOptions,
+        ]
+      : filter(selectedOptions, (opt) => opt.title !== title);
+
     // add | remove options from selected options
-    setSelectedOptions((prev) =>
-      options.length
-        ? [...filter(prev, (opt) => opt.title !== title), mergedOptions]
-        : filter(prev, (opt) => opt.title !== title)
-    );
+    setSelectedOptions(finalOptions);
+    setValue("Options", finalOptions);
   }
 
-  // display prev options on edit mode
-  useEffect(() => {
-    if (isEdit && getValues()?.Options?.length) {
-      setSelectedOptions(getValues()?.Options);
-    }
-  }, [getValues()?.Options?.length]);
+  // get prev selected options
+  function getPrevOptions(title) {
+    // get all available colors for this product
+    const allColorOptions = optionsList.filter(
+      ({ title }) => title?.toLowerCase() === "color"
+    )[0]?.options;
+
+    const options = watch("Options")
+      ?.filter(({ title: label }) => label === title)[0]
+      ?.options?.map((opt) => {
+        // use color label instead of color code
+        const label =
+          title?.toLowerCase() === "color"
+            ? allColorOptions.filter(({ code }) => code === opt)[0]?.name
+            : opt;
+
+        return { label: label, value: opt };
+      });
+
+    return options;
+  }
+
+  // // display prev options on edit mode
+  // useEffect(() => {
+  //   if (isEdit && getValues()?.Options?.length) {
+  //     setSelectedOptions(getValues()?.Options);
+  //   }
+  // }, [getValues()?.Options?.length]);
 
   // error screen
   if (error && !optionsList.length)
@@ -107,6 +127,7 @@ function ProductOptions({ isEdit }) {
                   <Select
                     onChange={(e) => onSelectOptions(title, once ? [e] : e)}
                     isMulti={!once}
+                    value={getPrevOptions(title)}
                     options={getOptionValues(options, title)}
                     placeholder={`Choose ${title}`}
                   />

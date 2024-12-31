@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProfileImagePicker from "UI/ProfileImagePicker/ProfileImagePicker";
 import { updateUserData } from "authActions/updateUserData";
 import { FaPencil } from "react-icons/fa6";
-import { LoaderIcon } from "react-hot-toast";
+import LoaderIcon from "../../../../common/UI elements/Loaders/LoaderIcon";
 
 function ProfilePicEdit() {
   // profile picker modal is Show

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { LoaderIcon } from "react-hot-toast";
+import LoaderIcon from "../common/UI elements/Loaders/LoaderIcon";
 
 const withSuspense = (Component) => {
   const WrappedComponent = (props) => (

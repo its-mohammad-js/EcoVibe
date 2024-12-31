@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { signInUser } from "authActions/signinUser";
-import toast, { LoaderIcon } from "react-hot-toast";
+import toast from "react-hot-toast";
 import TextInput from "UI/Forms/TextInput";
 import { inputsOptions } from "./inputsInfo";
+import LoaderIcon from "../../../common/UI elements/Loaders/LoaderIcon";
 
 // bg url
 const bannerUrl =

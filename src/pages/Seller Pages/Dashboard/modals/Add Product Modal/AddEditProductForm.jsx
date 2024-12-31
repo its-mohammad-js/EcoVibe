@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import toast, { LoaderIcon } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "src/config/firebase";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import useDisableScroll from "hooks/UseDisableScroll";
 import StepNavigator from "./components/steps/StepNavigator";
 import { uniq } from "lodash";
+import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
 
 const stepsInfo = [
   { step: 1, title: "General Info" },
@@ -184,7 +185,7 @@ function AddEditProductForm({
       <div
         onClick={() => {
           if (isEdit) {
-            if (currentStep !== 3 || watch().Images !== "[]") {
+            if (currentStep !== 3 || !watch("Images")?.length) {
               onModalChange();
             } else {
               toast.remove();

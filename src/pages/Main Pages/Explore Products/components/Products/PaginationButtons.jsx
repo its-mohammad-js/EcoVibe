@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFilterReducer as setFilter } from "src/reducers/filters/filterSlice";
@@ -8,12 +9,15 @@ function PaginationButtons({ productsData }) {
   // redux dispatcher
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [filters.page]);
+
   return (
     <div className="w-fit mx-auto mt-6 flex justify-center items-center gap-x-4 px-4 py-3 shadow-lg shadow-gray-950/15 rounded-lg">
       {/* prev page btn */}
       <button
         onClick={() => {
-          window.scrollTo(0, 0);
           dispatch(setFilter({ type: "prevPage" }));
         }}
         disabled={filters.page === 0}
@@ -31,7 +35,6 @@ function PaginationButtons({ productsData }) {
               <button
                 key={index}
                 onClick={() => {
-                  window.scrollTo(0, 0);
                   dispatch(setFilter({ type: "changePage", payload: index }));
                 }}
                 className={`${
@@ -47,7 +50,6 @@ function PaginationButtons({ productsData }) {
       {/* next page btn */}
       <button
         onClick={() => {
-          window.scrollTo(0, 0);
           dispatch(setFilter({ type: "nextPage" }));
         }}
         disabled={filters.page === productsData.length - 1}

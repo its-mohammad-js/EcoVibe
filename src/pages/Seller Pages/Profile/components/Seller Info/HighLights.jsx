@@ -63,7 +63,6 @@ function HighLights() {
             >
               <div className="size-16 cursor-pointer overflow-hidden rounded-full bg-gray-200 flex-none flex items-center justify-center text-3xl text-gray-500">
                 <ContentSwitcher
-                  autoPlayCondition={false}
                   contentType={highlight?.slides[0]?.type}
                   contentUrl={highlight?.slides[0]?.contentUrl}
                 />

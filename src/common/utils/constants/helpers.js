@@ -1,5 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "/src/config/firebase";
+import toast from "react-hot-toast";
 
 // add / remove an specific element from array (without mutation)
 export const toggleElementInArray = (array = [], element) => {
@@ -142,4 +143,31 @@ export function calculateAverage(numbers) {
   const average = Math.round(sum / count);
 
   return average;
+}
+
+export function validateFile(file, sizeLimit, callBack) {
+  // allowed formats
+  const allowedTypes = [
+    "image/jpeg",
+    "image/webp",
+    "image/png",
+    "image/gif",
+    "video/mp4",
+    "video/webm",
+    "video/ogg",
+  ];
+  // check file size
+  if (file.size > sizeLimit * 1024 * 1024) {
+    toast.error(`File size exceeds ${sizeLimit}MB limit.`);
+    return;
+  }
+  // check file format
+  if (!allowedTypes.includes(file.type)) {
+    toast.error("Only image, GIF, and video files are allowed.");
+    return;
+  }
+  // return valid file to callback
+  else {
+    callBack(file);
+  }
 }

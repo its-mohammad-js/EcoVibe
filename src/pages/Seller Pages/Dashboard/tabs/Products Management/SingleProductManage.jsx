@@ -1,11 +1,12 @@
 import { useState } from "react";
 import AddProduct from "../../modals/Add Product Modal/AddEditProductForm";
-import toast, { LoaderIcon } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db, storage } from "src/config/firebase";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import { deleteObject, ref } from "firebase/storage";
 import ProductDetails from "./ProductDetails";
+import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
 
 function SingleProductManage({ selectedItem, onModalClose, getProducts }) {
   // edit modal state

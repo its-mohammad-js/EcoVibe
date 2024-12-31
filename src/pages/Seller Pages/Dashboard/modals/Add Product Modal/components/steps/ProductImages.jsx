@@ -11,25 +11,38 @@ import { generateId } from "helpers";
 import { doc, setDoc } from "firebase/firestore";
 import { useFormContext } from "react-hook-form";
 import ImagePreview from "./ImagesReview";
+import { validateFile } from "../../../../../../../common/utils/constants/helpers";
+import toast from "react-hot-toast";
 
-const ProductImages = ({ isEdit }) => {
+const ProductImages = ({ isEdit, isUploading, setUploading }) => {
   const { setValue, getValues, watch } = useFormContext();
   const [imageFiles, setImageFiles] = useState([]);
-  const [uploadState, setUploadState] = useState({
-    uploading: false,
-    failedImages: [],
-  });
-
   // Watch the "Images" value
   const images = watch("Images") || [];
+  console.log(watch("Images"));
 
   // Add selected images to state
   const handleFileSelection = (files) => {
-    const newFiles = files.map((file, index) => ({
-      id: generateId(index),
-      file,
-    }));
-    setImageFiles((prev) => [...prev, ...newFiles]);
+    if (
+      watch("Images")?.length + files.length >= 6 ||
+      watch("Images")?.length + imageFiles.length >= 6
+    ) {
+      toast.error("you can only add 5 images per product");
+      return;
+    }
+
+    let validatedFiles = [];
+
+    files.forEach((file, index) => {
+      validateFile(file, 50, (validatedFile) => {
+        validatedFiles.push({
+          id: generateId(index),
+          file: validatedFile,
+        });
+      });
+    });
+
+    setImageFiles((prev) => [...prev, ...validatedFiles]);
   };
 
   // Upload a single image
@@ -43,20 +56,16 @@ const ProductImages = ({ isEdit }) => {
       );
 
       try {
-        setUploadState((prev) => ({ ...prev, uploading: true }));
+        setUploading(true);
         await uploadBytes(imageRef, file);
         const url = await getDownloadURL(imageRef);
-        setValue("Images", [...images, url]); // Update form value directly
+        setValue("Images", [...(watch("Images") || []), url]); // Update form value directly
         setImageFiles((prevFiles) =>
           prevFiles.filter((image) => image.id !== id)
         );
-        setUploadState((prev) => ({ ...prev, uploading: false }));
+        setUploading(false);
       } catch (error) {
-        setUploadState((prev) => ({
-          ...prev,
-          uploading: false,
-          failedImages: [...prev.failedImages, id],
-        }));
+        setUploading(false);
       }
     },
     [getValues, images, setValue]
@@ -118,9 +127,12 @@ const ProductImages = ({ isEdit }) => {
         <input
           type="file"
           multiple
-          accept="image/webp"
+          accept="image/jpeg, image/webp, image/png, image/gif"
           className="absolute inset-0 opacity-0 cursor-pointer"
-          onChange={(e) => handleFileSelection([...e.target.files])}
+          onChange={(e) => {
+            handleFileSelection([...e.target.files]);
+            e.target.value = "";
+          }}
         />
         <ImImages className="text-4xl text-primary-400" />
         <h6 className="text-lg text-primary-400">Add New Image</h6>
@@ -145,7 +157,9 @@ const ProductImages = ({ isEdit }) => {
             url={URL.createObjectURL(file)}
             onRemove={() => removeImage(null, id, false)}
             onRetry={() => uploadImage({ id, file })}
-            isFailed={uploadState.failedImages.includes(id)}
+            // isFailed={uploadState.failedImages.includes(id)}
+            // pass loading only to images files
+            loading={isUploading && URL.createObjectURL(file)}
           />
         ))}
       </div>
@@ -153,11 +167,11 @@ const ProductImages = ({ isEdit }) => {
       {/* Upload Button */}
       <button
         type="button"
-        disabled={imageFiles.length === 0 || uploadState.uploading}
+        disabled={imageFiles.length === 0 || isUploading}
         className="px-4 py-2 bg-primary-500 text-white rounded disabled:bg-gray-400"
         onClick={uploadAllImages}
       >
-        {uploadState.uploading ? "Uploading..." : "Upload"}
+        {isUploading ? "Uploading..." : "Upload"}
       </button>
     </div>
   );
