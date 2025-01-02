@@ -17,13 +17,14 @@ function ChatList({ openSideNav, deleteRoom }) {
     // lower case search query
     const queryLower = query.toLowerCase();
     // return messages match with search query
-    return rooms.flatMap(({ messageList, roomId, receiver }) =>
-      messageList
-        ?.filter((message) =>
-          message?.content?.toLowerCase().includes(queryLower)
-        )
-        .map((message) => ({ messageList: [message], roomId, receiver }))
-    );
+    // return rooms.flatMap(({ messageList, roomId, receiver }) =>
+    //   messageList
+    //     ?.filter((message) =>
+    //       message?.content?.toLowerCase().includes(queryLower)
+    //     )
+    //     .map((message) => ({ messageList: [message], roomId, receiver }))
+    // );
+    return fakeArray(20);
   }
 
   // search contacts
@@ -37,7 +38,7 @@ function ChatList({ openSideNav, deleteRoom }) {
     //     (name) => name?.toLowerCase().includes(queryLower)
     //   )
     // );
-    return [];
+    return fakeArray(20);
   }
 
   return (
@@ -45,6 +46,8 @@ function ChatList({ openSideNav, deleteRoom }) {
       className={`${
         ""
         // selectedRoom && "hidden"
+      } ${
+        searchQuery.length && "lg:w-1/6"
       } lg:!flex lg:w-1/4 w-full h-screen bg-gray-50 flex flex-col`}
     >
       {/* header  */}
@@ -80,17 +83,17 @@ function ChatList({ openSideNav, deleteRoom }) {
           !searchContacts(searchQuery).length || !searchQuery?.length
             ? "hidden"
             : "basis-[19%] min-h-32"
-        } overflow-x-auto overflow-y-hidden mx-auto flex px-4 gap-3 py-1 hidden-scroll-bar w-full contacts-container`}
+        } overflow-x-auto overflow-y-hidden mx-auto flex px-4 gap-3 py-1 hidden-scroll-bar max-w-full contacts-container`}
       >
-        {/* {searchQuery && (
-          <div className="flex items-center gap-x-4 select-none">
+        {searchQuery && (
+          <div className="flex items-center gap-x-4 select-none flex-none">
             {searchContacts(searchQuery).map((room, index) => (
               <div
                 key={index}
                 className="w-24 gap-y-1 flex flex-col items-center justify-center"
               >
                 <div
-                  onClick={() => setSelectedRoom(room)}
+                  // onClick={() => setSelectedRoom(room)}
                   className="cursor-pointer"
                 >
                   {room.receiver?.profilePic ? (
@@ -105,17 +108,18 @@ function ChatList({ openSideNav, deleteRoom }) {
                   )}
                 </div>
                 <p
-                  onClick={() => setSelectedRoom(room)}
+                  // onClick={() => setSelectedRoom(room)}
                   className="line-clamp-2 break-words w-10/12 text-sm text-center cursor-pointer"
                 >
-                  {room.receiver.userType === "customer"
+                  test {index}
+                  {/* {room.receiver.userType === "customer"
                     ? room.receiver.first_name + " " + room.receiver.last_name
-                    : room.receiver.business_name}
+                    : room.receiver.business_name} */}
                 </p>
               </div>
             ))}
           </div>
-        )} */}
+        )}
       </div>
       {/* messages / rooms list */}
       <div
@@ -125,19 +129,22 @@ function ChatList({ openSideNav, deleteRoom }) {
             : "basis-[76%] lg:basis-[83%]"
         } flex flex-col flex-none overflow-auto relative styled-scroll-bar`}
       >
-        {fakeArray(200).map((a) => (
-          <div key={a} className="w-full h-24 bg-gray-200 flex-none">
-            dic
-          </div>
-        ))}
-
-        {/* <h2
+        <h2
           className={`${
             !searchQuery?.length && "hidden"
           } block px-4 sticky top-0 z-10 py-1 w-full bg-gray-200`}
         >
           Found {searchMessages(searchQuery).length} Messages
-        </h2> */}
+        </h2>
+        {fakeArray(40).map((a) => (
+          <div
+            key={a}
+            className="w-full h-24 border-4 border-red-400 relative select-none rounded-md flex items-center hover:bg-gray-300/30 transition-all cursor-pointer gap-x-2 px-4 py-2"
+          >
+            dic {a}
+          </div>
+        ))}
+
         {/* list of rooms and messages */}
         {/* {loading || status ? (
           <h4 className="px-2 py-1 w-full flex justify-center">
