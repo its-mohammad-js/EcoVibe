@@ -47,7 +47,7 @@ function SideMenu({ sideMenuShow, setSideMenu }) {
             }}
             className="w-full shadow-md flex items-center justify-between p-2"
           >
-            <div className="flex items-center justify-center gap-x-3">
+            <div className="flex items-center overflow-hidden justify-center gap-x-3">
               <div className="size-16 pt-2 bg-gray-200 rounded-full overflow-hidden flex items-center justify-between">
                 {auth_status === 200 ? (
                   <img
@@ -60,12 +60,12 @@ function SideMenu({ sideMenuShow, setSideMenu }) {
                 )}
               </div>
               <div className="max-w-[70%] flex flex-col justify-between items-start">
-                <h2 className="text-lg font-medium line-clamp-1 w-9/12 break-words">
+                <h2 className="text-lg font-medium line-clamp-1 w-10/12 break-words">
                   {auth_status === 200
                     ? personalInformation?.first_name?.trim() || ""
                     : "Guest user"}
                 </h2>
-                <p className="text-sm line-clamp-1 w-9/12 break-words">
+                <p className="text-sm line-clamp-1 w-11/12 break-words">
                   {auth_status === 200
                     ? personalInformation?.email || ""
                     : "Click to sign-up"}

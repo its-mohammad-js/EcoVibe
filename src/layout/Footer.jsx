@@ -46,7 +46,7 @@ function Footer() {
         {/* content wrapper */}
         <div className="flex flex-col gap-y-6 md:flex-row items-center justify-between w-full order-1 md:order-2 md:h-60">
           {/* main information */}
-          <div className="w-full md:w-1/5 md:px-4 py-2 flex flex-col gap-y-4 md:gap-y-0 items-start justify-evenly h-full">
+          <div className="w-full [&>p]:w-fit md:w-1/5 md:px-4 py-2 flex flex-col gap-y-4 md:gap-y-0 items-start justify-evenly h-full">
             {/* logo */}
             <div
               onClick={() => {
@@ -76,7 +76,7 @@ function Footer() {
               Voluptatem,
             </p>
             {/* social media links */}
-            <div className="w-full flex items-center justify-center md:justify-start gap-x-4 text-2xl">
+            <div className="w-full [&>p]:w-fit flex items-center justify-center md:justify-start gap-x-4 text-2xl">
               <FaTelegram />
               <FaWhatsapp />
               <FaVoicemail />
@@ -84,7 +84,7 @@ function Footer() {
             </div>
           </div>
           {/* payment methods */}
-          <div className="w-full h-full md:w-1/5 flex flex-col justify-evenly gap-y-4 md:gap-y-0">
+          <div className="w-full [&>p]:w-fit h-full md:w-1/5 flex flex-col justify-evenly gap-y-4 md:gap-y-0">
             <h4 className="text-2xl font-bold cursor-pointer">
               Payment Details
             </h4>
@@ -106,7 +106,7 @@ function Footer() {
             </p>
           </div>
           {/* pages */}
-          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0">
+          <div className="w-full [&>p]:w-fit md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0">
             <h4 className="text-2xl font-bold cursor-pointer">Pages</h4>
             {mainRoutesInfo.map((route, index) => (
               <button
@@ -122,7 +122,7 @@ function Footer() {
             ))}
           </div>
           {/* info */}
-          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0">
+          <div className="w-full [&>p]:w-fit md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0">
             <h4 className="text-2xl font-bold cursor-pointer">Info</h4>
             <p className="text-lg cursor-pointer hover:text-primary-300 transition-all">
               Shipping Policy
@@ -138,7 +138,7 @@ function Footer() {
             </p>
           </div>
           {/* contact info */}
-          <div className="w-full md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0 line-clamp-1">
+          <div className="w-full [&>p]:w-fit md:w-1/5 flex flex-col justify-evenly h-full gap-y-4 md:gap-y-0 line-clamp-1">
             <h4 className="text-2xl font-bold cursor-pointer">Contact Info</h4>
             <p className="flex items-center gap-x-1.5 text-lg cursor-pointer hover:text-primary-300 transition-all">
               <FaMailBulk className="text-2xl" />

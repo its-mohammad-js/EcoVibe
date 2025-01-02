@@ -18,7 +18,7 @@ function Navbar({ setShowAlert }) {
   );
   const { selectedRoom } = useRoomsData();
   const { last_name, business_name, userType, career_title, last_seen } =
-    selectedRoom?.reciver || {};
+    selectedRoom?.receiver || {};
   const lastStatus = useRef("");
   const [barIsShow, setBarIsShow] = useState(false);
 

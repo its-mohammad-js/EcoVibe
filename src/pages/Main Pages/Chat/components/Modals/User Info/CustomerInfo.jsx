@@ -14,7 +14,7 @@ const CustomerInfo = () => {
   // necessary data & hooks
   const { userId } = useSelector((state) => state.userData);
   const {
-    selectedRoom: { reciver },
+    selectedRoom: { receiver },
   } = useRoomsData();
 
   // get orders data
@@ -26,7 +26,7 @@ const CustomerInfo = () => {
         // ref to orders from this seller that related to this customer
         const ordersQuery = query(
           collection(db, "Orders"),
-          where("customerId", "==", reciver.reciverId),
+          where("customerId", "==", receiver.receiverId),
           where("sellers", "array-contains", userId)
         );
         // get orders
@@ -50,17 +50,17 @@ const CustomerInfo = () => {
       <div className="w-full h-1/5 flex items-center justify-start gap-x-4 px-4 py-2">
         <div className="size-20 rounded-full">
           <img
-            src={reciver?.profilePic}
+            src={receiver?.profilePic}
             alt="customer-avatar"
             className="size-full rounded-full"
           />
         </div>
         <div className="flex flex-col gap-y-1 w-4/6">
           <h2 className="text-xl font-semibold line-clamp-1">
-            {reciver?.first_name + " " + reciver?.last_name}
+            {receiver?.first_name + " " + receiver?.last_name}
           </h2>
-          <p className="text-gray-800">{reciver?.email}</p>
-          <p className="text-gray-800">{reciver?.address}</p>
+          <p className="text-gray-800">{receiver?.email}</p>
+          <p className="text-gray-800">{receiver?.address}</p>
         </div>
       </div>
       {/* must ordered categories chart */}

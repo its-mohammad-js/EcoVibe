@@ -14,12 +14,12 @@ function ChatList({ openSideNav, deleteRoom }) {
     // lower case search query
     const queryLower = query.toLowerCase();
     // return messages match with search query
-    return rooms.flatMap(({ messageList, roomId, reciver }) =>
+    return rooms.flatMap(({ messageList, roomId, receiver }) =>
       messageList
         ?.filter((message) =>
           message?.content?.toLowerCase().includes(queryLower)
         )
-        .map((message) => ({ messageList: [message], roomId, reciver }))
+        .map((message) => ({ messageList: [message], roomId, receiver }))
     );
   }
 
@@ -29,8 +29,8 @@ function ChatList({ openSideNav, deleteRoom }) {
     const queryLower = query.toLowerCase();
 
     // Check if any of the receiver's names match the query
-    return rooms.filter(({ reciver }) =>
-      [reciver?.business_name, reciver?.first_name, reciver?.last_name].some(
+    return rooms.filter(({ receiver }) =>
+      [receiver?.business_name, receiver?.first_name, receiver?.last_name].some(
         (name) => name?.toLowerCase().includes(queryLower)
       )
     );
@@ -88,9 +88,9 @@ function ChatList({ openSideNav, deleteRoom }) {
                   onClick={() => setSelectedRoom(room)}
                   className="cursor-pointer"
                 >
-                  {room.reciver?.profilePic ? (
+                  {room.receiver?.profilePic ? (
                     <img
-                      src={room.reciver.profilePic}
+                      src={room.receiver.profilePic}
                       className="size-20 bg-gray-100 rounded-full"
                     />
                   ) : (
@@ -103,9 +103,9 @@ function ChatList({ openSideNav, deleteRoom }) {
                   onClick={() => setSelectedRoom(room)}
                   className="line-clamp-2 break-words w-10/12 text-sm text-center cursor-pointer"
                 >
-                  {room.reciver.userType === "customer"
-                    ? room.reciver.first_name + " " + room.reciver.last_name
-                    : room.reciver.business_name}
+                  {room.receiver.userType === "customer"
+                    ? room.receiver.first_name + " " + room.receiver.last_name
+                    : room.receiver.business_name}
                 </p>
               </div>
             ))}
@@ -116,7 +116,7 @@ function ChatList({ openSideNav, deleteRoom }) {
       <div
         className={`${
           searchQuery?.length ? "basis-[55%]" : ""
-        } flex flex-col overflow-auto relative styled-scroll-bar`}
+        } flex flex-col flex-none overflow-auto relative styled-scroll-bar`}
       >
         <h2
           className={`${

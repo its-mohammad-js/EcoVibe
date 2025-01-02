@@ -51,13 +51,13 @@ function OrdersList({ onCloseModal }) {
           ...order,
           orders:
             ordersType === "purchases"
-              ? order.orders[selectedRoom.reciver.reciverId]
+              ? order.orders[selectedRoom.receiver.receiverId]
               : order.orders[userId],
         }))
         .filter((order) =>
           ordersType === "purchases"
             ? order.orders
-            : order.customerId === selectedRoom.reciver.reciverId
+            : order.customerId === selectedRoom.receiver.receiverId
         );
       // dispatch success
       setOrders((prev) => ({ ...prev, loading: false, orders }));

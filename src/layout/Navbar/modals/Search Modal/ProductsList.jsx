@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import NavbarSearchProductLoader from "UI/Loaders/NavbarSearchProductLoader";
 import { filterProducts } from "src/common/utils/filterPorducts";
 import { useEffect } from "react";
@@ -9,10 +8,9 @@ import { getFilteredProducts } from "../../../../reducers/products/productsSlice
 // fetch products isn't allowed on this routes
 const notAllowRequestRoutes = ["/EcoVibe/", "/EcoVibe/Shop"];
 
-const ProductsList = ({ searchQuery, getProducts }) => {
+const ProductsList = ({ searchQuery, getProducts, onModalNavigate }) => {
   const { data: products, loading } = useSelector((state) => state.products);
   // necessary data & hooks
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const fetchProducts = async () => {
@@ -61,14 +59,14 @@ const ProductsList = ({ searchQuery, getProducts }) => {
             {/* product info */}
             <div className="w-1/2 sm:w-3/4 h-full flex flex-col justify-between px-2 py-2 relative">
               <h4
-                onClick={() => navigate(`/EcoVibe/Products/${item.id}`)}
+                onClick={() => onModalNavigate(`/EcoVibe/Products/${item.id}`)}
                 className="text-lg line-clamp-2 font-bold cursor-pointer hover:text-primary-700"
               >
                 {item.Name}
               </h4>
               <p
                 onClick={() =>
-                  navigate(
+                  onModalNavigate(
                     `/EcoVibe/Explore-Products/category=${item.Category.toLowerCase()}`
                   )
                 }
@@ -81,7 +79,7 @@ const ProductsList = ({ searchQuery, getProducts }) => {
                 <button
                   key={index}
                   onClick={() =>
-                    navigate(
+                    onModalNavigate(
                       `/EcoVibe/Explore-Products/tags=${item.Tags[0].toLowerCase()}`
                     )
                   }

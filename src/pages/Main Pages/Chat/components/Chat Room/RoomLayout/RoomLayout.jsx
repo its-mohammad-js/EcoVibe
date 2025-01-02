@@ -77,7 +77,7 @@ function RoomLayout({ deleteRoom }) {
           } fixed inset-0 z-50 flex justify-center items-center transition-all`}
         >
           <TextAlert
-            action={`Delete chat with ${selectedRoom?.reciver?.first_name} ?`}
+            action={`Delete chat with ${selectedRoom?.receiver?.first_name} ?`}
             closeModal={() => setShowAlert(false)}
             message="Are You Sure You Want To Delete This Chat?, you cannot access messages again..."
             submitCallBack={() => deleteRoom(selectedRoom.roomId, rooms)}

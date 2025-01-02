@@ -4,9 +4,7 @@ import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 
-function ProductImages() {
-  const { data: productData, loading } = useSelector((state) => state.products); // product data
-  const { Images } = productData[0] || {}; // destructure product data
+function ProductImages({ Images, loading }) {
   const { auth_status } = useSelector((state) => state.userData); // current user data
   const sliderRef = useRef(); // ref to slider
   const settings = {

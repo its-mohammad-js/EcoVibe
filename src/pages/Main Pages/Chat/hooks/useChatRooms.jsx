@@ -51,7 +51,7 @@ export default function useChatRooms(selectedRoom) {
       const filteredRooms = allRooms
         .filter(({ members }) => members.includes(userId))
         .map((room) => {
-          const reciverId =
+          const receiverId =
             room?.members?.find((id) => id !== userId) ||
             Object.keys(room).find(
               (key) =>
@@ -65,9 +65,9 @@ export default function useChatRooms(selectedRoom) {
               messageList: room.messageList || null,
               members: room.members,
               owner: room[userId],
-              reciver: {
-                ...room[reciverId],
-                reciverId,
+              receiver: {
+                ...room[receiverId],
+                receiverId,
               },
             };
         });

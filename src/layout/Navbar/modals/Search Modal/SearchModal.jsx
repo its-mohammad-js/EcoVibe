@@ -23,6 +23,11 @@ function SearchModal({ modalIsShow, onCloseModal }) {
   useTouchScroll(".categories-wrapper");
   useTouchScroll(".sellers-wrapper");
 
+  function onModalNavigate(path) {
+    navigate(path);
+    onCloseModal();
+  }
+
   // hidden body scroll bar on modal open
   useEffect(() => {
     document.body.style.overflow = modalIsShow ? "hidden" : "auto";
@@ -41,10 +46,10 @@ function SearchModal({ modalIsShow, onCloseModal }) {
           modalIsShow
             ? "visible opacity-100 translate-y-0"
             : "invisible opacity-0 translate-y-96"
-        } absolute top-0 w-full h-screen z-50 lg:h-[90vh] transition-all duration-300 lg:!translate-y-0`}
+        } absolute top-0 w-full h-screen z-[60] lg:h-[90vh] transition-all duration-300 lg:!translate-y-0`}
       >
         {/* modal wrapper */}
-        <div className="size-full bg-gray-50 rounded-md pt-2 px-2 lg:py-1 shadow-2xl z-50">
+        <div className="size-full bg-gray-50 rounded-md pt-2 px-2 lg:py-1 shadow-2xl">
           {/* search input */}
           <div className="flex items-center border border-gray-300 rounded-xl h-12">
             <button
@@ -54,6 +59,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
               <CgClose />
             </button>
             <input
+              autoFocus={true}
               type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent lg:bg-gray-100 px-4 w-full rounded-l-md py-2.5 lg:border border-gray-300 h-full focus:outline-none xl:w-full"
@@ -94,12 +100,16 @@ function SearchModal({ modalIsShow, onCloseModal }) {
           {/* search results */}
           <div className="h-[65%] lg:h-[68%]">
             {/* seller account list */}
-            <SellersList searchQuery={searchQuery} />
+            <SellersList
+              searchQuery={searchQuery}
+              onModalNavigate={onModalNavigate}
+            />
             {/* products list */}
             <div className="w-full h-[72%] my-2 overflow-auto styled-scroll-bar scroll-smooth">
               <ProductsList
                 searchQuery={searchQuery}
                 getProducts={modalIsShow}
+                onModalNavigate={onModalNavigate}
               />
             </div>
           </div>
@@ -135,7 +145,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
           modalIsShow ? "opacity-100 visible" : "opacity-0 invisible"
         } ${
           location.pathname === "/EcoVibe/" ? "top-[7.5rem]" : "top-20"
-        } hidden lg:block transition-all duration-300 fixed inset-0 bg-gray-900/80 z-40`}
+        } hidden lg:block transition-all duration-300 fixed inset-0 bg-gray-900/80 z-50`}
       ></div>
     </>
   );

@@ -44,25 +44,33 @@ const MobileNavbar = () => {
               </p>
             </button>
             {/* quick access menu */}
-            <QuickAccessMenu menuIsShow={qucickAccessMenuShow} />
+            <QuickAccessMenu
+              menuIsShow={qucickAccessMenuShow}
+              onCloseMenu={() => setAccessMenu(false)}
+            />
           </div>
         </div>
         {/* search modal */}
         <>
           {/* fake input */}
           <div
-            onClick={() => setSearchModal(true)}
             className={`${
               !isInArray(allowedSearchRoutes, location.pathname) && "hidden"
-            } flex items-center rounded-xl w-11/12 mx-auto bg-slate-50 border border-slate-300 justify-between px-3 py-2 gap-x-2`}
+            } flex items-center relative overflow-hidden rounded-xl w-11/12 mx-auto bg-slate-50 border border-slate-300 justify-between px-3 py-2 gap-x-2`}
           >
             <BiSearch className="text-2xl" />
 
             <input
+              disabled
               type="text"
               className="focus:outline-none w-full bg-inherit"
               placeholder="I'm Shoppnig For..."
             />
+
+            <div
+              onClick={() => setSearchModal(true)}
+              className="absolute inset-0"
+            ></div>
           </div>
 
           <SearchModal

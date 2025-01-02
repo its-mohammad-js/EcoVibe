@@ -23,8 +23,8 @@ function ContextMenu({
       {/* context menu */}
       <div
         style={{
-          top: position.y,
-          left: position.x / 1.7,
+          top: position.y || 0,
+          left: position.x / 1.7 || 0,
         }}
         ref={contextMenuRef}
         className={`${

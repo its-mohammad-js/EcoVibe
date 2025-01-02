@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "/src/config/firebase";
 
-function SellersList({ searchQuery }) {
+function SellersList({ searchQuery, onModalNavigate }) {
   //  sellers data
   const [{ sellers }, setSellers] = useState({
     sellers: [],
@@ -74,13 +74,13 @@ function SellersList({ searchQuery }) {
               {/* seller info */}
               <div className="h-full w-2/3 flex flex-col justify-evenly">
                 <h6
-                  onClick={() => navigate(`/EcoVibe/seller/${userId}`)}
-                  className="line-clamp-1 w-11/12 font-bold hover:text-primary-500"
+                  onClick={() => onModalNavigate(`/EcoVibe/seller/${userId}`)}
+                  className="line-clamp-1 w-11/12 break-words font-bold hover:text-primary-500"
                 >
                   {businessInformation?.business_name ||
                     personalInformation?.first_name}
                 </h6>
-                <p className="text-sm line-clamp-1 w-11/12">
+                <p className="text-sm line-clamp-1 w-11/12 break-words">
                   {personalInformation?.email || personalInformation?.last_name}
                 </p>
               </div>

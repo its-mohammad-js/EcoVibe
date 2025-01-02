@@ -4,7 +4,7 @@ import { useRoomsData } from "../../../RoomsContext";
 function UserSummary({ setUserDetails, lastStatus }) {
   const { setSelectedRoom, selectedRoom } = useRoomsData();
   const { profilePic, status, first_name, business_name, userType } =
-    selectedRoom?.reciver || {};
+    selectedRoom?.receiver || {};
 
   return (
     <div className="flex items-center">

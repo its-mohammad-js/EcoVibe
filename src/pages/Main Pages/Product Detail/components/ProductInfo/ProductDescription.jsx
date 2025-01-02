@@ -13,8 +13,8 @@ import toast from "react-hot-toast";
 import { TbHeart, TbHeartFilled } from "react-icons/tb";
 import { FaArrowLeft, FaStar } from "react-icons/fa";
 
-function ProductDescription() {
-  const { data: productData } = useSelector((state) => state.products); // product data
+function ProductDescription({ productData }) {
+  // const { data: productData } = useSelector((state) => state.products); // product data
   const {
     Name,
     Stars,
@@ -26,7 +26,8 @@ function ProductDescription() {
     SellerProfile,
     SellerId,
     id: productId,
-  } = productData[0] || {}; // destructure product data
+  } = productData || {}; // destructure product data
+
   const { auth_status, wishlist, loading } = useSelector(
     (state) => state.userData
   ); // current user data
@@ -93,7 +94,7 @@ function ProductDescription() {
       </div>
       {/* order box */}
       <div className="">
-        <OrderBox Options={Options} productData={productData[0]} />
+        <OrderBox Options={Options} productData={productData} />
       </div>
       {/* description & seller info */}
       <div className="">

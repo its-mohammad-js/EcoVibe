@@ -1,24 +1,45 @@
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import BestSellProductTypes from "mainPages/Product Detail/components/BestSellProductTypes";
 import CategoriesBanner from "mainPages/Product Detail/components/CategoriesBanner";
 import ProductReviews from "./components/Reviews/ProductReviews";
 import ProductInfo from "mainPages/Product Detail/components/ProductInfo/ProductInfo";
-import { getFilteredProducts } from "src/reducers/products/productsSlice";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../config/firebase";
 
 function ProductDetailsPage() {
+  const [product, setProduct] = useState({
+    productData: null,
+    loading: false,
+    error: null,
+  });
   const params = useParams();
-  const dispatch = useDispatch();
+
+  async function getProductData() {
+    try {
+      setProduct((prev) => ({ ...prev, loading: true }));
+      const productRef = doc(db, "Products", params?.productId);
+      const productData = await getDoc(productRef);
+      setProduct({
+        error: null,
+        loading: false,
+        productData: productData.data(),
+      });
+    } catch (error) {
+      setProduct({ error, loading: false, productData: null });
+      console.log(error);
+    }
+  }
+  // console.log(productData);
 
   // read product data on component mount
   useEffect(() => {
-    dispatch(getFilteredProducts({ sortBy: "", idList: [params.productId] }));
+    getProductData();
   }, [params]);
 
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl">
-      <ProductInfo />
+      <ProductInfo {...{ product }} />
       <ProductReviews />
       <BestSellProductTypes />
       <CategoriesBanner />

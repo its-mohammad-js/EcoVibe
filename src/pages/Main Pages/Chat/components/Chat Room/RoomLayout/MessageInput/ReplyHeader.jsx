@@ -12,7 +12,7 @@ function ReplyHeader() {
     selectedRoom,
   } = useRoomsData();
   const { first_name, last_name, business_name, userType } =
-    selectedRoom?.reciver || {};
+    selectedRoom?.receiver || {};
 
   return (
     <div className={`${!messageMode ? "hidden" : "block"} w-full h-20`}>

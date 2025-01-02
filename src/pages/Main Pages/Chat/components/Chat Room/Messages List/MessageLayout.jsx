@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRoomsData } from "../../RoomsContext";
 import { useSelector } from "react-redux";
 import OrderTypeMessage from "./Message Types/OrderTypeMessage";
@@ -12,9 +12,7 @@ function MessageLayout({
   setContextMenu,
   contextMenu,
 }) {
-  // last || selected message ref
-  const lastMessageRef = useRef();
-
+  // position of context menu
   const [position, setPosition] = useState({ x: 0, y: 0 });
   // replied message data
   const [replyTo, setReplyTo] = useState(null);
@@ -41,25 +39,6 @@ function MessageLayout({
       setReplyTo(repliedMessage);
     }
   }, [message]);
-
-  // scroll to selected / last message
-  useEffect(() => {
-    // focus and scroll to selected message
-    if (selectedMessage) {
-      const selectedMessageEl = document.getElementById(
-        `${selectedMessage.uiid}`
-      );
-
-      lastMessageRef.current = selectedMessageEl;
-    }
-    // scroll to last / selected message
-    if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
-    }
-  }, [selectedMessage]);
 
   // display hour & minute of message
   function createMessageTime(stamp) {
@@ -88,7 +67,6 @@ function MessageLayout({
       >
         {/* main message */}
         <div
-          ref={lastMessageRef}
           id={message.uiid}
           onContextMenu={(e) => {
             setPosition({ x: e.clientX, y: e.clientY });

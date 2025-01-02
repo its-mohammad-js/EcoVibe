@@ -51,7 +51,7 @@ function Contact({ user, searchType, orders, onCloseModal }) {
           userType,
           userId: userId,
         },
-        reciver: { ...contactData, reciverId: contactData.userId },
+        receiver: { ...contactData, receiverId: contactData.userId },
         members: [userId, user.userId],
       });
 

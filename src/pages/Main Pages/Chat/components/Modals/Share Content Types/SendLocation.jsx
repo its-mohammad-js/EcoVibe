@@ -28,7 +28,7 @@ function SendLocation({ onCloseModal }) {
       uiid: generateId(userId),
       type: "location",
       replyTo: messageMode === "reply" ? selectedMessage.uiid : null,
-      visibleTo: [userId, selectedRoom.reciver.reciverId],
+      visibleTo: [userId, selectedRoom.receiver.receiverId],
     };
     // ref to selectedRoom
     const db = getDatabase();
@@ -36,7 +36,7 @@ function SendLocation({ onCloseModal }) {
     // update message list
     update(roomsRef, {
       messageList: [...(selectedRoom?.messageList || []), messageData],
-      members: [userId, selectedRoom.reciver.reciverId],
+      members: [userId, selectedRoom.receiver.receiverId],
     });
     // close modal & reset states
     onCloseModal();

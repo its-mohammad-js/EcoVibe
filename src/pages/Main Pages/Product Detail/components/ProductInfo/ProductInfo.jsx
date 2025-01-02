@@ -6,21 +6,26 @@ import { useNavigate } from "react-router-dom";
 import { errorIconUrl } from "appData";
 import { closest } from "color-2-name";
 
-function ProductInfo() {
-  const {
-    data: productData,
-    loading,
-    error,
-  } = useSelector((state) => state.products); // product data
-  const { Images, Name, Category, Options } = productData[0] || {}; // destructure product data
+function ProductInfo({ product }) {
+  const { productData, loading, error } = product;
+
+  // const {
+  //   data: productData,
+  //   loading,
+  //   error,
+  // } = useSelector((state) => state.products); // product data
+  const { Images, Name, Category, Options } = productData || {}; // destructure product data
+
   const { auth_status } = useSelector((state) => state.userData); // current user data
   const navigate = useNavigate(); // navigate jook
+
+  // if (true) return <>test mode</>;
 
   // loading screen
   if (loading || auth_status === 204) return <ProductInfoLoader />;
 
   // main component
-  if ((productData.length && !loading) || false)
+  if ((productData && !loading) || false)
     return (
       <div id="wrapper">
         {/* bread crumbs */}
@@ -50,9 +55,9 @@ function ProductInfo() {
           {/* product details */}
           <div className="flex flex-col md:flex-row justify-start w-full gap-4 xl:px-4 xl:py-2">
             {/* product image's */}
-            <ProductImages Images={Images} />
+            <ProductImages Images={Images} loading={loading} />
             {/* product detail's & order box */}
-            <ProductDescription />
+            <ProductDescription productData={productData} />
           </div>
         </div>
         {/* options table */}
@@ -91,7 +96,7 @@ function ProductInfo() {
     );
 
   // error screen
-  if ((!loading && !productData?.length) || error)
+  if ((!loading && !productData) || error)
     return (
       <div className="flex items-center justify-center">
         <img

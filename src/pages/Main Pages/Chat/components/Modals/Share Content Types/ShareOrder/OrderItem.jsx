@@ -24,7 +24,7 @@ function OrderItem({ orderData, ordersType, onCloseModal }) {
     const roomsRef = ref(db, `rooms/${selectedRoom.roomId}`);
     // update message list with new order type message
     update(roomsRef, {
-      members: [userId, selectedRoom.reciver.reciverId],
+      members: [userId, selectedRoom.receiver.receiverId],
       messageList: [
         ...(selectedRoom?.messageList || []),
         {
@@ -39,7 +39,7 @@ function OrderItem({ orderData, ordersType, onCloseModal }) {
             thumbnails: orders.items.map((item) => item.Thumbnail),
           },
           replyTo: messageMode === "reply" ? selectedMessage.uiid : null,
-          visibleTo: [userId, selectedRoom.reciver.reciverId],
+          visibleTo: [userId, selectedRoom.receiver.receiverId],
         },
       ],
     });

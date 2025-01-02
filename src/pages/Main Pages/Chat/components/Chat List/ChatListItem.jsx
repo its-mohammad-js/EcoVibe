@@ -6,7 +6,7 @@ import { getDatabase, onValue, ref } from "firebase/database";
 import ContextMenu from "./ContextMenu";
 
 const ChatListItem = ({ room, mode, deleteRoom }) => {
-  // reciver data
+  // receiver data
   const {
     profilePic,
     last_seen,
@@ -14,7 +14,7 @@ const ChatListItem = ({ room, mode, deleteRoom }) => {
     last_name,
     business_name,
     userType,
-  } = room.reciver;
+  } = room.receiver;
   // context menu state
   const [contextMenu, setContextMenu] = useState(false);
   const contextMenuRef = useRef();
@@ -114,7 +114,7 @@ const ChatListItem = ({ room, mode, deleteRoom }) => {
               className="size-20 bg-gray-100 rounded-full"
             />
           ) : (
-            <div className="size-16 lg:size-20 flex items-center justify-center group bg-gray-200 text-gray-500 rounded-full">
+            <div className="size-full lg:size-20 flex items-center justify-center group bg-gray-200 text-gray-500 rounded-full">
               <AiOutlineUser className="text-6xl lg:text-7xl mt-3 group-hover:mt-2 transition-all rounded-full" />
             </div>
           )}

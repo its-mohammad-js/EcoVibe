@@ -38,7 +38,7 @@ function ShareProduct({ onCloseModal }) {
       // ref to products in data-base
       const refQuery = query(
         collection(db, "Products"),
-        where("SellerId", "in", [userId, selectedRoom.reciver.reciverId])
+        where("SellerId", "in", [userId, selectedRoom.receiver.receiverId])
       );
       // response
       const productsData = await getDocs(refQuery).then(({ docs }) =>
@@ -77,7 +77,7 @@ function ShareProduct({ onCloseModal }) {
         price: product.Price,
         name: product.Name,
       },
-      visibleTo: [userId, selectedRoom.reciver.reciverId],
+      visibleTo: [userId, selectedRoom.receiver.receiverId],
     };
     // ref to selectedRoom
     const db = getDatabase();
@@ -85,7 +85,7 @@ function ShareProduct({ onCloseModal }) {
     // update message list
     update(roomsRef, {
       messageList: [...(selectedRoom?.messageList || []), messageData],
-      members: [userId, selectedRoom.reciver.reciverId],
+      members: [userId, selectedRoom.receiver.receiverId],
     });
     // clode modal & reset state's
     onCloseModal();

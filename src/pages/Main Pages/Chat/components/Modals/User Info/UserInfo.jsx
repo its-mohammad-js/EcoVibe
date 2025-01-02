@@ -7,12 +7,12 @@ import { AiOutlineLeft } from "react-icons/ai";
 function UserInfo({ modalShow, onCloseModal }) {
   const [infoTab, setInfo] = useState(null);
   const {
-    selectedRoom: { reciver },
+    selectedRoom: { receiver },
   } = useRoomsData();
 
   useEffect(() => {
-    setInfo(reciver?.userType === "customer" ? "customer" : "seller");
-  }, [reciver?.userType]);
+    setInfo(receiver?.userType === "customer" ? "customer" : "seller");
+  }, [receiver?.userType]);
 
   if (infoTab)
     return (
@@ -33,7 +33,7 @@ function UserInfo({ modalShow, onCloseModal }) {
           </button>
           <div
             className={`${
-              reciver.userType === "both" ? "block" : "hidden"
+              receiver.userType === "both" ? "block" : "hidden"
             } w-full flex py-2 items-center justify-between`}
           >
             <button

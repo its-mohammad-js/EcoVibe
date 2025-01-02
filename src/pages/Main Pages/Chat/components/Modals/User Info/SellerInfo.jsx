@@ -8,7 +8,7 @@ import { useRoomsData } from "../../RoomsContext";
 
 const SellerInfo = () => {
   const {
-    selectedRoom: { reciver: seller },
+    selectedRoom: { receiver: seller },
   } = useRoomsData();
 
   return (
@@ -83,7 +83,7 @@ const LastReviews = ({ seller }) => {
         // ref to comments related to this seller
         const reviewsQuery = query(
           collection(db, "comments"),
-          where("sellerId", "==", seller.reciverId)
+          where("sellerId", "==", seller.receiverId)
         );
         // fetch comments
         const reviews = await getDocs(reviewsQuery).then(({ docs }) =>

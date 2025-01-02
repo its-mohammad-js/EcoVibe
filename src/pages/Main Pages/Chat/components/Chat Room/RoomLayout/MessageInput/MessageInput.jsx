@@ -50,7 +50,7 @@ function MessageInput() {
       uiid: generateId(userId),
       replyTo: messageMode === "reply" ? selectedMessage.uiid : null,
       type: "text",
-      visibleTo: [userId, selectedRoom.reciver.reciverId],
+      visibleTo: [userId, selectedRoom.receiver.receiverId],
     };
     // ref to selectedRoom
     const db = getDatabase();
@@ -58,7 +58,7 @@ function MessageInput() {
     // update message list
     update(roomsRef, {
       messageList: [...(selectedRoom?.messageList || []), messageData],
-      members: [userId, selectedRoom.reciver.reciverId],
+      members: [userId, selectedRoom.receiver.receiverId],
     });
     // reset states
     setSelectedMessage(null);

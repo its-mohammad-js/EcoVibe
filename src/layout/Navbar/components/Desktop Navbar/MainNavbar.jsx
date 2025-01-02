@@ -21,7 +21,7 @@ function MainNavbar() {
   const quickMenuRef = useRef();
   useOutSideClick(quickMenuRef, () => setAccessMenu(false));
   // current user info
-  const { personalInformation, userId, cartData, auth_status } = useSelector(
+  const { personalInformation, cartData, auth_status } = useSelector(
     (state) => state.userData
   );
 
@@ -95,11 +95,9 @@ function MainNavbar() {
         } h-12 w-7/12 relative`}
       >
         {/* fake input (just opens search modal) */}
-        <div
-          onClick={() => setSearchModal(true)}
-          className="flex items-center h-full px-4 lg:pl-8"
-        >
+        <div className="flex items-center relative h-full px-4 lg:pl-8">
           <input
+            disabled
             type="text"
             className="bg-gray-100 px-4 rounded-l-md py-2.5 border border-gray-300 h-full focus:outline-none xl:w-full"
             placeholder="Im Shopping For..."
@@ -107,12 +105,17 @@ function MainNavbar() {
           <button className="bg-primary-500 text-white text-2xl rounded-r-md h-full flex items-center px-4">
             <BiSearch />
           </button>
+
+          <div
+            onClick={() => setSearchModal(true)}
+            className="absolute inset-0"
+          ></div>
         </div>
         {/* search modal */}
-        {/* <SearchModal
+        <SearchModal
           modalIsShow={searchShow}
           onCloseModal={() => setSearchModal(false)}
-        /> */}
+        />
       </div>
       {/* side buttons & quick access menu */}
       <div className="flex items-center justify-center gap-x-2 xl:gap-x-4 relative">

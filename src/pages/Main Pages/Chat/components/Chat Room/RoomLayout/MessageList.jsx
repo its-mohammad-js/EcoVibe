@@ -20,7 +20,7 @@ const MessageList = () => {
     messageId: null,
   });
   const [lastRoom, setLastRoom] = useState(null);
-  const { selectedRoom } = useRoomsData();
+  const { selectedRoom, selectedMessage } = useRoomsData();
   const { userId } = useSelector((state) => state.userData);
   const messagesWrapperRef = useRef();
 
@@ -95,6 +95,36 @@ const MessageList = () => {
     };
   }, [lastRoom]);
 
+  // scroll to selected message
+  useEffect(() => {
+    if (selectedMessage) {
+      const selectedMessageEl = document.getElementById(
+        `${selectedMessage.uiid}`
+      );
+
+      selectedMessageEl.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [selectedMessage]);
+
+  // scroll to last message
+  useEffect(() => {
+    // return if there was selected message
+    if (selectedMessage) return;
+    // ref to last message
+    const messageList = selectedRoom.messageList;
+    const lastMessageRef = document.getElementById(
+      `${messageList[messageList?.length - 1]?.uiid}`
+    );
+    // scroll to last message
+    lastMessageRef.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [selectedRoom.messageList]);
+
   if (!selectedRoom?.messageList?.length)
     return (
       <div className="bg-gray-300 w-full flex justify-center items-center flex-1">
@@ -111,7 +141,7 @@ const MessageList = () => {
         <div
           ref={messagesWrapperRef}
           onContextMenu={(e) => e.preventDefault()}
-          className={`flex relative flex-col gap-y-2 w-full overflow-auto px-2 pb-1 pt-2 bg-gray-300 flex-1 styled-scroll-bar`}
+          className={`flex relative flex-col gap-y-2 w-full overflow-auto flex-1 px-2 pb-1 pt-2 bg-gray-300 styled-scroll-bar`}
         >
           {selectedRoom.messageList.map(
             (message, index) =>

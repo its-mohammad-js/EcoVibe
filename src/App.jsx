@@ -18,8 +18,6 @@ function App() {
   const dispatch = useDispatch();
   // const { userId, auth_status } = useSelector((state) => state.userData);
 
-  console.log("ok");
-
   useEffect(() => {
     // read user data
     dispatch(getUserData());
