@@ -24,7 +24,9 @@ export default function useChatRooms(selectedRoom) {
     status: null,
   });
   // necessary data & hooks
-  const { userId, auth_status } = useSelector((state) => state.userData);
+  const { userId, auth_status, loading } = useSelector(
+    (state) => state.userData
+  );
   const navigate = useNavigate();
 
   // get chat rooms data
@@ -97,7 +99,7 @@ export default function useChatRooms(selectedRoom) {
       goOnline(db);
       const connectedRef = ref(db, ".info/connected");
       onValue(connectedRef, (snap) => {
-        if (snap.val() === true) {
+        if (snap.val() === true && !loading) {
           getRooms();
         } else {
           setRooms({

@@ -120,7 +120,6 @@ const MessageList = () => {
     );
     // scroll to last message
     lastMessageRef.scrollIntoView({
-      behavior: "smooth",
       block: "start",
     });
   }, [selectedRoom.messageList]);

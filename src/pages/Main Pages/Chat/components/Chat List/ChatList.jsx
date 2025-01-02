@@ -3,10 +3,13 @@ import { useRoomsData } from "../RoomsContext";
 import { useState } from "react";
 import ChatColumn from "./ChatListItem";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
+import { useSelector } from "react-redux";
+import { fakeArray } from "../../../../../common/utils/constants/helpers";
 
 function ChatList({ openSideNav, deleteRoom }) {
   const [searchQuery, setQuery] = useState(""); // search query state
   const { rooms, setSelectedRoom, selectedRoom, status } = useRoomsData(); // chat room data
+  const { loading } = useSelector((state) => state.userData);
   useHorizontalTouchScroll(".contacts-container"); // horizontal touch for contacts list
 
   // search messages
@@ -40,7 +43,7 @@ function ChatList({ openSideNav, deleteRoom }) {
     <div
       className={`${
         selectedRoom && "hidden"
-      } lg:!block lg:w-1/4 w-full h-screen bg-gray-50 flex flex-col`}
+      } lg:!flex lg:w-1/4 w-full h-screen bg-gray-50 flex flex-col`}
     >
       {/* header  */}
       <div className="">
@@ -115,9 +118,17 @@ function ChatList({ openSideNav, deleteRoom }) {
       {/* messages / rooms list */}
       <div
         className={`${
-          searchQuery?.length ? "basis-[55%]" : ""
+          searchQuery?.length
+            ? "basis-[55%] lg:basis-[65%]"
+            : "basis-[76%] lg:basis-[83%]"
         } flex flex-col flex-none overflow-auto relative styled-scroll-bar`}
       >
+        {fakeArray(200).map((a) => (
+          <div key={a} className="w-full h-24 bg-gray-200 flex-none">
+            dic
+          </div>
+        ))}
+
         <h2
           className={`${
             !searchQuery?.length && "hidden"
@@ -126,10 +137,10 @@ function ChatList({ openSideNav, deleteRoom }) {
           Found {searchMessages(searchQuery).length} Messages
         </h2>
         {/* list of rooms and messages */}
-        {status ? (
-          <h4 className="px-2 py-1 absolute bottom-1/2 w-full flex justify-center">
+        {loading || status ? (
+          <h4 className="px-2 py-1 w-full flex justify-center">
             <p className="px-4 py-1 text-lg font-bold bg-gray-200/80 rounded-xl">
-              {status}
+              loading...
             </p>
           </h4>
         ) : searchQuery ? (
