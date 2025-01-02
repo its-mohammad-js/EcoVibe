@@ -8,7 +8,7 @@ import { fakeArray } from "../../../../../common/utils/constants/helpers";
 
 function ChatList({ openSideNav, deleteRoom }) {
   const [searchQuery, setQuery] = useState(""); // search query state
-  const { rooms, setSelectedRoom, selectedRoom, status } = useRoomsData(); // chat room data
+  // const { rooms, setSelectedRoom, selectedRoom, status } = useRoomsData(); // chat room data
   const { loading } = useSelector((state) => state.userData);
   useHorizontalTouchScroll(".contacts-container"); // horizontal touch for contacts list
 
@@ -32,17 +32,19 @@ function ChatList({ openSideNav, deleteRoom }) {
     const queryLower = query.toLowerCase();
 
     // Check if any of the receiver's names match the query
-    return rooms.filter(({ receiver }) =>
-      [receiver?.business_name, receiver?.first_name, receiver?.last_name].some(
-        (name) => name?.toLowerCase().includes(queryLower)
-      )
-    );
+    // return rooms.filter(({ receiver }) =>
+    //   [receiver?.business_name, receiver?.first_name, receiver?.last_name].some(
+    //     (name) => name?.toLowerCase().includes(queryLower)
+    //   )
+    // );
+    return [];
   }
 
   return (
     <div
       className={`${
-        selectedRoom && "hidden"
+        ""
+        // selectedRoom && "hidden"
       } lg:!flex lg:w-1/4 w-full h-screen bg-gray-50 flex flex-col`}
     >
       {/* header  */}
@@ -80,7 +82,7 @@ function ChatList({ openSideNav, deleteRoom }) {
             : "basis-[19%] min-h-32"
         } overflow-x-auto overflow-y-hidden mx-auto flex px-4 gap-3 py-1 hidden-scroll-bar w-full contacts-container`}
       >
-        {searchQuery && (
+        {/* {searchQuery && (
           <div className="flex items-center gap-x-4 select-none">
             {searchContacts(searchQuery).map((room, index) => (
               <div
@@ -113,7 +115,7 @@ function ChatList({ openSideNav, deleteRoom }) {
               </div>
             ))}
           </div>
-        )}
+        )} */}
       </div>
       {/* messages / rooms list */}
       <div
@@ -129,15 +131,15 @@ function ChatList({ openSideNav, deleteRoom }) {
           </div>
         ))}
 
-        <h2
+        {/* <h2
           className={`${
             !searchQuery?.length && "hidden"
           } block px-4 sticky top-0 z-10 py-1 w-full bg-gray-200`}
         >
           Found {searchMessages(searchQuery).length} Messages
-        </h2>
+        </h2> */}
         {/* list of rooms and messages */}
-        {loading || status ? (
+        {/* {loading || status ? (
           <h4 className="px-2 py-1 w-full flex justify-center">
             <p className="px-4 py-1 text-lg font-bold bg-gray-200/80 rounded-xl">
               loading...
@@ -156,7 +158,7 @@ function ChatList({ openSideNav, deleteRoom }) {
               deleteRoom={deleteRoom}
             />
           ))
-        )}
+        )} */}
       </div>
     </div>
   );

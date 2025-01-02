@@ -47,11 +47,11 @@ function ChatPage() {
         {/* wrapper */}
         <div className="lg:flex justify-between h-full">
           {/* side buttons */}
-          <SideNav
+          {/* <SideNav
             onCloseNav={() => setSideNav(false)}
             navIsShow={sideNavShow}
             openContacts={() => setContactsShow(true)}
-          />
+          /> */}
           {/* main comps */}
           <div className="flex-1 flex h-full">
             {/* chats list */}
@@ -60,14 +60,14 @@ function ChatPage() {
               deleteRoom={deleteRoom}
             />
             {/* selected message room */}
-            <RoomLayout deleteRoom={deleteRoom} />
+            {/* <RoomLayout deleteRoom={deleteRoom} /> */}
             {/* search contacts modal */}
             <div
               className={`${
                 contactsShow ? "opacity-100 visible" : "opacity-0 invisible"
               } inset-0 fixed flex items-center justify-center z-50 transition-all`}
             >
-              <ContactsList onCloseModal={() => setContactsShow(false)} />
+              {/* <ContactsList onCloseModal={() => setContactsShow(false)} /> */}
               {/* bg (close modal) */}
               <div
                 onClick={() => setContactsShow(false)}
