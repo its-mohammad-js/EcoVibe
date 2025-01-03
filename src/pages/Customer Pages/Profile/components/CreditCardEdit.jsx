@@ -55,8 +55,6 @@ function CreditCardEdit() {
     );
   }
 
-  console.log(creditCards);
-
   return (
     <div
       className={`${

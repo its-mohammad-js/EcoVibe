@@ -72,7 +72,7 @@ function SingleProductManage({ selectedItem, onModalClose, getProducts }) {
       <div
         className={`${
           isEdit ? "visible opacity-100" : "invisible opacity-0"
-        } transition-all fixed inset-0 flex items-center justify-center px-2 `}
+        } transition-all fixed inset-0 flex items-center justify-center`}
       >
         {isEdit && (
           <AddProduct

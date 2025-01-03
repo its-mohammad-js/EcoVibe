@@ -98,7 +98,10 @@ const CustomProductCard = ({
         {/* product thumbnail */}
         <img
           onClick={() => {
-            window.scrollTo(0, 0);
+            window.scrollTo({
+              top: 0,
+              behavior: "instant",
+            });
             navigate(`/EcoVibe/Products/${product.id}`);
           }}
           loading="lazy"
@@ -129,7 +132,10 @@ const CustomProductCard = ({
           <span className="text-xs my-0.5">{product.Tags[0]}</span>
           <h2
             onClick={() => {
-              window.scrollTo(0, 0);
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
               navigate(`/EcoVibe/Products/${product.id}`);
             }}
             className="font-bold hover:text-primary-600 transition-all cursor-pointer"

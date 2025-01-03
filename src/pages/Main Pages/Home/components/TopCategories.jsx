@@ -26,7 +26,10 @@ function TopCategories() {
             <h2 className="text-3xl md:text-4xl">{categoriesInfo[0].title}</h2>
             <button
               onClick={() => {
-                window.scrollTo(0, 0);
+                window.scrollTo({
+                  top: 0,
+                  behavior: "instant",
+                });
                 navigate(
                   `/EcoVibe/Explore-Products/${categoriesInfo[0].query}`
                 );
@@ -58,7 +61,10 @@ function TopCategories() {
               </h2>
               <button
                 onClick={() => {
-                  window.scrollTo(0, 0);
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "instant",
+                  });
                   navigate(
                     `/EcoVibe/Explore-Products/${categoriesInfo[0].query}`
                   );
@@ -89,7 +95,10 @@ function TopCategories() {
               </h2>
               <button
                 onClick={() => {
-                  window.scrollTo(0, 0);
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "instant",
+                  });
                   navigate(
                     `/EcoVibe/Explore-Products/${categoriesInfo[0].query}`
                   );

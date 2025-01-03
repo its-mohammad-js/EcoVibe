@@ -1,6 +1,6 @@
-import Select from "react-select/base";
+import Select from "react-select";
 import { supportedCategories } from "appData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 
 const categoryOptions = supportedCategories.map(({ title }) => ({
@@ -27,9 +27,15 @@ function FilterProducts({ setItems, products }) {
           Category === selectedCategory
         );
     });
+    console.log(filteredProducts);
+
     // display filtered items
     setItems(filteredProducts);
   }
+
+  useEffect(() => {
+    searchSortItems();
+  }, [searchQuery, selectedCategory]);
 
   return (
     <div className="w-full px-2 xl:px-4 py-1">
@@ -50,11 +56,12 @@ function FilterProducts({ setItems, products }) {
         {/* sort options */}
         <Select
           placeholder="Sort By"
-          className="text-sm lg:text-base [&>div]:lg:py-2 [&>div]:border-none border-l border-gray-300 [&>div]:rounded-none max-w-[40%] lg:w-2/12"
+          className="text-sm lg:text-base [&>div]:lg:py-2 [&>div]:border-none border-l border-gray-300 [&>div]:rounded-none w-[35%] lg:max-w-[40%] lg:w-2/12"
           options={[{ label: "All", value: "" }, ...categoryOptions]}
           onChange={({ value }) =>
             setFilters((prev) => ({ ...prev, selectedCategory: value }))
           }
+          isSearchable={false}
         />
         {/* action button */}
         <button

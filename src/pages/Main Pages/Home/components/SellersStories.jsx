@@ -25,7 +25,7 @@ function SellersStories() {
       <>
         <div
           ref={containerRef}
-          className="mx-auto lists 2xl:max-w-screen-2xl px-4 flex gap-x-1.5 items-center justify-start hidden-scroll-bar py-2 overflow-y-hidden overflow-x-auto"
+          className="mx-auto mt-2 2xl:max-w-screen-2xl px-4 flex gap-x-1.5 items-center justify-start hidden-scroll-bar py-2 overflow-y-hidden overflow-x-auto"
         >
           {/* story lists */}
           {storiesList.map((list, listIndex) => {

@@ -102,14 +102,14 @@ function QuickAccessMenu({ menuIsShow, onCloseMenu }) {
           You Need SignIn To Access This Section
         </h6>
         <button
-          onClick={() => navigate("/EcoVibe/sign-in")}
+          onClick={() => onMenuNavigation("/EcoVibe/sign-in")}
           className="px-4 py-2 bg-primary-500 text-gray-50 rounded-md text-sm border border-primary-500 hover:bg-gray-50 hover:text-primary-500 transition-all"
         >
           Sign in
         </button>
         <button
           onClick={() => {
-            navigate("/EcoVibe/customers");
+            onMenuNavigation("/EcoVibe/customers");
           }}
           className="flex items-center gap-x-2 text-sm font-semibold text-gray-950 hover:text-gray-800 transition-all"
         >

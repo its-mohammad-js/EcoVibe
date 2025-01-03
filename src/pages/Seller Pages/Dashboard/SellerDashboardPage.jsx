@@ -57,7 +57,7 @@ function SellerDashboardPage() {
       <div
         className={`${
           modal ? "visible opacity-100" : "invisible opacity-0"
-        } transition-all fixed inset-0 flex items-center justify-center px-2 z-50`}
+        } transition-all fixed inset-0 flex items-center justify-center md:h-auto z-50`}
       >
         {modal === "add-product" && (
           <AddEditProductForm onModalChange={onModalChange} />

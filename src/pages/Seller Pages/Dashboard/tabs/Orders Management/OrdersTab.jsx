@@ -85,7 +85,7 @@ function OrdersTab() {
   if (!orders?.length && error)
     return (
       <div className="h-screen flex items-center justify-center">
-        <h4 className="text-3xl font-bold text-primary-500">
+        <h4 className="text-3xl text-center font-bold text-primary-500">
           You Haven't Any Order, Please Try Again Later
         </h4>
       </div>

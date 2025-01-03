@@ -11,7 +11,7 @@ import { RiContactsBook2Line } from "react-icons/ri";
 
 function SideNav({ onCloseNav, navIsShow, openContacts }) {
   // necessary data & hooks
-  const { personalInformation, userType, userId } = useSelector(
+  const { personalInformation, userType, userId, loading } = useSelector(
     (state) => state.userData
   );
   const { auth_status } = useSelector((state) => state.userData); // current user data
@@ -46,7 +46,7 @@ function SideNav({ onCloseNav, navIsShow, openContacts }) {
           </button>
           {/* search messages btn */}
           <button
-            disabled={auth_status !== 200}
+            disabled={auth_status !== 200 || loading}
             onClick={() => {
               onCloseNav();
               openContacts();

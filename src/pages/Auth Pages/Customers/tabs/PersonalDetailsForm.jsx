@@ -135,6 +135,7 @@ function PersonalDetailsForm() {
           </label>
 
           <Select
+            isSearchable={false}
             placeholder="Select Your Gender"
             styles={{
               control: (provided, state) => ({

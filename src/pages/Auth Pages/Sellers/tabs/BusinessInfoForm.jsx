@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "authActions/updateUserData";
 import TextInput from "UI/Forms/TextInput";
 import { validateLocation } from "helpers";
+import LoaderIcon from "../../../../common/UI elements/Loaders/LoaderIcon";
 
 // inputs information
 const inputsInfo = [
@@ -60,14 +61,22 @@ function BusinessInfoForm() {
     }
   }
 
+  if (loading)
+    return (
+      <div className="h-screen flex items-center justify-center flex-col">
+        <LoaderIcon className="size-24" />
+        <h4 className="my-2 text-2xl font-bold text-center mt-2">
+          Submit your business information...
+        </h4>
+      </div>
+    );
+
   return (
     <div className="relative lg:px-6">
       {/* information form */}
       <form
         onSubmit={handleSubmit((e) => submitBusinessInfo(e))}
-        className={`${
-          loading && "animate-pulse"
-        } px-4 py-2 flex flex-col gap-4 lg:w-[48%] lg:bg-gray-50/30 lg:border lg:rounded-xl lg:py-4`}
+        className={`px-4 py-2 flex flex-col gap-4 lg:w-[48%] lg:bg-gray-50/30 lg:border lg:rounded-xl lg:py-4`}
       >
         <h4 className="text-xl lg:text-2xl font-semibold text-gray-800">
           Tell Us About Your Business ;)
@@ -95,7 +104,6 @@ function BusinessInfoForm() {
 
           <Map
             onClick={(e) => setLocation(e.latLng)}
-            // height={mapFullScreen ? 1000 : 300}
             defaultCenter={[35.77142984637282, 51.46089654722849]}
             defaultZoom={11}
             minZoom={3}
@@ -136,7 +144,6 @@ function BusinessInfoForm() {
 
             <textarea
               type="text"
-              disabled={loading}
               {...register("biography", {
                 required: { value: true, message: "this field is required" },
               })}

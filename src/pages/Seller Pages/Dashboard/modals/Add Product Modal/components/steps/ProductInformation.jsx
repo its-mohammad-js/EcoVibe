@@ -66,6 +66,7 @@ function ProductInformation({ isEdit }) {
         <div className="flex flex-col gap-y-2">
           <h6 className="font-semibold lg:text-lg">Category :</h6>
           <Select
+            isSearchable={false}
             menuShouldScrollIntoView={false}
             options={categoryOptions}
             {...register("Category", { ...inputsValidation.Category })}
@@ -90,6 +91,7 @@ function ProductInformation({ isEdit }) {
             placeholder={watch()?.Type ? watch()?.Type : "Select type"}
             isDisabled={isEdit}
             key={watch()?.Category}
+            isSearchable={false}
           />
           <p className="text-red-500 px-1">{errors?.Type?.message}</p>
         </div>
@@ -103,6 +105,7 @@ function ProductInformation({ isEdit }) {
             options={getCategoryOptions(watch()?.Category, "collections")}
             placeholder={isEdit ? watch()?.Collection : "Add Collection"}
             key={watch()?.Category}
+            isSearchable={false}
           />
         </div>
       </div>

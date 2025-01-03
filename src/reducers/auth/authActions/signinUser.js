@@ -61,10 +61,19 @@ export const signInUser = createAsyncThunk(
         return fulfillWithValue(finalUserData);
       }
     } catch (error) {
-      toast.error(error?.message);
       console.log(error);
+      let finalError = () => {
+        if (error?.message?.includes("auth/invalid-credential")) {
+          return "Email or password wrong";
+        }
+        if (error?.message?.includes("auth/network-request-failed")) {
+          return "Network error please try again later";
+        }
+        return "Unknown error";
+      };
+      toast.error(finalError());
       // dispatch failure
-      return rejectWithValue(error.message);
+      return rejectWithValue(finalError());
     }
   }
 );
@@ -87,6 +96,8 @@ export const signInReducer = (builder) => {
     document.cookie = `guestUserId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   });
   builder.addCase(signInUser.rejected, (state, action) => {
+    console.log(action.payload);
+
     state.loading = false;
     state.error = action.payload;
   });

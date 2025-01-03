@@ -1,10 +1,9 @@
 import { AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 import { useRoomsData } from "../RoomsContext";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ChatColumn from "./ChatListItem";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { useSelector } from "react-redux";
-import { fakeArray } from "../../../../../common/utils/constants/helpers";
 import { useResizeListener } from "../../../../../common/hooks/useResizeListener";
 
 function ChatList({ openSideNav, deleteRoom }) {
@@ -13,6 +12,7 @@ function ChatList({ openSideNav, deleteRoom }) {
   const { loading } = useSelector((state) => state.userData);
   useHorizontalTouchScroll(".contacts-container"); // horizontal touch for contacts list
   const { appHeight } = useResizeListener();
+  const inputRef = useRef();
 
   // search messages
   function searchMessages(query) {
@@ -43,7 +43,11 @@ function ChatList({ openSideNav, deleteRoom }) {
 
   return (
     <div
-      style={{ height: appHeight }}
+      style={{
+        height:
+          // resize only when search input isn't focused
+          document.activeElement !== inputRef.current ? appHeight : "100vh",
+      }}
       className={`${selectedRoom && "hidden"} ${
         searchQuery.length && ""
       } lg:!flex lg:col-span-3 w-full bg-gray-50 flex flex-col`}
@@ -65,6 +69,7 @@ function ChatList({ openSideNav, deleteRoom }) {
         {/* search input */}
         <div className="w-full px-4 pb-2 pt-3">
           <input
+            ref={inputRef}
             onChange={({ target }) => {
               setQuery(target.value?.toLowerCase());
             }}
@@ -138,7 +143,7 @@ function ChatList({ openSideNav, deleteRoom }) {
         {loading || status ? (
           <h4 className="px-2 py-1 absolute top-1/2 w-full flex justify-center">
             <p className="px-4 py-1 text-lg font-bold bg-gray-200/80 rounded-xl">
-              loading...
+              {status || "loading..."}
             </p>
           </h4>
         ) : searchQuery ? (

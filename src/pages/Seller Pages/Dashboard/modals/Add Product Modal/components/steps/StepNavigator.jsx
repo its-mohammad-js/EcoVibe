@@ -18,14 +18,14 @@ function StepNavigator({ isEdit, onModalChange, currentStep, setCurrentStep }) {
 
   return (
     <>
-      <div className="max-h-96 lg:max-h-[55vh] overflow-y-auto overflow-x-hidden styled-scroll-bar scroll-smooth px-2 py-1.5 relative">
+      <div className="lg:max-h-[55vh] flex md:block items-center justify-center flex-1 overflow-y-auto overflow-x-hidden styled-scroll-bar scroll-smooth px-2 py-1.5 relative">
         {/* step 01: set general information's */}
         <div
           className={`${
             currentStep === 1
               ? "visible opacity-100 static translate-x-0"
               : "invisible opacity-0 absolute -top-96 -translate-y-96 -translate-x-96"
-          } transition-all duration-500`}
+          } transition-all duration-500 size-full`}
         >
           <ProductInformation isEdit={isEdit} />
         </div>
@@ -35,7 +35,7 @@ function StepNavigator({ isEdit, onModalChange, currentStep, setCurrentStep }) {
             currentStep === 2
               ? "visible opacity-100 static translate-x-0"
               : "invisible opacity-0 absolute -top-96 -translate-y-96 -translate-x-96"
-          } transition-all duration-500`}
+          } transition-all duration-500 `}
         >
           <ProductOptions isEdit={isEdit} currentStep={currentStep} />
         </div>
@@ -45,7 +45,7 @@ function StepNavigator({ isEdit, onModalChange, currentStep, setCurrentStep }) {
             currentStep === 3
               ? "visible opacity-100 static translate-x-0"
               : "invisible opacity-0 absolute -top-96 -translate-y-96 -translate-x-96"
-          } transition-all duration-500`}
+          } transition-all duration-500 size-full`}
         >
           <ProductImages {...{ isEdit, uploadState, setUploading }} />
         </div>

@@ -7,7 +7,7 @@ import CommentsList from "./CommentsList";
 import ProductReviewLoader from "UI/Loaders/ProductReviewLoader";
 import { useSelector } from "react-redux";
 
-function ProductReviews() {
+function ProductReviews({ productData }) {
   const [{ commentsList, loading }, setList] = useState({
     commentsList: [],
     loading: false,
@@ -48,7 +48,11 @@ function ProductReviews() {
       <div className="px-4 py-2 lg:px-8 lg:py-4 my-4">
         <h4 className="text-xl lg:text-3xl font-bold my-2">Customer Reviews</h4>
         {/* submit new comment form */}
-        <AddCommentInputs fetchComments={fetchComments} loading={loading} />
+        <AddCommentInputs
+          fetchComments={fetchComments}
+          loading={loading}
+          productData={productData}
+        />
         {/* comments list */}
         {commentsList.length ? (
           !loading ? (

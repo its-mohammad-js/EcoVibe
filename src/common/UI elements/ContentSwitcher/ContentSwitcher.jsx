@@ -36,6 +36,7 @@ function ContentSwitcher({
         />
       ) : (
         <video
+          playsInline
           ref={videoRef}
           onLoadedData={() => loadingCallBack()}
           onPlaying={(e) => {

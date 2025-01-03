@@ -3,8 +3,11 @@ import SellerServices from "./components/SellerServices";
 import OurTeam from "./components/OurTeam";
 import OurPartners from "./components/OurPartners";
 import Faq from "./components/Faq";
+import { useNavigate } from "react-router-dom";
 
 function SellerSolutionsPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl">
       <HeroSection />
@@ -28,7 +31,16 @@ function SellerSolutionsPage() {
               faucibus non interdum nunc.
             </span>
           </p>
-          <button className="px-4 py-2 text-gray-50 w-fit bg-primary-400 rounded-lg text-lg">
+          <button
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
+              navigate("/EcoVibe/sellers/");
+            }}
+            className="px-4 py-2 text-gray-50 w-fit bg-primary-400 rounded-lg text-lg"
+          >
             Start For Free
           </button>
         </div>

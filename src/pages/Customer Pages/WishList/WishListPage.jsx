@@ -4,6 +4,7 @@ import { getFilteredProducts } from "src/reducers/products/productsSlice";
 import WishListLoader from "UI/Loaders/WishListLoader";
 import { useNavigate } from "react-router-dom";
 import ItemsGrid from "./components/ItemsGrid";
+import WishListHeader from "./components/WishListHeader";
 
 function WishListPage() {
   const { wishlist } = useSelector((state) => state.userData); // current user data
@@ -33,7 +34,7 @@ function WishListPage() {
     <div className="mx-auto 2xl:max-w-screen-2xl">
       <div id="wrapper" className="px-2 py-2 md:px-4 flex flex-col gap-y-4">
         {/* header (user profile) */}
-        <WishListLoader />
+        <WishListHeader />
         {/* products container */}
         <ItemsGrid />
       </div>

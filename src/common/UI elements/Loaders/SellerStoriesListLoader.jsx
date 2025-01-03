@@ -2,7 +2,7 @@ import { fakeArray } from "helpers";
 
 function SellerStoriesListLoader() {
   return (
-    <div className="mx-auto overflow-auto hidden-scroll-bar 2xl:max-w-screen-2xl px-4 py-2 flex gap-x-2.5 items-center justify-start">
+    <div className="mx-auto mt-2 overflow-auto hidden-scroll-bar 2xl:max-w-screen-2xl px-4 py-2 flex gap-x-2.5 items-center justify-start">
       {/* story lists */}
       {fakeArray(15).map((n, listIndex) => (
         <div

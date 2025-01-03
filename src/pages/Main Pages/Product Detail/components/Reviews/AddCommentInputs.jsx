@@ -21,9 +21,8 @@ function AddCommentInputs({
   replyList,
   fetchComments,
   loading,
+  productData,
 }) {
-  // product data
-  const { data: productData } = useSelector((state) => state.products);
   // form data
   const {
     register,
@@ -62,16 +61,17 @@ function AddCommentInputs({
       commentId: generateId(userId),
       content: formdata,
       replies: [],
-      sellerId: productData[0].SellerId,
+      sellerId: productData.SellerId,
     };
     // submit comment to produt comments
     try {
       checkUserAuthentication(auth_status);
       setSubmitLoading(true);
       // submit rate product
-      await updateDoc(doc(db, "Products", productData[0]?.id), {
-        Stars: [...(productData[0]?.Stars || []), getValues().stars],
+      await updateDoc(doc(db, "Products", productData?.id), {
+        Stars: [...(productData?.Stars || []), getValues().stars],
       });
+
       // submit comment
       await setDoc(doc(db, "comments", commentData.commentId), commentData);
       fetchComments();

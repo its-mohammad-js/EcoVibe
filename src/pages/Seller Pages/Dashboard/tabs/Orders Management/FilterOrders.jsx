@@ -115,6 +115,7 @@ function FilterOrders({ allOrders, onFilterChange }) {
       </div>
       <div className="flex flex-col xl:w-[45%] xl:flex-row xl:items-center justify-between gap-2">
         <Select
+          isSearchable={false}
           placeholder="All Orders"
           className="lg:[&>div]:py-0.5"
           options={statusOptions}

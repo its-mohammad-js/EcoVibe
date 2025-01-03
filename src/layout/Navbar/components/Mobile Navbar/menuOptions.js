@@ -29,7 +29,7 @@ export const menuOptions = ({ auth_status, userType }) => {
       label: "Messages",
       path: "/EcoVibe/Messages",
       icon: MdChatBubbleOutline,
-      hidden: auth_status === 200,
+      hidden: auth_status !== 200,
     },
     {
       label: "Dashboard",

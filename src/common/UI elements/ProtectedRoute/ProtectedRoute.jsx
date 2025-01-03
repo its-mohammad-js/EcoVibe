@@ -68,7 +68,7 @@ function ProtectedRoute() {
     return (
       <div className="h-screen flex flex-col gap-y-8 items-center justify-center">
         <LoaderIcon />
-        <h4 className="text-2xl xl:text-4xl font-bold text-center animate-pulse">
+        <h4 className="text-2xl xl:text-4xl font-bold animate-pulse text-center">
           Getting ready to display your info...
         </h4>
       </div>

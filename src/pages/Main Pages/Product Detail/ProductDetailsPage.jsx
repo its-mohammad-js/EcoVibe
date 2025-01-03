@@ -30,7 +30,6 @@ function ProductDetailsPage() {
       console.log(error);
     }
   }
-  // console.log(productData);
 
   // read product data on component mount
   useEffect(() => {
@@ -40,7 +39,7 @@ function ProductDetailsPage() {
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl">
       <ProductInfo {...{ product }} />
-      <ProductReviews />
+      <ProductReviews productData={product.productData} />
       <BestSellProductTypes />
       <CategoriesBanner />
     </div>

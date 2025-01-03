@@ -36,7 +36,7 @@ function ProfilePicEdit() {
     return (
       <div className="fixed inset-0 backdrop-blur bg-gray-950/70 gap-y-4 flex flex-col items-center justify-center z-50">
         <LoaderIcon className="size-24" />
-        <h4 className="text-2xl text-gray-50 font-bold animate-pulse">
+        <h4 className="text-2xl text-gray-50 font-bold animate-pulse text-center">
           Update you info, please don't refresh page...
         </h4>
       </div>

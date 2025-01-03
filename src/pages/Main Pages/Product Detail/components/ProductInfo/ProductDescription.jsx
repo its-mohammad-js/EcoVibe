@@ -127,7 +127,7 @@ function ProductDescription({ productData }) {
         ) : (
           <div className="">
             <div className="px-4 py-2 flex items-center gap-2 h-32">
-              <div className="size-24 xl:size-28">
+              <div className="size-24 flex-none xl:size-28">
                 <img
                   src={SellerProfile}
                   alt="seller-avatar"
@@ -137,12 +137,14 @@ function ProductDescription({ productData }) {
               <div className="flex flex-col px-2 gap-y-2.5">
                 <h6
                   onClick={() => navigate(`/EcoVibe/seller/${SellerId}`)}
-                  className="text-2xl line-clamp-1 flex items-center gap-1 font-bold cursor-pointer hover:text-gray-800 transition-all"
+                  className="text-2xl w-10/12 line-clamp-1 flex items-center gap-1 font-bold cursor-pointer hover:text-gray-800 transition-all"
                 >
                   {SellerName}
                   <FaArrowLeft className="text-sm rotate-[130deg]" />
                 </h6>
-                <p className="text-gray-600">{SellerEmail}</p>
+                <p className="text-gray-600 line-clamp-1 w-11/12 break-words">
+                  {SellerEmail}
+                </p>
               </div>
             </div>
           </div>

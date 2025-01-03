@@ -20,7 +20,7 @@ function OrderDetail({ order, onModalClose, updateOrders }) {
 
   if (order)
     return (
-      <div className="w-full h-screen overflow-auto styled-scroll-bar bg-white flex flex-col lg:grid grid-cols-4 grid-rows-4 gap-4 px-2 py-1.5 lg:px-4 lg:py-2">
+      <div className="w-full h-full overflow-auto styled-scroll-bar bg-white flex flex-col lg:grid grid-cols-4 grid-rows-4 gap-4 px-2 py-1.5 lg:px-4 lg:py-2">
         {/* header */}
         <div className="col-span-4 flex flex-col justify-between gap-y-4">
           {/* order id & close modal btn */}
@@ -77,7 +77,7 @@ function OrderDetail({ order, onModalClose, updateOrders }) {
         />
         <hr />
         {/* ordered items */}
-        <OrderedItems {...order.orders[0]} />
+        <OrderedItems orders={order.orders} delivery_status={delivery_status} />
         <hr />
         {/* order payment information's */}
         <PaymentInfo paymentInfo={paymentInfo} sellerInfo={order.orders[0]} />

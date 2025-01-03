@@ -45,7 +45,10 @@ function NewArrivals() {
                 </div>
                 <button
                   onClick={() => {
-                    window.scrollTo(0, 0);
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "instant",
+                    });
                     navigate(`/EcoVibe/Explore-Products/${product.query}`);
                   }}
                   className="bg-primary-50 font-semibold hover:bg-accent-500 hover:text-white transition-all text-base self-end px-4 w-fit py-2 rounded-xl"
@@ -76,7 +79,10 @@ function NewArrivals() {
           </div>
           <button
             onClick={() => {
-              window.scrollTo(0, 0);
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
               navigate(`/EcoVibe/Explore-Products/`);
             }}
             className="self-end px-6 py-3 bg-primary-700 hover:bg-primary-600 hover:-translate-y-2 shadow-2xl shadow-transparent hover:shadow-primary-500 transition-all mt-4 md:mt-0 md:mb-2 text-white rounded-xl"

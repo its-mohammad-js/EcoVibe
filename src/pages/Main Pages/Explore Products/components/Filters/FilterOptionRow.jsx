@@ -61,18 +61,15 @@ const FilterOptionRow = ({
         <p className="text-xl md:text-lg font-semibold">{title}</p>
         {/* subtitle */}
         {selectedFilters[filterKey] && (
-          <p className="text-gray-400 w-36 md:w-fit text-sm line-clamp-1 text-end">
-            {isMobile ? (
-              `Select ${filterKey}`
-            ) : (
-              <span>
-                <BiChevronDown
-                  className={`${
-                    menuOptionOpen && "rotate-180"
-                  } text-3xl transition-all`}
-                />
-              </span>
-            )}
+          <p className="text-gray-400 w-40 md:w-fit text-sm flex items-center justify-end line-clamp-1 text-end">
+            <span>{isMobile && `Select ${filterKey}`}</span>
+            <span>
+              <BiChevronDown
+                className={`${
+                  menuOptionOpen && "rotate-180"
+                } text-3xl transition-all`}
+              />
+            </span>
           </p>
         )}
       </button>

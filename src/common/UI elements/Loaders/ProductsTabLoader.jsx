@@ -10,7 +10,7 @@ function ProductsTabLoader() {
           <div className="flex items-center justify-center bg-white rounded-md border border-gray-300 lg:h-14">
             <input
               type="text"
-              className="outline-none px-2 w-[50%] lg:w-full bg-transparent lg:text-lg "
+              className="outline-none px-2 flex-1 lg:w-full bg-transparent lg:text-lg"
               placeholder="search"
             />
             <button className="px-4 py-3 rounded-r-md bg-gray-400 text-gray-50 lg:py-4 lg:text-2xl">

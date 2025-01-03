@@ -38,10 +38,7 @@ function ProductImages({ Images, loading }) {
           className="xl:rounded-md"
         >
           {Images.map((url, i) => (
-            <div
-              key={i}
-              className="w-full bg-gray-50 h-72 xl:h-96 xl:rounded-md"
-            >
+            <div key={i} className="w-full bg-gray-50 h-96 xl:rounded-md">
               <img
                 src={url}
                 alt="product-image"
@@ -72,7 +69,7 @@ function ProductImages({ Images, loading }) {
       <div className="xl:block w-full h-32 xl:h-44 images-wrapper overflow-x-auto overflow-y-hidden horizontal-scroll-bar px-2 py-0.5">
         <div className="inline-flex items-center justify-center h-full gap-4">
           {Images.map((url, i) => (
-            <div key={i} className="w-24 xl:w-44 h-[95%]">
+            <div key={i} className="w-28 xl:w-44 h-[95%] flex-none">
               <img
                 draggable={false}
                 onClick={() => sliderRef.current.slickGoTo(i)}

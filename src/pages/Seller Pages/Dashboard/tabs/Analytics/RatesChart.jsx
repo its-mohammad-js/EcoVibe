@@ -30,7 +30,7 @@ function RatesChart() {
       product?.Stars?.map((num) => num)
     );
 
-    if (!allRates.length) {
+    if (!allRates.length || !allRates[0]) {
       setChartData([
         ...ranges.map((range) => ({
           name: range.label,
@@ -42,12 +42,12 @@ function RatesChart() {
       // count of each range of rates
       const counts = ranges.map((range) => ({
         name: range.label,
-        value: allRates.filter((num) => num >= range.min && num < range.max)
+        value: allRates.filter((num) => num >= range.min && num <= range.max)
           .length,
       }));
-
       // set to chart data
       setChartData(counts);
+      setError(null);
     }
   }, [products]);
 

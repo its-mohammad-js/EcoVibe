@@ -36,7 +36,7 @@ function AddEditProductForm({
   const [currentStep, setCurrentStep] = useState(1);
   const { setValue, watch, handleSubmit } = formMethods;
   const navigate = useNavigate();
-  useDisableScroll();
+  useDisableScroll(480);
 
   useEffect(() => {
     if (isEdit) {
@@ -47,9 +47,6 @@ function AddEditProductForm({
   }, [isEdit, selectedProduct, setValue]);
 
   function nextStep() {
-    // if (!isValid) {
-    //   return;
-    // }
     const { Name, Type, Category, Price } = watch();
     const Options = watch().Options;
 
@@ -121,7 +118,7 @@ function AddEditProductForm({
       {/* main add/edit product form */}
       <form
         onSubmit={handleSubmit(onSubmitProduct)}
-        className="px-4 bg-gray-50 relative py-2 lg:px-6 lg:py-4 flex flex-col lg:gap-4 w-[95vw] lg:w-[50vw] xl:w-[40vw] h-5/6 lg:h-auto mx-auto lg:border border-gray-200 lg:shadow hover:shadow-2xl transition-all duration-300 rounded-md"
+        className="px-4 size-full bg-gray-50 relative py-2 lg:px-6 lg:py-4 flex flex-col lg:gap-4 lg:w-[50vw] xl:w-[40vw] md:h-5/6 lg:h-auto mx-auto lg:border border-gray-200 lg:shadow hover:shadow-2xl transition-all duration-300 rounded-md"
       >
         {/* step counter */}
         <div className="flex items-center justify-evenly lg:justify-center lg:gap-x-6 my-4">

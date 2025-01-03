@@ -16,7 +16,10 @@ function ProductCard({ productData, onProductLike, isLiked }) {
       <div className="w-full h-3/5 relative">
         <img
           onClick={() => {
-            window.scrollTo(0, 0);
+            window.scrollTo({
+              top: 0,
+              behavior: "instant",
+            });
             navigate(`/EcoVibe/Products/${id}`);
           }}
           draggable={false}
@@ -42,7 +45,10 @@ function ProductCard({ productData, onProductLike, isLiked }) {
       <div className="flex flex-col justify-between px-3 py-1.5 md:px-4 md:py-2 h-2/5 w-full">
         <h2
           onClick={() => {
-            window.scrollTo(0, 0);
+            window.scrollTo({
+              top: 0,
+              behavior: "instant",
+            });
             navigate(`/EcoVibe/Products/${id}`);
           }}
           className="font-bold line-clamp-2 w-fit md:mt-1 hover:text-primary-700 transition-all"

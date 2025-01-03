@@ -24,10 +24,9 @@ export const signUpInputs = {
         message: "Minimum Length Is 8 Characters",
       },
       pattern: {
-        value:
-          /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}\|;:'"\?><.,\/\\`~])[^\s]{8,}$/,
+        value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[^\s]{8,}$/,
         message:
-          "Password needs at least one uppercase letter, lowercase letter, number, and symbol.",
+          "Password needs at least one uppercase letter, lowercase letter, and number",
       },
     },
   },

@@ -87,7 +87,7 @@ function ProductDetails({ selectedItem, onModalClose, setEditShow }) {
               <div
                 key={index}
                 className={`${
-                  currentImage === url && "scale-110 rotate-6"
+                  currentImage === url && "lg:scale-110 rotate-6 -z-10"
                 }  size-20 bg-gray-300 rounded-md transition-all`}
               >
                 <img

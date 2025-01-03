@@ -6,7 +6,6 @@ const ImagePreview = ({
   url,
   fileId,
   onRemove,
-  onRetry,
   isFailed,
   isUploaded,
   loading: { isUploading, targetId },
@@ -24,15 +23,15 @@ const ImagePreview = ({
       />
       <button
         type="button"
+        disabled={isLoading}
         onClick={onRemove}
-        className="absolute z-10 top-1 right-1 text-xl bg-white text-red-500 p-1 rounded-full"
+        className="absolute disabled:hidden z-10 top-1 right-1 text-xl bg-white text-red-500 p-1 rounded-full"
       >
         <TbTrash />
       </button>
       {isFailed && (
         <button
           type="button"
-          onClick={onRetry}
           className="absolute bottom-1 right-1 bg-white text-gray-500 p-1 rounded-full"
         >
           <IoReload />

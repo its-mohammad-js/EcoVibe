@@ -118,7 +118,10 @@ function HomePage() {
             </div>
             <button
               onClick={() => {
-                window.scrollTo(0, 0);
+                window.scrollTo({
+                  top: 0,
+                  behavior: "instant",
+                });
                 navigate(`/EcoVibe/Explore-Products/`);
               }}
               className="w-fit text-xl hover:bg-primary-50 hover:text-primary-950 transition-all px-6 py-3 bg-primary-950 rounded-xl text-white self-end"

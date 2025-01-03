@@ -15,8 +15,11 @@ function SlideFrame() {
   const { remainingTime, pause, handlePause, setRemainingTime, setType } =
     useTimer(5000, () => changeStoryHandler("next")); // timer data & functionlaties
   const [contextMenuShow, setContextMenu] = useState(false); //context menu state
-  const { onDeleteSlide, loading, onRemoveHighlight } =
-    useRemoveStory(handlePause);
+  const { onDeleteSlide, loading, onRemoveHighlight } = useRemoveStory(() => {
+    handlePause();
+    // close slide only in seller profile page
+    location.pathname.includes("seller") && changeStoryHandler("close");
+  });
   const navigate = useNavigate();
 
   return (

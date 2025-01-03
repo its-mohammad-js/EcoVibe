@@ -90,7 +90,10 @@ const Card = ({ bgUrl, title, subTitle, offer, query }) => {
 
         <button
           onClick={() => {
-            window.scrollTo(0, 0);
+            window.scrollTo({
+              top: 0,
+              behavior: "instant",
+            });
             navigate(`/EcoVibe/Explore-Products/${query}`);
           }}
           className="flex items-center my-4 md:my-6 gap-x-2 text-xl text-accent-800 hover:bg-accent-50/60 transition-all duration-500 bg-white px-4 py-2 md:px-6 md:py-3 rounded-xl"

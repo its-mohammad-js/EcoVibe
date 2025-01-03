@@ -158,7 +158,7 @@ export const supportedTags = [
   { title: "Popular" },
   { title: "Special" },
   { title: "Trend" },
-  { title: "2024" },
+  { title: "2025" },
   { title: "New Release" },
   { title: "Best Sell" },
   { title: "Coming Soon" },

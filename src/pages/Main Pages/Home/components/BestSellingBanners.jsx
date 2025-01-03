@@ -14,7 +14,10 @@ function BestSellingBanners() {
 
         <button
           onClick={() => {
-            window.scrollTo(0, 0);
+            window.scrollTo({
+              top: 0,
+              behavior: "instant",
+            });
             navigate(`/EcoVibe/Explore-Products/tags=special`);
           }}
           className="flex items-center gap-x-1 md:gap-x-1.5 md:text-lg text-sm text-gray-500 hover:text-accent-300 transition-all cursor-pointer"
@@ -51,7 +54,10 @@ function BestSellingBanners() {
                 </span>
                 <button
                   onClick={() => {
-                    window.scrollTo(0, 0);
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "instant",
+                    });
                     navigate(`/EcoVibe/Explore-Products/${banner.query}`);
                   }}
                   className="bg-white text-gray-950 hover:bg-gray-950 hover:text-white transition-all md:text-lg font-semibold rounded-xl text-sm my-3 px-4 py-2 w-fit md:self-end md:px-5 md:py-2.5"

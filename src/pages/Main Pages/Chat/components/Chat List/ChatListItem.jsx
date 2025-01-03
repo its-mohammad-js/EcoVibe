@@ -128,10 +128,10 @@ const ChatListItem = ({ room, mode, deleteRoom }) => {
         {/* user info */}
         <div className="flex flex-col mt-2.5 justify-center h-full w-2/3 select-none">
           {/* user name */}
-          <h6 className="line-clamp-2 font-bold text-lg text-gray-800">
+          <h6 className="line-clamp-2 font-bold md:text-lg break-words text-gray-800">
             {userType === "customer"
               ? first_name + " " + last_name
-              : business_name}
+              : business_name || first_name || "uknown user name!"}
           </h6>
           {/* last message */}
           <p className="line-clamp-1 text-gray-700 break-words max-w-56">

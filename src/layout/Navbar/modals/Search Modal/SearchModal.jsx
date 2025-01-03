@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supportedCategories } from "appData";
 import { BiSearch } from "react-icons/bi";
 import { FaChevronRight } from "react-icons/fa";
@@ -24,6 +24,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
   useTouchScroll(".collction-wrapper");
   useTouchScroll(".categories-wrapper");
   useTouchScroll(".sellers-wrapper");
+  const inputRef = useRef();
 
   function onModalNavigate(path) {
     navigate(path);
@@ -44,14 +45,16 @@ function SearchModal({ modalIsShow, onCloseModal }) {
       {/* search container */}
       <div
         style={{
-          height: appHeight,
+          height:
+            // resize only when search input isn't focused
+            document.activeElement !== inputRef.current ? appHeight : "100vh",
         }}
         id="container"
         className={`${
           modalIsShow
             ? "visible opacity-100 translate-y-0"
             : "invisible opacity-0 translate-y-96"
-        } absolute top-0 w-full z-[60] lg:h-[90vh] transition-all duration-300 lg:!translate-y-0`}
+        } absolute top-0 w-full z-[60]  lg:h-[90vh] transition-all duration-300 lg:!translate-y-0`}
       >
         {/* modal wrapper */}
         <div className="size-full bg-gray-50 rounded-md pt-2 px-2 lg:py-1 shadow-2xl">
@@ -64,6 +67,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
               <CgClose />
             </button>
             <input
+              ref={inputRef}
               type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent lg:bg-gray-100 px-4 w-full rounded-l-md py-2.5 lg:border border-gray-300 h-full focus:outline-none xl:w-full"
@@ -102,7 +106,7 @@ function SearchModal({ modalIsShow, onCloseModal }) {
             </div>
           </div>
           {/* search results */}
-          <div className="h-[65%] lg:h-[68%]">
+          <div className="h-[66%] lg:h-[68%]">
             {/* seller account list */}
             <SellersList
               searchQuery={searchQuery}

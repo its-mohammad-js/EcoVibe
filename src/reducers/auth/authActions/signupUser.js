@@ -46,7 +46,20 @@ export const signUpUser = createAsyncThunk(
     } catch (error) {
       // dispatch failure
       console.log(error);
-      return rejectWithValue(error?.message);
+      let finalError = () => {
+        if (error?.message?.includes("auth/invalid-credential")) {
+          return "Email or password wrong";
+        }
+        if (error?.message?.includes("auth/network-request-failed")) {
+          return "Network error please try again later";
+        }
+        if (error?.message?.includes("auth/email-already-in-use")) {
+          return "Email is already in use please sign-in instead.";
+        }
+        return "Unknown error";
+      };
+      toast.error(finalError());
+      return rejectWithValue(finalError());
     }
   }
 );
@@ -66,7 +79,6 @@ export const signupReducer = (builder) => {
     state.error = "";
   });
   builder.addCase(signUpUser.rejected, (state, action) => {
-    toast.error(action.payload);
     state.loading = false;
     state.error = action.payload;
   });

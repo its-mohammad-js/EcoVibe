@@ -104,7 +104,7 @@ const MessageList = () => {
 
       selectedMessageEl.scrollIntoView({
         behavior: "smooth",
-        block: "center",
+        block: "end",
       });
     }
   }, [selectedMessage]);
@@ -115,13 +115,16 @@ const MessageList = () => {
     if (selectedMessage) return;
     // ref to last message
     const messageList = selectedRoom.messageList;
-    const lastMessageRef = document.getElementById(
-      `${messageList[messageList?.length - 1]?.uiid}`
-    );
-    // scroll to last message
-    lastMessageRef.scrollIntoView({
-      block: "start",
-    });
+
+    if (messageList?.length) {
+      const lastMessageRef = document.getElementById(
+        `${messageList[messageList?.length - 1]?.uiid}`
+      );
+      // scroll to last message
+      lastMessageRef.scrollIntoView({
+        block: "end",
+      });
+    }
   }, [selectedRoom.messageList]);
 
   if (!selectedRoom?.messageList?.length)

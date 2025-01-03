@@ -44,7 +44,7 @@ function ShopHeroSection() {
         {heroSectionsInfo.map((banner, index) => {
           return (
             <div
-              className="w-full h-48 rounded-md md:h-[34rem] relative focus:outline-none"
+              className="w-full h-48 rounded-md md:h-[34rem] overflow-hidden relative focus:outline-none"
               key={index}
             >
               {/* slide background image */}

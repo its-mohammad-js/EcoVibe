@@ -7,7 +7,7 @@ import {
 import { HiDotsVertical } from "react-icons/hi";
 import useOutSideClick from "../../../../../../../common/hooks/UseOutsideClick";
 import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useRoomsData } from "../../../RoomsContext";
 
 function ContextMenu(props) {
   const {
@@ -21,9 +21,7 @@ function ContextMenu(props) {
   useOutSideClick(contextMenuRef, () =>
     setContextMenu(() => setContextMenu(false))
   );
-  const { selectedRoom, setSelectedRoom } = useSelector(
-    (state) => state.userData
-  );
+  const { setSelectedRoom } = useRoomsData();
 
   return (
     <div
@@ -54,8 +52,8 @@ function ContextMenu(props) {
           </button>
           <button
             onClick={() => {
+              setUserDetails(true);
               setContextMenu(false);
-              setUserDetails(selectedRoom);
             }}
             className="px-4 py-4 text-lg hover:bg-gray-200 transition-all flex items-center gap-x-3"
           >
@@ -63,8 +61,8 @@ function ContextMenu(props) {
           </button>
           <button
             onClick={() => {
-              setContextMenu(false);
               setSelectedRoom(null);
+              setContextMenu(false);
             }}
             className="px-4 py-4 text-lg hover:bg-gray-200 transition-all flex items-center gap-x-3"
           >

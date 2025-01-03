@@ -130,6 +130,7 @@ function ProductOptions({ isEdit }) {
                     value={getPrevOptions(title)}
                     options={getOptionValues(options, title)}
                     placeholder={`Choose ${title}`}
+                    isSearchable={false}
                   />
                 </div>
               );

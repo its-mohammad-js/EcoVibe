@@ -1,3 +1,5 @@
+import { closest } from "color-2-name";
+
 function OrderedItems({ delivery_status, orders }) {
   return (
     <div
@@ -7,7 +9,7 @@ function OrderedItems({ delivery_status, orders }) {
     >
       <h4 className="text-xl font-medium my-1">Orders Items</h4>
       <div className="flex flex-col gap-y-2 max-h-64 overflow-auto styled-scroll-bar">
-        {orders.map((item, index) => (
+        {orders?.map((item, index) => (
           <div
             key={index}
             className="flex items-center gap-1 w-full h-32 bg-gray-100 border border-gray-300 rounded-md"
@@ -36,11 +38,13 @@ function OrderedItems({ delivery_status, orders }) {
                         key={index}
                         className="flex items-center line-clamp-1"
                       >
-                        <p className="text-sm font-medium line-clamp-1 max-w-[60%]">
+                        <p className="text-sm font-medium line-clamp-1 max-w-[80%]">
                           {title}: &nbsp;
                         </p>
                         <span className="text-xs text-gray-800 flex-1">
-                          {option}
+                          {title.toLowerCase() === "color"
+                            ? closest(option)?.name
+                            : option}
                         </span>
                       </div>
                     )

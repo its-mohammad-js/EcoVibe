@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { AiOutlineMore, AiOutlinePlus } from "react-icons/ai";
 import { BsTrash3 } from "react-icons/bs";
 import { FaPlay } from "react-icons/fa";
@@ -8,7 +8,6 @@ import { CiFileOn } from "react-icons/ci";
 import { useSlide } from "../StoryListModal";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { getDatabase, ref, update } from "firebase/database";
 
 function ContextMenu({
   onRemoveHighlight,
@@ -24,7 +23,6 @@ function ContextMenu({
   // handle outside click event on context menu open
   useOutSideClick(contextMenuRef, onOutsideClick, !contextMenuShow);
   const { userId } = useSelector((state) => state.userData); // current user data
-  // const [loading, setLoading] = useState(false);
 
   // on outside of context menu click event
   function onOutsideClick() {

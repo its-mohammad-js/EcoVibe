@@ -83,7 +83,7 @@ function ContactsList({ onCloseModal }) {
     }
 
     getContacts();
-  }, [searchType]);
+  }, [searchType, userId]);
 
   // search contacts by search query
   function filteredContacts(query) {

@@ -53,7 +53,7 @@ function HighLights() {
   return (
     <>
       {/* highlights list */}
-      <div className="flex items-center select-none highlights-wrapper gap-x-4 overflow-auto px-2 py-2 scroll-smooth hidden-scroll-bar">
+      <div className="flex px-4 items-center select-none highlights-wrapper gap-x-4 overflow-auto lg:px-2 py-2 scroll-smooth hidden-scroll-bar">
         <>
           {highlightsList.map((highlight, i) => (
             <div

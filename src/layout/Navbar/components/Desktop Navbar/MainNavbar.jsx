@@ -3,12 +3,14 @@ import { useRef, useState } from "react";
 import { BsShopWindow } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import SearchModal from "../../modals/Search Modal/SearchModal";
-import { BiCart, BiSearch } from "react-icons/bi";
+import { BiCart, BiMessageSquare, BiSearch } from "react-icons/bi";
 import useOutSideClick from "hooks/UseOutsideClick";
 import QuickAccessMenu from "../../modals/Quick Access Menu/MainMenu";
-import { FaHeart, FaUser } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
+import { FaHeart, FaRegHeart, FaRegUser, FaUser } from "react-icons/fa";
+import { FaMessage, FaRegMessage } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { getUserIdCookie } from "../../../../reducers/auth/authHelpers";
+import { LuShoppingCart } from "react-icons/lu";
 
 function MainNavbar() {
   const navigate = useNavigate();
@@ -24,6 +26,7 @@ function MainNavbar() {
   const { personalInformation, cartData, auth_status } = useSelector(
     (state) => state.userData
   );
+  const isGuestUser = getUserIdCookie(true);
 
   return (
     <div className="w-full flex items-center justify-between px-8 py-4 border-b border-gray-200">
@@ -123,7 +126,9 @@ function MainNavbar() {
         <button
           onClick={() =>
             navigate(
-              auth_status === 200 ? "/EcoVibe/profile" : "/EcoVibe/Sign-in/"
+              auth_status === 200 || !isGuestUser
+                ? "/EcoVibe/profile"
+                : "/EcoVibe/Sign-in/"
             )
           }
           className="w-12 h-12 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
@@ -136,7 +141,7 @@ function MainNavbar() {
             />
           ) : (
             <div className="p-3 flex items-center justify-center">
-              <FaUser className="text-2xl" />
+              <FaRegUser className="text-2xl" />
             </div>
           )}
         </button>
@@ -145,14 +150,14 @@ function MainNavbar() {
           onClick={() => navigate("/EcoVibe/Messages")}
           className="p-3 relative hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
         >
-          <FaMessage />
+          <FaRegMessage />
         </button>
         {/* wish list btn */}
         <button
           onClick={() => navigate("/EcoVibe/bag/wish-list")}
           className="p-3 hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
         >
-          <FaHeart />
+          <FaRegHeart />
         </button>
         {/* access menu btn & access menu */}
         <div ref={quickMenuRef}>
@@ -160,7 +165,7 @@ function MainNavbar() {
             onClick={() => setAccessMenu((prev) => !prev)}
             className="p-3 relative hover:bg-gray-300 transition-all rounded-full bg-gray-200 text-gray-800 text-2xl"
           >
-            <BiCart />
+            <LuShoppingCart />
 
             {/* cart items count */}
             <p

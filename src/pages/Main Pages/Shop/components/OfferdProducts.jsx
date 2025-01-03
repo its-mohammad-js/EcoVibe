@@ -19,8 +19,8 @@ function OfferdProducts() {
         <ProductsContainer
           isLoading={loading}
           products={data}
-          title="2024 Products"
-          filterObject={{ tags: "2024" }}
+          title="2025 Products"
+          filterObject={{ tags: "2025" }}
         />
       </div>
       {/* offer banner */}

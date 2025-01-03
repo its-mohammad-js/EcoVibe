@@ -20,7 +20,7 @@ function UserSummary({ setUserDetails, lastStatus }) {
       {/* user summary info */}
       <div
         onClick={() => setUserDetails(true)}
-        className="cursor-pointer hover:opacity-80 hover:scale-[103%] transition-all"
+        className="cursor-pointer flex-none hover:opacity-80 hover:scale-[103%] transition-all"
       >
         {profilePic ? (
           <img
@@ -37,11 +37,11 @@ function UserSummary({ setUserDetails, lastStatus }) {
       {/* user info & status */}
       <div
         onClick={() => setUserDetails(true)}
-        className="flex flex-col ml-4 cursor-pointer"
+        className="flex flex-col w-7/12 ml-4 cursor-pointer"
       >
         <h4 className={userType === "customer" ? "" : "flex flex-col gap-y-1"}>
-          <p className="text-lg font-bold">
-            {userType === "customer" ? first_name : business_name}
+          <p className="text-lg font-bold line-clamp-1 break-words">
+            {userType === "customer" ? first_name : business_name || first_name}
           </p>
           <p className="-mt-1 text-sm line-clamp-1 break-words lg:text-base">
             {lastStatus.current}
