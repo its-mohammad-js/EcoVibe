@@ -55,7 +55,7 @@ function FeedbackActions({ story, handlePause, changeStoryHandler }) {
             handlePause(true);
             setShowComments(true);
           }}
-          className="text-gray-400 text-3xl"
+          className="text-gray-400 text-3xl disabled:hidden"
         >
           <MdOutlineModeComment />
           <p className="text-lg">{story?.comments?.length || 0}</p>

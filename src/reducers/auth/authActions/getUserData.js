@@ -1,7 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "src/config/firebase";
-import { getUserIdCookie, setUseridCookie } from "../authHelpers";
+import {
+  getUserIdCookie,
+  setUseridCookie,
+  updateUserLastActivity,
+} from "../authHelpers";
 
 // read user infomation from data base
 export const getUserData = createAsyncThunk(
@@ -16,6 +20,7 @@ export const getUserData = createAsyncThunk(
         const userCellRef = doc(db, "users", localUserData);
         // read user data from data base
         const userData = await getDoc(userCellRef).then((res) => res.data());
+        updateUserLastActivity(localUserData);
         // update app data with new data
         return fulfillWithValue({ ...userData, lastActivity: null });
       } catch (error) {

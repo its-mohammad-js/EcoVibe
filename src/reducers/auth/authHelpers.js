@@ -3,7 +3,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { auth, gitHubProvider, googleProvider, db } from "src/config/firebase";
 import { generateId } from "helpers";
 
@@ -60,9 +60,8 @@ export const methodSwitcher = async (payload) => {
 export async function createUserDataCell(userId, guestUserData, userType) {
   // create user data cell on data base
   try {
-    // sernd request
+    // send request
     await setDoc(doc(db, "users", userId), {
-      // if user data is stored in firestore, it means first step (sign up) is passed
       customer_step: "second-step",
       seller_step: "second-step",
       userId: userId,
@@ -76,8 +75,9 @@ export async function createUserDataCell(userId, guestUserData, userType) {
   }
 }
 
+// store user id in cookies
 export function setUseridCookie(userId) {
-  const geustUserId = getUserIdCookie() || generateId("guest-user-");
+  const geustUserId = getUserIdCookie(true) || generateId("guest-user-");
 
   const date = new Date();
   date.setTime(date.getTime() + 20 * 24 * 60 * 60 * 1000);
@@ -93,4 +93,12 @@ export function getUserIdCookie(isGuest) {
   );
 
   return match ? match[2] : null;
+}
+
+// update user last activity
+export async function updateUserLastActivity(userId) {
+  const userRef = doc(db, "users", userId);
+  await updateDoc(userRef, {
+    lastActivity: serverTimestamp(),
+  });
 }
