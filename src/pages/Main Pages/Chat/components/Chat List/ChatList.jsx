@@ -5,26 +5,27 @@ import ChatColumn from "./ChatListItem";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { useSelector } from "react-redux";
 import { fakeArray } from "../../../../../common/utils/constants/helpers";
+import { useResizeListener } from "../../../../../common/hooks/useResizeListener";
 
 function ChatList({ openSideNav, deleteRoom }) {
   const [searchQuery, setQuery] = useState(""); // search query state
-  // const { rooms, setSelectedRoom, selectedRoom, status } = useRoomsData(); // chat room data
+  const { rooms, setSelectedRoom, selectedRoom, status } = useRoomsData(); // chat room data
   const { loading } = useSelector((state) => state.userData);
   useHorizontalTouchScroll(".contacts-container"); // horizontal touch for contacts list
+  const { appHeight } = useResizeListener();
 
   // search messages
   function searchMessages(query) {
     // lower case search query
     const queryLower = query.toLowerCase();
     // return messages match with search query
-    // return rooms.flatMap(({ messageList, roomId, receiver }) =>
-    //   messageList
-    //     ?.filter((message) =>
-    //       message?.content?.toLowerCase().includes(queryLower)
-    //     )
-    //     .map((message) => ({ messageList: [message], roomId, receiver }))
-    // );
-    return fakeArray(20);
+    return rooms.flatMap(({ messageList, roomId, receiver }) =>
+      messageList
+        ?.filter((message) =>
+          message?.content?.toLowerCase().includes(queryLower)
+        )
+        .map((message) => ({ messageList: [message], roomId, receiver }))
+    );
   }
 
   // search contacts
@@ -33,22 +34,19 @@ function ChatList({ openSideNav, deleteRoom }) {
     const queryLower = query.toLowerCase();
 
     // Check if any of the receiver's names match the query
-    // return rooms.filter(({ receiver }) =>
-    //   [receiver?.business_name, receiver?.first_name, receiver?.last_name].some(
-    //     (name) => name?.toLowerCase().includes(queryLower)
-    //   )
-    // );
-    return fakeArray(20);
+    return rooms.filter(({ receiver }) =>
+      [receiver?.business_name, receiver?.first_name, receiver?.last_name].some(
+        (name) => name?.toLowerCase().includes(queryLower)
+      )
+    );
   }
 
   return (
     <div
-      className={`${
-        ""
-        // selectedRoom && "hidden"
-      } ${
-        searchQuery.length && "lg:w-1/6"
-      } lg:!flex lg:w-1/4 w-full h-screen bg-gray-50 flex flex-col`}
+      style={{ height: appHeight }}
+      className={`${selectedRoom && "hidden"} ${
+        searchQuery.length && ""
+      } lg:!flex lg:col-span-3 w-full bg-gray-50 flex flex-col`}
     >
       {/* header  */}
       <div className="">
@@ -83,7 +81,7 @@ function ChatList({ openSideNav, deleteRoom }) {
           !searchContacts(searchQuery).length || !searchQuery?.length
             ? "hidden"
             : "basis-[19%] min-h-32"
-        } overflow-x-auto overflow-y-hidden mx-auto flex px-4 gap-3 py-1 hidden-scroll-bar max-w-full contacts-container`}
+        } overflow-x-auto overflow-y-hidden mx-auto flex justify-start w-full px-4 gap-3 py-1 hidden-scroll-bar contacts-container`}
       >
         {searchQuery && (
           <div className="flex items-center gap-x-4 select-none flex-none">
@@ -93,7 +91,7 @@ function ChatList({ openSideNav, deleteRoom }) {
                 className="w-24 gap-y-1 flex flex-col items-center justify-center"
               >
                 <div
-                  // onClick={() => setSelectedRoom(room)}
+                  onClick={() => setSelectedRoom(room)}
                   className="cursor-pointer"
                 >
                   {room.receiver?.profilePic ? (
@@ -108,13 +106,12 @@ function ChatList({ openSideNav, deleteRoom }) {
                   )}
                 </div>
                 <p
-                  // onClick={() => setSelectedRoom(room)}
+                  onClick={() => setSelectedRoom(room)}
                   className="line-clamp-2 break-words w-10/12 text-sm text-center cursor-pointer"
                 >
-                  test {index}
-                  {/* {room.receiver.userType === "customer"
+                  {room.receiver.userType === "customer"
                     ? room.receiver.first_name + " " + room.receiver.last_name
-                    : room.receiver.business_name} */}
+                    : room.receiver.business_name}
                 </p>
               </div>
             ))}
@@ -136,18 +133,10 @@ function ChatList({ openSideNav, deleteRoom }) {
         >
           Found {searchMessages(searchQuery).length} Messages
         </h2>
-        {fakeArray(40).map((a) => (
-          <div
-            key={a}
-            className="w-full h-24 border-4 border-red-400 relative select-none rounded-md flex items-center hover:bg-gray-300/30 transition-all cursor-pointer gap-x-2 px-4 py-2"
-          >
-            dic {a}
-          </div>
-        ))}
 
         {/* list of rooms and messages */}
-        {/* {loading || status ? (
-          <h4 className="px-2 py-1 w-full flex justify-center">
+        {loading || status ? (
+          <h4 className="px-2 py-1 absolute top-1/2 w-full flex justify-center">
             <p className="px-4 py-1 text-lg font-bold bg-gray-200/80 rounded-xl">
               loading...
             </p>
@@ -165,7 +154,7 @@ function ChatList({ openSideNav, deleteRoom }) {
               deleteRoom={deleteRoom}
             />
           ))
-        )} */}
+        )}
       </div>
     </div>
   );

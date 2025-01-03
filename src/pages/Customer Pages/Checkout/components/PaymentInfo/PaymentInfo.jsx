@@ -121,9 +121,7 @@ function PaymentInfo({ shippingMethod, totalPrice, setLoading }) {
       {/* payment info form */}
       <form
         onSubmit={handleSubmit((formData) => {
-          if (step == 1 && isMobile) {
-            window.scroll(0, 450);
-          } else addNewOrder(formData);
+          addNewOrder(formData);
         })}
       >
         {/* main Inputs */}
@@ -133,7 +131,11 @@ function PaymentInfo({ shippingMethod, totalPrice, setLoading }) {
         <CartsSlider {...{ selectedCard, setCardModal, setCard }} />
         {/* action buttons */}
         <div className="fixed lg:static bottom-0 left-0 p-3 bg-gray-100 w-full rounded-t-lg z-10 border-t-2 border-gray-300 lg:p-0 lg:border-0 lg:mt-8">
-          <button className="px-4 py-2 w-full bg-primary-600 rounded-lg text-gray-50 text-lg">
+          <button
+            onClick={() => step === 1 && window.scroll(0, 475)}
+            type={step === 1 && isMobile ? "button" : "submit"}
+            className="px-4 py-2 w-full bg-primary-600 rounded-lg text-gray-50 text-lg"
+          >
             {step === 1 && isMobile ? "Continue to payment" : "Complete order"}
           </button>
         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import LoaderIcon from "../../Loaders/LoaderIcon";
 import { useSlide } from "../StoryListModal";
 import { getDatabase, ref, update } from "firebase/database";

@@ -1,24 +1,5 @@
 import { useEffect, useState } from "react";
 
-// set room height on resizes
-// note: This effect is used because of the unexpected screen resize behavior, particularly when focusing on the message input and the keyboard is displayed on Android devices.
-export function useResizeListener() {
-  const [roomHeight, setHeight] = useState(null);
-
-  useEffect(() => {
-    const getHeight = () => setHeight(window.visualViewport.height);
-
-    window.addEventListener("resize", getHeight);
-    getHeight();
-
-    return () => {
-      window.removeEventListener("resize", getHeight);
-    };
-  }, []);
-
-  return roomHeight;
-}
-
 // This effect handles the touch interactions for the draggable element.
 export function useTouchHandlers(selectedRoom, setSelectedRoom, setEl, navRef) {
   useEffect(() => {

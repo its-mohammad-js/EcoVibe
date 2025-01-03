@@ -40,7 +40,16 @@ function TiltProduct() {
             Envisioned! 🌟🛒
           </p>
 
-          <button className="self-end px-6 py-3 bg-primary-700 hover:bg-primary-600 hover:-translate-y-2 shadow-2xl shadow-transparent hover:shadow-primary-500 transition-all mt-4 md:mt-0 md:mb-2 text-white rounded-xl">
+          <button
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: "instant",
+              });
+              navigate(`/EcoVibe/Products/${filteredProducts[randomIndex].id}`);
+            }}
+            className="self-end px-6 py-3 bg-primary-700 hover:bg-primary-600 hover:-translate-y-2 shadow-2xl shadow-transparent hover:shadow-primary-500 transition-all mt-4 md:mt-0 md:mb-2 text-white rounded-xl"
+          >
             Shop Now !
           </button>
         </div>

@@ -72,7 +72,7 @@ function FeedbackActions({ story, handlePause, changeStoryHandler }) {
         </button>
       </div>
       {/* comments list & add comment input */}
-      <CommentsList {...{ story, showComments }} />
+      <CommentsList {...{ story, showComments, setShowComments }} />
     </div>
   );
 }

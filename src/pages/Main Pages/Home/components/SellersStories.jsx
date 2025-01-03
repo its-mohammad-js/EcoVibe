@@ -18,7 +18,7 @@ function SellersStories() {
   useHorizontalTouchScroll(null, storiesList, containerRef);
   const [showAddStory, setModal] = useState(false);
 
-  if (loading) return <SellerStoriesListLoader />;
+  if (loading || !storiesList.length) return <SellerStoriesListLoader />;
 
   if (!loading && storiesList.length)
     return (

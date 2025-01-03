@@ -53,11 +53,17 @@ function HomePage() {
         title="Trend Products"
       />
       {/* simple mobile banner (only visible on mobile screens) */}
-      <aside className="sm:hidden h-24 mx-auto w-11/12 shadow-md shadow-black/15 bg-gray-50 flex items-center justify-start gap-x-3 px-4 py-2 rounded-lg">
+      <aside
+        onClick={() => {
+          window.scrollTo(0, 0);
+          navigate(`/EcoVibe/Explore-Products/`);
+        }}
+        className="sm:hidden select-none h-24 mx-auto w-11/12 shadow-md shadow-black/15 bg-gray-50 flex items-center justify-start gap-x-3 px-4 py-2 rounded-lg"
+      >
         <img src={bannerIcon} alt="banner icon" />
 
         <div className="">
-          <p className="text-base font-bold">
+          <p className="text-base font-bold hover:text-opacity-80">
             Special Offers
             <span className="p-1 mx-2 border border-gray-300 rounded-full">
               😱

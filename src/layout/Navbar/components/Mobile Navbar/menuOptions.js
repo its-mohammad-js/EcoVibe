@@ -1,3 +1,4 @@
+import { MdChatBubbleOutline } from "react-icons/md";
 import {
   TbCards,
   TbCategory,
@@ -24,6 +25,12 @@ export const menuOptions = ({ auth_status, userType }) => {
     { label: "My Orders", path: "/EcoVibe/bag/orders", icon: TbClock },
     { label: "Cart", path: "/EcoVibe/bag/cart", icon: TbShoppingBag },
     { label: "Wish List", path: "/EcoVibe/bag/wish-list", icon: TbHeart },
+    {
+      label: "Messages",
+      path: "/EcoVibe/Messages",
+      icon: MdChatBubbleOutline,
+      hidden: auth_status === 200,
+    },
     {
       label: "Dashboard",
       path: "/EcoVibe/dashboard",

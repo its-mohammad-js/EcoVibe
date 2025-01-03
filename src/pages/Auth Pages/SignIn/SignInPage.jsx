@@ -13,6 +13,11 @@ import LoaderIcon from "../../../common/UI elements/Loaders/LoaderIcon";
 const bannerUrl =
   "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Flogin-form-banner-66386d0ae74ba.webp?alt=media&token=a11080f5-ffd1-4e5f-b412-2735684bb9a1";
 
+const defaultValues = {
+  email: "",
+  password: "",
+};
+
 function SignInPage() {
   const { loading, auth_status } = useSelector((state) => state.userData); // current user data
   // form data
@@ -20,7 +25,10 @@ function SignInPage() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+    setValue,
+  } = useForm({
+    defaultValues,
+  });
   // necessary data & hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,7 +62,7 @@ function SignInPage() {
       {/* screen background */}
       <div className="absolute -z-10 left-0 hidden md:block w-1/3 max-w-[30rem] h-full bg-primary-500/85"></div>
       {/* form conntainer */}
-      <div className="w-11/12 md:w-2/3 md:max-w-[60rem] md:h-[40rem] md:shadow-xl shadow-gray-900 md:rounded-md bg-gray-50 z-10 md:relative md:flex items-center justify-between md:hover:scale-[1.02] transition-all duration-500">
+      <div className="w-11/12 md:w-2/3 md:max-w-[60rem] md:h-[40rem] md:shadow-xl shadow-gray-900 md:rounded-md bg-gray-50 z-10 md:relative md:flex items-center justify-between md:hover:scale-[1.01] transition-all duration-500">
         {/* simple banner */}
         <div className="md:h-full md:w-1/2 bg-primary-100 rounded-l-md absolute md:static inset-0 w-full -mb-8 md:mb-0 top-0 -z-10">
           <img
@@ -90,6 +98,7 @@ function SignInPage() {
                   error={errors[input.name]?.message}
                   type={input?.type}
                   style={"h-fit [&>input]:py-3.5"}
+                  onChange={(e) => setValue(input.name, e.target.value)}
                 />
               ))}
               {/* action button */}

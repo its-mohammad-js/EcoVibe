@@ -48,7 +48,7 @@ const ProductsList = ({ searchQuery, getProducts, onModalNavigate }) => {
         {filterProducts(products, { searchQuery }).map((item, index) => (
           <div
             key={index}
-            className="w-full h-32 bg-gray-200 rounded-md px-3 py-1.5 flex items-center gap-x-2"
+            className="w-full select-none h-32 bg-gray-200 rounded-md px-3 py-1.5 flex items-center gap-x-2"
           >
             {/* product thumbnail */}
             <img

@@ -5,6 +5,7 @@ import { generateId } from "helpers";
 import { updateUserData } from "authActions/updateUserData";
 import TextInput from "UI/Forms/TextInput";
 import { TbX } from "react-icons/tb";
+import toast from "react-hot-toast";
 
 // input conditions
 const inputOptions = [
@@ -135,7 +136,9 @@ function AddCreditCardForm({ onModalClose }) {
               placeholder={"NNNN-NNNN-NNNN-NNNN"}
               style={`col-span-4`}
               error={errors["code_number"]?.message}
-              onChange={(e) => sliceCode(e, 4, "-", 20)}
+              onChange={(e) => {
+                sliceCode(e, 4, "-", 20);
+              }}
             />
 
             {inputOptions.map(

@@ -6,7 +6,7 @@ const RoomsProvider = createContext();
 
 function RoomsContext({ children }) {
   const [selectedRoom, setSelectedRoom] = useState(null); // selected room state
-  // const { status, rooms } = useChatRooms(selectedRoom); // all rooms data
+  const { status, rooms } = useChatRooms(selectedRoom); // all rooms data
   const [selectedMessage, setSelectedMessage] = useState(null); // selected message state
   const [messageMode, setMode] = useState(null); // selected message mode state (edit || reply)
   // necessary data & hooks
@@ -22,34 +22,34 @@ function RoomsContext({ children }) {
   }, [selectedRoom]);
 
   // update selected room
-  // useEffect(() => {
-  //   if (queryRoomId) {
-  //     // find selected room from query state
-  //     const findedRoom = rooms.find(
-  //       (chatRoom) => chatRoom.roomId === queryRoomId
-  //     );
-  //     // set selected room
-  //     setSelectedRoom(findedRoom);
-  //   } else if (selectedRoom) {
-  //     setSelectedRoom(
-  //       rooms.find((room) => room.roomId === selectedRoom.roomId)
-  //     );
-  //   }
-  // }, [queryRoomId, rooms]);
+  useEffect(() => {
+    if (queryRoomId) {
+      // find selected room from query state
+      const findedRoom = rooms.find(
+        (chatRoom) => chatRoom.roomId === queryRoomId
+      );
+      // set selected room
+      setSelectedRoom(findedRoom);
+    } else if (selectedRoom) {
+      setSelectedRoom(
+        rooms.find((room) => room.roomId === selectedRoom.roomId)
+      );
+    }
+  }, [queryRoomId, rooms]);
 
   // reset selected message on close chat room
-  // useEffect(() => {
-  //   if (!selectedRoom && !queryRoomId) {
-  //     setSelectedMessage(null);
-  //     setMode(null);
-  //   }
-  // }, [queryRoomId, selectedRoom]);
+  useEffect(() => {
+    if (!selectedRoom && !queryRoomId) {
+      setSelectedMessage(null);
+      setMode(null);
+    }
+  }, [queryRoomId, selectedRoom]);
 
   return (
     <RoomsProvider.Provider
       value={{
-        rooms: null,
-        status: null,
+        rooms,
+        status,
         selectedRoom,
         setSelectedRoom,
         selectedMessage,

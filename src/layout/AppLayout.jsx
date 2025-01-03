@@ -4,11 +4,13 @@ import { useLocation } from "react-router-dom";
 import useMediaQuery from "../common/hooks/useMediaQuery";
 import MobileNavbar from "./Navbar/components/Mobile Navbar/MobileNavbar";
 import DesktopNavbar from "./Navbar/components/Desktop Navbar/NavbarFrame";
+import { useResizeListener } from "../common/hooks/useResizeListener";
 
 function AppLayout({ children }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const [allowed, setAllowed] = useState(true); // allow display navbar & footer state
   const location = useLocation(); // location hook
+  const { appHeight } = useResizeListener();
 
   // update allowing state on routes change
   useEffect(() => {
@@ -20,7 +22,11 @@ function AppLayout({ children }) {
   }, [location]);
 
   return (
-    <>
+    <div
+      style={{
+        height: appHeight,
+      }}
+    >
       {allowed && (
         <div className="relative">
           {isMobile ? <MobileNavbar /> : <DesktopNavbar />}
@@ -28,7 +34,7 @@ function AppLayout({ children }) {
       )}
       {children}
       {allowed && <Footer />}
-    </>
+    </div>
   );
 }
 

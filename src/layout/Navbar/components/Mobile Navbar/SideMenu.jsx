@@ -4,6 +4,7 @@ import SideMenuProfileLoader from "UI/Loaders/SideMenuProfileLoader";
 import useDisableScroll from "hooks/UseDisableScroll";
 import { TbUser } from "react-icons/tb";
 import { menuOptions } from "./menuOptions";
+import { useResizeListener } from "hooks/useResizeListener";
 
 function SideMenu({ sideMenuShow, setSideMenu }) {
   // necessary hooks & data
@@ -12,6 +13,7 @@ function SideMenu({ sideMenuShow, setSideMenu }) {
   );
   const navigate = useNavigate(); // navigate hook
   useDisableScroll(Infinity, !sideMenuShow); // disable scroll on side menu
+  const { appHeight } = useResizeListener();
 
   // navigate functionality
   function sideMenuNavigate(path) {
@@ -29,9 +31,12 @@ function SideMenu({ sideMenuShow, setSideMenu }) {
     >
       {/* main menu */}
       <div
+        style={{
+          height: appHeight,
+        }}
         className={`${
           sideMenuShow ? "translate-x-0" : "-translate-x-44"
-        } w-3/4 bg-gray-50 z-10 relative h-screen transition-all duration-500 flex flex-col items-center`}
+        } w-3/4 bg-gray-50 z-10 relative transition-all duration-500 flex flex-col items-center`}
       >
         {/* user profile information */}
         {loading ? (

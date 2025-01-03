@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { CgClose } from "react-icons/cg";
 import ProductsList from "./ProductsList";
 import SellersList from "./SellersList";
+import { useResizeListener } from "../../../../common/hooks/useResizeListener";
 
 // all supported collections
 const allCollections = supportedCategories.flatMap(({ collections }) =>
@@ -16,6 +17,7 @@ const allCollections = supportedCategories.flatMap(({ collections }) =>
 function SearchModal({ modalIsShow, onCloseModal }) {
   const [searchQuery, setSearchQuery] = useState("");
   // necessary hooks
+  const { appHeight } = useResizeListener();
   const location = useLocation();
   const navigate = useNavigate();
   // touch (Horizontal) scroll for wrappers
@@ -41,12 +43,15 @@ function SearchModal({ modalIsShow, onCloseModal }) {
     <>
       {/* search container */}
       <div
+        style={{
+          height: appHeight,
+        }}
         id="container"
         className={`${
           modalIsShow
             ? "visible opacity-100 translate-y-0"
             : "invisible opacity-0 translate-y-96"
-        } absolute top-0 w-full h-screen z-[60] lg:h-[90vh] transition-all duration-300 lg:!translate-y-0`}
+        } absolute top-0 w-full z-[60] lg:h-[90vh] transition-all duration-300 lg:!translate-y-0`}
       >
         {/* modal wrapper */}
         <div className="size-full bg-gray-50 rounded-md pt-2 px-2 lg:py-1 shadow-2xl">
@@ -59,7 +64,6 @@ function SearchModal({ modalIsShow, onCloseModal }) {
               <CgClose />
             </button>
             <input
-              autoFocus={true}
               type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent lg:bg-gray-100 px-4 w-full rounded-l-md py-2.5 lg:border border-gray-300 h-full focus:outline-none xl:w-full"

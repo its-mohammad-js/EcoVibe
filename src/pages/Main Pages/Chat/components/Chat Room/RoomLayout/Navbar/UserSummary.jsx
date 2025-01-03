@@ -13,12 +13,15 @@ function UserSummary({ setUserDetails, lastStatus }) {
         onClick={() => {
           setSelectedRoom(null);
         }}
-        className="text-2xl"
+        className="text-4xl hover:scale-110 transition-all"
       >
         <AiOutlineLeft />
       </button>
       {/* user summary info */}
-      <div onClick={() => setUserDetails(true)} className="cursor-pointer">
+      <div
+        onClick={() => setUserDetails(true)}
+        className="cursor-pointer hover:opacity-80 hover:scale-[103%] transition-all"
+      >
         {profilePic ? (
           <img
             src={profilePic}

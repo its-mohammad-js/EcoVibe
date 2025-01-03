@@ -5,17 +5,16 @@ import MessageList from "./MessageList";
 import { AiOutlineDown } from "react-icons/ai";
 import TextAlert from "UI/Alerts/TextAlert";
 import MessageInput from "./MessageInput/MessageInput";
-import {
-  useResizeListener,
-  useTouchHandlers,
-} from "../../../hooks/UseRoomInteraction";
+import { useTouchHandlers } from "../../../hooks/UseRoomInteraction";
+import { useResizeListener } from "../../../../../../common/hooks/useResizeListener";
 
 function RoomLayout({ deleteRoom }) {
   // ref to navbar
   const navRef = useRef();
   // room data
   const { selectedRoom, setSelectedRoom, rooms } = useRoomsData();
-  const roomHeight = useResizeListener(); // room height
+  const { appHeight } = useResizeListener();
+
   // draggable element opacity and rotation
   const [{ opacity, rotate }, setEl] = useState({
     opacity: 0,
@@ -28,7 +27,7 @@ function RoomLayout({ deleteRoom }) {
   // no room selected screen
   if (!selectedRoom)
     return (
-      <div className="hidden w-3/4 bg-slate-200 lg:flex items-center justify-center relative">
+      <div className="hidden col-span-9 col-start-4 bg-slate-200 lg:flex items-center justify-center relative">
         <p className="text-lg font-bold bg-gray-50/50 backdrop-blur-sm px-4 py-2 rounded-xl cursor-pointer">
           Please Select A Chat First...
         </p>
@@ -39,9 +38,11 @@ function RoomLayout({ deleteRoom }) {
   if (selectedRoom)
     return (
       <div
-        style={{ height: roomHeight }}
+        style={{
+          height: appHeight,
+        }}
         className={`${
-          selectedRoom ? "w-full flex" : "hid den"
+          selectedRoom ? "col-span-9 col-start-4 flex" : "hidden"
         } lg:! flex flex-col lg:w-3/4 !w-full h-full bg-slate-200 items-center justify-center relative`}
       >
         {/* user info nav */}
