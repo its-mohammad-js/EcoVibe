@@ -32,7 +32,7 @@ function SellersStories() {
             return (
               <div
                 key={listIndex}
-                className="flex select-none flex-col justify-center items-start cursor-pointer flex-none"
+                className="flex w-24 text-center select-none flex-col justify-center items-center cursor-pointer flex-none"
               >
                 <div className="flex items-center justify-center mb-1 relative">
                   <div
@@ -58,13 +58,13 @@ function SellersStories() {
                 </div>
                 <p
                   onClick={() => setList(listIndex)}
-                  className="font-semibold w-24 text-start break-words line-clamp-1"
+                  className="font-semibold break-words line-clamp-1"
                 >
                   {list.first_name}
                 </p>
                 <p
                   onClick={() => setList(listIndex)}
-                  className="text-sm text-center w-20 line-clamp-1"
+                  className="text-sm text-center line-clamp-1"
                 >
                   {list.last_name}
                 </p>

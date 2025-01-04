@@ -10,7 +10,6 @@ import AuthRoutes from "./routes/AuthRoutes";
 import CustomerRoutes from "./routes/CustomerRoutes";
 import SellerRoutes from "./routes/SellerRoutes";
 import NotFoundPage from "./pages/404 Page/NotFoundPage";
-
 import { getUserData } from "authActions/getUserData";
 
 function App() {
