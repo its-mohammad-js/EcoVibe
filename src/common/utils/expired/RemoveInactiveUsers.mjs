@@ -42,29 +42,30 @@ const fetchAndLogUsers = async () => {
           const userData = doc.data();
           const userId = doc.id; // Assuming the Firestore doc ID matches the Firebase Auth UID
 
-          if (checkIsExpired(userData?.lastActivity)) {
-            try {
-              // Attempt to delete user account from Firebase Authentication
-              await auth.deleteUser(userId);
-              console.log(`Successfully deleted user account: ${userId}`);
-            } catch (error) {
-              console.warn(
-                `Warning: Could not delete user account (${userId}) from Firebase Authentication. Proceeding to delete Firestore document.`
-              );
-            }
+          if (checkIsExpired(userData?.lastActivity) || userData.isPrimary) {
+            console.log(userData);
 
-            // Delete corresponding document from Firestore regardless of auth deletion success
-            try {
-              await db.collection("users").doc(userId).delete();
-              console.log(
-                `Successfully deleted user document from Firestore: ${userId}`
-              );
-            } catch (error) {
-              console.error(
-                `Error deleting Firestore document (${userId}):`,
-                error
-              );
-            }
+            // try {
+            //   // Attempt to delete user account from Firebase Authentication
+            //   // await auth.deleteUser(userId);
+            //   // console.log(`Successfully deleted user account: ${userId}`);
+            // } catch (error) {
+            //   console.warn(
+            //     `Warning: Could not delete user account (${userId}) from Firebase Authentication. Proceeding to delete Firestore document.`
+            //   );
+            // }
+            // // Delete corresponding document from Firestore regardless of auth deletion success
+            // // try {
+            // //   await db.collection("users").doc(userId).delete();
+            // //   console.log(
+            // //     `Successfully deleted user document from Firestore: ${userId}`
+            // //   );
+            // // } catch (error) {
+            // //   console.error(
+            // //     `Error deleting Firestore document (${userId}):`,
+            // //     error
+            // //   );
+            // // }
           } else {
             console.log(`User (${userId}) is not expired yet.`);
           }

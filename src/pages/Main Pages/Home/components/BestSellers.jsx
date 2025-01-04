@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { RxDragHandleDots1 } from "react-icons/rx";
 import { sellers } from "./constants";
+import { useNavigate } from "react-router-dom";
 
 function BestSellers() {
+  const navigate = useNavigate();
+
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl mt-6 md:mt-8">
       {/* title */}
@@ -27,6 +30,10 @@ function BestSellers() {
       >
         {sellers.map((seller, index) => (
           <motion.div
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate(`/EcoVibe/seller/${seller.id}`);
+            }}
             initial={{ rotateY: 100 }}
             whileInView={{ rotateY: 0 }}
             transition={{
@@ -35,7 +42,7 @@ function BestSellers() {
               delay: index / 4,
             }}
             key={index}
-            className="w-24 h-32 md:w-1/5 md:h-96 flex flex-col relative md:cursor-pointer"
+            className="w-24 h-32 md:w-1/6 md:h-96 flex flex-col relative md:cursor-pointer"
           >
             <div className="w-full h-3/4 md:h-full">
               <img
@@ -45,7 +52,7 @@ function BestSellers() {
               />
             </div>
 
-            <div className="w-full h-1/4 md:absolute md:bottom-0 md:flex items-center justify-center px-2 py-1 mt-4 md:mt-0 md:px-4 md:py-2">
+            <div className="w-full md:h-1/4 md:absolute md:bottom-0 md:flex items-center justify-center px-2 py-1 mt-4 md:mt-0 md:px-4 md:py-2">
               <div className="w-11/12 flex flex-col items-center justify-center md:rounded-md overflow-hidden md:bg-gray-50 md:hover:scale-105 transition-all h-full relative">
                 {/* background icon */}
                 <span className="hidden md:block absolute z-0 bottom-0 left-0">
@@ -67,10 +74,10 @@ function BestSellers() {
                 </span>
                 {/* main title */}
                 <div>
-                  <h2 className="my-1 text-center md:text-2xl font-bold text-lg">
+                  <h2 className="my-1 line-clamp-1 text-center md:text-2xl font-bold text-lg">
                     {seller.sellerName}
                   </h2>
-                  <span className="text-center text-xs font-semibold line-clamp-1">
+                  <span className="text-center text-xs font-semibold line-clamp-1 hidden md:inline">
                     {seller.sellerShogaln}
                   </span>
                 </div>

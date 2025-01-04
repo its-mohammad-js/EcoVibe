@@ -16,8 +16,6 @@ function ProductOptions({ isEdit }) {
     useGetOptions(Type);
   const optionMenuRef = useRef();
 
-  console.log(optionsList);
-
   // get options for select component
   function getOptionValues(options, title) {
     if (options)

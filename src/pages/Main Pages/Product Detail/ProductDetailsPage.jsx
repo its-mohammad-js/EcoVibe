@@ -23,7 +23,7 @@ function ProductDetailsPage() {
       setProduct({
         error: null,
         loading: false,
-        productData: productData.data(),
+        productData: { ...productData.data(), id: productData.id },
       });
     } catch (error) {
       setProduct({ error, loading: false, productData: null });
@@ -39,7 +39,10 @@ function ProductDetailsPage() {
   return (
     <div className="mx-auto 2xl:max-w-screen-2xl">
       <ProductInfo {...{ product }} />
-      <ProductReviews productData={product.productData} />
+      <ProductReviews
+        productData={product.productData}
+        productLoading={product.loading}
+      />
       <BestSellProductTypes />
       <CategoriesBanner />
     </div>

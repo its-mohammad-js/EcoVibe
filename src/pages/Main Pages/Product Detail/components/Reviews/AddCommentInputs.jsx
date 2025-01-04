@@ -71,7 +71,6 @@ function AddCommentInputs({
       await updateDoc(doc(db, "Products", productData?.id), {
         Stars: [...(productData?.Stars || []), getValues().stars],
       });
-
       // submit comment
       await setDoc(doc(db, "comments", commentData.commentId), commentData);
       fetchComments();

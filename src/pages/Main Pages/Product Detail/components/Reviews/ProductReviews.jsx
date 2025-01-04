@@ -7,7 +7,7 @@ import CommentsList from "./CommentsList";
 import ProductReviewLoader from "UI/Loaders/ProductReviewLoader";
 import { useSelector } from "react-redux";
 
-function ProductReviews({ productData }) {
+function ProductReviews({ productData, productLoading }) {
   const [{ commentsList, loading }, setList] = useState({
     commentsList: [],
     loading: false,
@@ -15,7 +15,6 @@ function ProductReviews({ productData }) {
   });
   // necessary data & hooks
   const params = useParams();
-  const { loading: productLoad, data } = useSelector((state) => state.products);
 
   async function fetchComments() {
     try {
@@ -43,7 +42,7 @@ function ProductReviews({ productData }) {
     fetchComments();
   }, []);
 
-  if (!productLoad && data?.length)
+  if (!productLoading && productData)
     return (
       <div className="px-4 py-2 lg:px-8 lg:py-4 my-4">
         <h4 className="text-xl lg:text-3xl font-bold my-2">Customer Reviews</h4>

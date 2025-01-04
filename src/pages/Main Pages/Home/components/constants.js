@@ -40,24 +40,34 @@ export const galleryData = {
 // best sellers info
 export const sellers = [
   {
-    sellerName: "John",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(3).webp?alt=media&token=3c4014b2-2c56-4265-b4f4-9533ee70d370",
-    sellerShogaln: "ABC Store",
+    sellerName: "Natalia Ivanova",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FUsers%2F3c541e1f-f906-4bf1-bbec-2e5bf84c2e7d.webp?alt=media&token=14d9ca63-d29c-45ce-b356-ca3a6111d90c",
+    sellerShogaln: "Elegance by Natalia",
+    id: "DEZeusIbtogG9uzaej5Eqk3QWf12",
   },
   {
-    sellerName: "Alice",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(1).webp?alt=media&token=0950be8a-af45-4d18-ba99-7c1f8beebd06",
-    sellerShogaln: "XYZ Market",
+    sellerName: "Ethan Romero",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FUsers%2FDALL%C2%B7E%202025-01-03%2016.43.44%20-%20A%20stylish%20and%20charismatic%20individual%20in%20their%20early%2030s%2C%20exuding%20a%20sense%20of%20modern%20elegance.%20They%20are%20dressed%20in%20a%20chic%20outfit%20featuring%20a%20tailored%20bl.webp?alt=media&token=ee8cbe7e-5a16-4489-bfdb-80bb4b1a4907",
+    sellerShogaln: "Vogue Avenue Boutique",
+    id: "U9vnsssDB7T8GuqdSdfcjWb7EGp2",
   },
   {
-    sellerName: "Ashley",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(2).webp?alt=media&token=c97de2b9-686c-4d45-a03b-2fd250f0710b",
-    sellerShogaln: "123 Shop",
+    sellerName: "Layla Shadmehr",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FUsers%2FDALL%C2%B7E%202025-01-03%2017.51.51%20-%20A%20stylish%20Iranian%20individual%20in%20their%20early%2030s%20with%20a%20flair%20for%20beauty%20and%20elegance%2C%20exuding%20sophistication%20and%20charm.%20They%20are%20wearing%20a%20chic%20outfit.webp?alt=media&token=61345136-0991-4799-9c4f-b33f22249493",
+    sellerShogaln: "Radiance by Layla",
+    id: "mWtCSkEAvVe5M8uQA5yLQWx9bDm2",
   },
   {
-    sellerName: "Emily",
-    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fbest-sellers%20(4).webp?alt=media&token=e7d47286-e311-480f-9a93-259be24cf119",
-    sellerShogaln: "Best Deals Co.",
+    sellerName: "Mei Lin",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FUsers%2FDALL%C2%B7E%202025-01-03%2017.47.18%20-%20A%20graceful%20Asian%20woman%20in%20her%20late%2020s%2C%20exuding%20a%20sense%20of%20calm%20and%20wellness.%20She%20is%20dressed%20in%20a%20simple%20yet%20elegant%20outfit%2C%20such%20as%20a%20pastel%20blouse%20a.webp?alt=media&token=e434d02c-9b41-4f4d-9cb5-172a1a1ca93c",
+    sellerShogaln: "Serenity Wellness Co.",
+    id: "ZGDo1gsVt1fAR7gYPfO34YDmYaS2",
+  },
+  {
+    sellerName: "Ryan Carter",
+    img: "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/Profile%20Images%2FUsers%2F95763412-2026-4fe5-b011-52c633942644.webp?alt=media&token=b5552b5b-30fe-46ee-a18b-4cb2b09ab06b",
+    sellerShogaln: "Tech Haven",
+    id: "xTEewnD5JIROizBBCyCrpN7cysm2",
   },
 ];
 
