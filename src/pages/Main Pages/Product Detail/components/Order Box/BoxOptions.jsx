@@ -1,4 +1,4 @@
-import Select from "react-select/base";
+import Select from "react-select";
 
 function BoxOptions({ Options, selectedOptions, setOptions }) {
   // get selected color
