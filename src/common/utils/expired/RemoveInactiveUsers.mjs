@@ -42,7 +42,7 @@ const fetchAndLogUsers = async () => {
           const userData = doc.data();
           const userId = doc.id; // Assuming the Firestore doc ID matches the Firebase Auth UID
 
-          if (checkIsExpired(userData?.lastActivity) || userData.isPrimary) {
+          if (checkIsExpired(userData?.lastActivity) || !userData.isPrimary) {
             console.log(userData);
 
             // try {
