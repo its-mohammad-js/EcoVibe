@@ -16,6 +16,8 @@ function ProductOptions({ isEdit }) {
     useGetOptions(Type);
   const optionMenuRef = useRef();
 
+  console.log(optionsList);
+
   // get options for select component
   function getOptionValues(options, title) {
     if (options)
@@ -70,13 +72,6 @@ function ProductOptions({ isEdit }) {
 
     return options;
   }
-
-  // // display prev options on edit mode
-  // useEffect(() => {
-  //   if (isEdit && getValues()?.Options?.length) {
-  //     setSelectedOptions(getValues()?.Options);
-  //   }
-  // }, [getValues()?.Options?.length]);
 
   // error screen
   if (error && !optionsList.length)
