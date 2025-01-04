@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import AppLayout from "./layout/AppLayout";
@@ -15,14 +15,11 @@ import { getUserData } from "authActions/getUserData";
 
 function App() {
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userData);
 
-  // console.log(userData);
-
-  // useEffect(() => {
-  //   // get user data
-  //   dispatch(getUserData());
-  // }, []);
+  useEffect(() => {
+    // get user data
+    dispatch(getUserData());
+  }, []);
 
   return (
     <AppLayout>
