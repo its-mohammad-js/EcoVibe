@@ -6,6 +6,7 @@ import {
   getDocs,
   getFirestore,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 
@@ -77,12 +78,16 @@ async function removeExpiredProducts() {
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    allComments.forEach((comment) => {
+    allComments.forEach(async (comment) => {
+      // list of expired replies id
       let expiredReplies = [];
-      // clean replies of primary sellers
+      // get expired reply id list (from primary user comments)
       if (primarySellersIdList.includes(comment.authorId)) {
         if (!comment.replies || !comment.replies.length) return;
-        comment.replies.map(({ commentId }) => expiredReplies.push(commentId));
+        comment.replies.forEach(
+          ({ commentId, createdAt }) =>
+            checkReplyIsExpired(createdAt) && expiredReplies.push(commentId)
+        );
       }
       // clean epxired comments (secondary users)
       else if (checkIsExpired(comment.createdAt)) {
@@ -90,8 +95,16 @@ async function removeExpiredProducts() {
         deleteDoc(commentRef);
         console.log(`${comment.id} was expired`);
       }
-
-      console.log(expiredReplies);
+      // clean comment replies
+      if (expiredReplies.length > 0) {
+        const commentRef = doc(db, "comments", comment.commentId);
+        await updateDoc(commentRef, {
+          replies: comment.replies.filter(
+            ({ commentId }) => !expiredReplies.includes(commentId)
+          ),
+        });
+        console.log(`${expiredReplies.length} replies removed`);
+      }
     });
 
     console.log("All expired products processed successfully.");
