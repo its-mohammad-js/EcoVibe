@@ -27,6 +27,7 @@ function CommentsList({ story, showComments, setShowComments }) {
             personalInformation?.first_name +
             " " +
             personalInformation?.last_name,
+          createdByUser: true,
         },
       ],
     });
