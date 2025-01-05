@@ -34,9 +34,9 @@ function checkIsExpired(dateObject) {
   // Calculate the difference in milliseconds
   const difference = now.getTime() - date.getTime();
   // Convert milliseconds to hours
-  const hoursPassed = difference / (1000 * 60 * 60);
-  // Check if 12 hours have passed
-  return hoursPassed >= 1;
+  const daysPassed = difference / (1000 * 60 * 60 * 24);
+  // Check if 6 day have passed
+  return daysPassed >= 6;
 }
 
 async function removeExpiredProducts() {
@@ -55,11 +55,16 @@ async function removeExpiredProducts() {
     );
 
     allComments.forEach((comment) => {
+      let expiredReplies = [];
+      // clean replies of primary sellers
       if (primarySellersIdList.includes(comment.authorId)) {
-        // console.log("clean replies");
-      } else if (checkIsExpired(comment.createdAt)) {
+        //
+      }
+      // clean epxired comments (secondary users)
+      else if (checkIsExpired(comment.createdAt)) {
         const commentRef = doc(db, "comments", comment.id);
         deleteDoc(commentRef);
+        console.log(`${comment.id} was expired`);
       }
     });
 
