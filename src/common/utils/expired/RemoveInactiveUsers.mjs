@@ -42,8 +42,12 @@ const fetchAndLogUsers = async () => {
           const userData = doc.data();
           const userId = doc.id; // Assuming the Firestore doc ID matches the Firebase Auth UID
 
-          if (checkIsExpired(userData?.lastActivity) && !userData.isPrimary) {
-            console.log(userId);
+          if (checkIsExpired(userData?.lastActivity)) {
+            if (!userData.isPrimary) {
+              console.log(userId, "was primary user");
+              return;
+            }
+            console.log(userId, "was secondary so delete it");
             // try {
             //   // Attempt to delete user account from Firebase Authentication
             //   await auth.deleteUser(userId);
