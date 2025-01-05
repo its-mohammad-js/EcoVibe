@@ -61,15 +61,12 @@ async function removeExpiredSlides() {
         if (!slide.comments) return;
 
         slide.comments.forEach((comment) => {
-          try {
-            if (comment.createdByUser) {
-              checkIsExpired(comment.createdAt) && console.log(comment);
-              //   console.log(`${comment} is expired`);
-            }
-          } catch (error) {
-            console.log(`there was an error on loop on ${slide.id} comments`);
+          if (comment.createdByUser && checkIsExpired(comment.createdAt)) {
+            expiredComments.push(comment.commentId);
           }
         });
+
+        console.log(expiredComments);
       } catch (error) {
         console.log(error);
         console.log(`there was an error on cleaning ${slide.id} reviews`);
