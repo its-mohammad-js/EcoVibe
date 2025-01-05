@@ -66,7 +66,13 @@ async function removeExpiredSlides() {
           }
         });
 
-        console.log(expiredComments);
+        if (expiredComments.length > 0) {
+          console.log(
+            slide.comments.filter(
+              ({ commentId }) => !expiredComments.includes(commentId)
+            )
+          );
+        }
       } catch (error) {
         console.log(error);
         console.log(`there was an error on cleaning ${slide.id} reviews`);
