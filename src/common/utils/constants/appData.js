@@ -164,3 +164,11 @@ export const supportedTags = [
   { title: "Coming Soon" },
   { title: "Featured" },
 ];
+
+export const primarySellersIdList = [
+  "mWtCSkEAvVe5M8uQA5yLQWx9bDm2",
+  "ZGDo1gsVt1fAR7gYPfO34YDmYaS2",
+  "DEZeusIbtogG9uzaej5Eqk3QWf12",
+  "xTEewnD5JIROizBBCyCrpN7cysm2",
+  "U9vnsssDB7T8GuqdSdfcjWb7EGp2",
+];

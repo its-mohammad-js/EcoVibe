@@ -3,6 +3,7 @@ import {
   createUserDataCell,
   methodSwitcher,
   setUseridCookie,
+  updateUserLastActivity,
 } from "../authHelpers";
 import { avatarsUrl } from "../../../common/utils/constants/appData";
 import { defaultUserData } from "../userDataSlice";
@@ -16,6 +17,7 @@ export const signUpUser = createAsyncThunk(
     try {
       // sign up user with selected method
       const user = await methodSwitcher(payload);
+      updateUserLastActivity(user?.uid);
       // define personal info of user
       const personalInformation = payload?.personalInformation || {
         email: user.email,

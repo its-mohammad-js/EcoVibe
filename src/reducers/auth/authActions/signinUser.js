@@ -3,6 +3,7 @@ import {
   createUserDataCell,
   methodSwitcher,
   setUseridCookie,
+  updateUserLastActivity,
 } from "../authHelpers";
 import { doc, getDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
@@ -16,6 +17,7 @@ export const signInUser = createAsyncThunk(
     try {
       // sign in with user selected method
       const user = await methodSwitcher(payload);
+      updateUserLastActivity(user?.uid);
       // reference to user data on data base
       const userDataRef = doc(db, "users", user?.uid);
       // check user is existing or not (get user data from database)
