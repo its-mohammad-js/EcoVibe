@@ -2,14 +2,10 @@ import { initializeApp } from "firebase/app";
 import {
   getDatabase,
   ref as dbRef,
-  remove,
   get,
   goOffline,
   query,
-  orderByChild,
-  equalTo,
 } from "firebase/database";
-import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -22,7 +18,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
 
 // check createAt date
 function checkIsExpired(timestamp) {
@@ -40,7 +35,8 @@ function checkIsExpired(timestamp) {
   const difference = utcNow.getTime() - utcDate.getTime();
 
   // Convert milliseconds to hours
-  const hoursPassed = difference / (1000 * 60 * 60);
+  //   const hoursPassed = difference / (1000 * 60 * 60);
+  const hoursPassed = difference / (1000 * 60);
 
   // Check if at least 18 hours have passed (adjust the threshold as needed)
   return hoursPassed >= 18;
@@ -64,8 +60,8 @@ async function removeExpiredSlides() {
 
         slide.comments.forEach((comment) => {
           try {
-            if (comment.createdByUser) {
-              console.log(comment);
+            if (comment.createdByUser && checkIsExpired(comment.createdAt)) {
+              console.log(`${comment} is expired`);
             }
           } catch (error) {
             console.log(`there was an error on loop on ${slide.id} comments`);

@@ -11,51 +11,14 @@ import CustomerRoutes from "./routes/CustomerRoutes";
 import SellerRoutes from "./routes/SellerRoutes";
 import NotFoundPage from "./pages/404 Page/NotFoundPage";
 import { getUserData } from "authActions/getUserData";
-import {
-  equalTo,
-  get,
-  getDatabase,
-  orderByChild,
-  query,
-  ref,
-} from "firebase/database";
 
 function App() {
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   // get user data
-  //   dispatch(getUserData());
-  // }, []);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    async function test() {
-      const primarySellersIdList = [
-        "mWtCSkEAvVe5M8uQA5yLQWx9bDm2",
-        "ZGDo1gsVt1fAR7gYPfO34YDmYaS2",
-        "DEZeusIbtogG9uzaej5Eqk3QWf12",
-        "xTEewnD5JIROizBBCyCrpN7cysm2",
-        "U9vnsssDB7T8GuqdSdfcjWb7EGp2",
-      ];
-      const database = getDatabase();
-      // ref to slide's in database
-      const storiesRef = query(
-        ref(database, "stories"),
-        orderByChild("createdByUser")
-      );
-
-      const docs = await get(storiesRef).then((snapShot) => snapShot.val());
-      const allSlides = Object.values(docs || {}).filter(
-        ({ createdByUser }) => createdByUser
-      );
-
-      console.log(allSlides);
-    }
-
-    test();
+    // get user data
+    dispatch(getUserData());
   }, []);
-
-  if (true) return <>test mode</>;
 
   return (
     <AppLayout>

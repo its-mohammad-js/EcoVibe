@@ -58,13 +58,13 @@ function SellersStories() {
                 </div>
                 <p
                   onClick={() => setList(listIndex)}
-                  className="font-semibold break-words line-clamp-1"
+                  className="font-semibold break-words w-11/12 line-clamp-1"
                 >
                   {list.first_name}
                 </p>
                 <p
                   onClick={() => setList(listIndex)}
-                  className="text-sm text-center line-clamp-1"
+                  className="text-sm text-center w-11/12 line-clamp-1"
                 >
                   {list.last_name}
                 </p>
