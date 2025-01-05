@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import TextInput from "/src/common/UI elements/Forms/TextInput";
 import StarRatnig from "./StarRatnig";
+import { getServerTime } from "../../../../../common/utils/constants/appData";
 
 const inputOptions = [
   { name: "first_name" },
@@ -92,11 +93,13 @@ function AddCommentInputs({
     try {
       checkUserAuthentication(auth_status);
       setSubmitLoading(true);
+      const serverTime = await getServerTime();
 
       const replyData = {
         authorProfile: profilePic,
         authorId: userId,
         date: Date.now(),
+        createdAt: serverTime,
         commentId: generateId(userId),
         content: formData,
         type: "reply",
@@ -105,11 +108,14 @@ function AddCommentInputs({
       await updateDoc(doc(db, "comments", parentId), {
         replies: [...replyList, replyData],
       });
+
       fetchComments();
     } catch (error) {
+      console.log(error);
+
       toast.remove();
       toast.error(
-        error ||
+        error.message ||
           "Oops!, There was an error submitting your comment. Please try again later."
       );
       console.log(error);

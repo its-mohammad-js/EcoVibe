@@ -1,3 +1,10 @@
+import {
+  getDatabase,
+  goOffline,
+  onValue,
+  ref as dbRef,
+} from "firebase/database";
+
 // supported categories
 export const supportedCategories = [
   {
@@ -164,3 +171,24 @@ export const supportedTags = [
   { title: "Coming Soon" },
   { title: "Featured" },
 ];
+
+// get server time
+export const getServerTime = async () => {
+  // initalize db
+  const db = getDatabase();
+  // ref to time offset
+  const offsetRef = dbRef(db, ".info/serverTimeOffset");
+  let serverTimeOffset = null;
+  // get time offset from server
+  onValue(
+    offsetRef,
+    (snapshot) => {
+      serverTimeOffset = snapshot.val();
+    },
+    { onlyOnce: true } // Ensures the listener is removed after the first event
+  );
+  // Calculate server time
+  const serverTime = Date.now() + serverTimeOffset;
+  goOffline(db);
+  return serverTime;
+};

@@ -22,7 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// check createAt date
+// check createAt date (for comments)
 function checkIsExpired(dateObject) {
   if (!dateObject) return false;
   // Convert the date object to a JavaScript Date object
@@ -37,6 +37,29 @@ function checkIsExpired(dateObject) {
   const daysPassed = difference / (1000 * 60 * 60 * 24);
   // Check if 6 day have passed
   return daysPassed >= 6;
+}
+
+// chect createdAt date (for replies)
+function checkReplyIsExpired(timestamp) {
+  if (!timestamp) return true;
+
+  // Ensure timestamp is a number and convert it to UTC time
+  const date = new Date(timestamp);
+  const now = new Date();
+
+  // Convert both to UTC time to avoid timezone issues
+  const utcDate = new Date(date.toUTCString());
+  const utcNow = new Date(now.toUTCString());
+
+  // Calculate the difference in milliseconds
+  const difference = utcNow.getTime() - utcDate.getTime();
+
+  // Convert milliseconds to hours
+  //   const hoursPassed = difference / (1000 * 60 * 60);
+  const hoursPassed = difference / (1000 * 60);
+
+  // Check if at least 18 hours have passed (adjust the threshold as needed)
+  return hoursPassed >= 5;
 }
 
 async function removeExpiredProducts() {
@@ -58,7 +81,8 @@ async function removeExpiredProducts() {
       let expiredReplies = [];
       // clean replies of primary sellers
       if (primarySellersIdList.includes(comment.authorId)) {
-        //
+        if (!comment.replies || !comment.replies.length) return;
+        comment.replies.map(({ commentId }) => expiredReplies.push(commentId));
       }
       // clean epxired comments (secondary users)
       else if (checkIsExpired(comment.createdAt)) {
@@ -66,6 +90,8 @@ async function removeExpiredProducts() {
         deleteDoc(commentRef);
         console.log(`${comment.id} was expired`);
       }
+
+      console.log(expiredReplies);
     });
 
     console.log("All expired products processed successfully.");

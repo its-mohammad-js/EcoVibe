@@ -21,7 +21,7 @@ function CommentsList({ commentsData, fetchComments }) {
             className={`${
               replyTo === comment.commentId &&
               "!visible !opacity-100 h-40 translate-x-0 mb-3 px-2"
-            } transition-all py-2 duration-500 lg:px-4 invisible opacity-0 -translate-x-96 h-0`}
+            } transition-all relative z-10 py-2 duration-500 lg:px-4 invisible opacity-0 -translate-x-96 h-0`}
           >
             {replyTo === comment.commentId && (
               <AddCommentInputs
