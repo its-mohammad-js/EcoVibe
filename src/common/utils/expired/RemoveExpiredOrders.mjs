@@ -6,8 +6,8 @@ import {
   getDocs,
   getFirestore,
   query,
+  where,
 } from "firebase/firestore";
-import { primarySellersIdList } from "../constants/appData";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -41,19 +41,19 @@ function checkIsExpired(dateObject) {
 
 async function removeExpiredOrders() {
   try {
-    const storiesRef = query(collection(db, "Orders"));
+    const storiesRef = query(
+      collection(db, "Orders"),
+      where("createdByUser", "==", true)
+    );
 
     const docs = await getDocs(storiesRef).then(({ docs }) =>
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
+    console.log(docs);
+
     docs.forEach(async (order, i) => {
       try {
-        if (primarySellersIdList.includes(order.customerId)) {
-          console.log("its primary");
-          return;
-        }
-
         if (checkIsExpired(order.createdAt)) {
           // const orderDocRef = doc(db, "Orders", order.id); // `order.id` is assumed to be the document ID
           // deleteDoc(orderDocRef);

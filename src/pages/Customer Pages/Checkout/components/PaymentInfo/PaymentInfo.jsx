@@ -91,6 +91,7 @@ function PaymentInfo({ shippingMethod, totalPrice, setLoading }) {
       totalPrice: (Number(shippingMethod.cost) + Number(totalPrice)).toFixed(2),
       sellers,
       customerId: userId,
+      createdByUser: true,
     };
 
     try {
