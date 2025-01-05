@@ -5,6 +5,9 @@ import {
   remove,
   get,
   goOffline,
+  query,
+  orderByChild,
+  equalTo,
 } from "firebase/database";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
@@ -49,7 +52,11 @@ async function removeExpiredSlides() {
     // ref to database
     const database = getDatabase();
     // ref to slide's in database
-    const storiesRef = dbRef(database, "stories");
+    const storiesRef = query(
+      dbRef(database, "stories"),
+      orderByChild("createdByUser"),
+      equalTo(true)
+    );
     // get all slides data & convert it to array
     const docs = await get(storiesRef).then((snapShot) => snapShot.val());
     const allSlides = Object.values(docs || {});
