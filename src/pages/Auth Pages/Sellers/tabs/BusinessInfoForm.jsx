@@ -107,7 +107,7 @@ function BusinessInfoForm() {
             defaultCenter={[35.77142984637282, 51.46089654722849]}
             defaultZoom={11}
             minZoom={3}
-            maxZoom={10}
+            maxZoom={18}
           >
             {location && (
               <Marker color="#1632e9" width={50} anchor={location} />

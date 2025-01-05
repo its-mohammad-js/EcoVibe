@@ -60,6 +60,8 @@ async function removeExpiredSlides() {
     // get all slides data & convert it to array
     const docs = await get(storiesRef).then((snapShot) => snapShot.val());
     const allSlides = Object.values(docs || {});
+    console.log(allSlides);
+
     // Process each story sequentially
     for (const [i, story] of allSlides.entries()) {
       try {
