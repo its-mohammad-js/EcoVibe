@@ -40,7 +40,7 @@ function checkIsExpired(timestamp) {
   const hoursPassed = difference / (1000 * 60);
 
   // Check if at least 18 hours have passed (adjust the threshold as needed)
-  return hoursPassed >= 18;
+  return hoursPassed >= 10;
 }
 
 async function removeExpiredSlides() {
@@ -74,6 +74,7 @@ async function removeExpiredSlides() {
               ({ commentId }) => !expiredComments.includes(commentId)
             ),
           });
+          console.log(`${slide.id} comments updated`);
         }
       } catch (error) {
         console.log(error);
