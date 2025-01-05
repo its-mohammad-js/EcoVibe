@@ -24,7 +24,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
-
 // check createAt date
 function checkIsExpired(timestamp) {
   if (!timestamp) return false;
@@ -55,37 +54,39 @@ async function removeExpiredSlides() {
     const storiesRef = query(
       dbRef(database, "stories"),
       orderByChild("createdByUser"),
-      equalTo(true)
+      equalTo(undefined)
     );
     // get all slides data & convert it to array
     const docs = await get(storiesRef).then((snapShot) => snapShot.val());
     const allSlides = Object.values(docs || {});
 
+    console.log(allSlides);
+
     // Process each story sequentially
-    for (const [i, story] of allSlides.entries()) {
-      try {
-        // remove slide content and cell if is expired
-        if (checkIsExpired(story.createdAt)) {
-          const contentRef = ref(storage, story.contentUrl);
-          await deleteObject(contentRef);
+    // for (const [i, story] of allSlides.entries()) {
+    //   try {
+    //     // remove slide content and cell if is expired
+    //     if (checkIsExpired(story.createdAt)) {
+    //       const contentRef = ref(storage, story.contentUrl);
+    //       await deleteObject(contentRef);
 
-          const slideRef = dbRef(database, `stories/${story.id}`);
-          await remove(slideRef);
+    //       const slideRef = dbRef(database, `stories/${story.id}`);
+    //       await remove(slideRef);
 
-          console.log(
-            `${i + 1}st story has been deleted, story created at ${
-              story.createdAt
-            }`
-          );
-        } else {
-          console.log("This story wasn't expired yet.");
-          // Continue to the next iteration if not expired
-          continue;
-        }
-      } catch (error) {
-        console.error(`Error deleting story ${i + 1}:`, error);
-      }
-    }
+    //       console.log(
+    //         `${i + 1}st story has been deleted, story created at ${
+    //           story.createdAt
+    //         }`
+    //       );
+    //     } else {
+    //       console.log("This story wasn't expired yet.");
+    //       // Continue to the next iteration if not expired
+    //       continue;
+    //     }
+    //   } catch (error) {
+    //     console.error(`Error deleting story ${i + 1}:`, error);
+    //   }
+    // }
     // Go offline after processing all slides
     goOffline(database);
     console.log("All slides processed, database connection closed.");
