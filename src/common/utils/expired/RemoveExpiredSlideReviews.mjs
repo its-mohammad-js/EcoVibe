@@ -70,6 +70,7 @@ async function removeExpiredSlides() {
           }
         });
       } catch (error) {
+        console.log(error);
         console.log(`there was an error on cleaning ${slide.id} reviews`);
       }
     });
