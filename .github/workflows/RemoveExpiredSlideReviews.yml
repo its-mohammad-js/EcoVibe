@@ -1,13 +1,13 @@
-# GitHub Action to remove expired stories from the database.
+# GitHub Action to remove expired comments on primary stories from the database.
 
-name: Remove Expired Stories
+name: Remove Expired Slide Reviews
 
-# Trigger the workflow on a push to the main branch and every 8 hours.
+# Trigger the workflow on a push to the main branch and every 4 days.
 on:
   push:
     branches: [main] # Run the workflow when changes are pushed to the 'main' branch.
   schedule:
-    - cron: "* */8 * * *" # Schedule the workflow to run every 8 hours.
+    - cron: "* * */4 * *" # Schedule the workflow to run every 4 days.
 
 jobs:
   clean-expired-stories:
@@ -36,5 +36,5 @@ jobs:
       # Step 4: Install Firebase as a dependency.
       - run: npm install firebase # Install the Firebase library to interact with Firebase services.
 
-      # Step 5: Execute the script to remove expired stories.
-      - run: node src/common/utils/expired/removeExpiredStories.mjs # Run the Node.js script to clean up expired stories.
+      # Step 5: Execute the script to remove expired comments.
+      - run: node src/common/utils/expired/RemoveExpiredSlideReviews.mjs # Run the Node.js script to clean up expired comments.
