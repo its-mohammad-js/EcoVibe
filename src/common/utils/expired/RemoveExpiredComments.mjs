@@ -58,7 +58,8 @@ async function removeExpiredProducts() {
       if (primarySellersIdList.includes(comment.authorId)) {
         // console.log("clean replies");
       } else if (checkIsExpired(comment.createdAt)) {
-        console.log("clean secondary comment");
+        const commentRef = doc(db, "comments", comment.id);
+        deleteDoc(commentRef);
       }
     });
 
