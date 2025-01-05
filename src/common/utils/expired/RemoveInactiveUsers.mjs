@@ -41,11 +41,9 @@ const fetchAndLogUsers = async () => {
         usersSnapshot.docs.map(async (doc) => {
           const userData = doc.data();
           const userId = doc.id; // Assuming the Firestore doc ID matches the Firebase Auth UID
+          if (userData.isPrimary) return;
 
-          if (userData.isPrimary) {
-            console.log(userId, "was primary user");
-            return;
-          }
+          console.log("ok now check secondary");
 
           if (checkIsExpired(userData?.lastActivity)) {
             console.log(userId, "was secondary so delete it");
