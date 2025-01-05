@@ -56,6 +56,8 @@ async function removeExpiredSlides() {
     // Process each story sequentially
     allSlides.map((slide) => {
       try {
+        let expiredComments = [];
+
         if (!slide.comments) return;
 
         slide.comments.forEach((comment) => {

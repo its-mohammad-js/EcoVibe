@@ -2,6 +2,7 @@ import { AiOutlineSend, AiOutlineUser } from "react-icons/ai";
 import { getDatabase, ref, serverTimestamp, update } from "firebase/database";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { generateId } from "../../../utils/constants/helpers";
 
 function CommentsList({ story, showComments, setShowComments }) {
   const { personalInformation, userId } = useSelector(
@@ -28,6 +29,7 @@ function CommentsList({ story, showComments, setShowComments }) {
             " " +
             personalInformation?.last_name,
           createdByUser: true,
+          commentId: generateId(userId),
         },
       ],
     });
