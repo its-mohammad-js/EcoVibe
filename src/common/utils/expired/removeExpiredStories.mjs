@@ -58,11 +58,11 @@ async function removeExpiredSlides() {
       try {
         // remove slide content and cell if is expired
         if (checkIsExpired(story.createdAt)) {
-          const contentRef = ref(storage, story.contentUrl);
-          await deleteObject(contentRef);
+          // const contentRef = ref(storage, story.contentUrl);
+          // await deleteObject(contentRef);
 
-          const slideRef = dbRef(database, `stories/${story.id}`);
-          await remove(slideRef);
+          // const slideRef = dbRef(database, `stories/${story.id}`);
+          // await remove(slideRef);
 
           console.log(
             `${i + 1}st story has been deleted, story created at ${

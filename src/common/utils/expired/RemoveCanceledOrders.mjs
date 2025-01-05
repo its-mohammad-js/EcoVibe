@@ -7,6 +7,7 @@ import {
   getFirestore,
   query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -41,13 +42,16 @@ function checkIsExpired(dateObject) {
 
 async function removeCanceledOrders() {
   try {
-    const storiesRef = query(collection(db, "Orders"));
+    const ordersRef = query(
+      collection(db, "Orders"),
+      where("createdByUser", "==", true)
+    );
 
-    const docs = await getDocs(storiesRef).then(({ docs }) =>
+    const ordersList = await getDocs(ordersRef).then(({ docs }) =>
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    docs.forEach(async (order, i) => {
+    ordersList.forEach(async (order, i) => {
       try {
         if (checkIsExpired(order.createdAt)) {
           // Step 1: Convert the `orders` property (object) into an array of entries

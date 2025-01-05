@@ -41,18 +41,16 @@ function checkIsExpired(dateObject) {
 
 async function removeExpiredOrders() {
   try {
-    const storiesRef = query(
+    const ordersRef = query(
       collection(db, "Orders"),
       where("createdByUser", "==", true)
     );
 
-    const docs = await getDocs(storiesRef).then(({ docs }) =>
+    const orderList = await getDocs(ordersRef).then(({ docs }) =>
       docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
 
-    console.log(docs);
-
-    docs.forEach(async (order, i) => {
+    orderList.forEach(async (order, i) => {
       try {
         if (checkIsExpired(order.createdAt)) {
           // const orderDocRef = doc(db, "Orders", order.id); // `order.id` is assumed to be the document ID

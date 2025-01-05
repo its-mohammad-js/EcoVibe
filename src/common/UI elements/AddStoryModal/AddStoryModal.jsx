@@ -102,6 +102,7 @@ function AddStoryModal({ onModalChange }) {
         authorId: userId,
         type: file?.type,
         authorProfilePic: personalInformation.profilePic,
+        createdByUser: true,
       });
       setFile(null);
       toast.success("story created successfully");
