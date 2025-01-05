@@ -5,6 +5,7 @@ import {
   get,
   goOffline,
   query,
+  update,
 } from "firebase/database";
 
 const firebaseConfig = {
@@ -67,11 +68,12 @@ async function removeExpiredSlides() {
         });
 
         if (expiredComments.length > 0) {
-          console.log(
-            slide.comments.filter(
+          const slideRef = dbRef(database, `stories/${slide.id}`);
+          update(slideRef, {
+            comments: slide.comments.filter(
               ({ commentId }) => !expiredComments.includes(commentId)
-            )
-          );
+            ),
+          });
         }
       } catch (error) {
         console.log(error);
