@@ -26,7 +26,7 @@ function App() {
       <Routes>
         {/* main pages */}
         {MainRoutes}
-        {/* customer's sign-up */}
+        {/* auth routes */}
         {AuthRoutes}
         {/* customer routes */}
         {CustomerRoutes}

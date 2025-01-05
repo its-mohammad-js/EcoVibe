@@ -123,7 +123,6 @@ function ProfileHeader() {
             personalInformation?.last_name}
         </h4>
         <p className="">{businessInformation?.business_name}</p>
-        <p className="">{businessInformation?.career_title}</p>
         <p className="line-clamp-2">{businessInformation?.biography}</p>
       </div>
     </>
