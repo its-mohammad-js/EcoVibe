@@ -36,11 +36,10 @@ function checkIsExpired(timestamp) {
   const difference = utcNow.getTime() - utcDate.getTime();
 
   // Convert milliseconds to hours
-  //   const hoursPassed = difference / (1000 * 60 * 60);
-  const hoursPassed = difference / (1000 * 60);
+  const hoursPassed = difference / (1000 * 60 * 60);
 
   // Check if at least 18 hours have passed (adjust the threshold as needed)
-  return hoursPassed >= 10;
+  return hoursPassed >= 18;
 }
 
 async function removeExpiredSlides() {
