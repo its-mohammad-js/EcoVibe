@@ -5,9 +5,7 @@ import {
   doc,
   getDocs,
   getFirestore,
-  query,
   updateDoc,
-  where,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -55,12 +53,11 @@ function checkReplyIsExpired(timestamp) {
   // Calculate the difference in milliseconds
   const difference = utcNow.getTime() - utcDate.getTime();
 
-  // Convert milliseconds to hours
-  //   const hoursPassed = difference / (1000 * 60 * 60);
-  const hoursPassed = difference / (1000 * 60);
+  // Convert milliseconds to days
+  const daysPassed = difference / (1000 * 60 * 60);
 
-  // Check if at least 18 hours have passed (adjust the threshold as needed)
-  return hoursPassed >= 5;
+  // Check if at least 6 days have passed.
+  return daysPassed >= 6;
 }
 
 async function removeExpiredProducts() {
