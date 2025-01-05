@@ -57,34 +57,22 @@ async function removeExpiredSlides() {
     const allSlides = Object.values(docs || {}).filter(
       ({ createdByUser }) => !createdByUser
     );
-
-    console.log(allSlides.length);
-
     // Process each story sequentially
-    // for (const [i, story] of allSlides.entries()) {
-    //   try {
-    //     // remove slide content and cell if is expired
-    //     if (checkIsExpired(story.createdAt)) {
-    //       const contentRef = ref(storage, story.contentUrl);
-    //       await deleteObject(contentRef);
-
-    //       const slideRef = dbRef(database, `stories/${story.id}`);
-    //       await remove(slideRef);
-
-    //       console.log(
-    //         `${i + 1}st story has been deleted, story created at ${
-    //           story.createdAt
-    //         }`
-    //       );
-    //     } else {
-    //       console.log("This story wasn't expired yet.");
-    //       // Continue to the next iteration if not expired
-    //       continue;
-    //     }
-    //   } catch (error) {
-    //     console.error(`Error deleting story ${i + 1}:`, error);
-    //   }
-    // }
+    allSlides.map((slide) => {
+      try {
+        slide.comments.forEach((comment) => {
+          try {
+            if (comment.createdByUser) {
+              console.log(comment);
+            }
+          } catch (error) {
+            console.log(`there was an error on loop on ${slide.id} comments`);
+          }
+        });
+      } catch (error) {
+        console.log(`there was an error on cleaning ${slide.id} reviews`);
+      }
+    });
     // Go offline after processing all slides
     goOffline(database);
     console.log("All slides processed, database connection closed.");
