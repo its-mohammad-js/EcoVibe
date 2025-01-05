@@ -10,7 +10,7 @@ on:
     - cron: "* * */4 * *" # Schedule the workflow to run every 4 days.
 
 jobs:
-  clean-expired-stories:
+  clean-expired-reviews:
     # Specify the environment where the job runs.
     runs-on: ubuntu-latest # Use the latest Ubuntu environment for running this job.
 
