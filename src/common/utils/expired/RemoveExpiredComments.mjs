@@ -36,7 +36,7 @@ function checkIsExpired(dateObject) {
   // Convert milliseconds to hours
   const hoursPassed = difference / (1000 * 60 * 60);
   // Check if 12 hours have passed
-  return hoursPassed >= 12;
+  return hoursPassed >= 1;
 }
 
 async function removeExpiredProducts() {
@@ -56,8 +56,8 @@ async function removeExpiredProducts() {
 
     allComments.forEach((comment) => {
       if (primarySellersIdList.includes(comment.authorId)) {
-        console.log("clean replies");
-      } else {
+        // console.log("clean replies");
+      } else if (checkIsExpired(comment.createdAt)) {
         console.log("clean secondary comment");
       }
     });
