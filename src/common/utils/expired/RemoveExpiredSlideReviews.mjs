@@ -54,11 +54,13 @@ async function removeExpiredSlides() {
     const storiesRef = query(
       dbRef(database, "stories"),
       orderByChild("createdByUser"),
-      equalTo(undefined)
+      equalTo(false)
     );
     // get all slides data & convert it to array
     const docs = await get(storiesRef).then((snapShot) => snapShot.val());
-    const allSlides = Object.values(docs || {});
+    const allSlides = Object.values(docs || {}).filter(
+      ({ createdByUser }) => !createdByUser
+    );
 
     console.log(allSlides);
 
