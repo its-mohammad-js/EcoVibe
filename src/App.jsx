@@ -11,6 +11,8 @@ import CustomerRoutes from "./routes/CustomerRoutes";
 import SellerRoutes from "./routes/SellerRoutes";
 import NotFoundPage from "./pages/404 Page/NotFoundPage";
 import { getUserData } from "authActions/getUserData";
+import { collection, doc, getDocs } from "firebase/firestore";
+import { db } from "/src/config/firebase";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +21,14 @@ function App() {
     // get user data
     dispatch(getUserData());
   }, []);
+
+  // useEffect(() => {
+  //   async function test() {}
+
+  //   test();
+  // }, []);
+
+  // if (true) return <>test mode</>;
 
   return (
     <AppLayout>

@@ -1,4 +1,4 @@
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -62,6 +62,7 @@ function AddCommentInputs({
       content: formdata,
       replies: [],
       sellerId: productData.SellerId,
+      createdAt: serverTimestamp(),
     };
     // submit comment to produt comments
     try {
