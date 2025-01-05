@@ -60,17 +60,17 @@ async function removeExpiredSlides() {
     // Process each story sequentially
     allSlides.map((slide) => {
       try {
-        console.log(slide.comments);
+        if (!slide.comments) return;
 
-        // slide.comments.forEach((comment) => {
-        //   try {
-        //     if (comment.createdByUser) {
-        //       console.log(comment);
-        //     }
-        //   } catch (error) {
-        //     console.log(`there was an error on loop on ${slide.id} comments`);
-        //   }
-        // });
+        slide.comments.forEach((comment) => {
+          try {
+            if (comment.createdByUser) {
+              console.log(comment);
+            }
+          } catch (error) {
+            console.log(`there was an error on loop on ${slide.id} comments`);
+          }
+        });
       } catch (error) {
         console.log(error);
         console.log(`there was an error on cleaning ${slide.id} reviews`);
