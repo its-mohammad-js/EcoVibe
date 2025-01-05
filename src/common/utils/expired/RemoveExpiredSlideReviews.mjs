@@ -58,7 +58,7 @@ async function removeExpiredSlides() {
       ({ createdByUser }) => !createdByUser
     );
 
-    console.log(allSlides);
+    console.log(allSlides.length);
 
     // Process each story sequentially
     // for (const [i, story] of allSlides.entries()) {
