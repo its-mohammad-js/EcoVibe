@@ -13,14 +13,12 @@ import NotFoundPage from "./pages/404 Page/NotFoundPage";
 import { getUserData } from "authActions/getUserData";
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   // get user data
-  //   dispatch(getUserData());
-  // }, []);
-
-  if (true) return <>test mode</>;
+  useEffect(() => {
+    // get user data
+    dispatch(getUserData());
+  }, []);
 
   return (
     <AppLayout>
