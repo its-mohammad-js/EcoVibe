@@ -4,25 +4,25 @@ import withSuspense from "./AutoSuspense";
 
 // Lazy load components
 const CustomerAuthPage = withSuspense(
-  lazy(() => import("../pages/Auth Pages/Customers/CustomerAuthPage"))
+  lazy(() => import("customerAuthPages/CustomerAuthPage"))
 );
 const SignUpCustomer = withSuspense(
-  lazy(() => import("../pages/Auth Pages/Customers/tabs/SignUpCustomer"))
+  lazy(() => import("customerAuthPages/tabs/SignUpCustomer"))
 );
 const PersonalDetailsForm = withSuspense(
-  lazy(() => import("../pages/Auth Pages/Customers/tabs/PersonalDetailsForm"))
+  lazy(() => import("customerAuthPages/tabs/PersonalDetailsForm"))
 );
 const UserInterestsForm = withSuspense(
-  lazy(() => import("../pages/Auth Pages/Customers/tabs/UserInterestsForm"))
+  lazy(() => import("customerAuthPages/tabs/UserInterestsForm"))
 );
 const SellerAuthPage = withSuspense(
-  lazy(() => import("../pages/Auth Pages/Sellers/SellerAuthPage"))
+  lazy(() => import("sellerAuthPages/SellerAuthPage"))
 );
 const SignUpSeller = withSuspense(
-  lazy(() => import("../pages/Auth Pages/Sellers/tabs/SignUpSeller"))
+  lazy(() => import("sellerAuthPages/tabs/SignUpSeller"))
 );
 const BusinessInfoForm = withSuspense(
-  lazy(() => import("../pages/Auth Pages/Sellers/tabs/BusinessInfoForm"))
+  lazy(() => import("sellerAuthPages/tabs/BusinessInfoForm"))
 );
 const SignInPage = withSuspense(
   lazy(() => import("../pages/Auth Pages/SignIn/SignInPage"))
