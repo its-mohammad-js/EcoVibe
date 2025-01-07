@@ -36,16 +36,26 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    env:
-      VITE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
-      VITE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
-      VITE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-      VITE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
-      VITE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
-      VITE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-      VITE_DATABASEURL: ${{ secrets.FIREBASE_DATABASE_URL }}
+
+    # env:
+    #   VITE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+    #   VITE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+    #   VITE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+    #   VITE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+    #   VITE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+    #   VITE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+    #   VITE_DATABASEURL: ${{ secrets.FIREBASE_DATABASE_URL }}
 
     steps:
+      - run: |
+          echo "FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> $GITHUB_ENV
+          echo "FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }}" >> $GITHUB_ENV
+          echo "FIREBASE_DATABASE_URL=${{ secrets.FIREBASE_DATABASE_URL }}" >> $GITHUB_ENV
+          echo "FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> $GITHUB_ENV
+          echo "FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET }}" >> $GITHUB_ENV
+          echo "FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}" >> $GITHUB_ENV
+          echo "FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> $GITHUB_ENV
+
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
