@@ -20,7 +20,6 @@ export const defaultUserData = {
   // others
   userType: "",
   userId: null,
-  notifications: [],
   // auth status code : (204 = not checked) / (401 = Unauthorized) / (200 = authorized)
   auth_status: 204,
 };

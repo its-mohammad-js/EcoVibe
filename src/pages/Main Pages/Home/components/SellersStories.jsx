@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
-import SellerStoriesListLoader from "../../../../common/UI elements/Loaders/SellerStoriesListLoader";
-import StoryListModal from "../../../../common/UI elements/StoriesList/StoryListModal";
-import useGetStories from "../../../../common/hooks/useGetStories";
-import useHorizontalTouchScroll from "../../../../common/hooks/useTouchScroll";
+import SellerStoriesListLoader from "UI/Loaders/SellerStoriesListLoader";
+import StoryListModal from "UI/StoriesList/StoryListModal";
+import useGetStories from "hooks/useGetStories";
+import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { useSelector } from "react-redux";
 import { FaPlus } from "react-icons/fa";
-import AddStoryModal from "../../../../common/UI elements/AddStoryModal/AddStoryModal";
+import AddStoryModal from "UI/AddStoryModal/AddStoryModal";
 
 function SellersStories() {
   const [currentListIndex, setList] = useState(null);

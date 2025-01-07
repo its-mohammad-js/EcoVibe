@@ -5,7 +5,6 @@ import { generateId } from "helpers";
 import { updateUserData } from "authActions/updateUserData";
 import TextInput from "UI/Forms/TextInput";
 import { TbX } from "react-icons/tb";
-import toast from "react-hot-toast";
 
 // input conditions
 const inputOptions = [

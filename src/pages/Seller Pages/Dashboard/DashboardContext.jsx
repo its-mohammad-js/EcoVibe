@@ -40,6 +40,7 @@ function DashboardContext({ children }) {
           allItems: doc.data().orders,
         }))
         .filter((order) => order);
+
       // store orders or dispatch error (no orders find)
       if (!sellerOrders.length) {
         throw new Error("Failed to fetch orders or there is no order");

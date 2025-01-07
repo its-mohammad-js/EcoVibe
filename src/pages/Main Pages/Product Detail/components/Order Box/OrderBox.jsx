@@ -93,7 +93,6 @@ function OrderBox({ Options, productData }) {
         SellerProfile: productData.SellerProfile,
         SellerEmail: productData.SellerEmail,
       };
-      console.log(order);
 
       // add product with default order to cart
       dispatch(

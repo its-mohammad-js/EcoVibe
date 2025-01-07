@@ -22,6 +22,7 @@ function Navbar({ setShowAlert }) {
   const lastStatus = useRef("");
   const [barIsShow, setBarIsShow] = useState(false);
 
+  // update last seen
   useEffect(() => {
     if (!last_seen) {
       lastStatus.current =
