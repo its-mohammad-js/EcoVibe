@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useProfileData } from "../../SellerProfilePage";
 import ProfileHeader from "./ProfileHeader";
-import useCreateChatRoom from "../../../../../common/hooks/useCreateChatRoom";
+import useCreateChatRoom from "hooks/useCreateChatRoom";
 
 function SellerInfo({ onEditHandler }) {
   // seller profile data

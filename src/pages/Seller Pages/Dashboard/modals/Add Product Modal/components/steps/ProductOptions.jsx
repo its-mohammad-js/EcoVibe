@@ -3,7 +3,7 @@ import Select from "react-select";
 import { useFormContext } from "react-hook-form";
 import AddOptionsFormLoader from "UI/Loaders/AddOptionsFormLoader";
 import { map, filter } from "lodash";
-import useGetOptions from "../../../../../../../common/hooks/useGetOptions";
+import useGetOptions from "hooks/useGetOptions";
 
 function ProductOptions({ isEdit }) {
   const { setValue, getValues, watch } = useFormContext();

@@ -8,7 +8,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "src/config/firebase";
-import useGetStories from "../../../common/hooks/useGetStories";
+import useGetStories from "hooks/useGetStories";
 import { useSelector } from "react-redux";
 
 const fetchUserInfo = async (sellerId) => {

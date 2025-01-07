@@ -3,8 +3,6 @@
 name: Remove inactive users
 
 on:
-  push:
-    branches: [main]
   schedule:
     - cron: "0 0 */4 * *" # Every 4 days
 

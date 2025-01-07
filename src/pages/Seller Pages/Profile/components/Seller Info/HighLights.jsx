@@ -2,9 +2,9 @@ import { FaPlus } from "react-icons/fa";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { useEffect, useState } from "react";
 import AddHighlightModal from "../Modals/AddHighlightModal";
-import StoryListModal from "../../../../../common/UI elements/StoriesList/StoryListModal";
+import StoryListModal from "UI/StoriesList/StoryListModal";
 import { useProfileData } from "../../SellerProfilePage";
-import ContentSwitcher from "../../../../../common/UI elements/ContentSwitcher/ContentSwitcher";
+import ContentSwitcher from "UI/ContentSwitcher/ContentSwitcher";
 
 function HighLights() {
   // seller stories modal state

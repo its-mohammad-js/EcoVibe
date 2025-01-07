@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supportedCategories } from "../../../../../../common/utils/constants/appData";
+import { supportedCategories } from "appData";
 import {
   PolarAngleAxis,
   PolarGrid,
@@ -7,8 +7,8 @@ import {
   RadarChart,
   ResponsiveContainer,
 } from "recharts";
-import CustomerInfoOrderLoader from "../../../../../../common/UI elements/Loaders/CustomerInfoOrderLoader";
-import { timestampToDate } from "../../../../../../common/utils/constants/helpers";
+import CustomerInfoOrderLoader from "UI/Loaders/CustomerInfoOrderLoader";
+import { timestampToDate } from "helpers";
 import { useSelector } from "react-redux";
 import { filter } from "lodash";
 

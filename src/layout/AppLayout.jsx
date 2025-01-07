@@ -1,10 +1,10 @@
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import useMediaQuery from "../common/hooks/useMediaQuery";
+import useMediaQuery from "hooks/useMediaQuery";
 import MobileNavbar from "./Navbar/components/Mobile Navbar/MobileNavbar";
 import DesktopNavbar from "./Navbar/components/Desktop Navbar/NavbarFrame";
-import { useResizeListener } from "../common/hooks/useResizeListener";
+import { useResizeListener } from "hooks/useResizeListener";
 
 function AppLayout({ children }) {
   const isMobile = useMediaQuery({ maxWidth: 768 });

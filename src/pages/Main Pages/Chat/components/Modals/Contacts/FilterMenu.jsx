@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { MdFilterList } from "react-icons/md";
 import { useSelector } from "react-redux";
-import useOutSideClick from "../../../../../../common/hooks/UseOutsideClick";
+import useOutSideClick from "hooks/UseOutsideClick";
 
 function FilterMenu({ searchQuery, setQuery, menuIsShow, setTab, searchType }) {
   // filter menu ref & hook

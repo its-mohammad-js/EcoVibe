@@ -1,10 +1,10 @@
 import { CgClose } from "react-icons/cg";
-import TextInput from "/src/common/UI elements/Forms/TextInput";
+import TextInput from "UI/Forms/TextInput";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "authActions/updateUserData";
 import { useEffect } from "react";
-import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 const inputOptions = [
   {

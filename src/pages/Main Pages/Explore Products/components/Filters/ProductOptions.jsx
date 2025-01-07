@@ -4,7 +4,7 @@ import FilterOptionRow from "./FilterOptionRow";
 import useMediaQuery from "hooks/useMediaQuery";
 import { BiSort } from "react-icons/bi";
 import { getProductOption } from "./filterOptionsInfo";
-import useGetOptions from "../../../../../common/hooks/useGetOptions";
+import useGetOptions from "hooks/useGetOptions";
 
 function ProductOptions({ onSelectOption }) {
   // selected product types

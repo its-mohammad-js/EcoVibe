@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
-import LoaderIcon from "../../../common/UI elements/Loaders/LoaderIcon";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 // customer authetication steps
 const stepsInfo = [

@@ -8,7 +8,7 @@ import { BsCartCheck } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
 import { map, filter } from "lodash";
 import ProductThumbnail from "./ProductThumbnail";
-import useMediaQuery from "../../../../../common/hooks/useMediaQuery";
+import useMediaQuery from "hooks/useMediaQuery";
 
 function ProductCard({ productData }) {
   const { loading, cartData } = useSelector((state) => state.userData); // current userdata

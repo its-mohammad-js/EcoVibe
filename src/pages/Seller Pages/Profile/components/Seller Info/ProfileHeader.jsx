@@ -4,7 +4,7 @@ import { useProfileData } from "../../SellerProfilePage";
 import { uniq } from "lodash";
 import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
-import AddStoryModal from "../../../../../common/UI elements/AddStoryModal/AddStoryModal";
+import AddStoryModal from "UI/AddStoryModal/AddStoryModal";
 
 function ProfileHeader() {
   const {

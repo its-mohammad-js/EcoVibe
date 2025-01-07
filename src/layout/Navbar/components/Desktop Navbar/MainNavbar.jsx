@@ -3,13 +3,13 @@ import { useRef, useState } from "react";
 import { BsShopWindow } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import SearchModal from "../../modals/Search Modal/SearchModal";
-import { BiCart, BiMessageSquare, BiSearch } from "react-icons/bi";
+import { BiSearch } from "react-icons/bi";
 import useOutSideClick from "hooks/UseOutsideClick";
 import QuickAccessMenu from "../../modals/Quick Access Menu/MainMenu";
-import { FaHeart, FaRegHeart, FaRegUser, FaUser } from "react-icons/fa";
-import { FaMessage, FaRegMessage } from "react-icons/fa6";
+import { FaRegHeart, FaRegUser } from "react-icons/fa";
+import { FaRegMessage } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import { getUserIdCookie } from "../../../../reducers/auth/authHelpers";
+import { getUserIdCookie } from "src/reducers/auth/authHelpers";
 import { LuShoppingCart } from "react-icons/lu";
 
 function MainNavbar() {

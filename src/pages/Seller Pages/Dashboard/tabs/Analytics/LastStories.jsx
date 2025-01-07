@@ -5,11 +5,11 @@ import { BsTrash } from "react-icons/bs";
 import { timestampToDate } from "helpers";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import LastStoriesLoader from "UI/Loaders/LastStoriesLoader";
-import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
-import useGetStories from "../../../../../common/hooks/useGetStories";
-import useRemoveStory from "../../../../../common/hooks/useRemoveSlide";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
+import useGetStories from "hooks/useGetStories";
+import useRemoveStory from "hooks/useRemoveSlide";
 import { AiFillHeart, AiOutlineEye } from "react-icons/ai";
-import ContentSwitcher from "../../../../../common/UI elements/ContentSwitcher/ContentSwitcher";
+import ContentSwitcher from "UI/ContentSwitcher/ContentSwitcher";
 
 function LastStories() {
   const [alertIsShow, setAlert] = useState(false); // delete story alert state

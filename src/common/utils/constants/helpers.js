@@ -1,5 +1,3 @@
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "/src/config/firebase";
 import toast from "react-hot-toast";
 
 // add / remove an specific element from array (without mutation)

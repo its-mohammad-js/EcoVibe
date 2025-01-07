@@ -11,7 +11,7 @@ import { generateId } from "helpers";
 import { doc, setDoc } from "firebase/firestore";
 import { useFormContext } from "react-hook-form";
 import ImagePreview from "./ImagesReview";
-import { validateFile } from "../../../../../../../common/utils/constants/helpers";
+import { validateFile } from "helpers";
 import toast from "react-hot-toast";
 
 const ProductImages = ({ isEdit, uploadState, setUploading }) => {

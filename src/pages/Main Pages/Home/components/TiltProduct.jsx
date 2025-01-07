@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import { filterProducts } from "../../../../common/utils/filterPorducts";
+import { filterProducts } from "src/common/utils/filterPorducts";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Tilt } from "@jdion/tilt-react";
 import ReactStars from "react-stars";
 import { FaPlus } from "react-icons/fa";
-import { calculateAverage } from "../../../../common/utils/constants/helpers";
+import { calculateAverage } from "helpers";
 
 function TiltProduct() {
   // get products data

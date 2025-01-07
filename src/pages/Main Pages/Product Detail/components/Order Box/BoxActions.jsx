@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { TbMinus, TbPlus, TbTrash } from "react-icons/tb";
-import { updateUserData } from "../../../../../reducers/auth/authActions/updateUserData";
+import { updateUserData } from "authActions/updateUserData";
 
 function BoxActions({
-  selectedOptions,
   addOrderToCart,
   removeProductFromCart,
   currentOrder,

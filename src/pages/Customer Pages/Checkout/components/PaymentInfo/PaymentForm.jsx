@@ -1,4 +1,4 @@
-import TextInput from "../../../../../common/UI elements/Forms/TextInput";
+import TextInput from "UI/Forms/TextInput";
 
 const inputsOptions = [
   // full-name

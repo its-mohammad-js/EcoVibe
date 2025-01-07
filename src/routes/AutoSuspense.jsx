@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import LoaderIcon from "../common/UI elements/Loaders/LoaderIcon";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 const withSuspense = (Component) => {
   const WrappedComponent = (props) => (

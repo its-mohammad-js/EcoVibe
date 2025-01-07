@@ -6,7 +6,7 @@ import { AiOutlineDown } from "react-icons/ai";
 import TextAlert from "UI/Alerts/TextAlert";
 import MessageInput from "./MessageInput/MessageInput";
 import { useTouchHandlers } from "../../../hooks/UseRoomInteraction";
-import { useResizeListener } from "../../../../../../common/hooks/useResizeListener";
+import { useResizeListener } from "hooks/useResizeListener";
 
 function RoomLayout({ deleteRoom }) {
   // ref to navbar

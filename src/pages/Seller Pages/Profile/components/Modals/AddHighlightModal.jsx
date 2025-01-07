@@ -5,7 +5,7 @@ import { FaCheck } from "react-icons/fa";
 import { fakeArray, generateId, isInArray } from "helpers";
 import toast from "react-hot-toast";
 import { getDatabase, ref, update } from "firebase/database";
-import ContentSwitcher from "../../../../../common/UI elements/ContentSwitcher/ContentSwitcher";
+import ContentSwitcher from "UI/ContentSwitcher/ContentSwitcher";
 
 function AddHighlightModal({ onCloseModal, highlightsList }) {
   // selected slides for new highlight

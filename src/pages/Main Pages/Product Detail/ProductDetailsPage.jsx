@@ -5,7 +5,7 @@ import CategoriesBanner from "mainPages/Product Detail/components/CategoriesBann
 import ProductReviews from "./components/Reviews/ProductReviews";
 import ProductInfo from "mainPages/Product Detail/components/ProductInfo/ProductInfo";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../../config/firebase";
+import { db } from "src/config/firebase";
 
 function ProductDetailsPage() {
   const [product, setProduct] = useState({

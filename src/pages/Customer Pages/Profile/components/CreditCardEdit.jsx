@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { BiTrash } from "react-icons/bi";
 import { updateUserData } from "authActions/updateUserData";
-import AddCreditCardForm from "../../../../common/UI elements/Forms/AddCreditCardForm";
+import AddCreditCardForm from "UI/Forms/AddCreditCardForm";
 
 function CreditCardEdit() {
   const [modalIsShow, setModal] = useState(false);

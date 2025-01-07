@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import useDisableScroll from "hooks/UseDisableScroll";
 import StepNavigator from "./components/steps/StepNavigator";
 import { uniq } from "lodash";
-import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 const stepsInfo = [
   { step: 1, title: "General Info" },

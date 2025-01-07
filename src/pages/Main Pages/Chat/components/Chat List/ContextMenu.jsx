@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { CiChat1 } from "react-icons/ci";
-import useOutSideClick from "../../../../../common/hooks/UseOutsideClick";
+import useOutSideClick from "hooks/UseOutsideClick";
 import { useRoomsData } from "../RoomsContext";
-import TextAlert from "../../../../../common/UI elements/Alerts/TextAlert";
+import TextAlert from "UI/Alerts/TextAlert";
 
 function ContextMenu({
   deleteRoom,

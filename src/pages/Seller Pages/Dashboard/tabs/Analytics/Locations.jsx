@@ -6,8 +6,8 @@ import { MdOutlineFullscreen } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "authActions/updateUserData";
 import { validateLocation } from "helpers";
-import useDisableScroll from "../../../../../common/hooks/UseDisableScroll";
-import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
+import useDisableScroll from "hooks/UseDisableScroll";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 function Locations() {
   // map full screen mode state

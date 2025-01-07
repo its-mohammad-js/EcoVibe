@@ -7,7 +7,7 @@ import { GrGithub } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import TextInput from "UI/Forms/TextInput";
 import inputsInfo from "./signupInputsInfo";
-import { signInUser } from "../../../../reducers/auth/authActions/signinUser";
+import { signInUser } from "authActions/signinUser";
 
 function SignUpSeller() {
   const { loading } = useSelector((state) => state.userData); // current user data

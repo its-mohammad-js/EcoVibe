@@ -3,10 +3,10 @@ import {
   checkUserAuthentication,
   isInArray,
   toggleElementInArray,
-} from "../../../../../common/utils/constants/helpers";
+} from "helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateUserData } from "../../../../../reducers/auth/authActions/updateUserData";
+import { updateUserData } from "authActions/updateUserData";
 import toast from "react-hot-toast";
 import { FaEye, FaHeart } from "react-icons/fa";
 

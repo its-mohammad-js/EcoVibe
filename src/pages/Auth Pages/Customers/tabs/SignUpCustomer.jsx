@@ -7,7 +7,7 @@ import { signUpUser } from "authActions/signupUser";
 import { useNavigate } from "react-router-dom";
 import TextInput from "src/common/UI elements/Forms/TextInput";
 import { signUpInputs } from "./formInputsInfo";
-import { signInUser } from "../../../../reducers/auth/authActions/signinUser";
+import { signInUser } from "authActions/signinUser";
 
 // backgrond url
 const figureIcon =

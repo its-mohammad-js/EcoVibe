@@ -1,11 +1,11 @@
 import { CgCheck } from "react-icons/cg";
-import { deliveryInfo } from "../../../../common/utils/constants/appData";
+import { deliveryInfo } from "appData";
 import { doc, setDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { db } from "/src/config/firebase";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import { useState } from "react";
-import LoaderIcon from "../../../../common/UI elements/Loaders/LoaderIcon";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 function DeliveryStatus({ updateOrders, onModalClose, order }) {
   // cancel alert warning modal

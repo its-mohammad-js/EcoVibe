@@ -4,8 +4,6 @@ name: Remove Expired Comments
 
 # Trigger the workflow on a push to the main branch and every 15 days.
 on:
-  push:
-    branches: [main] # Run the workflow when changes are pushed to the 'main' branch.
   schedule:
     - cron: "* * */15 * *" # Schedule the workflow to run every 15 days.
 

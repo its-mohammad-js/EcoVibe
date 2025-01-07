@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import QuickAccessMenu from "./modals/QuickAccessMenu";
 import AddEditProductForm from "./modals/Add Product Modal/AddEditProductForm";
 import DashboardContext from "./DashboardContext";
-import AddStoryModal from "../../../common/UI elements/AddStoryModal/AddStoryModal";
+import AddStoryModal from "UI/AddStoryModal/AddStoryModal";
 import ProtectedRoute from "UI/ProtectedRoute/ProtectedRoute";
 
 function SellerDashboardPage() {

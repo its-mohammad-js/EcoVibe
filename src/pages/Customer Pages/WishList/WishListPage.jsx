@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProducts } from "src/reducers/products/productsSlice";
-import WishListLoader from "UI/Loaders/WishListLoader";
 import { useNavigate } from "react-router-dom";
 import ItemsGrid from "./components/ItemsGrid";
 import WishListHeader from "./components/WishListHeader";

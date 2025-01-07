@@ -6,7 +6,7 @@ import { db, storage } from "src/config/firebase";
 import IconicWarningAlert from "UI/Alerts/IconicAlert";
 import { deleteObject, ref } from "firebase/storage";
 import ProductDetails from "./ProductDetails";
-import LoaderIcon from "../../../../../common/UI elements/Loaders/LoaderIcon";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 function SingleProductManage({ selectedItem, onModalClose, getProducts }) {
   // edit modal state

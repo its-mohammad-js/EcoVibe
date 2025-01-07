@@ -5,7 +5,7 @@ import {
   AiOutlineSearch,
 } from "react-icons/ai";
 import { HiDotsVertical } from "react-icons/hi";
-import useOutSideClick from "../../../../../../../common/hooks/UseOutsideClick";
+import useOutSideClick from "hooks/UseOutsideClick";
 import { useRef } from "react";
 import { useRoomsData } from "../../../RoomsContext";
 

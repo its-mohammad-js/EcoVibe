@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { CgClose } from "react-icons/cg";
 import ProductsList from "./ProductsList";
 import SellersList from "./SellersList";
-import { useResizeListener } from "../../../../common/hooks/useResizeListener";
+import { useResizeListener } from "hooks/useResizeListener";
 
 // all supported collections
 const allCollections = supportedCategories.flatMap(({ collections }) =>

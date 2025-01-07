@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { Route } from "react-router-dom";
-import ProtectedRoute from "../common/UI elements/ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "UI/ProtectedRoute/ProtectedRoute";
 import withSuspense from "./AutoSuspense";
 
 // Lazy load components

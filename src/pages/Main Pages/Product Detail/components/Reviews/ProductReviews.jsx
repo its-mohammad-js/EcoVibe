@@ -5,7 +5,6 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "src/config/firebase";
 import CommentsList from "./CommentsList";
 import ProductReviewLoader from "UI/Loaders/ProductReviewLoader";
-import { useSelector } from "react-redux";
 
 function ProductReviews({ productData, productLoading }) {
   const [{ commentsList, loading }, setList] = useState({

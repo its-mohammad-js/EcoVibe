@@ -1,14 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { filterProducts } from "../../../../common/utils/filterPorducts";
-import WishListLoader from "../../../../common/UI elements/Loaders/WishListLoader";
+import { filterProducts } from "src/common/utils/filterPorducts";
+import WishListLoader from "UI/Loaders/WishListLoader";
 import { BsCartCheck } from "react-icons/bs";
 import { BiCartAlt } from "react-icons/bi";
 import { SlClose } from "react-icons/sl";
-import {
-  generateId,
-  toggleElementInArray,
-} from "../../../../common/utils/constants/helpers";
-import { updateUserData } from "../../../../reducers/auth/authActions/updateUserData";
+import { generateId, toggleElementInArray } from "helpers";
+import { updateUserData } from "authActions/updateUserData";
 
 function ItemsGrid() {
   const { wishlist, cartData } = useSelector((state) => state.userData); // current user data

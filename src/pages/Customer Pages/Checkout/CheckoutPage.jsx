@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OrderSummary from "customerPages/Checkout/components/OrderSummary";
 import PaymentInfo from "./components/PaymentInfo/PaymentInfo";
-import LoaderIcon from "../../../common/UI elements/Loaders/LoaderIcon";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 // shiping methods info
 const methodsInfo = [

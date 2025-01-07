@@ -8,7 +8,7 @@ import {
 import { doc, getDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { db } from "src/config/firebase";
-import { avatarsUrl } from "../../../common/utils/constants/appData";
+import { avatarsUrl } from "appData";
 
 // sign in user action
 export const signInUser = createAsyncThunk(

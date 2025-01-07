@@ -5,7 +5,7 @@ import {
   setUseridCookie,
   updateUserLastActivity,
 } from "../authHelpers";
-import { avatarsUrl } from "../../../common/utils/constants/appData";
+import { avatarsUrl } from "appData";
 import { defaultUserData } from "../userDataSlice";
 import toast from "react-hot-toast";
 

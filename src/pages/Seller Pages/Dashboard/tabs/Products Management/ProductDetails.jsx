@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { BiChevronLeft, BiChevronRight, BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { closest } from "color-2-name";
-import useHorizontalTouchScroll from "../../../../../common/hooks/useTouchScroll";
+import useHorizontalTouchScroll from "hooks/useTouchScroll";
 
 function ProductDetails({ selectedItem, onModalClose, setEditShow }) {
   // description state

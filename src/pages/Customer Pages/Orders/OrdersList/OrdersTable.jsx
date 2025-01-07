@@ -1,4 +1,4 @@
-import { timestampToDate } from "../../../../common/utils/constants/helpers";
+import { timestampToDate } from "helpers";
 import { deliveryInfo } from "appData";
 
 function OrdersTable({ onOrderDetail, paginetedItems, pageNum }) {

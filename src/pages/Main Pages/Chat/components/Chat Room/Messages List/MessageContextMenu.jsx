@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import useOutSideClick from "../../../../../../common/hooks/UseOutsideClick";
+import useOutSideClick from "hooks/UseOutsideClick";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useRoomsData } from "../../RoomsContext";

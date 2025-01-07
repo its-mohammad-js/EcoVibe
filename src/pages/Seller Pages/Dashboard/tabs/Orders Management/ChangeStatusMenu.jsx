@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import useOutSideClick from "../../../../../common/hooks/UseOutsideClick";
+import useOutSideClick from "hooks/UseOutsideClick";
 import toast from "react-hot-toast";
-import { deliveryInfo } from "../../../../../common/utils/constants/appData";
+import { deliveryInfo } from "appData";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa";
 

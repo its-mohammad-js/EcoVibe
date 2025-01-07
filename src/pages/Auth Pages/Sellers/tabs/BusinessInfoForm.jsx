@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "authActions/updateUserData";
 import TextInput from "UI/Forms/TextInput";
 import { validateLocation } from "helpers";
-import LoaderIcon from "../../../../common/UI elements/Loaders/LoaderIcon";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 // inputs information
 const inputsInfo = [

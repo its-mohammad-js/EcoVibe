@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import ChatColumn from "./ChatListItem";
 import useHorizontalTouchScroll from "hooks/useTouchScroll";
 import { useSelector } from "react-redux";
-import { useResizeListener } from "../../../../../common/hooks/useResizeListener";
+import { useResizeListener } from "hooks/useResizeListener";
 
 function ChatList({ openSideNav, deleteRoom }) {
   const [searchQuery, setQuery] = useState(""); // search query state

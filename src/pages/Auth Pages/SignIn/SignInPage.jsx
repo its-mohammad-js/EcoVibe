@@ -7,7 +7,7 @@ import { signInUser } from "authActions/signinUser";
 import toast from "react-hot-toast";
 import TextInput from "UI/Forms/TextInput";
 import { inputsOptions } from "./inputsInfo";
-import LoaderIcon from "../../../common/UI elements/Loaders/LoaderIcon";
+import LoaderIcon from "UI/Loaders/LoaderIcon";
 
 // bg url
 const bannerUrl =

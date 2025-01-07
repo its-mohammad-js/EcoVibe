@@ -3,7 +3,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useRoomsData } from "../../RoomsContext";
-import useCreateChatRoom from "../../../../../../common/hooks/useCreateChatRoom";
+import useCreateChatRoom from "hooks/useCreateChatRoom";
 
 function Contact({ user, searchType, orders, onCloseModal }) {
   // last order of this contact
