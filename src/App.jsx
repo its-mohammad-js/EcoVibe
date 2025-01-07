@@ -20,8 +20,6 @@ function App() {
   //   dispatch(getUserData());
   // }, []);
 
-  console.log(import.meta.env.VITE_API_KEY);
-
   if (true) return <>test mode</>;
 
   return (
