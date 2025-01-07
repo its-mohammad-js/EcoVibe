@@ -1,1 +1,0 @@
-import{r as i}from"./index-DYiTqYND.js";const u=(r,n,t)=>(i.useEffect(()=>{if(t)return;const e=c=>{r.current&&!r.current.contains(c.target)&&n()};return document.addEventListener("click",e),()=>{removeEventListener("click",e)}},[r,t]),r);export{u};
