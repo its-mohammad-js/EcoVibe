@@ -13,12 +13,16 @@ import NotFoundPage from "./pages/404 Page/NotFoundPage";
 import { getUserData } from "authActions/getUserData";
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    // get user data
-    dispatch(getUserData());
-  }, []);
+  // useEffect(() => {
+  //   // get user data
+  //   dispatch(getUserData());
+  // }, []);
+
+  console.log(import.meta.env.VITE_API_KEY);
+
+  if (true) return <>test mode</>;
 
   return (
     <AppLayout>
