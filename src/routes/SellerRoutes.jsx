@@ -4,27 +4,23 @@ import withSuspense from "./AutoSuspense";
 
 // Lazy load components
 const SellerSolutionsPage = withSuspense(
-  lazy(() =>
-    import("../pages/Seller Pages/Seller Solutions/sellerSolutionsPage")
-  )
+  lazy(() => import("sellerPages/Seller Solutions/sellerSolutionsPage"))
 );
 
 const SellerDashboardPage = withSuspense(
-  lazy(() => import("../pages/Seller Pages/Dashboard/SellerDashboardPage"))
+  lazy(() => import("sellerPages/Dashboard/SellerDashboardPage"))
 );
 
 const SellerProfilePage = withSuspense(
-  lazy(() => import("../pages/Seller Pages/Profile/SellerProfilePage"))
+  lazy(() => import("sellerPages/Profile/SellerProfilePage"))
 );
 
 const AnalyticsTab = withSuspense(
-  lazy(() => import("../pages/Seller Pages/Dashboard/tabs/Analytics/MainTab"))
+  lazy(() => import("sellerPages/Dashboard/tabs/Analytics/MainTab"))
 );
 const ProductTab = withSuspense(
   lazy(() =>
-    import(
-      "../pages/Seller Pages/Dashboard/tabs/Products Management/ProductTab"
-    )
+    import("sellerPages/Dashboard/tabs/Products Management/ProductTab")
   )
 );
 

@@ -5,23 +5,23 @@ import withSuspense from "./AutoSuspense";
 
 // Lazy load components
 const WishListPage = withSuspense(
-  lazy(() => import("../pages/Customer Pages/WishList/WishListPage"))
+  lazy(() => import("customerPages/WishList/WishListPage"))
 );
 
 const CartPage = withSuspense(
-  lazy(() => import("../pages/Customer Pages/Cart/CartPage"))
+  lazy(() => import("customerPages/Cart/CartPage"))
 );
 
 const CheckoutPage = withSuspense(
-  lazy(() => import("../pages/Customer Pages/Checkout/CheckoutPage"))
+  lazy(() => import("customerPages/Checkout/CheckoutPage"))
 );
 
 const OrdersPage = withSuspense(
-  lazy(() => import("../pages/Customer Pages/Orders/OrdersPage"))
+  lazy(() => import("customerPages/Orders/OrdersPage"))
 );
 
 const CustomerProfilePage = withSuspense(
-  lazy(() => import("../pages/Customer Pages/Profile/CustomerProfilePage"))
+  lazy(() => import("customerPages/Profile/CustomerProfilePage"))
 );
 
 const CustomerRoutes = [
