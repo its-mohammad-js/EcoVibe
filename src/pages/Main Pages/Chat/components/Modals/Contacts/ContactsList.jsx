@@ -110,7 +110,7 @@ function ContactsList({ onCloseModal }) {
 
   if (!loading)
     return (
-      <div className="w-80 lg:w-96 h-[90vh] 2xl:h-[45rem] bg-gray-50 rounded-md z-10 p-2 flex flex-col">
+      <div className="size-full lg:w-96 h-[90vh] 2xl:h-[45rem] bg-gray-50 rounded-md z-10 p-2 flex flex-col">
         {/* search input */}
         <FilterMenu
           {...{ searchQuery, setQuery, menuIsShow, setTab, searchType }}

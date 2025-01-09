@@ -16,7 +16,7 @@ function OrderDetail({ order, onModalClose, updateOrders }) {
   // order details & infomation's
   const { orderId, createdAt, paymentInfo } = order;
   const { delivery_status } = order.orders[0];
-  useDisableScroll();
+  useDisableScroll(Infinity, false);
 
   if (order)
     return (

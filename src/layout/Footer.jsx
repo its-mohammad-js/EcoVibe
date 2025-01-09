@@ -5,14 +5,12 @@ import {
   FaCcMastercard,
   FaCopyright,
   FaDollarSign,
-  FaInstagram,
+  FaLinkedin,
   FaMailBulk,
   FaMapMarked,
   FaPaypal,
   FaPhone,
   FaTelegram,
-  FaVoicemail,
-  FaWhatsapp,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { mainRoutesInfo } from "./mainRoutesInfo";
@@ -77,10 +75,28 @@ function Footer() {
             </p>
             {/* social media links */}
             <div className="w-full [&>p]:w-fit flex items-center justify-center md:justify-start gap-x-4 text-2xl">
-              <FaTelegram />
-              <FaWhatsapp />
-              <FaVoicemail />
-              <FaInstagram />
+              <p
+                onClick={() => {
+                  window.open(
+                    "https://t.me/DevWeb23333",
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
+                }}
+              >
+                <FaTelegram />
+              </p>
+              <p
+                onClick={() => {
+                  window.open(
+                    "https://www.linkedin.com/in/mohammadarab-frontend/",
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
+                }}
+              >
+                <FaLinkedin />
+              </p>
             </div>
           </div>
           {/* payment methods */}

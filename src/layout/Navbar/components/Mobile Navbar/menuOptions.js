@@ -42,7 +42,11 @@ export const menuOptions = ({ auth_status, userType }) => {
       path: "/EcoVibe/sellers-solutions",
       icon: TbCreditCard,
     },
-    { label: "About Developer", path: "/EcoVibe/", icon: TbCards },
+    {
+      label: "About Developer",
+      path: "https://www.linkedin.com/in/mohammadarab-frontend/",
+      icon: TbCards,
+    },
     {
       label: auth_status === 200 ? "My Profile" : "Sign-in",
       path: auth_status === 200 ? "/EcoVibe/profile" : "/EcoVibe/sign-in",

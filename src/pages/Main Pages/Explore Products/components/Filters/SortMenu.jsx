@@ -51,9 +51,9 @@ function SortMenu({ changeFilterHandler }) {
               <p
                 className={`${
                   selectedFilters.sortBy === sortOpt.value
-                    ? "p-2 bg-primary-950"
+                    ? "p-2 lg:p-1 bg-primary-950"
                     : "p-3 [&>span]:hidden bg-gray-300"
-                } text-primary-50  rounded-full text-xs transition-all duration-500`}
+                } text-primary-50 lg:text-xl rounded-full text-xs transition-all duration-500`}
               >
                 <span>
                   <TbCheck />

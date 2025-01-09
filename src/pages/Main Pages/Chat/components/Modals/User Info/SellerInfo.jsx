@@ -119,7 +119,7 @@ const LastReviews = ({ seller }) => {
             {reviews.map((review, i) => (
               <div
                 key={i}
-                className="h-32 flex flex-col items-start py-1.5 cursor-pointer border-b border-gray-300 hover:border-none hover:bg-gray-200 rounded-md p-1.5"
+                className=" flex flex-col items-start py-1.5 cursor-pointer border-b border-gray-300 hover:border-none hover:bg-gray-200 rounded-md p-1.5"
               >
                 {/* rerview summary */}
                 <div className="flex items-center justify-between w-full gap-x-2">
@@ -135,7 +135,7 @@ const LastReviews = ({ seller }) => {
                   </h2>
                   <p className="">{getReviewDate(review.date)}</p>
                 </div>
-                <div className="line-clamp-2 lg:line-clamp-3 mt-0.5 text-pretty py-1.5">
+                <div className="line-clamp-6 break-words lg:line-clamp-3 text-pretty">
                   {review.content.review}
                 </div>
               </div>

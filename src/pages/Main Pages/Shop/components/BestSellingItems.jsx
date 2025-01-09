@@ -25,7 +25,7 @@ const slidesData = [
     title: "The Leather",
     bgUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fcollection%20shop%20banner%20(1).webp?alt=media&token=d21063fd-7de0-403c-8760-d433d3245eae",
-    query: "/EcoVibe/Explore-Products/collections=leather",
+    query: "/EcoVibe/Explore-Products/collections=men",
   },
 ];
 
@@ -70,7 +70,10 @@ function BestSellingItems() {
               </h6>
               <button
                 onClick={() => {
-                  window.scrollTo(0, 0);
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "instant",
+                  });
                   navigate(slide.query);
                 }}
                 className="w-fit flex items-center justify-center gap-x-1.5 text-lg text-gray-200 border-b-2 border-gray-200"

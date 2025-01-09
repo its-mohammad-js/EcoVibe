@@ -54,7 +54,7 @@ function LastStories() {
             ))}
           </Slider>
           {/* story info */}
-          <div className="absolute bottom-0 w-full h-20 bg-gray-900/80 backdrop-blur px-4 py-2 flex flex-col justify-evenly">
+          <div className="absolute bottom-0 w-full h-[5.75rem] bg-gray-900/80 backdrop-blur px-4 py-2 flex flex-col justify-evenly">
             <h4 className="text-lg lg:text-xl font-bold text-gray-200">
               created at: &nbsp;
               {timestampToDate(currentStory?.createdAt, null, "database")}

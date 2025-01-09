@@ -32,7 +32,7 @@ function AnalyticsTab() {
       <div className="lg:col-span-2 relative lg:row-span-4 lg:col-start-7 lg:row-start-5 bg-gray-100 rounded-md px-4 py-2">
         <LastComments />
       </div>
-      <div className="h-96 lg:h-auto lg:col-span-3 lg:row-span-3 lg:row-start-6">
+      <div className="h-80 lg:h-auto lg:col-span-3 lg:row-span-3 lg:row-start-6">
         <LastStories />
       </div>
       <div className=" col-span-3 h-96 lg:h-auto lg:row-span-3 lg:col-start-4 lg:row-start-6 bg-gray-100 rounded-md px-4 py-2">

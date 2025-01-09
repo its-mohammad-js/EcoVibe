@@ -87,7 +87,11 @@ function SideMenu({ sideMenuShow, setSideMenu }) {
                 !hidden && (
                   <div
                     key={index}
-                    onClick={() => sideMenuNavigate(path)}
+                    onClick={() => {
+                      label === "About Developer"
+                        ? window.open(path, "_blank", "noopener,noreferrer")
+                        : sideMenuNavigate(path);
+                    }}
                     className="flex items-center justify-start gap-x-2 px-4 py-4 w-full flex-none"
                   >
                     <span className="text-3xl">

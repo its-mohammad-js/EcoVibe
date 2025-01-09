@@ -136,7 +136,7 @@ function Locations() {
             )}
             {loading ? (
               <p className="p-2">
-                <LoaderIcon className="size-8" />
+                <LoaderIcon style={{ width: "2rem", height: "2rem" }} />
               </p>
             ) : (
               <BiPlus className="text-5xl p-1" />

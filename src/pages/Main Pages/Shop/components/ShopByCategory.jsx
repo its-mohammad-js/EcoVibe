@@ -77,7 +77,10 @@ function ShopByCategory() {
                 </h4>
                 <button
                   onClick={() => {
-                    window.scrollTo(0, 0);
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "instant",
+                    });
                     navigate(category.query);
                   }}
                   className="bg-primary-900 px-4 py-2 rounded-md w-fit text-base md:text-lg hover:bg-primary-50 transition-all hover:text-primary-950 text-white font-semibold"

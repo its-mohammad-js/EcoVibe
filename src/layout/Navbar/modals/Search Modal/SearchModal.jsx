@@ -54,10 +54,10 @@ function SearchModal({ modalIsShow, onCloseModal }) {
           modalIsShow
             ? "visible opacity-100 translate-y-0"
             : "invisible opacity-0 translate-y-96"
-        } absolute top-0 w-full z-[60]  lg:h-[90vh] transition-all duration-300 lg:!translate-y-0`}
+        } absolute top-0 w-full z-[60] lg:!h-[90vh] transition-all duration-300 lg:!translate-y-0`}
       >
         {/* modal wrapper */}
-        <div className="size-full bg-gray-50 rounded-md pt-2 px-2 lg:py-1 shadow-2xl">
+        <div className="size-full flex flex-col justify-between py-2 bg-gray-50 rounded-md pt-2 px-2 lg:py-1 shadow-2xl">
           {/* search input */}
           <div className="flex items-center border border-gray-300 rounded-xl h-12">
             <button

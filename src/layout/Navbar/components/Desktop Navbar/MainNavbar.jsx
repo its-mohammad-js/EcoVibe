@@ -84,7 +84,13 @@ function MainNavbar() {
         </Link>
 
         <Link
-          to="/EcoVibe/"
+          onClick={() => {
+            window.open(
+              "https://www.linkedin.com/in/mohammadarab-frontend/",
+              "_blank",
+              "noopener,noreferrer"
+            );
+          }}
           className="text-lg font-medium text-nowrap hover:text-primary-600 transition-all"
         >
           About Me

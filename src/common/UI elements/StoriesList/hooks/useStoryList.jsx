@@ -12,6 +12,7 @@ const useStoryList = (currentListIndex, setList, storiesList) => {
   useDisableScroll(780, false); // Lock/unlock body scroll on mobile
   const params = useParams();
 
+  // set (not seen slide) as current slide
   useEffect(() => {
     const lastSeenSlide = storiesList[currentListIndex]?.slides?.findIndex(
       ({ isSeen }) => !isSeen

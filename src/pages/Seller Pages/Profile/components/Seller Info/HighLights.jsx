@@ -15,7 +15,7 @@ function HighLights() {
   useHorizontalTouchScroll(".highlights-wrapper");
   // highlights state
   const [highlightsList, setHighLightsList] = useState([]);
-  const { storiesList } = useProfileData();
+  const { storiesList, isOwner } = useProfileData();
 
   // update highlight list
   useEffect(() => {
@@ -77,7 +77,9 @@ function HighLights() {
         {/* add new highlight btn */}
         <div
           onClick={() => setModalShow(true)}
-          className="size-16 cursor-pointer mb-5 rounded-full bg-gray-200 flex-none flex items-center justify-center text-3xl text-gray-500"
+          className={`${
+            !isOwner && "hidden"
+          } size-16 cursor-pointer mb-5 rounded-full bg-gray-200 flex-none flex items-center justify-center text-3xl text-gray-500`}
         >
           <FaPlus />
         </div>

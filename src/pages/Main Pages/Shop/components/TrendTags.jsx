@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 // tag cards list
 const cardsData = [
   {
-    title: "2024",
+    title: "2025",
     avatarUrl:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Ftrend-cards-banner%20(5).webp?alt=media&token=0eb13ee7-01b6-4708-9f73-c6444a13562a",
-    query: "/EcoVibe/Explore-Products/tags=2024",
+    query: "/EcoVibe/Explore-Products/tags=2025",
   },
   {
     title: "Sales",

@@ -25,6 +25,6 @@ dist-ssr
 *.sw?
 
 # .env files (to ignore environment variables files)
-# .env
-# .env.local
-# .env.*.local
+.env
+.env.local
+.env.*.local

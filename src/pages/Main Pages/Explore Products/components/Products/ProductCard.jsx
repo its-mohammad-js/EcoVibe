@@ -63,11 +63,11 @@ function ProductCard({ productData }) {
   }
 
   return (
-    <div className="md:border h-64 md:h-96 bg-gray-50 rounded-md md:rounded-none shadow-2xl shadow-gray-500/10 hover:shadow-gray-800 transition-all duration-500 group hover:z-10">
+    <div className="md:border h-72 md:h-[25rem] lg:h-[28rem] bg-gray-50 rounded-md md:rounded-none shadow-2xl shadow-gray-500/10 hover:shadow-gray-800 transition-all duration-500 group hover:z-10">
       {/* product image & summary description */}
       <ProductThumbnail productData={productData} />
       {/* product details */}
-      <div className="w-full h-1/2 md:h-1/3 flex flex-col justify-evenly gap-y-4 px-2.5 py-1.5">
+      <div className="w-full h-1/2 md:h-1/3 flex flex-col justify-evenly gap-y-4 px-2.5 py-1">
         {/* product name */}
         <h4
           onClick={() => {
@@ -81,7 +81,6 @@ function ProductCard({ productData }) {
         <div className="flex flex-col gap-y-2 md:flex-row md:items-center md:justify-between">
           {/* price & stars */}
           <div className="flex md:flex-col md:items-start justify-between">
-            {/* <p className="font-medium md:text-lg">${productData.Price}</p> */}
             <p className="flex items-center justify-center gap-x-0.5 md:gap-y-1">
               <span className="text-base">
                 {calculateAverage(
@@ -92,6 +91,7 @@ function ProductCard({ productData }) {
                 <FaStar />
               </span>
             </p>
+            <p className="font-medium md:text-lg">${productData.Price}</p>
           </div>
           {/* add to cart || navigate to cart btn */}
           <button

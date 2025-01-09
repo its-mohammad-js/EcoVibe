@@ -42,7 +42,7 @@ function SellerAuthPage() {
         break;
       case "third-step":
         toast.success("You are already a seller");
-        navigate("/EcoVibe/dashboard/Analytics/add-product");
+        navigate("/EcoVibe/dashboard/Analytics/");
         break;
       default:
         throw new Error("Error : Unknown Step");

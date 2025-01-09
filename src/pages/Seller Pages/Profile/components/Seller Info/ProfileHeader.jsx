@@ -65,7 +65,7 @@ function ProfileHeader() {
               onClick={onOpenStoryHanlder}
               src={personalInformation?.profilePic}
               alt="user-avatar"
-              className="rounded-full"
+              className="rounded-full size-full"
             />
             <button
               disabled={!isOwner}

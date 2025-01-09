@@ -13,27 +13,31 @@ import { orderBy, groupBy } from "lodash";
 import { useSelector } from "react-redux";
 
 const useGetStories = (ownerId, isModalOpen) => {
-  const [loading, setLoading] = useState(false);
-  const [groupedStories, setGroupedStories] = useState([]);
-  const database = getDatabase();
+  const [loading, setLoading] = useState(false); // loading state
+  const [groupedStories, setGroupedStories] = useState([]); // grouped stories bu author
+  const database = getDatabase(); // ref to database
   const { userId, loading: authLoading } = useSelector(
     (state) => state.userData
-  );
-  const orderListRef = useRef();
+  ); // current user data
+  const orderListRef = useRef(); // ref to order list
 
+  // get slides data
   const fetchStories = () => {
+    // ref to slides
     const storiesRef = ref(database, "stories");
+    // query to slides based on ownerId
     const storiesQuery = ownerId
       ? query(storiesRef, orderByChild("authorId"), equalTo(ownerId))
       : storiesRef;
-
+    // get real-time slides data
     onValue(storiesQuery, (snapshot) => {
       const stories = Object.values(snapshot.val() || {});
-
+      // update slides data
       setGroupedStories(stories);
     });
   };
 
+  // group and sort slides
   const groupAndSort = (stories) => {
     // Group slides by their authors into story (list) arrays
     const grouped = groupBy(stories, "authorId");
@@ -58,7 +62,7 @@ const useGetStories = (ownerId, isModalOpen) => {
       ],
       ["desc", "asc"] // Ensure userId is prioritized, then unseen slides
     );
-
+    // decide to update sort order (don't allowed on modal is open)
     orderListRef.current = isModalOpen ? orderListRef.current : sortedAuthors;
 
     // Map sorted authors with their details
@@ -77,6 +81,7 @@ const useGetStories = (ownerId, isModalOpen) => {
     });
   };
 
+  // get slides data on connect to db
   useEffect(() => {
     goOnline(database);
     const connectedRef = ref(database, ".info/connected");

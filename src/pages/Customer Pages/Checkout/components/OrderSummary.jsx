@@ -54,8 +54,11 @@ function OrderSummary({ shippingCost, totalPrice }) {
                 <div className="">
                   {selectedOption.map(
                     ({ title, option }, index) =>
-                      index <= 3 && (
-                        <p key={index} className="font-semibold text-sm">
+                      index <= 2 && (
+                        <p
+                          key={index}
+                          className="font-semibold text-xs md:text-sm"
+                        >
                           {title.toLowerCase() === "color"
                             ? closest(option)?.name
                             : option}

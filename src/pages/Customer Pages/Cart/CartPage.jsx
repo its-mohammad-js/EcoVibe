@@ -24,7 +24,7 @@ function CartPage() {
         {/* order's grid */}
         <ItemsGrid cartData={cartData} filters={filters} loading={loading} />
         {/* checkout summary & paginate actions */}
-        <CheckoutSummary />
+        {cartData.length > 0 && <CheckoutSummary />}
       </div>
     </div>
   );
