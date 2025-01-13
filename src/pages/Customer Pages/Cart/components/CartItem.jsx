@@ -9,7 +9,6 @@ function CartItem({ orderDetails }) {
   const { cartData, loading } = useSelector((state) => state.userData); // current user data
   const isMobile = useMediaQuery({ maxWidth: 480 }); // detect screen size
   const dispatch = useDispatch(); // dispatch hook
-  console.log(cartData[1]);
 
   // remove product order from cart
   function removeProduct() {
@@ -95,13 +94,15 @@ function CartItem({ orderDetails }) {
               (isMobile ? index < 2 : index > -1) && (
                 <div
                   key={index}
-                  style={{ backgroundColor: title === "color" && option }}
+                  style={{
+                    backgroundColor: title.toLowerCase() === "color" && option,
+                  }}
                   className={`${
-                    title === "color" &&
+                    title.toLowerCase() === "color" &&
                     "size-5 rounded-full ring-2 ring-gray-300"
                   }`}
                 >
-                  {title !== "color" && (
+                  {title.toLowerCase() !== "color" && (
                     <div className="flex items-center gap-x-1 text-xs bg-gray-100 text-gray-950 border border-gray-500 w-fit px-2 py-0.5 rounded-xl">
                       <p className="line-clamp-1">{option}</p>
                     </div>

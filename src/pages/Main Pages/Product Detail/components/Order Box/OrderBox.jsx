@@ -79,7 +79,7 @@ function OrderBox({ Options, productData }) {
       //  create new order of product
       const order = {
         orderId: generateId(productData.id),
-        orderData: Date.now(),
+        orderDate: Date.now(),
         productId: productData.id,
         Category: productData.Category,
         Name: productData.Name,
