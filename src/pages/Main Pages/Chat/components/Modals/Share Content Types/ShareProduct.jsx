@@ -108,7 +108,7 @@ function ShareProduct({ onCloseModal }) {
       <div className="">
         <input
           type="text"
-          placeholder="Search Your Products"
+          placeholder="Search Products"
           className="w-full h-10 bg-gray-200 rounded-md px-4"
         />
       </div>

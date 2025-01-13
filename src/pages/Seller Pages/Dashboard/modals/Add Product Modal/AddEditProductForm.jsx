@@ -45,7 +45,6 @@ function AddEditProductForm({
       });
     }
   }, [isEdit, selectedProduct, setValue]);
-  console.log(selectedProduct);
 
   function nextStep() {
     const { Name, Type, Category, Price } = watch();
@@ -89,7 +88,7 @@ function AddEditProductForm({
         "",
       SellerEmail: personalInformation?.email || "",
       SellerProfile: personalInformation?.profilePic || "",
-      createdByUser: true,
+      createdByUser: isEdit ? selectedProduct.createdByUser || false : true,
       createdAt: serverTimestamp(),
     };
 

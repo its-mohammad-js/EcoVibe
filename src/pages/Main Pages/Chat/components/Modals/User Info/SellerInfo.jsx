@@ -114,7 +114,7 @@ const LastReviews = ({ seller }) => {
         <h4 className="text-lg font-bold z-10 bg-gray- 100">
           {reviews?.length} Reviews
         </h4>
-        <div className="lg:h-2/5 bg-gray-100 overflow-auto styled-scroll-bar pb-6 lg:pb-0">
+        <div className="bg-gray-100 overflow-auto styled-scroll-bar pb-6 lg:pb-0">
           <div className="flex flex-col gap-y-4 py-2 px-1">
             {reviews.map((review, i) => (
               <div

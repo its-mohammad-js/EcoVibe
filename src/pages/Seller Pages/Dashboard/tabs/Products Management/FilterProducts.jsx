@@ -27,7 +27,6 @@ function FilterProducts({ setItems, products }) {
           Category === selectedCategory
         );
     });
-    console.log(filteredProducts);
 
     // display filtered items
     setItems(filteredProducts);

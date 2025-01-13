@@ -15,7 +15,7 @@ function ProductOptions({ isEdit }) {
   const { error, getSupportedOptions, loading, optionsList } =
     useGetOptions(Type);
   const optionMenuRef = useRef();
-
+  console.log(watch());
   // get options for select component
   function getOptionValues(options, title) {
     if (options)
