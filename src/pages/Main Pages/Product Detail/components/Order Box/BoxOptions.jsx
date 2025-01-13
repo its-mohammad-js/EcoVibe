@@ -30,7 +30,7 @@ function BoxOptions({ Options, selectedOptions, setOptions }) {
       } flex items-center flex-wrap`}
     >
       {/* product options (only display selectable options) */}
-      <div className="grid grid-cols-2 xl:flex flex-wrap gap-4 xl:z-50">
+      <div className="grid grid-cols-2 xl:flex flex-wrap gap-4 xl:z-40">
         {Options.map(
           ({ title, options }, index) =>
             title.toLowerCase() !== "color" &&
