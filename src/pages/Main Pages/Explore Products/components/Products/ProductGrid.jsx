@@ -55,6 +55,7 @@ function ProductGrid() {
     filters.seller,
     filters.selectedOptions,
     filters.sortBy,
+    filters.relevant,
   ]);
 
   // loading screen
