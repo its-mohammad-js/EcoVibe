@@ -53,13 +53,11 @@ async function removeExpiredProducts() {
     const expiredProducts = await getDocs(expiredProductsRef).then(({ docs }) =>
       docs.map((_product) => ({ ..._product.data(), id: _product.id }))
     );
-
+    console.log(expiredProducts);
     // 2. Process each expired product
     const deleteOperations = expiredProducts.map(async (item) => {
       try {
         if (true) {
-          console.log(expiredProducts);
-
           return;
         }
 
