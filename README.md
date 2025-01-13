@@ -19,7 +19,7 @@ To enhance the developer experience, a comprehensive and detailed documentation 
 
 **documentation**: [Eco Vibe Technical Docs](https://its-mohammad-js.github.io/eco-vibe-technical-docs/)
 
-## For Customers
+## Features For Customers
 
 Given the relatively large scale of the project, it’s not feasible to cover every single detail and component. However, the core features of the platform, highlighted based on user experience, are summarized in the list below.
 
