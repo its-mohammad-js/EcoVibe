@@ -71,6 +71,7 @@ function PaymentInfo({ shippingMethod, totalPrice, setLoading }) {
     }
     // declare all seller's
     const sellers = uniq(cartData.map((item) => item.SellerId));
+
     // create an object of items with seller id key
     let orders = {};
     sellers.forEach((id) => {

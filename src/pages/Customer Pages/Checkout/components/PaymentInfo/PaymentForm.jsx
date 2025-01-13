@@ -51,8 +51,8 @@ const inputsOptions = [
     placeholder: "Plsease Enter A Valid Address",
     validation: {
       minLength: {
-        value: 15,
-        message: "Minimum Length Is 15 Characters",
+        value: 8,
+        message: "Minimum Length Is 8 Characters",
       },
     },
     cols: 3,
