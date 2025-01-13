@@ -5,6 +5,5 @@ export const mainRoutesInfo = [
   { title: "Explore Products", path: "/EcoVibe/Explore-Products/" },
   { title: "Sellers Solutions", path: "/EcoVibe/sellers-solutions" },
   { title: "Dashorad", path: "/EcoVibe/dashboard" },
-  { title: "Contact Us", path: "" },
-  { title: "FAQs", path: "" },
+  { title: "FAQs", path: "/EcoVibe/" },
 ];

@@ -86,7 +86,7 @@ function MainNavbar() {
         <Link
           onClick={() => {
             window.open(
-              "https://www.linkedin.com/in/mohammadarab-frontend/",
+              "https://its-mohammad-js.github.io/My-portfolio/",
               "_blank",
               "noopener,noreferrer"
             );

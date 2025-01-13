@@ -5,6 +5,7 @@ import {
   FaCcMastercard,
   FaCopyright,
   FaDollarSign,
+  FaGithub,
   FaLinkedin,
   FaMailBulk,
   FaMapMarked,
@@ -14,6 +15,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { mainRoutesInfo } from "./mainRoutesInfo";
+import { MdDeveloperMode } from "react-icons/md";
 
 function Footer() {
   const navigate = useNavigate();
@@ -76,6 +78,7 @@ function Footer() {
             {/* social media links */}
             <div className="w-full [&>p]:w-fit flex items-center justify-center md:justify-start gap-x-4 text-2xl">
               <p
+                className="hover:-translate-y-2 hover:scale-105 transition-all"
                 onClick={() => {
                   window.open(
                     "https://t.me/DevWeb23333",
@@ -87,6 +90,7 @@ function Footer() {
                 <FaTelegram />
               </p>
               <p
+                className="hover:-translate-y-2 hover:scale-105 transition-all"
                 onClick={() => {
                   window.open(
                     "https://www.linkedin.com/in/mohammadarab-frontend/",
@@ -96,6 +100,18 @@ function Footer() {
                 }}
               >
                 <FaLinkedin />
+              </p>
+              <p
+                className="hover:-translate-y-2 hover:scale-105 transition-all"
+                onClick={() => {
+                  window.open(
+                    "https://github.com/its-mohammad-js/EcoVibe",
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
+                }}
+              >
+                <FaGithub />
               </p>
             </div>
           </div>
@@ -131,7 +147,7 @@ function Footer() {
                   window.scroll(0, 0);
                   navigate(route.path);
                 }}
-                className="text-lg odd:hidden text-start cursor-pointer hover:text-primary-300 transition-all"
+                className="text-lg w-fit odd:hidden text-start cursor-pointer hover:text-primary-300 transition-all"
               >
                 {route.title}
               </button>
@@ -167,6 +183,19 @@ function Footer() {
             <p className="flex items-center gap-x-1.5 text-lg cursor-pointer hover:text-primary-300 transition-all">
               <FaMapMarked className="text-2xl" />
               <span>Iran, Tehran</span>
+            </p>
+            <p
+              onClick={() => {
+                window.open(
+                  "https://its-mohammad-js.github.io/My-portfolio/",
+                  "_blank",
+                  "noopener,noreferrer"
+                );
+              }}
+              className="flex items-center gap-x-1.5 text-lg cursor-pointer hover:text-primary-300 transition-all"
+            >
+              <MdDeveloperMode className="text-2xl" />
+              <span>About Developer</span>
             </p>
           </div>
         </div>
