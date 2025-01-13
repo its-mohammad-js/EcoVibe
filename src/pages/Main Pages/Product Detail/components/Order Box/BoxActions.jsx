@@ -61,7 +61,7 @@ function BoxActions({
   }
 
   return (
-    <div className="fixed lg:static z-40 bottom-0 right-0 lg:mt-2 bg-gray-100 lg:bg-opacity-0 w-full rounded-t-xl px-4 lg:px-0 py-4 lg:py-2 flex items-center justify-between">
+    <div className="fixed lg:static z-30 bottom-0 right-0 lg:mt-2 bg-gray-100 lg:bg-opacity-0 w-full rounded-t-xl px-4 lg:px-0 py-4 lg:py-2 flex items-center justify-between">
       {/* order product button */}
       <button
         onClick={() =>
