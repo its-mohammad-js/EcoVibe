@@ -59,7 +59,7 @@ function OurTeam() {
             <p className="lg:text-lg">
               Etiam condimentum duis molestie malesuada volutpat pellentesque
               sed. Ornare suspendisse ut ac neque lobortis sed tincidunt. Mi
-              tempus quis massa tellus imperdiet aenean nulla id. &nbps;
+              tempus quis massa tellus imperdiet aenean nulla id. &nbsp;
               <span>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                 Placeat optio quia delectus reiciendis alias assumenda soluta

@@ -15,7 +15,7 @@ function ItemsGrid({ cartData, filters }) {
         return order.Name.toLowerCase().includes(searchQuery.toLowerCase());
       } else return order;
     });
-    console.log(sortedOrders);
+
     // sort product
     sortedOrders.sort((orderA, orderB) => {
       switch (sortValue) {
