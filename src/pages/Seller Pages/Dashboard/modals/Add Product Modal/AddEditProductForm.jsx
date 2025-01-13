@@ -45,6 +45,7 @@ function AddEditProductForm({
       });
     }
   }, [isEdit, selectedProduct, setValue]);
+  console.log(selectedProduct);
 
   function nextStep() {
     const { Name, Type, Category, Price } = watch();

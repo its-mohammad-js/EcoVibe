@@ -9,15 +9,15 @@ const slidesinfo = [
     price: "$35",
   },
   {
-    title: "Women Shoe's",
+    title: "Wireless Headphone's",
+
     thumbnail:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-detail-product-type-banner-3-6630c4276df2b.webp?alt=media&token=1ba22d59-4d3b-4715-90c6-a5bf3930a84f",
-
     query: "/EcoVibe/Explore-Products/productTypes=shoes",
     price: "$78",
   },
   {
-    title: "Wireless Headphone's",
+    title: "Smart Phone's",
     thumbnail:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-detail-product-type-banner-2-6630c421ece4c.webp?alt=media&token=7df8f917-95f8-4096-ab5b-e12c5616ead6",
 
@@ -25,7 +25,8 @@ const slidesinfo = [
     price: "$230",
   },
   {
-    title: "Smart Phone's",
+    title: "Women Shoe's",
+
     thumbnail:
       "https://firebasestorage.googleapis.com/v0/b/ecovibe-c6720.appspot.com/o/AppImages%2Fproduct-detail-product-type-banner-4-6630c43f56549.webp?alt=media&token=7b797634-f18f-4d33-a390-7bf932b2139d",
     query: "/EcoVibe/Explore-Products/productTypes=smart phones",

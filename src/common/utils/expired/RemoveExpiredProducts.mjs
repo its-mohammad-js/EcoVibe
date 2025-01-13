@@ -57,6 +57,12 @@ async function removeExpiredProducts() {
     // 2. Process each expired product
     const deleteOperations = expiredProducts.map(async (item) => {
       try {
+        if (true) {
+          console.log(expiredProducts);
+
+          return;
+        }
+
         if (checkIsExpired(item.createdAt)) {
           // 3. Remove images from Firebase Storage
           if (item.Images && Array.isArray(item.Images)) {
